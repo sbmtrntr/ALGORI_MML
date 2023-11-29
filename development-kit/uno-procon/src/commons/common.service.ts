@@ -1775,7 +1775,7 @@ export class CommonService {
     getLogger('dealer', `${dealerCode}`).info(`firstCard ${JSON.stringify(firstCard)}`);
 
     // 対戦開始を通知する
-    SocketService.broadcastFirstPlayer(dealer._id, {
+    SocketService.broadcastFirstPlayer(dealer.code, {
       first_player: firstPlayer,
       first_card: firstCard,
       play_order: players,

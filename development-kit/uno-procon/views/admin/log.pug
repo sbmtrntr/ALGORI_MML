@@ -28,7 +28,7 @@ block main
           div
             label= "対戦数"
             - let finish = game.turn
-            span= ((finish || 0).toLocaleString() || 0) + ' / ' + (game.totalTurn || 1000).toLocaleString()
+            span.turn= ((finish || 0).toLocaleString() || 0) + ' / ' + (game.totalTurn || 1000).toLocaleString()
         .info.horizontal
           div
             label= "作成日"
@@ -45,12 +45,12 @@ block main
                 tr
                   each player in players
                     th
-                      span= `${player.name} (${player.code})`
+                      span.players= `${player.name} (${player.code})`
               tbody
                 if gameEndLog
                   tr
                     each player in players
-                      td= `${gameEndLog.contents.score[player.code].toLocaleString()}点`
+                      td.scores= `${gameEndLog.contents.score[player.code].toLocaleString()}点`
                 else
                   tr
                     td(colSpan = 4)= "集計中"
@@ -140,11 +140,11 @@ block main
                     tr
                       th= "対戦得点"
                       each player in players
-                        td= `${turnEndLog.contents.score[player.code].toLocaleString()}点`
+                        td.score-turn= `${turnEndLog.contents.score[player.code].toLocaleString()}点`
                     tr
                       th= "累計"
                       each player in players
-                        td= `${turnEndLog.contents.total_score[player.code].toLocaleString()}点`
+                        td.score-total= `${turnEndLog.contents.total_score[player.code].toLocaleString()}点`
                   else
                     tr
                       td(colSpan = 5)= "集計中"
