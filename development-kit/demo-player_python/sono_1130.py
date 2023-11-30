@@ -157,9 +157,9 @@ Args:
     before_card (*): 場札のカード
 """
 def select_play_card(cards, before_card):
-    cards_valid = [] # ワイルド・シャッフルワイルド・白いワイルドを格納
-    cards_wild = [] # ワイルドドロー4を格納
-    cards_wild4 = [] # 同じ色 または 同じ数字・記号 のカードを格納
+    cards_valid = [] # 同じ色 または 同じ数字・記号 のカードを格納
+    cards_wild = [] # ワイルド・シャッフルワイルド・白いワイルドを格納
+    cards_wild4 = [] # ワイルドドロー4を格納
 
     # 場札と照らし合わせ出せるカードを抽出する
     for card in cards:
