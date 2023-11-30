@@ -41,3 +41,19 @@ git push origin <ブランチ名>
 6. Githubでpull requestを作成する
 
 </div></details>
+
+## 試合セットアップ
+### ディーラー
+- Windowsマシンの場合はコメントアウトを入れ替える
+```bash
+bash dealer.sh
+```
+
+- ディーラー一覧画面より、「任意のディーラー名」、「対戦回数」、「白いワイルドカード」を選択し、ディーラーを作成。
+  - ディーラー名は過去に使用したものは再度使用することができない。
+
+### プレイヤー
+```bash
+bash player.sh image名, ディーラーのIPアドレス, ディーラー名, プレイヤー名
+# ex) bash player.sh demo-player xxx.xxx.xx.xx dealer player1
+```
