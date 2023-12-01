@@ -5,6 +5,7 @@ import random
 import sys
 import socketio
 import time
+import heapq #優先度付きキュー用ライブラリ追加
 
 from rich import print
 
@@ -66,6 +67,19 @@ class DrawReason:
 TEST_TOOL_HOST_PORT = '3000' # 開発ガイドラインツールのポート番号
 ARR_COLOR = [Color.RED, Color.YELLOW, Color.GREEN, Color.BLUE] # 色変更の選択肢
 
+#ゲーム開始時のカードの枚数
+card_status = {"blue":{"0":1,"1":2,"2":2,"3":2,"4":2,"5":2,"6":2,"7":2,"8":2,"9":2,"draw_2":2,"skip":2,"reverse":2},
+               "green":{"0":1,"1":2,"2":2,"3":2,"4":2,"5":2,"6":2,"7":2,"8":2,"9":2,"draw_2":2,"skip":2,"reverse":2},
+               "red":{"0":1,"1":2,"2":2,"3":2,"4":2,"5":2,"6":2,"7":2,"8":2,"9":2,"draw_2":2,"skip":2,"reverse":2},
+               "yellow":{"0":1,"1":2,"2":2,"3":2,"4":2,"5":2,"6":2,"7":2,"8":2,"9":2,"draw_2":2,"skip":2,"reverse":2},
+               "black":{"wild":4,"wild_draw_4":4,"wild_shuffle":1},
+               "white":{"white_wild":3}}
+
+#現在の手札を保存しておく変数
+now_card = {}
+
+#シャッフルワイルドを持っているか否か
+shuffle_wild_flag = False
 
 """
 コマンドラインから受け取った変数等
@@ -193,8 +207,15 @@ def select_play_card(cards, before_card):
     ワイルド・シャッフルワイルド・白いワイルドはいつでも出せるので、条件が揃わないと出せない「同じ色 または 同じ数字・記号」のカードより優先度を低くする。
     """
     valid_card_list = cards_valid + cards_wild + cards_wild4
+
+    ######追加#######
     if len(valid_card_list) > 0:
-        return valid_card_list[0]
+        tmp_list = decision_priority(valid_card_list)
+        sort_pri_list = sorted(tmp_list, key=lambda x: (x[1][0], -x[1][1]))
+
+    #################
+    if len(sort_pri_list) > 0:
+        return sort_pri_list[0]
     else:
         return None
 
@@ -273,6 +294,87 @@ def determine_if_execute_pointed_not_say_uno(number_card_of_player):
 """
 def pass_func(err):
     return
+
+
+
+"""場に出ていないカードの枚数をカウントする"""
+def update_cards(card_dict):
+
+    print("今出されたカードは:")
+    print(card_dict)
+
+    print("まだ場に出ていないカードは")
+    print(card_status)
+
+    for card in card_dict:
+        card_color = card["color"]
+        #draw4とwildカード系は使用時に変更先の色として使われるので特殊処理する
+        if "special" in card.keys() and (card["special"] == "wild" or card["special"] == "wild_draw_4"):
+            card_status['black'][card["special"]] -= 1
+
+        elif card_color == "black" or card_color == "white":
+            card_type = card["special"]
+            card_status[card_color][card_type] -= 1
+
+        else:
+            if "number" in card.keys():
+                card_type = str(card["number"])
+            else:
+                card_type = card["special"]
+            card_status[card_color][card_type] -= 1
+
+
+"""シャッフル時に場に戻っていくカードの反映"""
+def return_cards(card_dict):
+    for card in card_dict:
+        card_color = card["color"]
+        if card_color == "black" or card_color == "white":
+            card_type = card["special"]
+            card_status[card_color][card_type] += 1
+        else:
+            if "number" in card.keys():
+                card_type = str(card["number"])
+            else:
+                card_type = card["special"]
+            card_status[card_color][card_type] += 1
+
+
+"""手札の優先度を決める関数"""
+def decision_priority(cards):
+    ans_lis = []
+    if shuffle_wild_flag == False:
+        for card in cards:
+            if "special" in card.keys():
+                if card["special"] == "white_wild":
+                    ans_lis.append([card,(1,1)])
+                elif card["special"] == "wild_shuffle":
+                    ans_lis.append([card,(2,1)])
+                elif card["special"] == "wild_draw_4":
+                    ans_lis.append([card,(3,1)])
+                elif card["special"] == "draw_2":
+                    ans_lis.append([card,(4,1)])
+                elif card["special"] == "skip" or card["special"] == "reverse":
+                    ans_lis.append([card,(5,1)])
+            elif "number" in card.keys():
+                ans_lis.append([card,(6,card["number"])])
+    else:
+        for card in cards:
+            if "special" in card.keys():
+                if card["special"] == "white_wild":
+                    ans_lis.append([card,(5,1)])
+                elif card["special"] == "wild_shuffle":
+                    ans_lis.append([card,(6,1)])
+                elif card["special"] == "wild_draw_4":
+                    ans_lis.append([card,(1,1)])
+                elif card["special"] == "draw_2":
+                    ans_lis.append([card,(4,1)])
+                elif card["special"] == "skip" or card["special"] == "reverse":
+                    ans_lis.append([card,(3,1)])
+            elif "number" in card.keys():
+                ans_lis.append([card,(2,card["number"])])
+
+    return ans_lis            
+
 
 
 """
@@ -372,6 +474,7 @@ def on_join_room(data_res):
 # カードが手札に追加された
 @sio.on(SocketConst.EMIT.RECEIVER_CARD)
 def on_reciever_card(data_res):
+    update_cards(data_res["cards_receive"])
     receive_event(SocketConst.EMIT.RECEIVER_CARD, data_res)
 
 
@@ -418,6 +521,8 @@ def on_shuffle_wild(data_res):
                 if data_res.get('player') in uno_declared:
                     del uno_declared[k]
 
+    return_cards(now_card)
+    update_cards(data_res["cards_receive"])
     receive_event(SocketConst.EMIT.SHUFFLE_WILD, data_res, shuffle_wild_calback)
 
 
@@ -428,6 +533,14 @@ def on_next_player(data_res):
         determine_if_execute_pointed_not_say_uno(data_res.get('number_card_of_player'))
 
         cards = data_res.get('card_of_player')
+        now_cards = cards
+        for card in now_card:
+            if "special" in card.keys() and "color" in  card.keys():
+                if card["special"] == 'wild_shuffle':
+                    shuffle_wild_flag = True
+                    break
+        else:
+            shuffle_wild_flag = False
 
         if (data_res.get('draw_reason') == DrawReason.WILD_DRAW_4):
             # カードを引く理由がワイルドドロー4の時、チャレンジを行うことができる。
@@ -499,6 +612,7 @@ def on_play_card(data_res):
         if data_res.get('yell_uno'):
             uno_declared[data_res.get('player')] = data_res.get('yell_uno')
 
+    update_cards(data_res['card_play'])
     receive_event(SocketConst.EMIT.PLAY_CARD, data_res, play_card_callback)
 
 
@@ -511,6 +625,7 @@ def on_draw_card(data_res):
         if data_res.get('player') in uno_declared:
             del uno_declared[data_res.get('player')]
 
+    update_cards(data_res["draw_card"])
     receive_event(SocketConst.EMIT.DRAW_CARD, data_res, draw_card_callback)
 
 
