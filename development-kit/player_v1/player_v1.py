@@ -82,6 +82,8 @@ def init_resource()->None:
     #現在の手札を保存しておく変数
     now_card = {}
 
+init_resource()
+
 #シャッフルワイルドを持っているか否か
 shuffle_wild_flag = False
 
@@ -250,7 +252,30 @@ def select_change_color()->str:
     Returns:
         str: ランダムに選択された色
     """
-    return ARR_COLOR[random_by_number(len(ARR_COLOR))]
+    print("change_card")
+    color_dic = {Color.RED:0, Color.BLUE:0, Color.GREEN:0, Color.YELLOW:0}
+    if not now_card:
+        print("if hogehoge")
+    else:
+        print("now_card exist")
+
+    for card in now_card:
+        if card['color'] == 'red':
+            color_dic[Color.RED] += 1
+        elif card['color'] == 'blue':
+            color_dic[Color.BLUE] += 1
+        elif card['color'] == 'green':
+            color_dic[Color.GREEN] += 1
+        elif card['color'] == 'yellow':
+            color_dic[Color.YELLOW] += 1
+        else:
+            print("for hogehoge")
+
+    ans = sorted(color_dic.items(), key=lambda x:x[1], reverse=True)
+    print(ans)
+    return ans[0][0]
+    # このプログラムでは変更する色をランダムで選択する。
+    #return ARR_COLOR[random_by_number(len(ARR_COLOR))]
 
 
 
