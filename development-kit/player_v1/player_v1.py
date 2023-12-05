@@ -68,8 +68,9 @@ class DrawReason:
 TEST_TOOL_HOST_PORT = '3000' # 開発ガイドラインツールのポート番号
 ARR_COLOR = [Color.RED, Color.YELLOW, Color.GREEN, Color.BLUE] # 色変更の選択肢
 
-"""ゲーム開始時のカードの枚数に戻す"""
-def init_resource():
+
+def init_resource()->None:
+    """ゲーム開始時のカードの枚数に戻す"""
     global card_status,now_card
     card_status = {"blue":{"0":1,"1":2,"2":2,"3":2,"4":2,"5":2,"6":2,"7":2,"8":2,"9":2,"draw_2":2,"skip":2,"reverse":2},
                "green":{"0":1,"1":2,"2":2,"3":2,"4":2,"5":2,"6":2,"7":2,"8":2,"9":2,"draw_2":2,"skip":2,"reverse":2},
@@ -80,6 +81,8 @@ def init_resource():
     
     #現在の手札を保存しておく変数
     now_card = {}
+
+init_resource()
 
 #シャッフルワイルドを持っているか否か
 shuffle_wild_flag = False
@@ -166,14 +169,17 @@ TEST_TOOL_EVENT_DATA = {
 sio = socketio.Client()
 
 
-"""
-出すカードを選出する
 
-Args:
-    cards (list): 自分の手札
-    before_card (*): 場札のカード
-"""
-def select_play_card(cards, before_card):
+def select_play_card(cards:list, before_card:any)->None:    
+    """
+    出すカードを選出する
+
+    Args:
+        cards (list): 自分の手札
+        before_card (Any): 場札のカード
+    Return:
+        sort_pri_list(list): 出す優先度順にソートしたリスト
+    """
     cards_valid = [] # 同じ色 または 同じ数字・記号 のカードを格納
     cards_wild = [] # ワイルド・シャッフルワイルド・白いワイルドを格納
     cards_wild4 = [] # ワイルドドロー4を格納
@@ -224,49 +230,78 @@ def select_play_card(cards, before_card):
     else:
         return None
 
-"""
-乱数取得
 
-Args:
-    num (int):
 
-Returns:
-    int:
-"""
-def random_by_number(num):
+def random_by_number(num:int)->int:
+    """
+    乱数取得
+
+    Args:
+        num (int):整数値
+    Returns:
+        int: 0以上num-1以下のランダムな整数値
+    """
     return math.floor(random.random() * num)
 
 
-"""
-変更する色を選出する
 
-Returns:
-    str:
-"""
-def select_change_color():
+def select_change_color()->str:
+    """
+    変更する色を選出する
+
+    Returns:
+        str: ランダムに選択された色
+    """
+    print("change_card")
+    color_dic = {Color.RED:0, Color.BLUE:0, Color.GREEN:0, Color.YELLOW:0}
+    if not now_card:
+        print("if hogehoge")
+    else:
+        print("now_card exist")
+
+    for card in now_card:
+        if card['color'] == 'red':
+            color_dic[Color.RED] += 1
+        elif card['color'] == 'blue':
+            color_dic[Color.BLUE] += 1
+        elif card['color'] == 'green':
+            color_dic[Color.GREEN] += 1
+        elif card['color'] == 'yellow':
+            color_dic[Color.YELLOW] += 1
+        else:
+            print("for hogehoge")
+
+    ans = sorted(color_dic.items(), key=lambda x:x[1], reverse=True)
+    print(ans)
+    return ans[0][0]
     # このプログラムでは変更する色をランダムで選択する。
-    return ARR_COLOR[random_by_number(len(ARR_COLOR))]
+    #return ARR_COLOR[random_by_number(len(ARR_COLOR))]
 
-"""
-チャンレンジするかを決定する
 
-Returns:
-    bool:
-"""
-def is_challenge():
-    # このプログラムでは1/2の確率でチャレンジを行う。
+
+def is_challenge()->bool:
+    """
+    1/2の確率でチャレンジするかを決定する
+
+    Returns:
+        bool
+    """
     if random_by_number(2) >= 1:
         return True
     else:
         return False
 
-"""
-他のプレイヤーのUNO宣言漏れをチェックする
 
-Args:
-    number_card_of_player (Any):
-"""
-def determine_if_execute_pointed_not_say_uno(number_card_of_player):
+
+def determine_if_execute_pointed_not_say_uno(number_card_of_player:dict)->None:
+    """
+    他のプレイヤーのUNO宣言漏れをチェックする
+
+    Args:
+        number_card_of_player(dict): {キー:プレイヤーID, 値:手札の枚数}
+    Returns:
+        None
+    """
     global id, uno_declared
 
     target = None
@@ -294,15 +329,24 @@ def determine_if_execute_pointed_not_say_uno(number_card_of_player):
         time.sleep(TIME_DELAY / 1000)
 
 
-"""
-個別コールバックを指定しないときの代替関数
-"""
-def pass_func(err):
+
+def pass_func(err)->None:
+    """
+    個別コールバックを指定しないときの代替関数
+    """
     return
 
 
-"""場に出たor手札に来たカードの分card_statusを減らす"""
-def decrease_cards(card):
+
+def decrease_cards(card:any)->None:
+    """
+    場に出たor手札に来たカードの分card_statusを減らす
+
+    Args:
+        card (Any):場に出たカードor手札に来たカード
+    Returns:
+        None
+    """
     card_color = card.get("color")
     #draw4とwildカード系は使用時に変更先の色として使われるので特殊処理する
     if "special" in card.keys() and (card.get("special") == "wild" or card.get("special") == "wild_draw_4"):
@@ -319,23 +363,40 @@ def decrease_cards(card):
             card_type = card.get("special")
         card_status[card_color][card_type] -= 1
 
-"""場に出ていないor自分の手札にないカードの枚数をカウントする"""
-def update_cards(card_dict):
 
+
+def update_cards(card_dict)->None:
+    """
+    場に出ていないor自分の手札にないカードの枚数をカウントする
+
+    Args:
+        card_dict(dict | list): まだ場に出ていないカードを格納した辞書型またはリスト型
+    Returns:
+        None
+    """
     print("今出されたカードは:")
     print(card_dict)
-    if type(card_dict) == list:
+    if type(card_dict) == list: # 引数がリスト型であった場合
         for card in card_dict:
             decrease_cards(card)
-    elif type(card_dict) == dict:
+    elif type(card_dict) == dict: # 引数が辞書型であった場合
         decrease_cards(card_dict)
 
     print("まだ場に出ていないカードは")
     print(card_status)
 
 
-"""シャッフル時に場に戻っていくカードの反映"""
-def return_cards(card_dict):
+
+def return_cards(card_dict:dict)->None:
+    """
+    シャッフル時に場に戻っていくカードの反映
+
+    Args:
+        card_dict(dict): まだ場に出ていないカードを格納した辞書型
+    Returns:
+        None
+    """
+
     for card in card_dict:
         card_color = card.get("color")
         if card_color == "black" or card_color == "white":
@@ -349,8 +410,15 @@ def return_cards(card_dict):
             card_status[card_color][card_type] += 1
 
 
-"""手札の優先度を決める関数"""
-def decision_priority(cards):
+def decision_priority(cards:list)->None:
+    """
+    手札の優先度を決める関数
+
+    Args:
+        card_dict(dict): 自分の手札のカードを格納した辞書型
+    Returns:
+        ans_lis(list): 2次元配列(list in list), 要素=[cardオブジェクト, (優先順位, cardの数)]
+    """
     ans_lis = []
     if shuffle_wild_flag == False:
         for card in cards:
@@ -390,16 +458,15 @@ def decision_priority(cards):
     return ans_lis            
 
 
-
-"""
-送信イベント共通処理
-
-Args:
-    event (str): Socket通信イベント名
-    data (Any): 送信するデータ
-    callback (func): 個別処理
-"""
 def send_event(event, data, callback = pass_func):
+    """
+    送信イベント共通処理
+
+    Args:
+        event (str): Socket通信イベント名
+        data (Any): 送信するデータ
+        callback (func): 個別処理
+    """
     print('Send {} event.'.format(event))
     print('req_data: ', data)
 
@@ -416,15 +483,15 @@ def send_event(event, data, callback = pass_func):
     sio.emit(event, data, callback=after_func)
 
 
-"""
-受信イベント共通処理
-
-Args:
-    event (str): Socket通信イベント名
-    data (Any): 送信するデータ
-    callback (func): 個別処理
-"""
 def receive_event(event, data, callback = pass_func):
+    """
+    受信イベント共通処理
+
+    Args:
+        event (str): Socket通信イベント名
+        data (Any): 送信するデータ
+        callback (func): 個別処理
+    """
     print('Receive {} event.'.format(event))
     print('res_data: ', data)
 
