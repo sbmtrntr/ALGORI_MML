@@ -5,5 +5,5 @@ if [ $# -ne 4 ]; then
   exit 1
 fi
 cd development-kit/player_$1
-docker build -t $1 ./
+docker build -t player_$1 ./
 docker run player_$1 http://$2:8080 "$3" "$4"
