@@ -5,8 +5,8 @@ import random
 import sys
 import socketio
 import time
-import card
-import strategy
+from card_status import Card_Status
+from strategy import *
 
 from rich import print
 
@@ -68,11 +68,8 @@ class DrawReason:
 TEST_TOOL_HOST_PORT = '3000' # 開発ガイドラインツールのポート番号
 ARR_COLOR = [Color.RED, Color.YELLOW, Color.GREEN, Color.BLUE] # 色変更の選択肢
 
-cards_class = card.Card()
-strategy_class = strategy.cardSelect()
-
-#シャッフルワイルドを持っているか否か
-shuffle_wild_flag = False
+cards_status = Card_Status()
+strategy = Card_Select()
 
 """
 コマンドラインから受け取った変数等
@@ -154,174 +151,6 @@ TEST_TOOL_EVENT_DATA = {
 
 # Socketクライアント
 sio = socketio.Client()
-
-
-
-# def select_play_card(cards:list, before_card:any)->None:    
-#     """
-#     出すカードを選出する
-
-#     Args:
-#         cards (list): 自分の手札
-#         before_card (Any): 場札のカード
-#     Return:
-#         sort_pri_list(list): 出す優先度順にソートしたリスト
-#     """
-#     cards_valid = [] # 同じ色 または 同じ数字・記号 のカードを格納
-#     cards_wild = [] # ワイルド・シャッフルワイルド・白いワイルドを格納
-#     cards_wild4 = [] # ワイルドドロー4を格納
-
-#     # 場札と照らし合わせ出せるカードを抽出する
-#     for card in cards:
-#         card_special = card.get('special')
-#         card_number = card.get('number')
-#         if str(card_special) == Special.WILD_DRAW_4:
-#             # ワイルドドロー4は場札に関係なく出せる
-#             cards_wild4.append(card)
-#         elif (
-#             str(card_special) == Special.WILD or
-#             str(card_special) == Special.WILD_SHUFFLE or
-#             str(card_special) == Special.WHITE_WILD
-#         ):
-#             # ワイルド・シャッフルワイルド・白いワイルドも場札に関係なく出せる
-#             cards_wild.append(card)
-#         elif str(card.get('color')) == str(before_card.get('color')):
-#             # 場札と同じ色のカード
-#             cards_valid.append(card)
-#         elif (
-#             (card_special and str(card_special) == str(before_card.get('special'))) or
-#             ((card_number is not None or (card_number is not None and int(card_number) == 0)) and
-#              (before_card.get('number') and int(card_number) == int(before_card.get('number'))))
-#         ):
-#             # 場札と数字または記号が同じカード
-#             cards_valid.append(card)
-
-#     """
-#     出せるカードのリストを結合し、先頭のカードを返却する。
-#     このプログラムでは優先順位を、「同じ色 または 同じ数字・記号」 > 「ワイルド・シャッフルワイルド・白いワイルド」 > ワイルドドロー4の順番とする。
-#     ワイルドドロー4は本来、手札に出せるカードが無い時に出していいカードであるため、一番優先順位を低くする。
-#     ワイルド・シャッフルワイルド・白いワイルドはいつでも出せるので、条件が揃わないと出せない「同じ色 または 同じ数字・記号」のカードより優先度を低くする。
-#     """
-#     valid_card_list = cards_valid + cards_wild + cards_wild4
-
-#     ######追加#######
-#     if len(valid_card_list) > 0:
-#         tmp_list = strategy_class.decision_priority(valid_card_list)
-#         sort_pri_list = sorted(tmp_list, key=lambda x: (x[1][0], -x[1][1]))
-#     else:
-#         sort_pri_list = valid_card_list
-
-#     #################
-#     if len(sort_pri_list) > 0:
-#         return sort_pri_list[0][0]
-#     else:
-#         return None
-
-
-
-def random_by_number(num:int)->int:
-    """
-    乱数取得
-
-    Args:
-        num (int):整数値
-    Returns:
-        int: 0以上num-1以下のランダムな整数値
-    """
-    return math.floor(random.random() * num)
-
-
-
-# def select_change_color()->str:
-#     """
-#     変更する色を選出する
-
-#     Returns:
-#         str: ランダムに選択された色
-#     """
-#     print("change_card")
-#     color_dic = {Color.RED:0, Color.BLUE:0, Color.GREEN:0, Color.YELLOW:0}
-#     if not now_card:
-#         print("if hogehoge")
-#     else:
-#         print("now_card exist")
-
-#     for card in now_card:
-#         if card['color'] == 'red':
-#             color_dic[Color.RED] += 1
-#         elif card['color'] == 'blue':
-#             color_dic[Color.BLUE] += 1
-#         elif card['color'] == 'green':
-#             color_dic[Color.GREEN] += 1
-#         elif card['color'] == 'yellow':
-#             color_dic[Color.YELLOW] += 1
-#         else:
-#             print("for hogehoge")
-
-#     ans = sorted(color_dic.items(), key=lambda x:x[1], reverse=True)
-#     print(ans)
-#     return ans[0][0]
-    # このプログラムでは変更する色をランダムで選択する。
-    #return ARR_COLOR[random_by_number(len(ARR_COLOR))]
-
-
-
-def is_challenge()->bool:
-    """
-    1/2の確率でチャレンジするかを決定する
-
-    Returns:
-        bool
-    """
-    if random_by_number(2) >= 1:
-        return True
-    else:
-        return False
-
-
-
-def determine_if_execute_pointed_not_say_uno(number_card_of_player:dict)->None:
-    """
-    他のプレイヤーのUNO宣言漏れをチェックする
-
-    Args:
-        number_card_of_player(dict): {キー:プレイヤーID, 値:手札の枚数}
-    Returns:
-        None
-    """
-    global id, uno_declared
-
-    target = None
-    # 手札の枚数が1枚だけのプレイヤーを抽出する
-    # 2枚以上所持しているプレイヤーはUNO宣言の状態をリセットする
-    for k, v in number_card_of_player.items():
-        if k == id:
-            # 自分のIDは処理しない
-            break
-        elif v == 1:
-            # 1枚だけ所持しているプレイヤー
-            target = k
-            break
-        elif k in uno_declared:
-            # 2枚以上所持しているプレイヤーはUNO宣言の状態をリセットする
-            del uno_declared[k]
-
-    if target == None:
-        # 1枚だけ所持しているプレイヤーがいない場合、処理を中断する
-        return
-
-    # 抽出したプレイヤーがUNO宣言を行っていない場合宣言漏れを指摘する
-    if (target not in uno_declared.keys()):
-        send_event(SocketConst.EMIT.POINTED_NOT_SAY_UNO, { 'target': target })
-        time.sleep(TIME_DELAY / 1000)
-
-
-
-def pass_func(err)->None:
-    """
-    個別コールバックを指定しないときの代替関数
-    """
-    return
 
 
 def send_event(event, data, callback = pass_func):
@@ -421,22 +250,13 @@ def on_join_room(data_res):
 # カードが手札に追加された
 @sio.on(SocketConst.EMIT.RECEIVER_CARD)
 def on_reciever_card(data_res):
-    global cards_class
-    
-    cards_class.update_cards_status(data_res["cards_receive"])
+    cards_status.update_cards_status(data_res["cards_receive"])
     receive_event(SocketConst.EMIT.RECEIVER_CARD, data_res)
 
 
 # 対戦の開始
 @sio.on(SocketConst.EMIT.FIRST_PLAYER)
 def on_first_player(data_res):
-    global cards_class
-    global strategy_class
-
-    cards_class = card.Card()
-    strategy_class = strategy.cardSelect()
-    
-    
     receive_event(SocketConst.EMIT.FIRST_PLAYER, data_res)
 
 
@@ -444,9 +264,8 @@ def on_first_player(data_res):
 @sio.on(SocketConst.EMIT.COLOR_OF_WILD)
 def on_color_of_wild(data_res):
     def color_of_wild_callback(data_res):
-        global strategy_class
 
-        color = strategy_class.select_change_color(cards_class.my_cards)
+        color = strategy.select_change_color(cards_status.my_cards)
         data = {
             'color_of_wild': color,
         }
@@ -466,8 +285,6 @@ def on_update_color(data_res):
 # シャッフルワイルドにより手札状況が変更
 @sio.on(SocketConst.EMIT.SHUFFLE_WILD)
 def on_shuffle_wild(data_res):
-    global cards_class
-
     def shuffle_wild_calback(data_res):
         global uno_declared
         uno_declared = {}
@@ -481,9 +298,9 @@ def on_shuffle_wild(data_res):
                 if data_res.get('player') in uno_declared:
                     del uno_declared[k]
 
-    cards_class.return_cards_status()
-    cards_class.update_cards_status(data_res.get("cards_receive"))
-    cards_class.set_my_card(data_res.get("cards_receive"))
+    cards_status.return_my_cards()
+    cards_status.update_cards_status(data_res.get("cards_receive"))
+    cards_status.set_my_cards(data_res.get("cards_receive"))
 
     receive_event(SocketConst.EMIT.SHUFFLE_WILD, data_res, shuffle_wild_calback)
 
@@ -492,14 +309,11 @@ def on_shuffle_wild(data_res):
 @sio.on(SocketConst.EMIT.NEXT_PLAYER)
 def on_next_player(data_res):
     def next_player_calback(data_res):
-        global cards_class
-        global strategy_class
-
         determine_if_execute_pointed_not_say_uno(data_res.get('number_card_of_player'))
 
         cards = data_res.get('card_of_player')
-        cards_class.set_my_card(cards)
-        strategy_class.check_wild_shuffle(cards_class.wild_shuffle_flag())
+        cards_status.set_my_cards(cards)
+        strategy.check_wild_shuffle(cards_status.wild_shuffle_flag())
 
         if (data_res.get('draw_reason') == DrawReason.WILD_DRAW_4):
             # カードを引く理由がワイルドドロー4の時、チャレンジを行うことができる。
@@ -517,7 +331,7 @@ def on_next_player(data_res):
         if special_logic_num_random == 0:
             send_event(SocketConst.EMIT.SPECIAL_LOGIC, { 'title': SPECIAL_LOGIC_TITLE })
 
-        play_card = strategy_class.select_play_card(cards, data_res.get('card_before'))
+        play_card = strategy.select_play_card(cards, data_res.get('card_before'))
 
         if play_card:
             # 選出したカードがある時
@@ -528,7 +342,7 @@ def on_next_player(data_res):
             }
 
             if play_card.get('special') == Special.WILD or play_card.get('special') == Special.WILD_DRAW_4:
-                color = strategy_class.select_change_color(cards_class.my_cards)
+                color = strategy.select_change_color(cards_status.my_cards)
                 data['color_of_wild'] = color
 
             # カードを出すイベントを実行
@@ -550,7 +364,7 @@ def on_next_player(data_res):
 
                 play_card = res.get('draw_card')[0]
                 if play_card.get('special') == Special.WILD or play_card.get('special') == Special.WILD_DRAW_4:
-                    color = strategy_class.select_change_color(cards_class.my_cards)
+                    color = strategy.select_change_color(cards_status.my_cards)
                     data['color_of_wild'] = color
 
                 # 引いたカードを出すイベントを実行
@@ -567,14 +381,14 @@ def on_next_player(data_res):
 def on_play_card(data_res):
     def play_card_callback(data_res):
         global uno_declared
-        global cards_class
+        global cards_status
     
         # UNO宣言を行った場合は記録する
         if data_res.get('yell_uno'):
             uno_declared[data_res.get('player')] = data_res.get('yell_uno')
 
     if id != data_res['player']:
-        cards_class.update_cards_status(data_res['card_play'])
+        cards_status.update_cards_status(data_res['card_play'])
 
     receive_event(SocketConst.EMIT.PLAY_CARD, data_res, play_card_callback)
 
@@ -626,9 +440,10 @@ def on_pointed_not_say_uno(data_res):
 @sio.on(SocketConst.EMIT.FINISH_TURN)
 def on_finish_turn(data_res):
     def finish_turn__callback(data_res):
-        global uno_declared
+        global uno_declared, cards_status, strategy
         uno_declared = {}
-
+        cards_status = Card_Status()
+        strategy = Card_Select()
     receive_event(SocketConst.EMIT.FINISH_TURN, data_res, finish_turn__callback)
 
 

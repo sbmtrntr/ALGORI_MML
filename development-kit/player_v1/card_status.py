@@ -1,7 +1,7 @@
-class Card:
+class Card_Status:
     def __init__(self) -> None:
         self.cards_status = self.init_cards_status()
-        self.my_cards = self.init_my_card()
+        self.my_cards = []
 
 
     def init_cards_status(self) -> dict:
@@ -18,48 +18,24 @@ class Card:
         }
         
         return cards_status
-    
-
-    def init_my_card(self) -> dict:
-
-        my_card = []
-
-        return my_card
 
 
-    def set_my_card(self, cards:list) -> None:
+    def set_my_cards(self, cards:list) -> None:
         """
         自分の手札(my_cards)の更新
         """
         self.my_cards = cards
+   
 
-
-    # def get_my_card(self) -> list:
-    #     """
-    #     自分の手札(my_cards)の取得
-    #     """
-    #     return self.my_cards
-    
-
-    # def get_cards_status(self) -> dict:
-    #     """
-    #     場に出ていない札(cards_status)の取得
-    #     """
-    #     return self.cards_status
-    
-
-    def update_cards_status(self, cards:any) -> None:
+    def update_cards_status(self, cards:dict|list) -> None:
         """
-        場に出たor手札に来たカードの分card_statusを減らす
+        場に出たカードを減らす
 
         Args:
-            cards (Any):場に出たカードor手札に来たカード
+            cards (dict|list): 場に出たカードor手札に来たカード
         Returns:
             None
         """
-
-        print("今出たカード")
-        print(cards)
 
         if isinstance(cards, dict):
             cards = [cards]
@@ -83,11 +59,8 @@ class Card:
             
             self.cards_status[card_color][card_type] -= 1
 
-        print("残っているカード")
-        print(self.cards_status)
-
     
-    def return_cards_status(self) -> None:
+    def return_my_cards(self) -> None:
         """
         シャッフルによって場に戻った手札の分cards_statusを更新する
         """
@@ -104,14 +77,8 @@ class Card:
 
 
     def wild_shuffle_flag(self) -> bool:
-
         for card in self.my_cards:
             if card.get("special") == "wild_shuffle":
                 return True
             
         return False
-
-
-
-
-    
