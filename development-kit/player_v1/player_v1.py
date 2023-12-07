@@ -5,8 +5,8 @@ import random
 import sys
 import socketio
 import time
-import heapq #優先度付きキュー用ライブラリ追加
-import json
+import card
+import strategy
 
 from rich import print
 
@@ -68,21 +68,8 @@ class DrawReason:
 TEST_TOOL_HOST_PORT = '3000' # 開発ガイドラインツールのポート番号
 ARR_COLOR = [Color.RED, Color.YELLOW, Color.GREEN, Color.BLUE] # 色変更の選択肢
 
-
-def init_resource()->None:
-    """ゲーム開始時のカードの枚数に戻す"""
-    global card_status,now_card
-    card_status = {"blue":{"0":1,"1":2,"2":2,"3":2,"4":2,"5":2,"6":2,"7":2,"8":2,"9":2,"draw_2":2,"skip":2,"reverse":2},
-               "green":{"0":1,"1":2,"2":2,"3":2,"4":2,"5":2,"6":2,"7":2,"8":2,"9":2,"draw_2":2,"skip":2,"reverse":2},
-               "red":{"0":1,"1":2,"2":2,"3":2,"4":2,"5":2,"6":2,"7":2,"8":2,"9":2,"draw_2":2,"skip":2,"reverse":2},
-               "yellow":{"0":1,"1":2,"2":2,"3":2,"4":2,"5":2,"6":2,"7":2,"8":2,"9":2,"draw_2":2,"skip":2,"reverse":2},
-               "black":{"wild":4,"wild_draw_4":4,"wild_shuffle":1},
-               "white":{"white_wild":3}}
-    
-    #現在の手札を保存しておく変数
-    now_card = {}
-
-init_resource()
+cards_class = card.Card()
+strategy_class = strategy.cardSelect()
 
 #シャッフルワイルドを持っているか否か
 shuffle_wild_flag = False
@@ -170,65 +157,65 @@ sio = socketio.Client()
 
 
 
-def select_play_card(cards:list, before_card:any)->None:    
-    """
-    出すカードを選出する
+# def select_play_card(cards:list, before_card:any)->None:    
+#     """
+#     出すカードを選出する
 
-    Args:
-        cards (list): 自分の手札
-        before_card (Any): 場札のカード
-    Return:
-        sort_pri_list(list): 出す優先度順にソートしたリスト
-    """
-    cards_valid = [] # 同じ色 または 同じ数字・記号 のカードを格納
-    cards_wild = [] # ワイルド・シャッフルワイルド・白いワイルドを格納
-    cards_wild4 = [] # ワイルドドロー4を格納
+#     Args:
+#         cards (list): 自分の手札
+#         before_card (Any): 場札のカード
+#     Return:
+#         sort_pri_list(list): 出す優先度順にソートしたリスト
+#     """
+#     cards_valid = [] # 同じ色 または 同じ数字・記号 のカードを格納
+#     cards_wild = [] # ワイルド・シャッフルワイルド・白いワイルドを格納
+#     cards_wild4 = [] # ワイルドドロー4を格納
 
-    # 場札と照らし合わせ出せるカードを抽出する
-    for card in cards:
-        card_special = card.get('special')
-        card_number = card.get('number')
-        if str(card_special) == Special.WILD_DRAW_4:
-            # ワイルドドロー4は場札に関係なく出せる
-            cards_wild4.append(card)
-        elif (
-            str(card_special) == Special.WILD or
-            str(card_special) == Special.WILD_SHUFFLE or
-            str(card_special) == Special.WHITE_WILD
-        ):
-            # ワイルド・シャッフルワイルド・白いワイルドも場札に関係なく出せる
-            cards_wild.append(card)
-        elif str(card.get('color')) == str(before_card.get('color')):
-            # 場札と同じ色のカード
-            cards_valid.append(card)
-        elif (
-            (card_special and str(card_special) == str(before_card.get('special'))) or
-            ((card_number is not None or (card_number is not None and int(card_number) == 0)) and
-             (before_card.get('number') and int(card_number) == int(before_card.get('number'))))
-        ):
-            # 場札と数字または記号が同じカード
-            cards_valid.append(card)
+#     # 場札と照らし合わせ出せるカードを抽出する
+#     for card in cards:
+#         card_special = card.get('special')
+#         card_number = card.get('number')
+#         if str(card_special) == Special.WILD_DRAW_4:
+#             # ワイルドドロー4は場札に関係なく出せる
+#             cards_wild4.append(card)
+#         elif (
+#             str(card_special) == Special.WILD or
+#             str(card_special) == Special.WILD_SHUFFLE or
+#             str(card_special) == Special.WHITE_WILD
+#         ):
+#             # ワイルド・シャッフルワイルド・白いワイルドも場札に関係なく出せる
+#             cards_wild.append(card)
+#         elif str(card.get('color')) == str(before_card.get('color')):
+#             # 場札と同じ色のカード
+#             cards_valid.append(card)
+#         elif (
+#             (card_special and str(card_special) == str(before_card.get('special'))) or
+#             ((card_number is not None or (card_number is not None and int(card_number) == 0)) and
+#              (before_card.get('number') and int(card_number) == int(before_card.get('number'))))
+#         ):
+#             # 場札と数字または記号が同じカード
+#             cards_valid.append(card)
 
-    """
-    出せるカードのリストを結合し、先頭のカードを返却する。
-    このプログラムでは優先順位を、「同じ色 または 同じ数字・記号」 > 「ワイルド・シャッフルワイルド・白いワイルド」 > ワイルドドロー4の順番とする。
-    ワイルドドロー4は本来、手札に出せるカードが無い時に出していいカードであるため、一番優先順位を低くする。
-    ワイルド・シャッフルワイルド・白いワイルドはいつでも出せるので、条件が揃わないと出せない「同じ色 または 同じ数字・記号」のカードより優先度を低くする。
-    """
-    valid_card_list = cards_valid + cards_wild + cards_wild4
+#     """
+#     出せるカードのリストを結合し、先頭のカードを返却する。
+#     このプログラムでは優先順位を、「同じ色 または 同じ数字・記号」 > 「ワイルド・シャッフルワイルド・白いワイルド」 > ワイルドドロー4の順番とする。
+#     ワイルドドロー4は本来、手札に出せるカードが無い時に出していいカードであるため、一番優先順位を低くする。
+#     ワイルド・シャッフルワイルド・白いワイルドはいつでも出せるので、条件が揃わないと出せない「同じ色 または 同じ数字・記号」のカードより優先度を低くする。
+#     """
+#     valid_card_list = cards_valid + cards_wild + cards_wild4
 
-    ######追加#######
-    if len(valid_card_list) > 0:
-        tmp_list = decision_priority(valid_card_list)
-        sort_pri_list = sorted(tmp_list, key=lambda x: (x[1][0], -x[1][1]))
-    else:
-        sort_pri_list = valid_card_list
+#     ######追加#######
+#     if len(valid_card_list) > 0:
+#         tmp_list = strategy_class.decision_priority(valid_card_list)
+#         sort_pri_list = sorted(tmp_list, key=lambda x: (x[1][0], -x[1][1]))
+#     else:
+#         sort_pri_list = valid_card_list
 
-    #################
-    if len(sort_pri_list) > 0:
-        return sort_pri_list[0][0]
-    else:
-        return None
+#     #################
+#     if len(sort_pri_list) > 0:
+#         return sort_pri_list[0][0]
+#     else:
+#         return None
 
 
 
@@ -245,35 +232,35 @@ def random_by_number(num:int)->int:
 
 
 
-def select_change_color()->str:
-    """
-    変更する色を選出する
+# def select_change_color()->str:
+#     """
+#     変更する色を選出する
 
-    Returns:
-        str: ランダムに選択された色
-    """
-    print("change_card")
-    color_dic = {Color.RED:0, Color.BLUE:0, Color.GREEN:0, Color.YELLOW:0}
-    if not now_card:
-        print("if hogehoge")
-    else:
-        print("now_card exist")
+#     Returns:
+#         str: ランダムに選択された色
+#     """
+#     print("change_card")
+#     color_dic = {Color.RED:0, Color.BLUE:0, Color.GREEN:0, Color.YELLOW:0}
+#     if not now_card:
+#         print("if hogehoge")
+#     else:
+#         print("now_card exist")
 
-    for card in now_card:
-        if card['color'] == 'red':
-            color_dic[Color.RED] += 1
-        elif card['color'] == 'blue':
-            color_dic[Color.BLUE] += 1
-        elif card['color'] == 'green':
-            color_dic[Color.GREEN] += 1
-        elif card['color'] == 'yellow':
-            color_dic[Color.YELLOW] += 1
-        else:
-            print("for hogehoge")
+#     for card in now_card:
+#         if card['color'] == 'red':
+#             color_dic[Color.RED] += 1
+#         elif card['color'] == 'blue':
+#             color_dic[Color.BLUE] += 1
+#         elif card['color'] == 'green':
+#             color_dic[Color.GREEN] += 1
+#         elif card['color'] == 'yellow':
+#             color_dic[Color.YELLOW] += 1
+#         else:
+#             print("for hogehoge")
 
-    ans = sorted(color_dic.items(), key=lambda x:x[1], reverse=True)
-    print(ans)
-    return ans[0][0]
+#     ans = sorted(color_dic.items(), key=lambda x:x[1], reverse=True)
+#     print(ans)
+#     return ans[0][0]
     # このプログラムでは変更する色をランダムで選択する。
     #return ARR_COLOR[random_by_number(len(ARR_COLOR))]
 
@@ -335,127 +322,6 @@ def pass_func(err)->None:
     個別コールバックを指定しないときの代替関数
     """
     return
-
-
-
-def decrease_cards(card:any)->None:
-    """
-    場に出たor手札に来たカードの分card_statusを減らす
-
-    Args:
-        card (Any):場に出たカードor手札に来たカード
-    Returns:
-        None
-    """
-    card_color = card.get("color")
-    #draw4とwildカード系は使用時に変更先の色として使われるので特殊処理する
-    if "special" in card.keys() and (card.get("special") == "wild" or card.get("special") == "wild_draw_4"):
-        card_status['black'][card["special"]] -= 1
-
-    elif card_color == "black" or card_color == "white":
-        card_type = card.get("special")
-        card_status[card_color][card_type] -= 1
-
-    else:
-        if "number" in card.keys():
-            card_type = str(card.get("number"))
-        else:
-            card_type = card.get("special")
-        card_status[card_color][card_type] -= 1
-
-
-
-def update_cards(card_dict)->None:
-    """
-    場に出ていないor自分の手札にないカードの枚数をカウントする
-
-    Args:
-        card_dict(dict | list): まだ場に出ていないカードを格納した辞書型またはリスト型
-    Returns:
-        None
-    """
-    print("今出されたカードは:")
-    print(card_dict)
-    if type(card_dict) == list: # 引数がリスト型であった場合
-        for card in card_dict:
-            decrease_cards(card)
-    elif type(card_dict) == dict: # 引数が辞書型であった場合
-        decrease_cards(card_dict)
-
-    print("まだ場に出ていないカードは")
-    print(card_status)
-
-
-
-def return_cards(card_dict:dict)->None:
-    """
-    シャッフル時に場に戻っていくカードの反映
-
-    Args:
-        card_dict(dict): まだ場に出ていないカードを格納した辞書型
-    Returns:
-        None
-    """
-
-    for card in card_dict:
-        card_color = card.get("color")
-        if card_color == "black" or card_color == "white":
-            card_type = card.get("special")
-            card_status[card_color][card_type] += 1
-        else:
-            if "number" in card.keys():
-                card_type = str(card.get("number"))
-            else:
-                card_type = card.get("special")
-            card_status[card_color][card_type] += 1
-
-
-def decision_priority(cards:list)->None:
-    """
-    手札の優先度を決める関数
-
-    Args:
-        card_dict(dict): 自分の手札のカードを格納した辞書型
-    Returns:
-        ans_lis(list): 2次元配列(list in list), 要素=[cardオブジェクト, (優先順位, cardの数)]
-    """
-    ans_lis = []
-    if shuffle_wild_flag == False:
-        for card in cards:
-            if "special" in card.keys():
-                if card.get("special") == "white_wild":
-                    ans_lis.append([card,(1,1)])
-                elif card.get("special") == "wild_shuffle":
-                    ans_lis.append([card,(2,1)])
-                elif card.get("special") == "wild_draw_4":
-                    ans_lis.append([card,(3,1)])
-                elif card.get("special") == "wild":
-                    ans_lis.append([card,(4,1)])
-                elif card.get("special") == "draw_2":
-                    ans_lis.append([card,(5,1)])
-                elif card.get("special") == "skip" or card.get("special") == "reverse":
-                    ans_lis.append([card,(6,1)])
-            elif "number" in card.keys():
-                ans_lis.append([card,(7,card.get("number"))])
-    else:
-        for card in cards:
-            if "special" in card.keys():
-                if card.get("special") == "white_wild":
-                    ans_lis.append([card,(6,1)])
-                elif card.get("special") == "wild_shuffle":
-                    ans_lis.append([card,(7,1)])
-                elif card.get("special") == "wild_draw_4":
-                    ans_lis.append([card,(1,1)])
-                elif card.get("special") == "wild":
-                    ans_lis.append([card,(5,1)])
-                elif card.get("special") == "draw_2":
-                    ans_lis.append([card,(4,1)])
-                elif card.get("special") == "skip" or card.get("special") == "reverse":
-                    ans_lis.append([card,(3,1)])
-            elif "number" in card.keys():
-                ans_lis.append([card,(2,card.get("number"))])
-
-    return ans_lis            
 
 
 def send_event(event, data, callback = pass_func):
@@ -555,14 +421,22 @@ def on_join_room(data_res):
 # カードが手札に追加された
 @sio.on(SocketConst.EMIT.RECEIVER_CARD)
 def on_reciever_card(data_res):
-    update_cards(data_res["cards_receive"])
+    global cards_class
+    
+    cards_class.update_cards_status(data_res["cards_receive"])
     receive_event(SocketConst.EMIT.RECEIVER_CARD, data_res)
 
 
 # 対戦の開始
 @sio.on(SocketConst.EMIT.FIRST_PLAYER)
 def on_first_player(data_res):
-    init_resource()
+    global cards_class
+    global strategy_class
+
+    cards_class = card.Card()
+    strategy_class = strategy.cardSelect()
+    
+    
     receive_event(SocketConst.EMIT.FIRST_PLAYER, data_res)
 
 
@@ -570,7 +444,9 @@ def on_first_player(data_res):
 @sio.on(SocketConst.EMIT.COLOR_OF_WILD)
 def on_color_of_wild(data_res):
     def color_of_wild_callback(data_res):
-        color = select_change_color()
+        global strategy_class
+
+        color = strategy_class.select_change_color(cards_class.my_cards)
         data = {
             'color_of_wild': color,
         }
@@ -590,6 +466,8 @@ def on_update_color(data_res):
 # シャッフルワイルドにより手札状況が変更
 @sio.on(SocketConst.EMIT.SHUFFLE_WILD)
 def on_shuffle_wild(data_res):
+    global cards_class
+
     def shuffle_wild_calback(data_res):
         global uno_declared
         uno_declared = {}
@@ -603,8 +481,10 @@ def on_shuffle_wild(data_res):
                 if data_res.get('player') in uno_declared:
                     del uno_declared[k]
 
-    return_cards(now_card)
-    update_cards(data_res.get("cards_receive"))
+    cards_class.return_cards_status()
+    cards_class.update_cards_status(data_res.get("cards_receive"))
+    cards_class.set_my_card(data_res.get("cards_receive"))
+
     receive_event(SocketConst.EMIT.SHUFFLE_WILD, data_res, shuffle_wild_calback)
 
 
@@ -612,17 +492,14 @@ def on_shuffle_wild(data_res):
 @sio.on(SocketConst.EMIT.NEXT_PLAYER)
 def on_next_player(data_res):
     def next_player_calback(data_res):
+        global cards_class
+        global strategy_class
+
         determine_if_execute_pointed_not_say_uno(data_res.get('number_card_of_player'))
 
         cards = data_res.get('card_of_player')
-        now_cards = cards
-        for card in now_cards:
-            if "special" in card.keys() and "color" in  card.keys():
-                if card["special"] == 'wild_shuffle':
-                    shuffle_wild_flag = True
-                    break
-        else:
-            shuffle_wild_flag = False
+        cards_class.set_my_card(cards)
+        strategy_class.check_wild_shuffle(cards_class.wild_shuffle_flag())
 
         if (data_res.get('draw_reason') == DrawReason.WILD_DRAW_4):
             # カードを引く理由がワイルドドロー4の時、チャレンジを行うことができる。
@@ -640,7 +517,7 @@ def on_next_player(data_res):
         if special_logic_num_random == 0:
             send_event(SocketConst.EMIT.SPECIAL_LOGIC, { 'title': SPECIAL_LOGIC_TITLE })
 
-        play_card = select_play_card(cards, data_res.get('card_before'))
+        play_card = strategy_class.select_play_card(cards, data_res.get('card_before'))
 
         if play_card:
             # 選出したカードがある時
@@ -651,7 +528,7 @@ def on_next_player(data_res):
             }
 
             if play_card.get('special') == Special.WILD or play_card.get('special') == Special.WILD_DRAW_4:
-                color = select_change_color()
+                color = strategy_class.select_change_color(cards_class.my_cards)
                 data['color_of_wild'] = color
 
             # カードを出すイベントを実行
@@ -673,7 +550,7 @@ def on_next_player(data_res):
 
                 play_card = res.get('draw_card')[0]
                 if play_card.get('special') == Special.WILD or play_card.get('special') == Special.WILD_DRAW_4:
-                    color = select_change_color()
+                    color = strategy_class.select_change_color(cards_class.my_cards)
                     data['color_of_wild'] = color
 
                 # 引いたカードを出すイベントを実行
@@ -690,12 +567,14 @@ def on_next_player(data_res):
 def on_play_card(data_res):
     def play_card_callback(data_res):
         global uno_declared
+        global cards_class
+    
         # UNO宣言を行った場合は記録する
         if data_res.get('yell_uno'):
             uno_declared[data_res.get('player')] = data_res.get('yell_uno')
 
     if id != data_res['player']:
-        update_cards(data_res['card_play'])
+        cards_class.update_cards_status(data_res['card_play'])
 
     receive_event(SocketConst.EMIT.PLAY_CARD, data_res, play_card_callback)
 
@@ -709,9 +588,7 @@ def on_draw_card(data_res):
         if data_res.get('player') in uno_declared:
             del uno_declared[data_res.get('player')]
 
-    #print("DRAW_CARDの中身:" )
-    #print(data_res)
-    #update_cards(data_res["cards_receive"])
+    
     receive_event(SocketConst.EMIT.DRAW_CARD, data_res, draw_card_callback)
 
 
