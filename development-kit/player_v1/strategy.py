@@ -140,46 +140,8 @@ def is_challenge()->bool:
     return True
 
 
-def determine_if_execute_pointed_not_say_uno(number_card_of_player:dict)->None:
-    """
-    他のプレイヤーのUNO宣言漏れをチェックする
-
-    Args:
-        number_card_of_player(dict): {キー:プレイヤーID, 値:手札の枚数}
-    Returns:
-        None
-    """
-    global id, uno_declared
-
-    target = None
-    # 手札の枚数が1枚だけのプレイヤーを抽出する
-    # 2枚以上所持しているプレイヤーはUNO宣言の状態をリセットする
-    for k, v in number_card_of_player.items():
-        if k == id:
-            # 自分のIDは処理しない
-            break
-        elif v == 1:
-            # 1枚だけ所持しているプレイヤー
-            target = k
-            break
-        elif k in uno_declared:
-            # 2枚以上所持しているプレイヤーはUNO宣言の状態をリセットする
-            del uno_declared[k]
-
-    if target == None:
-        # 1枚だけ所持しているプレイヤーがいない場合、処理を中断する
-        return
-
-    # 抽出したプレイヤーがUNO宣言を行っていない場合宣言漏れを指摘する
-    if (target not in uno_declared.keys()):
-        send_event(SocketConst.EMIT.POINTED_NOT_SAY_UNO, { 'target': target })
-        time.sleep(TIME_DELAY / 1000)
-
-
-
 def pass_func(err)->None:
     """
     個別コールバックを指定しないときの代替関数
     """
     return
-

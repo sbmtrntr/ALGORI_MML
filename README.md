@@ -54,6 +54,6 @@ bash dealer.sh
 
 ### プレイヤー
 ```bash
-bash player.sh バージョン, ディーラーのIPアドレス, ディーラー名, プレイヤー名
+bash player.sh バージョン ディーラーのIPアドレス ディーラー名 プレイヤー名
 # ex) bash player.sh v0 xx.xx.xx.xx Dealer Player1
 ```
