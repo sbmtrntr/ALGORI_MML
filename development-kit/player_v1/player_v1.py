@@ -153,6 +153,55 @@ TEST_TOOL_EVENT_DATA = {
 sio = socketio.Client()
 
 
+def random_by_number(num):
+    """
+    乱数取得
+
+    Args:
+        num (int):
+
+    Returns:
+        int:
+    """
+    return math.floor(random.random() * num)
+
+
+def determine_if_execute_pointed_not_say_uno(number_card_of_player:dict)->None:
+    """
+    他のプレイヤーのUNO宣言漏れをチェックする
+
+    Args:
+        number_card_of_player(dict): {キー:プレイヤーID, 値:手札の枚数}
+    Returns:
+        None
+    """
+    global id, uno_declared
+
+    target = None
+    # 手札の枚数が1枚だけのプレイヤーを抽出する
+    # 2枚以上所持しているプレイヤーはUNO宣言の状態をリセットする
+    for k, v in number_card_of_player.items():
+        if k == id:
+            # 自分のIDは処理しない
+            break
+        elif v == 1:
+            # 1枚だけ所持しているプレイヤー
+            target = k
+            break
+        elif k in uno_declared:
+            # 2枚以上所持しているプレイヤーはUNO宣言の状態をリセットする
+            del uno_declared[k]
+
+    if target == None:
+        # 1枚だけ所持しているプレイヤーがいない場合、処理を中断する
+        return
+
+    # 抽出したプレイヤーがUNO宣言を行っていない場合宣言漏れを指摘する
+    if (target not in uno_declared.keys()):
+        send_event(SocketConst.EMIT.POINTED_NOT_SAY_UNO, { 'target': target })
+        time.sleep(TIME_DELAY / 1000)
+
+
 def send_event(event, data, callback = pass_func):
     """
     送信イベント共通処理
@@ -264,7 +313,7 @@ def on_first_player(data_res):
 @sio.on(SocketConst.EMIT.COLOR_OF_WILD)
 def on_color_of_wild(data_res):
     def color_of_wild_callback(data_res):
-
+        print("場札の色指定を要求", data_res)
         color = strategy.select_change_color(cards_status.my_cards)
         data = {
             'color_of_wild': color,
@@ -286,6 +335,7 @@ def on_update_color(data_res):
 @sio.on(SocketConst.EMIT.SHUFFLE_WILD)
 def on_shuffle_wild(data_res):
     def shuffle_wild_calback(data_res):
+        print("シャッフルワイルドにより手札状況が変更", data_res)
         global uno_declared
         uno_declared = {}
         for k, v in data_res.get('number_card_of_player').items():
@@ -427,12 +477,14 @@ def on_challenge(data_res):
 # チャレンジによる手札の公開
 @sio.on(SocketConst.EMIT.PUBLIC_CARD)
 def on_public_card(data_res):
+    print("チャレンジによる手札の公開", data_res)
     receive_event(SocketConst.EMIT.PUBLIC_CARD, data_res)
 
 
 # UNOコールを忘れていることを指摘
 @sio.on(SocketConst.EMIT.POINTED_NOT_SAY_UNO)
 def on_pointed_not_say_uno(data_res):
+    print("UNOコールを忘れていることを指摘", data_res)
     receive_event(SocketConst.EMIT.POINTED_NOT_SAY_UNO, data_res)
 
 
@@ -457,6 +509,7 @@ def on_finish_game(data_res):
 @sio.on(SocketConst.EMIT.PENALTY)
 def on_penalty(data_res):
     def penalty_callback(data_res):
+        print("ペナルティ発生", data_res)
         global uno_declared
         # カードが増えているのでUNO宣言の状態をリセットする
         if data_res.get('player') in uno_declared:
@@ -471,6 +524,7 @@ def main():
         transports=['websocket'],
     )
     sio.wait()
+
 
 if __name__ == '__main__':
     main()

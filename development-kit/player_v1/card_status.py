@@ -27,7 +27,7 @@ class Card_Status:
         self.my_cards = cards
    
 
-    def update_cards_status(self, cards:dict|list) -> None:
+    def update_cards_status(self, cards:any) -> None:
         """
         場に出たカードを減らす
 
