@@ -70,6 +70,7 @@ ARR_COLOR = [Color.RED, Color.YELLOW, Color.GREEN, Color.BLUE] # 色変更の選
 
 cards_status = Card_Status()
 strategy = Card_Select()
+my_UNO_flag = False
 
 """
 コマンドラインから受け取った変数等
@@ -314,7 +315,7 @@ def on_first_player(data_res):
 def on_color_of_wild(data_res):
     def color_of_wild_callback(data_res):
         print("場札の色指定を要求", data_res)
-        color = strategy.select_change_color(cards_status.my_cards)
+        color = strategy.select_change_color(cards_status.my_cards, cards_status.cards_status)
         data = {
             'color_of_wild': color,
         }
@@ -358,7 +359,10 @@ def on_shuffle_wild(data_res):
 # 自分の番
 @sio.on(SocketConst.EMIT.NEXT_PLAYER)
 def on_next_player(data_res):
+
     def next_player_calback(data_res):
+        global my_UNO_flag
+
         determine_if_execute_pointed_not_say_uno(data_res.get('number_card_of_player'))
 
         cards = data_res.get('card_of_player')
@@ -367,7 +371,7 @@ def on_next_player(data_res):
 
         if (data_res.get('draw_reason') == DrawReason.WILD_DRAW_4):
             # カードを引く理由がワイルドドロー4の時、チャレンジを行うことができる。
-            if is_challenge():
+            if my_UNO_flag == True:
                 send_event(SocketConst.EMIT.CHALLENGE, { 'is_challenge': True} )
                 return
 
@@ -390,9 +394,13 @@ def on_next_player(data_res):
                 'card_play': play_card,
                 'yell_uno': len(cards) == 2, # 残り手札数を考慮してUNOコールを宣言する
             }
+            if len(cards) == 2:
+                my_UNO_flag = True
+            else:
+                my_UNO_flag = False
 
             if play_card.get('special') == Special.WILD or play_card.get('special') == Special.WILD_DRAW_4:
-                color = strategy.select_change_color(cards_status.my_cards)
+                color = strategy.select_change_color(cards_status.my_cards, cards_status.cards_status)
                 data['color_of_wild'] = color
 
             # カードを出すイベントを実行
@@ -402,6 +410,8 @@ def on_next_player(data_res):
 
             # draw-cardイベント受信時の個別処理
             def draw_card_callback(res):
+                global my_UNO_flag
+                
                 if not res.get('can_play_draw_card'):
                     # 引いたカードが場に出せないので処理を終了
                     return
@@ -412,9 +422,14 @@ def on_next_player(data_res):
                     'yell_uno': len(cards + res.get('draw_card')) == 2, # 残り手札数を考慮してUNOコールを宣言する
                 }
 
+                if len(cards + res.get('draw_card')) == 2:
+                    my_UNO_flag = True
+                else:
+                    my_UNO_flag = False
+
                 play_card = res.get('draw_card')[0]
                 if play_card.get('special') == Special.WILD or play_card.get('special') == Special.WILD_DRAW_4:
-                    color = strategy.select_change_color(cards_status.my_cards)
+                    color = strategy.select_change_color(cards_status.my_cards, cards_status.cards_status)
                     data['color_of_wild'] = color
 
                 # 引いたカードを出すイベントを実行
@@ -422,6 +437,9 @@ def on_next_player(data_res):
 
             # カードを引くイベントを実行
             send_event(SocketConst.EMIT.DRAW_CARD, {}, draw_card_callback)
+
+    for i,v in data_res['number_card_of_player'].items():
+        cards_status.update_player_card_counts(i,v)
 
     receive_event(SocketConst.EMIT.NEXT_PLAYER, data_res, next_player_calback)
 
@@ -439,6 +457,7 @@ def on_play_card(data_res):
 
     if id != data_res['player']:
         cards_status.update_cards_status(data_res['card_play'])
+        cards_status.update_player_card_log(data_res['player'],data_res['card_play'])
 
     receive_event(SocketConst.EMIT.PLAY_CARD, data_res, play_card_callback)
 

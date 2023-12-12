@@ -67,24 +67,57 @@ class Card_Select:
             return None
         
 
-    def select_change_color(self, my_cards:list)->str:
+    def select_change_color(self, my_cards:list, card_status: dict)->str:
         """
         変更する色を選出する
+        
+        Args:
+            my_cards(list):自分の手札
+            card_status(dict):場に出ていない札の数の状況
 
         Returns:
             str: ランダムに選択された色
         """
         print("change_card")
         color_dic = {'red':0, 'blue':0, 'green':0, 'yellow':0}
+        select_color = 'red'
         
         for card in my_cards:
             card_color = card["color"]
             if card_color not in ["black","white"]:
                 color_dic[card_color] += 1
+                if color_dic[select_color] < color_dic[card_color]:
+                    select_color = card_color
+
+                elif color_dic[select_color] == color_dic[card_color]: #最も多い色札の枚数が被ったら
+                    if self.color_counting(select_color,card_status) > self.color_counting(card_color,card_status):
+                        select_color = card_color
+
 
         ans = sorted(color_dic.items(), key=lambda x:x[1], reverse=True)
         print(ans)
-        return ans[0][0]
+        return select_color
+
+
+    def color_counting(self,color:str,card_status:dict) -> int:
+        """
+        色を指定し、その色の場に出ていない札が何枚残っているか返す関数
+
+        Args:
+            color(str):指定した色
+            card_status(dict):場に出ていない札を管理する変数
+
+        Returns:
+            int:何枚残っているか
+
+        """
+
+        card_nums = card_status[color]
+        color_num = 0
+        for v in card_nums.values():
+            color_num += v
+        
+        return color_num
 
 
     def decision_priority(self, cards:list) -> list:
@@ -135,9 +168,9 @@ class Card_Select:
         return ans_lis
     
 
-def is_challenge()->bool:
+# def is_challenge()->bool:
     
-    return True
+#     return True
 
 
 def pass_func(err)->None:

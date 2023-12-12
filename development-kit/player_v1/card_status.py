@@ -1,7 +1,12 @@
+from collections import defaultdict, deque
+
+
 class Card_Status:
     def __init__(self) -> None:
         self.cards_status = self.init_cards_status()
         self.my_cards = []
+        self.player_card_counts = defaultdict(lambda: 7)
+        self.player_card_log = defaultdict(lambda: deque(maxlen=None))
 
 
     def init_cards_status(self) -> dict:
@@ -68,7 +73,7 @@ class Card_Status:
         for card in self.my_cards:
             card_color = card["color"]
             if "number" in card:
-                card_type = card["number"]
+                card_type = str(card["number"])
             elif "special" in card:
                 card_type = card["special"]
                 if card_type == "wild_draw_4":
@@ -82,3 +87,47 @@ class Card_Status:
                 return True
             
         return False
+    
+    def update_player_card_counts(self, player:str, card_num:int) -> None:
+        """
+        適宜イベント時に呼び出して、
+        引数で指定したプレイヤーのカードを更新させる関数
+
+        Args: 
+            player(str): カードを出した or 引いたプレイヤー名
+            draw_num(int): カードを受け取る枚数, 負の整数も可能
+        Returns: 
+            None
+        """
+        self.player_card_counts[player] = card_num
+
+        # Debug用プリント処理
+        # if self.player_card_counts[player] < 0:
+        #     print(f"{player}のカード枚数は0以上でなれければならない。")
+
+
+    def update_player_card_log(self, player:str, card:any) -> None:
+        """
+        プレイヤーごとに
+        - どのようなカードを場に出したか
+        - そのときの、カードを出した後のの残り枚数
+        を時系列で記録する関数
+
+        Args: 
+            player(str): プレイヤー名
+            card(any): 場に出したカード
+            
+        Returns: 
+            None
+        """
+        tmp_dict = {
+            "card_counts":self.player_card_counts[player]-1,
+            "card": card,
+        }
+        self.player_card_log[player].append(tmp_dict)
+        if len(self.player_card_log[player]) >= 2:
+            print("今のは" + str(self.player_card_log[player][-1]))
+            print("その前は" + str(self.player_card_log[player][-2]))
+
+
+
