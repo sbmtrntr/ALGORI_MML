@@ -1,13 +1,17 @@
+from collections import defaultdict
+
 class Card_Select:
+
     def __init__(self) -> None:
         self.shuffle_wild_flag = False
+        self.order_dic = defaultdict(dict)
 
 
     def check_wild_shuffle(self, flag:bool) -> None:
         self.shuffle_wild_flag = flag
 
 
-    def select_play_card(self, my_cards:list, before_card:dict) -> dict:    
+    def select_play_card(self, my_cards:list, player_card_counts:dict ,before_card:dict) -> dict:    
         """
         出すカードを選出する
 
@@ -55,8 +59,17 @@ class Card_Select:
 
         ######追加#######
         if len(valid_card_list) > 0:
-            tmp_list = self.decision_priority(valid_card_list)
-            sort_pri_list = sorted(tmp_list, key=lambda x: (x[1][0], -x[1][1]))
+            for i,v in self.order_dic.items():
+                if v["Unoか"] == True:
+                    tmp_list = self.defensive_card_choice(valid_card_list, v["位置"])
+
+                elif self.analyze_situ(my_cards, player_card_counts) == "akan":
+                    tmp_list = self.decision_priority_0(valid_card_list)    
+                    sort_pri_list = sorted(tmp_list, key=lambda x: (x[1][0], -x[1][1]))
+
+                else:
+                    return valid_card_list[0]
+
         else:
             sort_pri_list = valid_card_list
 
@@ -65,7 +78,38 @@ class Card_Select:
             return sort_pri_list[0][0]
         else:
             return None
+
+
+    def defensive_card_choice(self, valid_card_list:list, pos:str) -> list:
+        """"ここを編集してください"""
+
+        if pos == "直前":
+            return valid_card_list
+        elif pos == "対面":
+            return valid_card_list
+        elif pos == "直後":
+            return valid_card_list
         
+        """"ここを編集してください"""
+
+
+    def analyze_situ(self, my_cards:dict, player_card_counts:dict) -> str:
+        """全体の手札の状況から戦況判断する関数"""
+        
+        min_cards_num = 100
+        for v in player_card_counts.values():
+            min_cards_num = min(v,min_cards_num)
+
+        if self.shuffle_wild_flag == True:
+            n = 1
+        else:
+            n = 4
+        
+        if len(my_cards) - min_cards_num >= n:
+            return "akan"
+        else:
+            return "normal"
+
 
     def select_change_color(self, my_cards:list, card_status: dict)->str:
         """
@@ -120,7 +164,7 @@ class Card_Select:
         return color_num
 
 
-    def decision_priority(self, cards:list) -> list:
+    def decision_priority_0(self, cards:list) -> list:
         """
         手札の優先度を決める関数
 
@@ -130,47 +174,74 @@ class Card_Select:
             ans_lis(list): 2次元配列(list in list), 要素=[cardオブジェクト, (優先順位, cardの数)]
         """
         ans_lis = []
-        if self.shuffle_wild_flag == False:
-            for card in cards:
-                if "special" in card.keys():
-                    if card.get("special") == "white_wild":
-                        ans_lis.append([card,(1,1)])
-                    elif card.get("special") == "wild_shuffle":
-                        ans_lis.append([card,(2,1)])
-                    elif card.get("special") == "wild_draw_4":
-                        ans_lis.append([card,(3,1)])
-                    elif card.get("special") == "wild":
-                        ans_lis.append([card,(4,1)])
-                    elif card.get("special") == "draw_2":
-                        ans_lis.append([card,(5,1)])
-                    elif card.get("special") == "skip" or card.get("special") == "reverse":
-                        ans_lis.append([card,(6,1)])
-                elif "number" in card.keys():
-                    ans_lis.append([card,(7,card.get("number"))])
-        else:
-            for card in cards:
-                if "special" in card.keys():
-                    if card.get("special") == "white_wild":
-                        ans_lis.append([card,(6,1)])
-                    elif card.get("special") == "wild_shuffle":
-                        ans_lis.append([card,(7,1)])
-                    elif card.get("special") == "wild_draw_4":
-                        ans_lis.append([card,(1,1)])
-                    elif card.get("special") == "wild":
-                        ans_lis.append([card,(5,1)])
-                    elif card.get("special") == "draw_2":
-                        ans_lis.append([card,(4,1)])
-                    elif card.get("special") == "skip" or card.get("special") == "reverse":
-                        ans_lis.append([card,(3,1)])
-                elif "number" in card.keys():
-                    ans_lis.append([card,(2,card.get("number"))])
+        #if self.shuffle_wild_flag == False:
+        for card in cards:
+            if "special" in card.keys():
+                if card.get("special") == "white_wild":
+                    ans_lis.append([card,(2,1)])
+                elif card.get("special") == "wild_shuffle":
+                    ans_lis.append([card,(1,1)])
+                elif card.get("special") == "wild_draw_4":
+                    ans_lis.append([card,(3,1)])
+                elif card.get("special") == "wild":
+                    ans_lis.append([card,(4,1)])
+                elif card.get("special") == "draw_2":
+                    ans_lis.append([card,(5,1)])
+                elif card.get("special") == "skip" or card.get("special") == "reverse":
+                    ans_lis.append([card,(6,1)])
+            elif "number" in card.keys():
+                ans_lis.append([card,(7,card.get("number"))])
+        # else:
+        #     for card in cards:
+        #         if "special" in card.keys():
+        #             if card.get("special") == "white_wild":
+        #                 ans_lis.append([card,(6,1)])
+        #             elif card.get("special") == "wild_shuffle":
+        #                 ans_lis.append([card,(7,1)])
+        #             elif card.get("special") == "wild_draw_4":
+        #                 ans_lis.append([card,(1,1)])
+        #             elif card.get("special") == "wild":
+        #                 ans_lis.append([card,(5,1)])
+        #             elif card.get("special") == "draw_2":
+        #                 ans_lis.append([card,(4,1)])
+        #             elif card.get("special") == "skip" or card.get("special") == "reverse":
+        #                 ans_lis.append([card,(3,1)])
+        #         elif "number" in card.keys():
+        #             ans_lis.append([card,(2,card.get("number"))])
 
         return ans_lis
     
 
-# def is_challenge()->bool:
+    def set_play_order(self, order:list, my_id:str) -> None:
+        """順番を記憶させる関数"""
+
+        my_pos = order.index(my_id)
+        self.order_dic[order[(my_pos+1)%4]] = {"位置":"直後", "Unoか":False}
+        self.order_dic[order[(my_pos+2)%4]] = {"位置":"対面", "Unoか":False}
+        self.order_dic[order[(my_pos+3)%4]] = {"位置":"直前", "Unoか":False}
+
+
+    def reverse_order(self) -> None:
+        """順番逆転に対応させる関数"""
+
+        for i, v in self.order_dic.items():
+            if v["位置"] == "直前":
+                self.order_dic[i]["位置"] = "直後"
+            elif v["位置"] == "直後":
+                self.order_dic[i]["位置"] = "直前"
+
     
-#     return True
+    def set_uno_player(self, player_id:str) -> None:
+        """UNO宣言したやつの記憶"""
+
+        print(player_id + "がUNOしました" )
+        self.order_dic[player_id]["Unoか"] = True
+
+    
+    def undo_uno_player(self, player_id:str) -> None:
+        """UNO宣言解除したやつの記憶"""
+
+        self.order_dic[player_id]["Unoか"] = False
 
 
 def pass_func(err)->None:

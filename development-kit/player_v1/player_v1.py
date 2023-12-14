@@ -307,6 +307,8 @@ def on_reciever_card(data_res):
 # 対戦の開始
 @sio.on(SocketConst.EMIT.FIRST_PLAYER)
 def on_first_player(data_res):
+    global strategy,id
+    strategy.set_play_order(data_res['play_order'],id)
     receive_event(SocketConst.EMIT.FIRST_PLAYER, data_res)
 
 
@@ -337,16 +339,18 @@ def on_update_color(data_res):
 def on_shuffle_wild(data_res):
     def shuffle_wild_calback(data_res):
         print("シャッフルワイルドにより手札状況が変更", data_res)
-        global uno_declared
+        global uno_declared,strategy
         uno_declared = {}
         for k, v in data_res.get('number_card_of_player').items():
             if v == 1:
                 # シャッフル後に1枚になったプレイヤーはUNO宣言を行ったこととする
                 uno_declared[data_res.get('player')] = True
+                strategy.set_uno_player(data_res.get('player'))
                 break
             elif k in uno_declared:
                 # シャッフル後に2枚以上のカードが配られたプレイヤーはUNO宣言の状態をリセットする
                 if data_res.get('player') in uno_declared:
+                    strategy.undo_uno_player(data_res.get('player'))
                     del uno_declared[k]
 
     cards_status.return_my_cards()
@@ -385,7 +389,7 @@ def on_next_player(data_res):
         if special_logic_num_random == 0:
             send_event(SocketConst.EMIT.SPECIAL_LOGIC, { 'title': SPECIAL_LOGIC_TITLE })
 
-        play_card = strategy.select_play_card(cards, data_res.get('card_before'))
+        play_card = strategy.select_play_card(cards, cards_status.player_card_counts, data_res.get('card_before'))
 
         if play_card:
             # 選出したカードがある時
@@ -449,15 +453,21 @@ def on_next_player(data_res):
 def on_play_card(data_res):
     def play_card_callback(data_res):
         global uno_declared
-        global cards_status
+        global cards_status,strategy
     
         # UNO宣言を行った場合は記録する
         if data_res.get('yell_uno'):
             uno_declared[data_res.get('player')] = data_res.get('yell_uno')
+            strategy.set_uno_player(data_res.get('player'))
 
     if id != data_res['player']:
         cards_status.update_cards_status(data_res['card_play'])
         cards_status.update_player_card_log(data_res['player'],data_res['card_play'])
+    
+    play_content = data_res['card_play']
+    if "special" in play_content.keys():
+        if play_content["special"] == "reverse":
+            strategy.reverse_order()
 
     receive_event(SocketConst.EMIT.PLAY_CARD, data_res, play_card_callback)
 
@@ -466,9 +476,10 @@ def on_play_card(data_res):
 @sio.on(SocketConst.EMIT.DRAW_CARD)
 def on_draw_card(data_res):
     def draw_card_callback(data_res):
-        global uno_declared
+        global uno_declared,strategy
         # カードが増えているのでUNO宣言の状態をリセットする
         if data_res.get('player') in uno_declared:
+            strategy.undo_uno_player(data_res.get('player'))
             del uno_declared[data_res.get('player')]
 
     
@@ -479,10 +490,11 @@ def on_draw_card(data_res):
 @sio.on(SocketConst.EMIT.PLAY_DRAW_CARD)
 def on_play_draw_card(data_res):
     def play_draw_card_callback(data_res):
-        global uno_declared
+        global uno_declared,strategy
         # UNO宣言を行った場合は記録する
         if data_res.get('yell_uno'):
             uno_declared[data_res.get('player')] = data_res.get('yell_uno')
+            strategy.set_uno_player(data_res.get('player'))
 
     receive_event(SocketConst.EMIT.PLAY_DRAW_CARD, data_res, play_draw_card_callback)
 

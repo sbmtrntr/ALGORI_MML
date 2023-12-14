@@ -64,6 +64,9 @@ class Card_Status:
             
             self.cards_status[card_color][card_type] -= 1
 
+        print("場に出ていないのは")
+        print(self.cards_status)
+
     
     def return_my_cards(self) -> None:
         """
