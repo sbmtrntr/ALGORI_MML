@@ -11,13 +11,14 @@ class Card_Select:
         self.shuffle_wild_flag = flag
 
 
-    def select_play_card(self, my_cards:list, player_card_counts:dict ,before_card:dict) -> dict:    
+    def select_play_card(self, my_cards:list, player_card_counts:dict, before_card:dict, status:dict) -> dict:    
         """
         出すカードを選出する
 
         Args:
             my_cards (list): 自分の手札
             before_card (dict): 場札のカード
+            status: Card_Statusインスタンス
         Return:
             best_card(dict): 最善手
         """
@@ -61,7 +62,8 @@ class Card_Select:
         if len(valid_card_list) > 0:
             for i,v in self.order_dic.items():
                 if v["Unoか"] == True:
-                    tmp_list = self.defensive_card_choice(valid_card_list, v["位置"])
+                    tmp_list = self.defensive_card_choice(valid_card_list, v["位置"], status)
+                    return tmp_list[0]
 
                 elif self.analyze_situ(my_cards, player_card_counts) == "akan":
                     tmp_list = self.decision_priority_0(valid_card_list)    
@@ -80,17 +82,150 @@ class Card_Select:
             return None
 
 
-    def defensive_card_choice(self, valid_card_list:list, pos:str) -> list:
-        """"ここを編集してください"""
+    def defensive_card_choice(self, valid_card_list:list, pos:str, status:dict) -> list:
+        """
+        負けそうな時に、失点を減らすことを優先するカードの出し方を選択する関数
+        カードの出し方は次を参照： https://github.com/sbmtrntr/ALGORI_MML/issues/11#issuecomment-1855121547
+        Args:
+            valid_card_list(list): 出すことのできるカードを格納するリスト
+            pos(str): {"直前", "対面", "直後"}のいずれか
 
-        if pos == "直前":
-            return valid_card_list
+        Returns:
+            rtn_list(list): 失点を減らすようにvalid_card_listをソートしたリスト
+        """
+
+        specials_dict = defaultdict(list)
+        nums_dict = defaultdict(dict)
+
+        print("pos is ", pos)
+
+        if pos == "直後":
+            # 有効カード情報を取得
+            for card in valid_card_list:
+                card_special = card.get('special')
+                card_number = card.get('number')
+                
+                if card_number:
+                    specials_dict[card_special].append(card)
+                else:
+                    card_color = card.get('color')
+                    nums_dict[card_color][card_number] = card
+            
+            # スペシャルカード(キー)を優先度順に格納したリスト
+            specials_key_list = ['wild_shuffle', 'draw_2', 'wild', 'white_wild', 'reverse', 'skip', 'draw_4']
+
+            # 場に見えている色順を得る
+            cnt_by_color = defaultdict(int)
+            for color in ['red', 'blue', 'green', 'yellow']:
+                cnt_by_color[color] = self.color_counting(color, status)
+            sorted_color = [item[0] for item in sorted(cnt_by_color.items(), key=lambda x: x[1])]
+            print("多く出されている色の順は", sorted_color)
+
+            # 色ごとに、場に見えている数字カードの数が大きい順に、手持ちの数字カードをソートする
+            tmp_num_list = []
+            for color in sorted_color:
+                sorted_by_cnt = [item[0] for item in sorted(status[color].items(), key=lambda x: x[1])]
+                for key in sorted_by_cnt:
+                    if key in nums_dict[card_color]:
+                        tmp_num_list.append(nums_dict[card_color][key])
+
+            # 返り値の作成
+            rtn_list = []
+            for key in specials_key_list:
+                rtn_list += specials_dict[key]
+            rtn_list += tmp_num_list
+
+            # Remove (DEBUG)
+            print('---出す順---')
+            for card in rtn_list:
+                card_number = card.get('number')
+                if card_number:
+                    card_color = card.get('color') 
+                    print(f'{card_color}の{card_number}', end=' ')
+                else:
+                    card_special = card.get('special')
+                    print(card_special, end=' ')
+            print()
+
+            return rtn_list
+
         elif pos == "対面":
-            return valid_card_list
-        elif pos == "直後":
-            return valid_card_list
+            # 有効カード情報を取得 
+            for card in valid_card_list:
+                card_special = card.get('special')
+                card_number = card.get('number')
+                
+                if card_number is None:
+                    specials_dict[card_special].append(card)
+                else:
+                    nums_dict[card_number] = card
+
+            # 数字カードの値が大きい順に数字カードをソートする
+            tmp_num_list = [item[1] for item in sorted(nums_dict.items(), key=lambda x:int(x[0]), reverse=True)]
+
+            # スペシャルカード(キー)を優先度順に格納したリスト
+            specials_key_list = ['wild_shuffle', 'white_wild', 'draw_4', 'draw_2', 'wild', 'reverse', 'skip']
+
+            # 返り値の作成
+            rtn_list = []
+            for key in specials_key_list:
+                rtn_list += specials_dict[key]
+            rtn_list += tmp_num_list
+
+            # Remove (DEBUG)
+            print('---出す順---')
+            for card in rtn_list:
+                card_number = card.get('number')
+                if card_number is None:
+                    card_color = card.get('color') 
+                    print(f'{card_color}の{card_number}', end=' ')
+                else:
+                    card_special = card.get('special')
+                    print(card_special, end=' ')
+            print()
+
+            return rtn_list
+            
+        elif pos == "直前":
+            # 有効カード情報を取得
+            for card in valid_card_list:
+                card_special = card.get('special')
+                card_number = card.get('number')
+                
+                if card_number is None:
+                    specials_dict[card_special].append(card)
+                else:
+                    nums_dict[card_number] = card
+
+            # スペシャルカード(キー)を優先度順に格納したリスト　※Reverseはあとで別途で追加する
+            specials_key_list = ['wild_shuffle', 'draw_4', 'draw_2', 'wild', 'white_wild', 'skip']
+
+            # 数字カードの値が大きい順に数字カードをソートする
+            tmp_num_list = [item[1] for item in sorted(nums_dict.items(), key=lambda x:int(x[0]), reverse=True)]
+
+            # 返り値の作成
+            rtn_list = []
+            for key in specials_key_list:
+                rtn_list += specials_dict[key]
+            rtn_list += tmp_num_list
+            rtn_list += specials_dict['reverse']
+
+            # Remove (DEBUG)
+            print('---出す順---')
+            for card in rtn_list:
+                card_number = card.get('number')
+                if card_number:
+                    card_color = card.get('color') 
+                    print(f'{card_color}の{card_number}', end=' ')
+                else:
+                    card_special = card.get('special')
+                    print(card_special, end=' ')
+            print()
+
+            return rtn_list
         
-        """"ここを編集してください"""
+        else:
+            return valid_card_list      
 
 
     def analyze_situ(self, my_cards:dict, player_card_counts:dict) -> str:
@@ -98,9 +233,9 @@ class Card_Select:
         
         min_cards_num = 100
         for v in player_card_counts.values():
-            min_cards_num = min(v,min_cards_num)
+            min_cards_num = min(v, min_cards_num)
 
-        if self.shuffle_wild_flag == True:
+        if self.shuffle_wild_flag:
             n = 1
         else:
             n = 4
@@ -134,7 +269,7 @@ class Card_Select:
                     select_color = card_color
 
                 elif color_dic[select_color] == color_dic[card_color]: #最も多い色札の枚数が被ったら
-                    if self.color_counting(select_color,card_status) > self.color_counting(card_color,card_status):
+                    if self.color_counting(select_color, card_status) > self.color_counting(card_color,card_status):
                         select_color = card_color
 
 
@@ -143,7 +278,7 @@ class Card_Select:
         return select_color
 
 
-    def color_counting(self,color:str,card_status:dict) -> int:
+    def color_counting(self, color:str, card_status:dict) -> int:
         """
         色を指定し、その色の場に出ていない札が何枚残っているか返す関数
 
