@@ -345,12 +345,14 @@ def on_shuffle_wild(data_res):
             if v == 1:
                 # シャッフル後に1枚になったプレイヤーはUNO宣言を行ったこととする
                 uno_declared[data_res.get('player')] = True
-                strategy.set_uno_player(data_res.get('player'))
+                if id != data_res.get('player'):
+                    strategy.set_uno_player(data_res.get('player'))
                 break
             elif k in uno_declared:
                 # シャッフル後に2枚以上のカードが配られたプレイヤーはUNO宣言の状態をリセットする
                 if data_res.get('player') in uno_declared:
-                    strategy.undo_uno_player(data_res.get('player'))
+                    if id != data_res.get('player'):
+                        strategy.undo_uno_player(data_res.get('player'))
                     del uno_declared[k]
 
     cards_status.return_my_cards()
@@ -458,7 +460,8 @@ def on_play_card(data_res):
         # UNO宣言を行った場合は記録する
         if data_res.get('yell_uno'):
             uno_declared[data_res.get('player')] = data_res.get('yell_uno')
-            strategy.set_uno_player(data_res.get('player'))
+            if id != data_res.get('player'):
+                strategy.set_uno_player(data_res.get('player'))
 
     if id != data_res['player']:
         cards_status.update_cards_status(data_res['card_play'])
@@ -479,7 +482,8 @@ def on_draw_card(data_res):
         global uno_declared,strategy
         # カードが増えているのでUNO宣言の状態をリセットする
         if data_res.get('player') in uno_declared:
-            strategy.undo_uno_player(data_res.get('player'))
+            if id != data_res.get('player'):
+                strategy.undo_uno_player(data_res.get('player'))
             del uno_declared[data_res.get('player')]
 
     
@@ -494,7 +498,8 @@ def on_play_draw_card(data_res):
         # UNO宣言を行った場合は記録する
         if data_res.get('yell_uno'):
             uno_declared[data_res.get('player')] = data_res.get('yell_uno')
-            strategy.set_uno_player(data_res.get('player'))
+            if id != data_res.get('player'):
+                strategy.set_uno_player(data_res.get('player'))
 
     receive_event(SocketConst.EMIT.PLAY_DRAW_CARD, data_res, play_draw_card_callback)
 

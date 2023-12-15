@@ -65,19 +65,14 @@ class Card_Select:
                     tmp_list = self.defensive_card_choice(valid_card_list, v["位置"], status)
                     return tmp_list[0]
 
-                elif self.analyze_situ(my_cards, player_card_counts) == "akan":
-                    tmp_list = self.decision_priority_0(valid_card_list)    
-                    sort_pri_list = sorted(tmp_list, key=lambda x: (x[1][0], -x[1][1]))
+            if self.analyze_situ(my_cards, player_card_counts) == "akan":
+                tmp_list = self.decision_priority_0(valid_card_list)    
+                sort_pri_list = sorted(tmp_list, key=lambda x: (x[1][0], -x[1][1]))
+                return sort_pri_list[0][0]
 
-                else:
-                    return valid_card_list[0]
+            else:
+                return valid_card_list[0]
 
-        else:
-            sort_pri_list = valid_card_list
-
-        #################
-        if len(sort_pri_list) > 0:
-            return sort_pri_list[0][0]
         else:
             return None
 
@@ -102,10 +97,11 @@ class Card_Select:
         if pos == "直後":
             # 有効カード情報を取得
             for card in valid_card_list:
+                #スペシャルカードと数字カードを振り分け
                 card_special = card.get('special')
                 card_number = card.get('number')
                 
-                if card_number:
+                if card_number is None:
                     specials_dict[card_special].append(card)
                 else:
                     card_color = card.get('color')
@@ -126,13 +122,16 @@ class Card_Select:
             for color in sorted_color:
                 sorted_by_cnt = [item[0] for item in sorted(status[color].items(), key=lambda x: x[1])]
                 for key in sorted_by_cnt:
-                    if key in nums_dict[card_color]:
-                        tmp_num_list.append(nums_dict[card_color][key])
+                    if key in nums_dict[color]:
+                        tmp_num_list.append(nums_dict[color][key])
+            print("tmp_num_list")
+            print(tmp_num_list)
 
             # 返り値の作成
             rtn_list = []
             for key in specials_key_list:
-                rtn_list += specials_dict[key]
+                if specials_dict.get(key,False) != False:
+                    rtn_list += specials_dict.get(key)
             rtn_list += tmp_num_list
 
             # Remove (DEBUG)
@@ -145,7 +144,7 @@ class Card_Select:
                 else:
                     card_special = card.get('special')
                     print(card_special, end=' ')
-            print()
+            print(rtn_list)
 
             return rtn_list
 
@@ -162,6 +161,8 @@ class Card_Select:
 
             # 数字カードの値が大きい順に数字カードをソートする
             tmp_num_list = [item[1] for item in sorted(nums_dict.items(), key=lambda x:int(x[0]), reverse=True)]
+            print("tmp_num_list")
+            print(tmp_num_list)
 
             # スペシャルカード(キー)を優先度順に格納したリスト
             specials_key_list = ['wild_shuffle', 'white_wild', 'draw_4', 'draw_2', 'wild', 'reverse', 'skip']
@@ -169,7 +170,10 @@ class Card_Select:
             # 返り値の作成
             rtn_list = []
             for key in specials_key_list:
-                rtn_list += specials_dict[key]
+                if specials_dict.get(key,False) != False:
+                    rtn_list += specials_dict.get(key)
+            print("rtn_list_1 :")
+            print(rtn_list)
             rtn_list += tmp_num_list
 
             # Remove (DEBUG)
@@ -182,7 +186,7 @@ class Card_Select:
                 else:
                     card_special = card.get('special')
                     print(card_special, end=' ')
-            print()
+            print(rtn_list)
 
             return rtn_list
             
@@ -202,13 +206,21 @@ class Card_Select:
 
             # 数字カードの値が大きい順に数字カードをソートする
             tmp_num_list = [item[1] for item in sorted(nums_dict.items(), key=lambda x:int(x[0]), reverse=True)]
+            print("tmp_num_list")
+            print(tmp_num_list)
 
             # 返り値の作成
             rtn_list = []
             for key in specials_key_list:
-                rtn_list += specials_dict[key]
+                if specials_dict.get(key,False) != False:
+                    rtn_list += specials_dict.get(key)
+
+            print("rtn_list_1 :")
+            print(rtn_list)
             rtn_list += tmp_num_list
-            rtn_list += specials_dict['reverse']
+            print("rtn_list_2 :")
+            print(rtn_list)
+            rtn_list += specials_dict.get('reverse',[])
 
             # Remove (DEBUG)
             print('---出す順---')
@@ -220,7 +232,7 @@ class Card_Select:
                 else:
                     card_special = card.get('special')
                     print(card_special, end=' ')
-            print()
+            print(rtn_list)
 
             return rtn_list
         
@@ -359,6 +371,8 @@ class Card_Select:
     def reverse_order(self) -> None:
         """順番逆転に対応させる関数"""
 
+        print("反転発動")
+        print(self.order_dic)
         for i, v in self.order_dic.items():
             if v["位置"] == "直前":
                 self.order_dic[i]["位置"] = "直後"
