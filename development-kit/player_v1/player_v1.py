@@ -389,7 +389,7 @@ def on_next_player(data_res):
         if special_logic_num_random == 0:
             send_event(SocketConst.EMIT.SPECIAL_LOGIC, { 'title': SPECIAL_LOGIC_TITLE })
 
-        play_card = strategy.select_play_card(cards, cards_status.player_card_counts, data_res.get('card_before'))
+        play_card = strategy.select_play_card(cards, cards_status.player_card_counts, data_res.get('card_before'), cards_status.cards_status)
 
         if play_card:
             # 選出したカードがある時
