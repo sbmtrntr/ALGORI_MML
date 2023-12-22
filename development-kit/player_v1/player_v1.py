@@ -339,21 +339,28 @@ def on_update_color(data_res):
 def on_shuffle_wild(data_res):
     def shuffle_wild_calback(data_res):
         print("シャッフルワイルドにより手札状況が変更", data_res)
-        global uno_declared,strategy
+        global uno_declared,strategy,my_UNO_flag
         uno_declared = {}
         for k, v in data_res.get('number_card_of_player').items():
             if v == 1:
                 # シャッフル後に1枚になったプレイヤーはUNO宣言を行ったこととする
-                uno_declared[data_res.get('player')] = True
-                if id != data_res.get('player'):
+                # uno_declared[data_res.get('player')] = True
+                uno_declared[k] = True
+                if id != k:
                     strategy.set_uno_player(data_res.get('player'))
-                break
+                else:
+                    my_UNO_flag = True
+                #break
+                    
             elif k in uno_declared:
                 # シャッフル後に2枚以上のカードが配られたプレイヤーはUNO宣言の状態をリセットする
-                if data_res.get('player') in uno_declared:
-                    if id != data_res.get('player'):
-                        strategy.undo_uno_player(data_res.get('player'))
-                    del uno_declared[k]
+                # if data_res.get('player') in uno_declared:    
+                if id != k:
+                    strategy.undo_uno_player(data_res.get('player'))
+                else:
+                    my_UNO_flag = False
+
+                del uno_declared[k]
 
     cards_status.return_my_cards()
     cards_status.update_cards_status(data_res.get("cards_receive"))
