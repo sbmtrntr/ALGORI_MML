@@ -8170,6 +8170,7 @@ describe('Test Event Socket', () => {
           number: 6,
         },
         mustCallDrawCard: true,
+        revealDesk: baseDesk.revealDesk.concat([{ color: 'black', special: Special.WILD_DRAW_4 }]),
       });
       await new Promise<void>((resolve) => {
         client1.emit(
@@ -8189,6 +8190,9 @@ describe('Test Event Socket', () => {
       chai.expect(desk.beforeCardPlay.color).to.equal(Color.RED);
       chai.expect(desk.cardAddOn).to.equal(0);
       chai.expect(desk.cardOfPlayer[Consts.PLAYER_4].length).to.equal(6);
+      chai
+        .expect(desk.cardOfPlayer[Consts.PLAYER_4])
+        .to.deep.include({ color: Color.BLACK, special: Special.WILD_DRAW_4 });
       await Promise.resolve();
     });
 
@@ -8226,6 +8230,7 @@ describe('Test Event Socket', () => {
         turnRight: false,
         mustCallDrawCard: true,
         activationWhiteWild: {},
+        revealDesk: baseDesk.revealDesk.concat([{ color: 'black', special: Special.WILD_DRAW_4 }]),
       });
       await new Promise<void>((resolve) => {
         client1.emit(
@@ -8246,6 +8251,9 @@ describe('Test Event Socket', () => {
       chai.expect(desk.beforeCardPlay.color).to.equal(Color.RED);
       chai.expect(desk.cardAddOn).to.equal(0);
       chai.expect(desk.cardOfPlayer[Consts.PLAYER_4].length).to.equal(6);
+      chai
+        .expect(desk.cardOfPlayer[Consts.PLAYER_4])
+        .to.deep.include({ color: Color.BLACK, special: Special.WILD_DRAW_4 });
       await Promise.resolve();
     });
 
@@ -8280,6 +8288,7 @@ describe('Test Event Socket', () => {
           // number: 6
         },
         mustCallDrawCard: true,
+        revealDesk: baseDesk.revealDesk.concat([{ color: 'black', special: Special.WILD_DRAW_4 }]),
       });
       await new Promise<void>((resolve) => {
         client1.emit(
@@ -8300,6 +8309,9 @@ describe('Test Event Socket', () => {
       chai.expect(desk.beforeCardPlay.color).to.equal(Color.RED);
       chai.expect(desk.cardAddOn).to.equal(0);
       chai.expect(desk.cardOfPlayer[Consts.PLAYER_4].length).to.equal(6);
+      chai
+        .expect(desk.cardOfPlayer[Consts.PLAYER_4])
+        .to.deep.include({ color: Color.BLACK, special: Special.WILD_DRAW_4 });
       await Promise.resolve();
     });
 
@@ -8335,6 +8347,7 @@ describe('Test Event Socket', () => {
           // number: 6
         },
         mustCallDrawCard: true,
+        revealDesk: baseDesk.revealDesk.concat([{ color: 'black', special: Special.WILD_DRAW_4 }]),
       });
       await new Promise<void>((resolve) => {
         client1.emit(
@@ -8355,6 +8368,9 @@ describe('Test Event Socket', () => {
       chai.expect(desk.beforeCardPlay.color).to.equal(Color.RED);
       chai.expect(desk.cardAddOn).to.equal(0);
       chai.expect(desk.cardOfPlayer[Consts.PLAYER_4].length).to.equal(6);
+      chai
+        .expect(desk.cardOfPlayer[Consts.PLAYER_4])
+        .to.deep.include({ color: Color.BLACK, special: Special.WILD_DRAW_4 });
       await Promise.resolve();
     });
 
@@ -8389,6 +8405,7 @@ describe('Test Event Socket', () => {
           // number: 6
         },
         mustCallDrawCard: true,
+        revealDesk: baseDesk.revealDesk.concat([{ color: 'black', special: Special.WILD_DRAW_4 }]),
       });
       await new Promise<void>((resolve) => {
         client1.emit(
@@ -8409,6 +8426,9 @@ describe('Test Event Socket', () => {
       chai.expect(desk.beforeCardPlay.color).to.equal(Color.RED);
       chai.expect(desk.cardAddOn).to.equal(0);
       chai.expect(desk.cardOfPlayer[Consts.PLAYER_4].length).to.equal(6);
+      chai
+        .expect(desk.cardOfPlayer[Consts.PLAYER_4])
+        .to.deep.include({ color: Color.BLACK, special: Special.WILD_DRAW_4 });
       await Promise.resolve();
     });
 
@@ -8443,6 +8463,7 @@ describe('Test Event Socket', () => {
           // number: 6
         },
         mustCallDrawCard: true,
+        revealDesk: baseDesk.revealDesk.concat([{ color: 'black', special: Special.WILD_DRAW_4 }]),
       });
       await new Promise<void>((resolve) => {
         client1.emit(
@@ -8463,6 +8484,9 @@ describe('Test Event Socket', () => {
       chai.expect(desk.beforeCardPlay.color).to.equal(Color.RED);
       chai.expect(desk.cardAddOn).to.equal(0);
       chai.expect(desk.cardOfPlayer[Consts.PLAYER_4].length).to.equal(6);
+      chai
+        .expect(desk.cardOfPlayer[Consts.PLAYER_4])
+        .to.deep.include({ color: Color.BLACK, special: Special.WILD_DRAW_4 });
       await Promise.resolve();
     });
 
@@ -8496,6 +8520,7 @@ describe('Test Event Socket', () => {
           number: 6,
         },
         mustCallDrawCard: true,
+        revealDesk: baseDesk.revealDesk.concat([{ color: 'black', special: Special.WILD_DRAW_4 }]),
       });
       await new Promise<void>((resolve) => {
         client1.emit(
@@ -8550,6 +8575,7 @@ describe('Test Event Socket', () => {
           // number: 6
         },
         mustCallDrawCard: true,
+        revealDesk: baseDesk.revealDesk.concat([{ color: 'black', special: Special.WILD_DRAW_4 }]),
       });
       await new Promise<void>((resolve) => {
         client1.emit(
@@ -8604,6 +8630,7 @@ describe('Test Event Socket', () => {
           // number: 6
         },
         mustCallDrawCard: true,
+        revealDesk: baseDesk.revealDesk.concat([{ color: 'black', special: Special.WILD_DRAW_4 }]),
       });
       await new Promise<void>((resolve) => {
         client1.emit(
@@ -8652,6 +8679,7 @@ describe('Test Event Socket', () => {
           number: 6,
         },
         mustCallDrawCard: true,
+        revealDesk: baseDesk.revealDesk.concat([{ color: 'black', special: Special.WILD_DRAW_4 }]),
       });
       await new Promise<void>((resolve) => {
         client1.emit(
@@ -8693,6 +8721,7 @@ describe('Test Event Socket', () => {
             },
           ],
         },
+        revealDesk: baseDesk.revealDesk.concat([{ color: 'black', special: Special.WILD_DRAW_4 }]),
       });
       await new Promise<void>((resolve) => {
         client1.emit(
@@ -8735,6 +8764,7 @@ describe('Test Event Socket', () => {
             },
           ],
         },
+        revealDesk: baseDesk.revealDesk.concat([{ color: 'black', special: Special.WILD_DRAW_4 }]),
       });
       await new Promise<void>((resolve) => {
         client1.emit(
@@ -8777,6 +8807,7 @@ describe('Test Event Socket', () => {
             },
           ],
         },
+        revealDesk: baseDesk.revealDesk.concat([{ color: 'black', special: Special.WILD_DRAW_4 }]),
       });
       await new Promise<void>((resolve) => {
         client1.emit(
@@ -8821,6 +8852,7 @@ describe('Test Event Socket', () => {
         },
         cardAddOn: 2,
         mustCallDrawCard: true,
+        revealDesk: baseDesk.revealDesk.concat([{ color: 'black', special: Special.WILD_DRAW_4 }]),
       });
       await new Promise<void>((resolve) => {
         client1.emit(
@@ -8865,6 +8897,7 @@ describe('Test Event Socket', () => {
         },
         cardAddOn: 4,
         mustCallDrawCard: true,
+        revealDesk: baseDesk.revealDesk.concat([{ color: 'black', special: Special.WILD_DRAW_4 }]),
       });
       await new Promise<void>((resolve) => {
         client1.emit(
@@ -8907,6 +8940,7 @@ describe('Test Event Socket', () => {
             },
           ],
         },
+        revealDesk: baseDesk.revealDesk.concat([{ color: 'black', special: Special.WILD_DRAW_4 }]),
       });
       await new Promise<void>((resolve) => {
         client1.emit(
@@ -8952,6 +8986,7 @@ describe('Test Event Socket', () => {
         },
         cardAddOn: 4,
         mustCallDrawCard: true,
+        revealDesk: baseDesk.revealDesk.concat([{ color: 'black', special: Special.WILD_DRAW_4 }]),
       });
       await new Promise<void>((resolve) => {
         client1.emit(
@@ -8997,6 +9032,7 @@ describe('Test Event Socket', () => {
         activationWhiteWild: {
           [Consts.PLAYER_1]: 1,
         },
+        revealDesk: baseDesk.revealDesk.concat([{ color: 'black', special: Special.WILD_DRAW_4 }]),
       });
       await new Promise<void>((resolve) => {
         client1.emit(
@@ -9043,6 +9079,7 @@ describe('Test Event Socket', () => {
         cardAddOn: 4,
         mustCallDrawCard: true,
         restrictInterrupt: true,
+        revealDesk: baseDesk.revealDesk.concat([{ color: 'black', special: Special.WILD_DRAW_4 }]),
       });
       await new Promise<void>((resolve) => {
         client1.emit(

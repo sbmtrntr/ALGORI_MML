@@ -107,8 +107,13 @@ class Card_Select:
                     card_color = card.get('color')
                     nums_dict[card_color][card_number] = card
             
+            print("特別カード")
+            print(specials_dict)
+            print("数字カード")
+            print(nums_dict)
+
             # スペシャルカード(キー)を優先度順に格納したリスト
-            specials_key_list = ['wild_shuffle', 'draw_2', 'wild', 'white_wild', 'reverse', 'skip', 'draw_4']
+            specials_key_list = ['wild_shuffle', 'draw_2', 'wild', 'white_wild', 'reverse', 'skip', 'wild_draw_4']
 
             # 場に見えている色順を得る
             cnt_by_color = defaultdict(int)
@@ -121,17 +126,21 @@ class Card_Select:
             tmp_num_list = []
             for color in sorted_color:
                 sorted_by_cnt = [item[0] for item in sorted(status[color].items(), key=lambda x: x[1])]
+                print("sorted_by_cnt")
+                print(sorted_by_cnt)
                 for key in sorted_by_cnt:
-                    if key in nums_dict[color]:
-                        tmp_num_list.append(nums_dict[color][key])
+                    if key not in ['draw_2', 'reverse', 'skip']:
+                        key = int(key)
+                        if key in nums_dict[color]:
+                            tmp_num_list.append(nums_dict[color][key])
             print("tmp_num_list")
             print(tmp_num_list)
 
             # 返り値の作成
             rtn_list = []
             for key in specials_key_list:
-                if specials_dict.get(key,False) != False:
-                    rtn_list += specials_dict.get(key)
+                # if specials_dict.get(key):
+                rtn_list += specials_dict.get(key,[])
             rtn_list += tmp_num_list
 
             # Remove (DEBUG)
@@ -165,7 +174,7 @@ class Card_Select:
             print(tmp_num_list)
 
             # スペシャルカード(キー)を優先度順に格納したリスト
-            specials_key_list = ['wild_shuffle', 'white_wild', 'draw_4', 'draw_2', 'wild', 'reverse', 'skip']
+            specials_key_list = ['wild_shuffle', 'white_wild', 'wild_draw_4', 'draw_2', 'wild', 'reverse', 'skip']
 
             # 返り値の作成
             rtn_list = []
@@ -202,7 +211,7 @@ class Card_Select:
                     nums_dict[card_number] = card
 
             # スペシャルカード(キー)を優先度順に格納したリスト　※Reverseはあとで別途で追加する
-            specials_key_list = ['wild_shuffle', 'draw_4', 'draw_2', 'wild', 'white_wild', 'skip']
+            specials_key_list = ['wild_shuffle', 'wild_draw_4', 'draw_2', 'wild', 'white_wild', 'skip']
 
             # 数字カードの値が大きい順に数字カードをソートする
             tmp_num_list = [item[1] for item in sorted(nums_dict.items(), key=lambda x:int(x[0]), reverse=True)]
@@ -390,6 +399,7 @@ class Card_Select:
     def undo_uno_player(self, player_id:str) -> None:
         """UNO宣言解除したやつの記憶"""
 
+        print(player_id + "がUNO解除しました" )
         self.order_dic[player_id]["Unoか"] = False
 
 

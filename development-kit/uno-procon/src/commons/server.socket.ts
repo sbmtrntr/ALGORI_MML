@@ -106,7 +106,7 @@ async function nextPlayerAction(
         numberTurnPlay = nextPlayerInfo.numberTurnPlay;
       }
     } else {
-      // チャレンジを行わなかった時場合、引き続き現在のプレイヤーの手番であるため、何も処理を行わない。
+      // チャレンジを行わなかった場合、引き続き現在のプレイヤーの手番であるため、何も処理を行わない。
       return;
     }
   }
@@ -1379,7 +1379,7 @@ socketServer.on('connection', function (socket) {
           desk.numberCardPlay++;
           desk.revealDesk.push(cardPlay);
           desk.colorBeforeWild = desk.beforeCardPlay.color; // 前のカードの色を保存
-          desk.beforeCardPlay = cardPlay;
+          desk.beforeCardPlay = { ...cardPlay };
           if (
             (cardPlay.special as Special) === Special.WILD ||
             (cardPlay.special as Special) === Special.WILD_DRAW_4
@@ -1388,7 +1388,7 @@ socketServer.on('connection', function (socket) {
           }
           desk.beforePlayer = player;
           if ((desk.beforeCardPlay.special as Special) === Special.WILD_DRAW_4) {
-            desk.cardBeforeWildDraw4 = beforeCardPlay;
+            desk.cardBeforeWildDraw4 = { ...beforeCardPlay };
             desk.cardAddOn += 4;
           } else {
             desk.cardAddOn = 0;
@@ -1431,7 +1431,7 @@ socketServer.on('connection', function (socket) {
               player,
               turn: desk.turn,
               contents: {
-                color_of_wild: data.card_play.color,
+                color_of_wild: desk.beforeCardPlay.color,
                 number_turn_play: desk.numberTurnPlay,
               },
               desk: CommonService.deskLog({
@@ -1918,7 +1918,7 @@ socketServer.on('connection', function (socket) {
           // 次のプレイヤーに手番を回すため、各項目をリセット
           if (data.is_play_card) {
             desk.colorBeforeWild = desk.beforeCardPlay.color;
-            desk.beforeCardPlay = cardPlay;
+            desk.beforeCardPlay = { ...cardPlay };
             cardOfPlayer = CommonService.removeCardOfPlayer(cardPlay, cardOfPlayer);
             desk.cardOfPlayer[player] = CommonService.sortCardOfPlayer(cardOfPlayer);
             desk.revealDesk.push(cardPlay);
@@ -1933,7 +1933,7 @@ socketServer.on('connection', function (socket) {
           }
           desk.beforePlayer = player;
           if ((desk.beforeCardPlay.special as Special) === Special.WILD_DRAW_4) {
-            desk.cardBeforeWildDraw4 = beforeCardPlay;
+            desk.cardBeforeWildDraw4 = { ...beforeCardPlay };
             desk.cardAddOn += 4;
           } else {
             desk.cardAddOn = 0;
@@ -1988,7 +1988,7 @@ socketServer.on('connection', function (socket) {
               player,
               turn: desk.turn,
               contents: {
-                color_of_wild: data.color_of_wild,
+                color_of_wild: desk.beforeCardPlay.color,
                 number_turn_play: desk.numberTurnPlay,
               },
               desk: CommonService.deskLog({
@@ -2195,7 +2195,7 @@ socketServer.on('connection', function (socket) {
               }
 
               // 次のイベント（play-card or draw-card）のために各項目をリセット
-              desk.beforeCardPlay = desk.cardBeforeWildDraw4;
+              desk.beforeCardPlay = { ...desk.cardBeforeWildDraw4 };
               desk.drawDesk = drawDesk;
               desk.revealDesk = revealDesk;
               cardDraws = cardDraws.concat(drawCards);
