@@ -11,7 +11,7 @@ class Status:
         self.uno_declared = {}
         self.my_uno_flag = False
         self.num_of_deck = NUM_OF_ALL_CARDS-4*7-1 # 山札の枚数
-        self.penalty_flag = False # ペナルティフラグ
+        self.num_of_field = 1 # 場にあるカードの枚数
 
         # プレイヤーごとに手札の枚数を記録しておくディクショナリ
         self.player_card_counts = defaultdict(int)
@@ -70,28 +70,7 @@ class Status:
         print("場札または手札にないのは")
         print("カードステータス:", self.cards_status)
 
-
-    def update_feild_cards(self, card:any, player:str) -> None:
-        """場に出たカードを記録するメソッド"""
-        # このメソッドでは「cards_status」を操作しない
-
-        # プレイヤーの手札を1枚減らす
-        self.player_card_counts[player] -= 1 
-
-        # カードを記録する
-        self.feild_cards.append(card)
-
-        # DEBUG
-        print("---場にカードを出した---")
-        print("プレイヤー:", player)
-        print("カード:", card)
-
-        print("プレイヤーの手札枚数")
-        for k, v in self.player_card_counts.items():
-            print(f"{k}:{v}枚", end=" ")
-        print()        
-
-
+    
     def return_my_cards(self) -> None:
         """
         シャッフルによって場に戻った手札の分cards_statusを更新する
@@ -108,15 +87,17 @@ class Status:
         return False
 
 
-    def update_player_card_counts(self, player: str, card_num: int) -> None:
+    def check_player_card_counts(self, player: str, card_num: int) -> None:
         """
         「自分のターン時に」呼び出して、
         引数で指定したプレイヤーのカードを更新させる関数
         カード枚数を照合する役割を果たす
+        ※ペナルティなどのイベントで枚数計算がうまくいかない場合がある
+        ※毎ターン提示される各プレイヤーの枚数情報を用いて正しい枚数に修正する
 
         Args:
             player(str): カードを出した or 引いたプレイヤー名
-            draw_num(int): カードを受け取る枚数, 負の整数も可能
+            draw_num(int): カードの枚数
         """
 
         # Debug用プリント処理
@@ -127,37 +108,35 @@ class Status:
         print("正しいか:", self.player_card_counts[player]==card_num)
 
         # 更新
-        self.player_card_counts[player] = card_num
+        if self.player_card_counts[player] != card_num:
+            print("正しい枚数に更新する")
+            self.player_card_counts[player] = card_num
 
 
-    # def update_player_card_log(self, player:str, card:any) -> None:
-    #     """
-    #     プレイヤーごとに
-    #     - どのようなカードを場に出したか
-    #     - そのときの、カードを出した後の残り枚数
-    #     を時系列で記録する関数
+    def update_player_card_log(self, player:str, card:any) -> None:
+        """
+        プレイヤーごとに
+        - どのようなカードを場に出したか
+        - そのときの、カードを出した後の残り枚数
+        を時系列で記録する関数
 
-    #     Args:
-    #         player(str): プレイヤー名
-    #         card(any): 場に出したカード
-    #     """
+        Args:
+            player(str): プレイヤー名
+            card(any): 場に出したカード
+        """
 
-    #     # カードを1枚出したので指定プレイヤーの手札枚数を1減らす
-    #     self.player_card_counts[player] -= 1
+        tmp_dict = {
+            "card_counts":self.player_card_counts[player],
+            "card": card,
+        }
 
-    #     tmp_dict = {
+        # プレイヤーごとにカードログを記録
+        self.player_card_log[player].append(tmp_dict)
 
-    #         "card_counts":self.player_card_counts[player],
-    #         "card": card,
-    #     }
-
-    #     # プレイヤーごとにカードログを記録
-    #     self.player_card_log[player].append(tmp_dict)
-
-    #     # DEBUG用
-    #     if len(self.player_card_log[player]) >= 2:
-    #         print("今のは" + str(self.player_card_log[player][-1]))
-    #         print("その前は" + str(self.player_card_log[player][-2]))
+        # DEBUG用
+        if len(self.player_card_log[player]) >= 2:
+            print("今のは" + str(self.player_card_log[player][-1]))
+            print("その前は" + str(self.player_card_log[player][-2]))
 
 
     def set_play_order(self, order: list, my_id: str) -> None:
@@ -207,22 +186,12 @@ class Status:
             self.cards_status[card_color][card_type] -= 1
 
         # 山札枚数を再計算する
-        self.num_of_deck = self.calc_num_of_deck()
+        self.num_of_deck = self.num_of_field - 1 # 最後の1枚を除いて山札に戻す
+        self.num_of_field = 1 # 場のカードは1枚にする
 
-
-    def calc_num_of_deck(self) -> int:
-        """山札の枚数を計算するメソッド"""
-        cnt = NUM_OF_ALL_CARDS
-
-        # 各プレイヤーの手持ちの枚数だけ山札の枚数を減らす
-        for card_cnt in self.player_card_counts:
-            cnt -= card_cnt
-
-        # 最後に場に出されたカードの分を減らす
-        cnt -= 1
-
-        # 計算結果をnum_of_deckに格納する
-        return cnt
+        # debug print
+        print("---山札のリセットがうまくできているか---")
+        self.debug_print()
     
 
     def get_keys_for_card_status(self, card) -> tuple:
@@ -255,39 +224,50 @@ class Status:
         return (card_color, card_type)
     
 
-    def draw_card(self, player:str) -> None:
-        """カードが山札から引かれた時に実行されるメソッド"""
+    def draw_card(self, player:str, penalty_draw:int=0) -> None:
+        """
+        カードが山札から引かれた時に実行されるメソッド
+        ※このメソッドでは「cards_status」を操作しない
+        
+        Args:
+            player(str): カードを引くプレイヤー
+            penalty_draw(bool): ペナルティ時に何枚引くかを指定する ※0枚の時はペナルティ無しと扱う  
+        """
+        # 自分がカードを引いた際、そのターンにどのカードを引いたのか判定できない
+        # 自分のターンが回ってきたときに増加分のカードのcards_statusを更新する
 
-        print("カードを引きます")
+        print(f"---{player}がカードを引きます---")
 
         # 手持ちが25枚より大きい状態になることを許容するか
         is_ok_over_25 = True
 
-        # ペナルティの場合は2枚引く
-        if self.penalty_flag:
-            num_of_draw = 2
-            self.penalty_flag = False # ペナルティフラグを下ろす
+        # 最後に出されたカードを取得する
+        top_card = self.feild_cards[-1]
+
+        # ペナルティの場合は指定した回数分だけ引く
+        if penalty_draw:
+            num_of_draw = penalty_draw
             is_ok_over_25 = False 
             print("引く理由: ペナルティ")
 
         # 山札から引くカードの枚数を指定
         # 最後に場に出されたカードに応じて場合分け
-        if self.feild_cards[-1].get("special") == "draw_2":
+        elif top_card.get("special") == "draw_2":
             num_of_draw = 2
             print("引く理由: draw_2")
 
-        elif self.feild_cards[-1].get("special") == "wild_draw_4":
+        elif top_card.get("special") == "wild_draw_4":
             num_of_draw = 4
             print(f"引く理由: wild_draw_4")
 
-        elif self.feild_cards[-1].get("special") == "white_wild":
+        elif top_card.get("special") == "white_wild":
             num_of_draw = 2
             print(f"引く理由: white_wild")
 
         else:
             num_of_draw = 1
             is_ok_over_25 = True
-            print(f"引く理由: 場に出すカードがない(最行動可能)")
+            print(f"引く理由: 場に出すカードがない(再行動可能)")
 
         print("---更新前---")
         print(f"山札:{self.num_of_deck}枚")
@@ -318,6 +298,45 @@ class Status:
 
         # 最後に場に出されたカードがドロー系カードの場合
         # 次プレイヤーが同じ被害を被らないようにしておく
-        if self.feild_cards[-1].get("special") in ["draw_2", "wild_draw_4", "white_wild"]:
+        if top_card.get("special") in ["draw_2", "wild_draw_4", "white_wild"]:
             self.feild_cards.append({}) # 一度効力を発動したドローカードは無効化
+
+
+    def play_card(self, card:any, player:str) -> None:
+        """
+        カードを場に出した際に呼ばれるメソッド
+        ※このメソッドでは「cards_status」を操作しない
         
+        Args:
+            card(any): 場に出たカード
+            player(str): カードを出したプレイヤー
+        """
+
+        # プレイヤーの手札を1枚減らす
+        self.player_card_counts[player] -= 1 
+
+        # 場のカード枚数を1枚増やす
+        self.num_of_field += 1
+
+        # カードを記録する
+        self.feild_cards.append(card) # 場に出たカードの記録
+        self.update_player_card_log(player, card) # プレイヤーごとのログを取る
+
+        # DEBUG
+        print("---場にカードを出した---")
+        print("プレイヤー:", player)
+        print("カード:", card)
+        self.debug_print()   
+ 
+
+    def debug_print(self) -> None:
+        """Debug用のメソッド"""
+        print("山札の枚数:", self.num_of_deck)
+        print("場の枚数:", self.num_of_field)
+        cnt = self.num_of_field + self.num_of_deck
+        for k, v in self.player_card_counts.items():
+            print(f"{k}の枚数:", v)
+            cnt += v
+        print("カード合計:", cnt)
+        print("CHECK:", cnt==NUM_OF_ALL_CARDS)
+        print("最後に記録されたカード:", self.feild_cards[-1])
