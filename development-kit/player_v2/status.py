@@ -1,16 +1,26 @@
 from collections import defaultdict, deque
 from typing import Union
 
+NUM_OF_ALL_CARDS = 112
 
 class Status:
     def __init__(self) -> None:
         self.cards_status = self.init_cards_status()
         self.my_cards = []
-        self.player_card_counts = defaultdict(lambda: 7)
-        self.player_card_log = defaultdict(lambda: deque(maxlen=None))
         self.order_dic = {}
         self.uno_declared = {}
         self.my_uno_flag = False
+        self.num_of_deck = NUM_OF_ALL_CARDS-4*7-1 # 山札の枚数
+        self.penalty_flag = False # ペナルティフラグ
+
+        # プレイヤーごとに手札の枚数を記録しておくディクショナリ
+        self.player_card_counts = defaultdict(int)
+
+        # 「誰が」「どのカードを」出したかを記録するディクショナリ
+        self.player_card_log = defaultdict(lambda: deque(maxlen=None))
+
+        # 場に出されたカードを記録する配列
+        self.feild_cards = deque(maxlen=None)
 
 
     def init_cards_status(self) -> dict:
@@ -25,50 +35,61 @@ class Status:
             "black" : {"wild": 4, "wild_draw_4": 4, "wild_shuffle": 1},
             "white" : {"white_wild": 3},
         }
-
         return cards_status
+    
+
+    def init_player_card_counts(self, player_id_list: list) -> None:
+        """
+        プレイヤーのカード枚数カウントを初期化するメソッド
+        Args:
+            player_id_list(list): 全員分のplayer_idを格納したリスト
+        """
+        for player_id in player_id_list:
+            self.player_card_counts[player_id] = 7
 
 
     def set_my_cards(self, cards:list) -> None:
-        """
-        自分の手札(my_cards)の更新
-        """
+        """自分の手札(my_cards)の更新"""
         self.my_cards = cards
 
 
     def update_cards_status(self, cards: Union[dict, list]) -> None:
         """
-        場に出たカードを減らす
-
+        場に出たカード、手札に来たカードからcards_statusを更新するメソッド
         Args:
             cards (dict|list): 場に出たカード or 手札に来たカード
-        Returns:
-            None
         """
         if isinstance(cards, dict):
+            # 場に出されたカードの場合は記録しておく
             cards = [cards]
 
         for card in cards:
-            card_color = card["color"]
-
-            # draw4とwildカード系は使用時に変更先の色として使われるので特殊処理する
-            if "special" in card and card["special"] in ["wild", "wild_draw_4"]:
-                card_color = "black"
-                card_type = card["special"]
-
-            elif card_color in ["black", "white"]:
-                card_type = card["special"]
-
-            else:
-                if "number" in card:
-                    card_type = str(card["number"])
-                else:
-                    card_type = card["special"]
-
+            card_color, card_type = self.get_keys_for_card_status(card)
             self.cards_status[card_color][card_type] -= 1
 
         print("場札または手札にないのは")
-        print(self.cards_status)
+        print("カードステータス:", self.cards_status)
+
+
+    def update_feild_cards(self, card:any, player:str) -> None:
+        """場に出たカードを記録するメソッド"""
+        # このメソッドでは「cards_status」を操作しない
+
+        # プレイヤーの手札を1枚減らす
+        self.player_card_counts[player] -= 1 
+
+        # カードを記録する
+        self.feild_cards.append(card)
+
+        # DEBUG
+        print("---場にカードを出した---")
+        print("プレイヤー:", player)
+        print("カード:", card)
+
+        print("プレイヤーの手札枚数")
+        for k, v in self.player_card_counts.items():
+            print(f"{k}:{v}枚", end=" ")
+        print()        
 
 
     def return_my_cards(self) -> None:
@@ -76,63 +97,67 @@ class Status:
         シャッフルによって場に戻った手札の分cards_statusを更新する
         """
         for card in self.my_cards:
-            card_color = card["color"]
-            if "number" in card:
-                card_type = str(card["number"])
-            elif "special" in card:
-                card_type = card["special"]
-                if card_type == "wild_draw_4":
-                    card_color = "black"
+            card_color, card_type = self.get_keys_for_card_status(card)
             self.cards_status[card_color][card_type] += 1
 
 
     def wild_shuffle_flag(self) -> bool:
         for card in self.my_cards:
-            if card.get("special") == "wild_shuffle":
+            if card.get("special") == 'wild_shuffle':
                 return True
         return False
 
 
     def update_player_card_counts(self, player: str, card_num: int) -> None:
         """
-        適宜イベント時に呼び出して、
+        「自分のターン時に」呼び出して、
         引数で指定したプレイヤーのカードを更新させる関数
+        カード枚数を照合する役割を果たす
 
         Args:
             player(str): カードを出した or 引いたプレイヤー名
             draw_num(int): カードを受け取る枚数, 負の整数も可能
-        Returns:
-            None
         """
-        self.player_card_counts[player] = card_num
 
         # Debug用プリント処理
-        # if self.player_card_counts[player] < 0:
-        #     print(f"{player}のカード枚数は0以上でなれければならない。")
+        print("---枚数照合---")
+        print("誰？：", player)
+        print("dealerから送られてきたカード枚数:", card_num)
+        print("game_statusで記録していたカード枚数:", self.player_card_counts[player])
+        print("正しいか:", self.player_card_counts[player]==card_num)
+
+        # 更新
+        self.player_card_counts[player] = card_num
 
 
-    def update_player_card_log(self, player: str, card: any) -> None:
-        """
-        プレイヤーごとに
-        - どのようなカードを場に出したか
-        - そのときの、カードを出した後のの残り枚数
-        を時系列で記録する関数
+    # def update_player_card_log(self, player:str, card:any) -> None:
+    #     """
+    #     プレイヤーごとに
+    #     - どのようなカードを場に出したか
+    #     - そのときの、カードを出した後の残り枚数
+    #     を時系列で記録する関数
 
-        Args:
-            player(str): プレイヤー名
-            card(any): 場に出したカード
+    #     Args:
+    #         player(str): プレイヤー名
+    #         card(any): 場に出したカード
+    #     """
 
-        Returns:
-            None
-        """
-        tmp_dict = {
-            "card_counts":self.player_card_counts[player]-1,
-            "card": card,
-        }
-        self.player_card_log[player].append(tmp_dict)
-        if len(self.player_card_log[player]) >= 2:
-            print("今のは" + str(self.player_card_log[player][-1]))
-            print("その前は" + str(self.player_card_log[player][-2]))
+    #     # カードを1枚出したので指定プレイヤーの手札枚数を1減らす
+    #     self.player_card_counts[player] -= 1
+
+    #     tmp_dict = {
+
+    #         "card_counts":self.player_card_counts[player],
+    #         "card": card,
+    #     }
+
+    #     # プレイヤーごとにカードログを記録
+    #     self.player_card_log[player].append(tmp_dict)
+
+    #     # DEBUG用
+    #     if len(self.player_card_log[player]) >= 2:
+    #         print("今のは" + str(self.player_card_log[player][-1]))
+    #         print("その前は" + str(self.player_card_log[player][-2]))
 
 
     def set_play_order(self, order: list, my_id: str) -> None:
@@ -165,3 +190,134 @@ class Status:
         print(player_id + "がUNO解除しました" )
         self.order_dic[player_id]["UNO"] = False
 
+
+    def deck_empty(self) -> None:
+        """山札が0になった場合にcard_statusをリセットするメソッド"""
+        print("山札が切れました")
+        # card_statusのリセット
+        self.cards_status = self.init_cards_status()
+
+        # 最後に場に出されたカードは山札に戻らないのでcard_statusから除外する
+        card_color, card_type = self.get_keys_for_card_status(self.feild_cards[-1])
+        self.cards_status[card_color][card_type] -= 1
+
+        # 自分の手札カードも山札に戻らないのでcard_statusから除外する
+        for card in self.my_cards:
+            card_color, card_type = self.get_keys_for_card_status(card)
+            self.cards_status[card_color][card_type] -= 1
+
+        # 山札枚数を再計算する
+        self.num_of_deck = self.calc_num_of_deck()
+
+
+    def calc_num_of_deck(self) -> int:
+        """山札の枚数を計算するメソッド"""
+        cnt = NUM_OF_ALL_CARDS
+
+        # 各プレイヤーの手持ちの枚数だけ山札の枚数を減らす
+        for card_cnt in self.player_card_counts:
+            cnt -= card_cnt
+
+        # 最後に場に出されたカードの分を減らす
+        cnt -= 1
+
+        # 計算結果をnum_of_deckに格納する
+        return cnt
+    
+
+    def get_keys_for_card_status(self, card) -> tuple:
+        """
+        card_status用のkeyを取得するメソッド
+        
+        Args:
+            card(any):カード
+        Returns
+            tuple: (color, type)
+        """
+
+        # カードの色を取得
+        card_color = card["color"]
+
+        # draw4とwildカード系は使用時に変更先の色として使われるので特殊処理する
+        if "special" in card and card["special"] in ["wild_draw_4", "wild"]:
+            card_color = "black"
+            card_type = card["special"]
+
+        elif card_color in ["black", "white"]:
+            card_type = card["special"]
+
+        else:
+            if "number" in card:
+                card_type = str(card["number"])
+            else:
+                card_type = card["special"]
+
+        return (card_color, card_type)
+    
+
+    def draw_card(self, player:str) -> None:
+        """カードが山札から引かれた時に実行されるメソッド"""
+
+        print("カードを引きます")
+
+        # 手持ちが25枚より大きい状態になることを許容するか
+        is_ok_over_25 = True
+
+        # ペナルティの場合は2枚引く
+        if self.penalty_flag:
+            num_of_draw = 2
+            self.penalty_flag = False # ペナルティフラグを下ろす
+            is_ok_over_25 = False 
+            print("引く理由: ペナルティ")
+
+        # 山札から引くカードの枚数を指定
+        # 最後に場に出されたカードに応じて場合分け
+        if self.feild_cards[-1].get("special") == "draw_2":
+            num_of_draw = 2
+            print("引く理由: draw_2")
+
+        elif self.feild_cards[-1].get("special") == "wild_draw_4":
+            num_of_draw = 4
+            print(f"引く理由: wild_draw_4")
+
+        elif self.feild_cards[-1].get("special") == "white_wild":
+            num_of_draw = 2
+            print(f"引く理由: white_wild")
+
+        else:
+            num_of_draw = 1
+            is_ok_over_25 = True
+            print(f"引く理由: 場に出すカードがない(最行動可能)")
+
+        print("---更新前---")
+        print(f"山札:{self.num_of_deck}枚")
+        for k, v in self.player_card_counts.items():
+            print(f"{k}:{v}枚", end=" ")
+        print()
+
+        # 手持ちが25枚より多い状態になることが許容されない場合
+        if not is_ok_over_25:
+            # 引いた後の手札が25枚以下になるように引く枚数を調整する
+            print("25枚以下制約あり")
+            num_of_draw = max(0, min(25 - self.player_card_counts[player], num_of_draw))
+
+        # 山札とプレイヤーの手札の枚数を更新
+        self.num_of_deck -= num_of_draw
+        self.player_card_counts[player] += num_of_draw
+        
+        print("---更新後---")
+        print(f"山札から{player}へ{num_of_draw}枚移動")
+        print(f"山札:{self.num_of_deck}枚")
+        for k, v in self.player_card_counts.items():
+            print(f"{k}:{v}枚", end=" ")
+        print()
+
+        # 山札が無くなった場合は以下を実行
+        if self.num_of_deck <= 0:
+            self.deck_empty()
+
+        # 最後に場に出されたカードがドロー系カードの場合
+        # 次プレイヤーが同じ被害を被らないようにしておく
+        if self.feild_cards[-1].get("special") in ["draw_2", "wild_draw_4", "white_wild"]:
+            self.feild_cards.append({}) # 一度効力を発動したドローカードは無効化
+        

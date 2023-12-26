@@ -1,0 +1,3822 @@
+failed to get console mode for stdout: The handle is invalid.
+[1A[1B[0G[?25l[+] Building 0.0s (0/1)                                                         
+[?25h[1A[0G[?25l[+] Building 0.1s (2/3)                                                         
+[34m => [internal] load build definition from Dockerfile                       0.0s
+[0m[34m => => transferring dockerfile: 32B                                        0.0s
+[0m[34m => [internal] load .dockerignore                                          0.0s
+[0m[34m => => transferring context: 2B                                            0.0s
+[0m => [internal] load metadata for docker.io/library/python:3.8.6            0.0s
+[?25h[1A[1A[1A[1A[1A[1A[0G[?25l[+] Building 0.3s (2/3)                                                         
+[34m => [internal] load build definition from Dockerfile                       0.0s
+[0m[34m => => transferring dockerfile: 32B                                        0.0s
+[0m[34m => [internal] load .dockerignore                                          0.0s
+[0m[34m => => transferring context: 2B                                            0.0s
+[0m => [internal] load metadata for docker.io/library/python:3.8.6            0.2s
+[?25h[1A[1A[1A[1A[1A[1A[0G[?25l[+] Building 0.4s (2/3)                                                         
+[34m => [internal] load build definition from Dockerfile                       0.0s
+[0m[34m => => transferring dockerfile: 32B                                        0.0s
+[0m[34m => [internal] load .dockerignore                                          0.0s
+[0m[34m => => transferring context: 2B                                            0.0s
+[0m => [internal] load metadata for docker.io/library/python:3.8.6            0.3s
+[?25h[1A[1A[1A[1A[1A[1A[0G[?25l[+] Building 0.6s (2/3)                                                         
+[34m => [internal] load build definition from Dockerfile                       0.0s
+[0m[34m => => transferring dockerfile: 32B                                        0.0s
+[0m[34m => [internal] load .dockerignore                                          0.0s
+[0m[34m => => transferring context: 2B                                            0.0s
+[0m => [internal] load metadata for docker.io/library/python:3.8.6            0.5s
+[?25h[1A[1A[1A[1A[1A[1A[0G[?25l[+] Building 0.7s (2/3)                                                         
+[34m => [internal] load build definition from Dockerfile                       0.0s
+[0m[34m => => transferring dockerfile: 32B                                        0.0s
+[0m[34m => [internal] load .dockerignore                                          0.0s
+[0m[34m => => transferring context: 2B                                            0.0s
+[0m => [internal] load metadata for docker.io/library/python:3.8.6            0.6s
+[?25h[1A[1A[1A[1A[1A[1A[0G[?25l[+] Building 0.9s (2/3)                                                         
+[34m => [internal] load build definition from Dockerfile                       0.0s
+[0m[34m => => transferring dockerfile: 32B                                        0.0s
+[0m[34m => [internal] load .dockerignore                                          0.0s
+[0m[34m => => transferring context: 2B                                            0.0s
+[0m => [internal] load metadata for docker.io/library/python:3.8.6            0.8s
+[?25h[1A[1A[1A[1A[1A[1A[0G[?25l[+] Building 1.0s (2/3)                                                         
+[34m => [internal] load build definition from Dockerfile                       0.0s
+[0m[34m => => transferring dockerfile: 32B                                        0.0s
+[0m[34m => [internal] load .dockerignore                                          0.0s
+[0m[34m => => transferring context: 2B                                            0.0s
+[0m => [internal] load metadata for docker.io/library/python:3.8.6            0.9s
+[?25h[1A[1A[1A[1A[1A[1A[0G[?25l[+] Building 1.2s (2/3)                                                         
+[34m => [internal] load build definition from Dockerfile                       0.0s
+[0m[34m => => transferring dockerfile: 32B                                        0.0s
+[0m[34m => [internal] load .dockerignore                                          0.0s
+[0m[34m => => transferring context: 2B                                            0.0s
+[0m => [internal] load metadata for docker.io/library/python:3.8.6            1.1s
+[?25h[1A[1A[1A[1A[1A[1A[0G[?25l[+] Building 1.3s (2/3)                                                         
+[34m => [internal] load build definition from Dockerfile                       0.0s
+[0m[34m => => transferring dockerfile: 32B                                        0.0s
+[0m[34m => [internal] load .dockerignore                                          0.0s
+[0m[34m => => transferring context: 2B                                            0.0s
+[0m => [internal] load metadata for docker.io/library/python:3.8.6            1.2s
+[?25h[1A[1A[1A[1A[1A[1A[0G[?25l[+] Building 1.5s (2/3)                                                         
+[34m => [internal] load build definition from Dockerfile                       0.0s
+[0m[34m => => transferring dockerfile: 32B                                        0.0s
+[0m[34m => [internal] load .dockerignore                                          0.0s
+[0m[34m => => transferring context: 2B                                            0.0s
+[0m => [internal] load metadata for docker.io/library/python:3.8.6            1.4s
+[?25h[1A[1A[1A[1A[1A[1A[0G[?25l[+] Building 1.7s (2/3)                                                         
+[34m => [internal] load build definition from Dockerfile                       0.0s
+[0m[34m => => transferring dockerfile: 32B                                        0.0s
+[0m[34m => [internal] load .dockerignore                                          0.0s
+[0m[34m => => transferring context: 2B                                            0.0s
+[0m => [internal] load metadata for docker.io/library/python:3.8.6            1.6s
+[?25h[1A[1A[1A[1A[1A[1A[0G[?25l[+] Building 1.8s (2/3)                                                         
+[34m => [internal] load build definition from Dockerfile                       0.0s
+[0m[34m => => transferring dockerfile: 32B                                        0.0s
+[0m[34m => [internal] load .dockerignore                                          0.0s
+[0m[34m => => transferring context: 2B                                            0.0s
+[0m => [internal] load metadata for docker.io/library/python:3.8.6            1.7s
+[?25h[1A[1A[1A[1A[1A[1A[0G[?25l[+] Building 2.0s (2/3)                                                         
+[34m => [internal] load build definition from Dockerfile                       0.0s
+[0m[34m => => transferring dockerfile: 32B                                        0.0s
+[0m[34m => [internal] load .dockerignore                                          0.0s
+[0m[34m => => transferring context: 2B                                            0.0s
+[0m => [internal] load metadata for docker.io/library/python:3.8.6            1.9s
+[?25h[1A[1A[1A[1A[1A[1A[0G[?25l[+] Building 2.1s (3/3)                                                         
+[34m => [internal] load build definition from Dockerfile                       0.0s
+[0m[34m => => transferring dockerfile: 32B                                        0.0s
+[0m[34m => [internal] load .dockerignore                                          0.0s
+[0m[34m => => transferring context: 2B                                            0.0s
+[0m[34m => [internal] load metadata for docker.io/library/python:3.8.6            2.0s
+[0m[?25h[1A[1A[1A[1A[1A[1A[0G[?25l[+] Building 2.2s (7/9)                                                         
+[34m => => transferring context: 2B                                            0.0s
+[0m[34m => [internal] load metadata for docker.io/library/python:3.8.6            2.0s
+[0m[34m => [internal] load build context                                          0.0s
+[0m[34m => => transferring context: 12.64kB                                       0.0s
+[0m[34m => [1/5] FROM docker.io/library/python:3.8.6@sha256:c0834fbc6e4b987a8aa1  0.0s
+[0m[34m => CACHED [2/5] WORKDIR /app                                              0.0s
+[0m[34m => [3/5] COPY . .                                                         0.0s
+[0m => [4/5] RUN pip install --upgrade pip                                    0.1s
+[?25h[1A[1A[1A[1A[1A[1A[1A[1A[1A[0G[?25l[+] Building 2.4s (7/9)                                                         
+[34m => => transferring context: 2B                                            0.0s
+[0m[34m => [internal] load metadata for docker.io/library/python:3.8.6            2.0s
+[0m[34m => [internal] load build context                                          0.0s
+[0m[34m => => transferring context: 12.64kB                                       0.0s
+[0m[34m => [1/5] FROM docker.io/library/python:3.8.6@sha256:c0834fbc6e4b987a8aa1  0.0s
+[0m[34m => CACHED [2/5] WORKDIR /app                                              0.0s
+[0m[34m => [3/5] COPY . .                                                         0.0s
+[0m => [4/5] RUN pip install --upgrade pip                                    0.3s
+[?25h[1A[1A[1A[1A[1A[1A[1A[1A[1A[0G[?25l[+] Building 2.6s (7/9)                                                         
+[34m => => transferring context: 2B                                            0.0s
+[0m[34m => [internal] load metadata for docker.io/library/python:3.8.6            2.0s
+[0m[34m => [internal] load build context                                          0.0s
+[0m[34m => => transferring context: 12.64kB                                       0.0s
+[0m[34m => [1/5] FROM docker.io/library/python:3.8.6@sha256:c0834fbc6e4b987a8aa1  0.0s
+[0m[34m => CACHED [2/5] WORKDIR /app                                              0.0s
+[0m[34m => [3/5] COPY . .                                                         0.0s
+[0m => [4/5] RUN pip install --upgrade pip                                    0.4s
+[?25h[1A[1A[1A[1A[1A[1A[1A[1A[1A[0G[?25l[+] Building 2.7s (7/9)                                                         
+[34m => => transferring context: 2B                                            0.0s
+[0m[34m => [internal] load metadata for docker.io/library/python:3.8.6            2.0s
+[0m[34m => [internal] load build context                                          0.0s
+[0m[34m => => transferring context: 12.64kB                                       0.0s
+[0m[34m => [1/5] FROM docker.io/library/python:3.8.6@sha256:c0834fbc6e4b987a8aa1  0.0s
+[0m[34m => CACHED [2/5] WORKDIR /app                                              0.0s
+[0m[34m => [3/5] COPY . .                                                         0.0s
+[0m => [4/5] RUN pip install --upgrade pip                                    0.6s
+[?25h[1A[1A[1A[1A[1A[1A[1A[1A[1A[0G[?25l[+] Building 2.9s (7/9)                                                         
+[34m => => transferring context: 2B                                            0.0s
+[0m[34m => [internal] load metadata for docker.io/library/python:3.8.6            2.0s
+[0m[34m => [internal] load build context                                          0.0s
+[0m[34m => => transferring context: 12.64kB                                       0.0s
+[0m[34m => [1/5] FROM docker.io/library/python:3.8.6@sha256:c0834fbc6e4b987a8aa1  0.0s
+[0m[34m => CACHED [2/5] WORKDIR /app                                              0.0s
+[0m[34m => [3/5] COPY . .                                                         0.0s
+[0m => [4/5] RUN pip install --upgrade pip                                    0.7s
+[?25h[1A[1A[1A[1A[1A[1A[1A[1A[1A[0G[?25l[+] Building 3.0s (7/9)                                                         
+[34m => => transferring context: 2B                                            0.0s
+[0m[34m => [internal] load metadata for docker.io/library/python:3.8.6            2.0s
+[0m[34m => [internal] load build context                                          0.0s
+[0m[34m => => transferring context: 12.64kB                                       0.0s
+[0m[34m => [1/5] FROM docker.io/library/python:3.8.6@sha256:c0834fbc6e4b987a8aa1  0.0s
+[0m[34m => CACHED [2/5] WORKDIR /app                                              0.0s
+[0m[34m => [3/5] COPY . .                                                         0.0s
+[0m => [4/5] RUN pip install --upgrade pip                                    0.9s
+[?25h[1A[1A[1A[1A[1A[1A[1A[1A[1A[0G[?25l[+] Building 3.2s (7/9)                                                         
+[34m => => transferring context: 2B                                            0.0s
+[0m[34m => [internal] load metadata for docker.io/library/python:3.8.6            2.0s
+[0m[34m => [internal] load build context                                          0.0s
+[0m[34m => => transferring context: 12.64kB                                       0.0s
+[0m[34m => [1/5] FROM docker.io/library/python:3.8.6@sha256:c0834fbc6e4b987a8aa1  0.0s
+[0m[34m => CACHED [2/5] WORKDIR /app                                              0.0s
+[0m[34m => [3/5] COPY . .                                                         0.0s
+[0m => [4/5] RUN pip install --upgrade pip                                    1.0s
+[?25h[1A[1A[1A[1A[1A[1A[1A[1A[1A[0G[?25l[+] Building 3.3s (7/9)                                                         
+[34m => => transferring context: 2B                                            0.0s
+[0m[34m => [internal] load metadata for docker.io/library/python:3.8.6            2.0s
+[0m[34m => [internal] load build context                                          0.0s
+[0m[34m => => transferring context: 12.64kB                                       0.0s
+[0m[34m => [1/5] FROM docker.io/library/python:3.8.6@sha256:c0834fbc6e4b987a8aa1  0.0s
+[0m[34m => CACHED [2/5] WORKDIR /app                                              0.0s
+[0m[34m => [3/5] COPY . .                                                         0.0s
+[0m => [4/5] RUN pip install --upgrade pip                                    1.2s
+[?25h[1A[1A[1A[1A[1A[1A[1A[1A[1A[0G[?25l[+] Building 3.5s (7/9)                                                         
+[34m => => transferring context: 2B                                            0.0s
+[0m[34m => [internal] load metadata for docker.io/library/python:3.8.6            2.0s
+[0m[34m => [internal] load build context                                          0.0s
+[0m[34m => => transferring context: 12.64kB                                       0.0s
+[0m[34m => [1/5] FROM docker.io/library/python:3.8.6@sha256:c0834fbc6e4b987a8aa1  0.0s
+[0m[34m => CACHED [2/5] WORKDIR /app                                              0.0s
+[0m[34m => [3/5] COPY . .                                                         0.0s
+[0m => [4/5] RUN pip install --upgrade pip                                    1.3s
+[?25h[1A[1A[1A[1A[1A[1A[1A[1A[1A[0G[?25l[+] Building 3.6s (7/9)                                                         
+[34m => => transferring context: 2B                                            0.0s
+[0m[34m => [internal] load metadata for docker.io/library/python:3.8.6            2.0s
+[0m[34m => [internal] load build context                                          0.0s
+[0m[34m => => transferring context: 12.64kB                                       0.0s
+[0m[34m => [1/5] FROM docker.io/library/python:3.8.6@sha256:c0834fbc6e4b987a8aa1  0.0s
+[0m[34m => CACHED [2/5] WORKDIR /app                                              0.0s
+[0m[34m => [3/5] COPY . .                                                         0.0s
+[0m => [4/5] RUN pip install --upgrade pip                                    1.5s
+[?25h[1A[1A[1A[1A[1A[1A[1A[1A[1A[0G[?25l[+] Building 3.8s (7/9)                                                         
+[34m => => transferring context: 2B                                            0.0s
+[0m[34m => [internal] load metadata for docker.io/library/python:3.8.6            2.0s
+[0m[34m => [internal] load build context                                          0.0s
+[0m[34m => => transferring context: 12.64kB                                       0.0s
+[0m[34m => [1/5] FROM docker.io/library/python:3.8.6@sha256:c0834fbc6e4b987a8aa1  0.0s
+[0m[34m => CACHED [2/5] WORKDIR /app                                              0.0s
+[0m[34m => [3/5] COPY . .                                                         0.0s
+[0m => [4/5] RUN pip install --upgrade pip                                    1.7s
+[?25h[1A[1A[1A[1A[1A[1A[1A[1A[1A[0G[?25l[+] Building 4.0s (7/9)                                                         
+[34m => => transferring context: 2B                                            0.0s
+[0m[34m => [internal] load metadata for docker.io/library/python:3.8.6            2.0s
+[0m[34m => [internal] load build context                                          0.0s
+[0m[34m => => transferring context: 12.64kB                                       0.0s
+[0m[34m => [1/5] FROM docker.io/library/python:3.8.6@sha256:c0834fbc6e4b987a8aa1  0.0s
+[0m[34m => CACHED [2/5] WORKDIR /app                                              0.0s
+[0m[34m => [3/5] COPY . .                                                         0.0s
+[0m => [4/5] RUN pip install --upgrade pip                                    1.8s
+[?25h[1A[1A[1A[1A[1A[1A[1A[1A[1A[0G[?25l[+] Building 4.1s (7/9)                                                         
+[34m => => transferring context: 2B                                            0.0s
+[0m[34m => [internal] load metadata for docker.io/library/python:3.8.6            2.0s
+[0m[34m => [internal] load build context                                          0.0s
+[0m[34m => => transferring context: 12.64kB                                       0.0s
+[0m[34m => [1/5] FROM docker.io/library/python:3.8.6@sha256:c0834fbc6e4b987a8aa1  0.0s
+[0m[34m => CACHED [2/5] WORKDIR /app                                              0.0s
+[0m[34m => [3/5] COPY . .                                                         0.0s
+[0m => [4/5] RUN pip install --upgrade pip                                    2.0s
+[?25h[1A[1A[1A[1A[1A[1A[1A[1A[1A[0G[?25l[+] Building 4.3s (7/9)                                                         
+[34m => => transferring context: 2B                                            0.0s
+[0m[34m => [internal] load metadata for docker.io/library/python:3.8.6            2.0s
+[0m[34m => [internal] load build context                                          0.0s
+[0m[34m => => transferring context: 12.64kB                                       0.0s
+[0m[34m => [1/5] FROM docker.io/library/python:3.8.6@sha256:c0834fbc6e4b987a8aa1  0.0s
+[0m[34m => CACHED [2/5] WORKDIR /app                                              0.0s
+[0m[34m => [3/5] COPY . .                                                         0.0s
+[0m => [4/5] RUN pip install --upgrade pip                                    2.1s
+[?25h[1A[1A[1A[1A[1A[1A[1A[1A[1A[0G[?25l[+] Building 4.4s (7/9)                                                         
+[34m => => transferring context: 2B                                            0.0s
+[0m[34m => [internal] load metadata for docker.io/library/python:3.8.6            2.0s
+[0m[34m => [internal] load build context                                          0.0s
+[0m[34m => => transferring context: 12.64kB                                       0.0s
+[0m[34m => [1/5] FROM docker.io/library/python:3.8.6@sha256:c0834fbc6e4b987a8aa1  0.0s
+[0m[34m => CACHED [2/5] WORKDIR /app                                              0.0s
+[0m[34m => [3/5] COPY . .                                                         0.0s
+[0m => [4/5] RUN pip install --upgrade pip                                    2.3s
+[?25h[1A[1A[1A[1A[1A[1A[1A[1A[1A[0G[?25l[+] Building 4.6s (7/9)                                                         
+[34m => => transferring context: 2B                                            0.0s
+[0m[34m => [internal] load metadata for docker.io/library/python:3.8.6            2.0s
+[0m[34m => [internal] load build context                                          0.0s
+[0m[34m => => transferring context: 12.64kB                                       0.0s
+[0m[34m => [1/5] FROM docker.io/library/python:3.8.6@sha256:c0834fbc6e4b987a8aa1  0.0s
+[0m[34m => CACHED [2/5] WORKDIR /app                                              0.0s
+[0m[34m => [3/5] COPY . .                                                         0.0s
+[0m => [4/5] RUN pip install --upgrade pip                                    2.4s
+[?25h[1A[1A[1A[1A[1A[1A[1A[1A[1A[0G[?25l[+] Building 4.7s (7/9)                                                         
+[34m => => transferring context: 2B                                            0.0s
+[0m[34m => [internal] load metadata for docker.io/library/python:3.8.6            2.0s
+[0m[34m => [internal] load build context                                          0.0s
+[0m[34m => => transferring context: 12.64kB                                       0.0s
+[0m[34m => [1/5] FROM docker.io/library/python:3.8.6@sha256:c0834fbc6e4b987a8aa1  0.0s
+[0m[34m => CACHED [2/5] WORKDIR /app                                              0.0s
+[0m[34m => [3/5] COPY . .                                                         0.0s
+[0m => [4/5] RUN pip install --upgrade pip                                    2.6s
+[?25h[1A[1A[1A[1A[1A[1A[1A[1A[1A[0G[?25l[+] Building 4.9s (7/9)                                                         
+[34m => => transferring context: 2B                                            0.0s
+[0m[34m => [internal] load metadata for docker.io/library/python:3.8.6            2.0s
+[0m[34m => [internal] load build context                                          0.0s
+[0m[34m => => transferring context: 12.64kB                                       0.0s
+[0m[34m => [1/5] FROM docker.io/library/python:3.8.6@sha256:c0834fbc6e4b987a8aa1  0.0s
+[0m[34m => CACHED [2/5] WORKDIR /app                                              0.0s
+[0m[34m => [3/5] COPY . .                                                         0.0s
+[0m => [4/5] RUN pip install --upgrade pip                                    2.7s
+[?25h[1A[1A[1A[1A[1A[1A[1A[1A[1A[0G[?25l[+] Building 5.0s (7/9)                                                         
+[34m => => transferring context: 2B                                            0.0s
+[0m[34m => [internal] load metadata for docker.io/library/python:3.8.6            2.0s
+[0m[34m => [internal] load build context                                          0.0s
+[0m[34m => => transferring context: 12.64kB                                       0.0s
+[0m[34m => [1/5] FROM docker.io/library/python:3.8.6@sha256:c0834fbc6e4b987a8aa1  0.0s
+[0m[34m => CACHED [2/5] WORKDIR /app                                              0.0s
+[0m[34m => [3/5] COPY . .                                                         0.0s
+[0m => [4/5] RUN pip install --upgrade pip                                    2.9s
+[?25h[1A[1A[1A[1A[1A[1A[1A[1A[1A[0G[?25l[+] Building 5.2s (7/9)                                                         
+[34m => => transferring context: 2B                                            0.0s
+[0m[34m => [internal] load metadata for docker.io/library/python:3.8.6            2.0s
+[0m[34m => [internal] load build context                                          0.0s
+[0m[34m => => transferring context: 12.64kB                                       0.0s
+[0m[34m => [1/5] FROM docker.io/library/python:3.8.6@sha256:c0834fbc6e4b987a8aa1  0.0s
+[0m[34m => CACHED [2/5] WORKDIR /app                                              0.0s
+[0m[34m => [3/5] COPY . .                                                         0.0s
+[0m => [4/5] RUN pip install --upgrade pip                                    3.0s
+[?25h[1A[1A[1A[1A[1A[1A[1A[1A[1A[0G[?25l[+] Building 5.3s (7/9)                                                         
+[34m => => transferring context: 2B                                            0.0s
+[0m[34m => [internal] load metadata for docker.io/library/python:3.8.6            2.0s
+[0m[34m => [internal] load build context                                          0.0s
+[0m[34m => => transferring context: 12.64kB                                       0.0s
+[0m[34m => [1/5] FROM docker.io/library/python:3.8.6@sha256:c0834fbc6e4b987a8aa1  0.0s
+[0m[34m => CACHED [2/5] WORKDIR /app                                              0.0s
+[0m[34m => [3/5] COPY . .                                                         0.0s
+[0m => [4/5] RUN pip install --upgrade pip                                    3.2s
+[?25h[1A[1A[1A[1A[1A[1A[1A[1A[1A[0G[?25l[+] Building 5.5s (7/9)                                                         
+[34m => => transferring context: 2B                                            0.0s
+[0m[34m => [internal] load metadata for docker.io/library/python:3.8.6            2.0s
+[0m[34m => [internal] load build context                                          0.0s
+[0m[34m => => transferring context: 12.64kB                                       0.0s
+[0m[34m => [1/5] FROM docker.io/library/python:3.8.6@sha256:c0834fbc6e4b987a8aa1  0.0s
+[0m[34m => CACHED [2/5] WORKDIR /app                                              0.0s
+[0m[34m => [3/5] COPY . .                                                         0.0s
+[0m => [4/5] RUN pip install --upgrade pip                                    3.3s
+[?25h[1A[1A[1A[1A[1A[1A[1A[1A[1A[0G[?25l[+] Building 5.6s (7/9)                                                         
+[34m => => transferring context: 2B                                            0.0s
+[0m[34m => [internal] load metadata for docker.io/library/python:3.8.6            2.0s
+[0m[34m => [internal] load build context                                          0.0s
+[0m[34m => => transferring context: 12.64kB                                       0.0s
+[0m[34m => [1/5] FROM docker.io/library/python:3.8.6@sha256:c0834fbc6e4b987a8aa1  0.0s
+[0m[34m => CACHED [2/5] WORKDIR /app                                              0.0s
+[0m[34m => [3/5] COPY . .                                                         0.0s
+[0m => [4/5] RUN pip install --upgrade pip                                    3.5s
+[?25h[1A[1A[1A[1A[1A[1A[1A[1A[1A[0G[?25l[+] Building 5.8s (7/9)                                                         
+[34m => => transferring context: 2B                                            0.0s
+[0m[34m => [internal] load metadata for docker.io/library/python:3.8.6            2.0s
+[0m[34m => [internal] load build context                                          0.0s
+[0m[34m => => transferring context: 12.64kB                                       0.0s
+[0m[34m => [1/5] FROM docker.io/library/python:3.8.6@sha256:c0834fbc6e4b987a8aa1  0.0s
+[0m[34m => CACHED [2/5] WORKDIR /app                                              0.0s
+[0m[34m => [3/5] COPY . .                                                         0.0s
+[0m => [4/5] RUN pip install --upgrade pip                                    3.6s
+[?25h[1A[1A[1A[1A[1A[1A[1A[1A[1A[0G[?25l[+] Building 5.9s (7/9)                                                         
+[34m => => transferring context: 2B                                            0.0s
+[0m[34m => [internal] load metadata for docker.io/library/python:3.8.6            2.0s
+[0m[34m => [internal] load build context                                          0.0s
+[0m[34m => => transferring context: 12.64kB                                       0.0s
+[0m[34m => [1/5] FROM docker.io/library/python:3.8.6@sha256:c0834fbc6e4b987a8aa1  0.0s
+[0m[34m => CACHED [2/5] WORKDIR /app                                              0.0s
+[0m[34m => [3/5] COPY . .                                                         0.0s
+[0m => [4/5] RUN pip install --upgrade pip                                    3.8s
+[?25h[1A[1A[1A[1A[1A[1A[1A[1A[1A[0G[?25l[+] Building 6.1s (7/9)                                                         
+[34m => => transferring context: 2B                                            0.0s
+[0m[34m => [internal] load metadata for docker.io/library/python:3.8.6            2.0s
+[0m[34m => [internal] load build context                                          0.0s
+[0m[34m => => transferring context: 12.64kB                                       0.0s
+[0m[34m => [1/5] FROM docker.io/library/python:3.8.6@sha256:c0834fbc6e4b987a8aa1  0.0s
+[0m[34m => CACHED [2/5] WORKDIR /app                                              0.0s
+[0m[34m => [3/5] COPY . .                                                         0.0s
+[0m => [4/5] RUN pip install --upgrade pip                                    3.9s
+[?25h[1A[1A[1A[1A[1A[1A[1A[1A[1A[0G[?25l[+] Building 6.3s (7/9)                                                         
+[34m => => transferring context: 2B                                            0.0s
+[0m[34m => [internal] load metadata for docker.io/library/python:3.8.6            2.0s
+[0m[34m => [internal] load build context                                          0.0s
+[0m[34m => => transferring context: 12.64kB                                       0.0s
+[0m[34m => [1/5] FROM docker.io/library/python:3.8.6@sha256:c0834fbc6e4b987a8aa1  0.0s
+[0m[34m => CACHED [2/5] WORKDIR /app                                              0.0s
+[0m[34m => [3/5] COPY . .                                                         0.0s
+[0m => [4/5] RUN pip install --upgrade pip                                    4.1s
+[?25h[1A[1A[1A[1A[1A[1A[1A[1A[1A[0G[?25l[+] Building 6.4s (7/9)                                                         
+[34m => => transferring context: 2B                                            0.0s
+[0m[34m => [internal] load metadata for docker.io/library/python:3.8.6            2.0s
+[0m[34m => [internal] load build context                                          0.0s
+[0m[34m => => transferring context: 12.64kB                                       0.0s
+[0m[34m => [1/5] FROM docker.io/library/python:3.8.6@sha256:c0834fbc6e4b987a8aa1  0.0s
+[0m[34m => CACHED [2/5] WORKDIR /app                                              0.0s
+[0m[34m => [3/5] COPY . .                                                         0.0s
+[0m => [4/5] RUN pip install --upgrade pip                                    4.3s
+[?25h[1A[1A[1A[1A[1A[1A[1A[1A[1A[0G[?25l[+] Building 6.6s (7/9)                                                         
+[34m => => transferring context: 2B                                            0.0s
+[0m[34m => [internal] load metadata for docker.io/library/python:3.8.6            2.0s
+[0m[34m => [internal] load build context                                          0.0s
+[0m[34m => => transferring context: 12.64kB                                       0.0s
+[0m[34m => [1/5] FROM docker.io/library/python:3.8.6@sha256:c0834fbc6e4b987a8aa1  0.0s
+[0m[34m => CACHED [2/5] WORKDIR /app                                              0.0s
+[0m[34m => [3/5] COPY . .                                                         0.0s
+[0m => [4/5] RUN pip install --upgrade pip                                    4.4s
+[?25h[1A[1A[1A[1A[1A[1A[1A[1A[1A[0G[?25l[+] Building 6.7s (7/9)                                                         
+[34m => => transferring context: 2B                                            0.0s
+[0m[34m => [internal] load metadata for docker.io/library/python:3.8.6            2.0s
+[0m[34m => [internal] load build context                                          0.0s
+[0m[34m => => transferring context: 12.64kB                                       0.0s
+[0m[34m => [1/5] FROM docker.io/library/python:3.8.6@sha256:c0834fbc6e4b987a8aa1  0.0s
+[0m[34m => CACHED [2/5] WORKDIR /app                                              0.0s
+[0m[34m => [3/5] COPY . .                                                         0.0s
+[0m => [4/5] RUN pip install --upgrade pip                                    4.6s
+[?25h[1A[1A[1A[1A[1A[1A[1A[1A[1A[0G[?25l[+] Building 6.9s (7/9)                                                         
+[34m => => transferring context: 2B                                            0.0s
+[0m[34m => [internal] load metadata for docker.io/library/python:3.8.6            2.0s
+[0m[34m => [internal] load build context                                          0.0s
+[0m[34m => => transferring context: 12.64kB                                       0.0s
+[0m[34m => [1/5] FROM docker.io/library/python:3.8.6@sha256:c0834fbc6e4b987a8aa1  0.0s
+[0m[34m => CACHED [2/5] WORKDIR /app                                              0.0s
+[0m[34m => [3/5] COPY . .                                                         0.0s
+[0m => [4/5] RUN pip install --upgrade pip                                    4.7s
+[?25h[1A[1A[1A[1A[1A[1A[1A[1A[1A[0G[?25l[+] Building 7.0s (7/9)                                                         
+[34m => => transferring context: 2B                                            0.0s
+[0m[34m => [internal] load metadata for docker.io/library/python:3.8.6            2.0s
+[0m[34m => [internal] load build context                                          0.0s
+[0m[34m => => transferring context: 12.64kB                                       0.0s
+[0m[34m => [1/5] FROM docker.io/library/python:3.8.6@sha256:c0834fbc6e4b987a8aa1  0.0s
+[0m[34m => CACHED [2/5] WORKDIR /app                                              0.0s
+[0m[34m => [3/5] COPY . .                                                         0.0s
+[0m => [4/5] RUN pip install --upgrade pip                                    4.9s
+[?25h[1A[1A[1A[1A[1A[1A[1A[1A[1A[0G[?25l[+] Building 7.1s (7/9)                                                         
+[34m => => transferring context: 2B                                            0.0s
+[0m[34m => [internal] load metadata for docker.io/library/python:3.8.6            2.0s
+[0m[34m => [internal] load build context                                          0.0s
+[0m[34m => => transferring context: 12.64kB                                       0.0s
+[0m[34m => [1/5] FROM docker.io/library/python:3.8.6@sha256:c0834fbc6e4b987a8aa1  0.0s
+[0m[34m => CACHED [2/5] WORKDIR /app                                              0.0s
+[0m[34m => [3/5] COPY . .                                                         0.0s
+[0m => [4/5] RUN pip install --upgrade pip                                    5.0s
+[?25h[1A[1A[1A[1A[1A[1A[1A[1A[1A[0G[?25l[+] Building 7.3s (7/9)                                                         
+[34m => => transferring context: 2B                                            0.0s
+[0m[34m => [internal] load metadata for docker.io/library/python:3.8.6            2.0s
+[0m[34m => [internal] load build context                                          0.0s
+[0m[34m => => transferring context: 12.64kB                                       0.0s
+[0m[34m => [1/5] FROM docker.io/library/python:3.8.6@sha256:c0834fbc6e4b987a8aa1  0.0s
+[0m[34m => CACHED [2/5] WORKDIR /app                                              0.0s
+[0m[34m => [3/5] COPY . .                                                         0.0s
+[0m => [4/5] RUN pip install --upgrade pip                                    5.1s
+[?25h[1A[1A[1A[1A[1A[1A[1A[1A[1A[0G[?25l[+] Building 7.4s (7/9)                                                         
+[34m => => transferring context: 2B                                            0.0s
+[0m[34m => [internal] load metadata for docker.io/library/python:3.8.6            2.0s
+[0m[34m => [internal] load build context                                          0.0s
+[0m[34m => => transferring context: 12.64kB                                       0.0s
+[0m[34m => [1/5] FROM docker.io/library/python:3.8.6@sha256:c0834fbc6e4b987a8aa1  0.0s
+[0m[34m => CACHED [2/5] WORKDIR /app                                              0.0s
+[0m[34m => [3/5] COPY . .                                                         0.0s
+[0m => [4/5] RUN pip install --upgrade pip                                    5.3s
+[?25h[1A[1A[1A[1A[1A[1A[1A[1A[1A[0G[?25l[+] Building 7.6s (7/9)                                                         
+[34m => => transferring context: 2B                                            0.0s
+[0m[34m => [internal] load metadata for docker.io/library/python:3.8.6            2.0s
+[0m[34m => [internal] load build context                                          0.0s
+[0m[34m => => transferring context: 12.64kB                                       0.0s
+[0m[34m => [1/5] FROM docker.io/library/python:3.8.6@sha256:c0834fbc6e4b987a8aa1  0.0s
+[0m[34m => CACHED [2/5] WORKDIR /app                                              0.0s
+[0m[34m => [3/5] COPY . .                                                         0.0s
+[0m => [4/5] RUN pip install --upgrade pip                                    5.4s
+[?25h[1A[1A[1A[1A[1A[1A[1A[1A[1A[0G[?25l[+] Building 7.7s (7/9)                                                         
+[34m => => transferring context: 2B                                            0.0s
+[0m[34m => [internal] load metadata for docker.io/library/python:3.8.6            2.0s
+[0m[34m => [internal] load build context                                          0.0s
+[0m[34m => => transferring context: 12.64kB                                       0.0s
+[0m[34m => [1/5] FROM docker.io/library/python:3.8.6@sha256:c0834fbc6e4b987a8aa1  0.0s
+[0m[34m => CACHED [2/5] WORKDIR /app                                              0.0s
+[0m[34m => [3/5] COPY . .                                                         0.0s
+[0m => [4/5] RUN pip install --upgrade pip                                    5.6s
+[?25h[1A[1A[1A[1A[1A[1A[1A[1A[1A[0G[?25l[+] Building 7.9s (7/9)                                                         
+[34m => => transferring context: 2B                                            0.0s
+[0m[34m => [internal] load metadata for docker.io/library/python:3.8.6            2.0s
+[0m[34m => [internal] load build context                                          0.0s
+[0m[34m => => transferring context: 12.64kB                                       0.0s
+[0m[34m => [1/5] FROM docker.io/library/python:3.8.6@sha256:c0834fbc6e4b987a8aa1  0.0s
+[0m[34m => CACHED [2/5] WORKDIR /app                                              0.0s
+[0m[34m => [3/5] COPY . .                                                         0.0s
+[0m => [4/5] RUN pip install --upgrade pip                                    5.7s
+[?25h[1A[1A[1A[1A[1A[1A[1A[1A[1A[0G[?25l[+] Building 8.0s (7/9)                                                         
+[34m => => transferring context: 2B                                            0.0s
+[0m[34m => [internal] load metadata for docker.io/library/python:3.8.6            2.0s
+[0m[34m => [internal] load build context                                          0.0s
+[0m[34m => => transferring context: 12.64kB                                       0.0s
+[0m[34m => [1/5] FROM docker.io/library/python:3.8.6@sha256:c0834fbc6e4b987a8aa1  0.0s
+[0m[34m => CACHED [2/5] WORKDIR /app                                              0.0s
+[0m[34m => [3/5] COPY . .                                                         0.0s
+[0m => [4/5] RUN pip install --upgrade pip                                    5.9s
+[?25h[1A[1A[1A[1A[1A[1A[1A[1A[1A[0G[?25l[+] Building 8.2s (7/9)                                                         
+[34m => => transferring context: 2B                                            0.0s
+[0m[34m => [internal] load metadata for docker.io/library/python:3.8.6            2.0s
+[0m[34m => [internal] load build context                                          0.0s
+[0m[34m => => transferring context: 12.64kB                                       0.0s
+[0m[34m => [1/5] FROM docker.io/library/python:3.8.6@sha256:c0834fbc6e4b987a8aa1  0.0s
+[0m[34m => CACHED [2/5] WORKDIR /app                                              0.0s
+[0m[34m => [3/5] COPY . .                                                         0.0s
+[0m => [4/5] RUN pip install --upgrade pip                                    6.0s
+[?25h[1A[1A[1A[1A[1A[1A[1A[1A[1A[0G[?25l[+] Building 8.4s (7/9)                                                         
+[34m => => transferring context: 2B                                            0.0s
+[0m[34m => [internal] load metadata for docker.io/library/python:3.8.6            2.0s
+[0m[34m => [internal] load build context                                          0.0s
+[0m[34m => => transferring context: 12.64kB                                       0.0s
+[0m[34m => [1/5] FROM docker.io/library/python:3.8.6@sha256:c0834fbc6e4b987a8aa1  0.0s
+[0m[34m => CACHED [2/5] WORKDIR /app                                              0.0s
+[0m[34m => [3/5] COPY . .                                                         0.0s
+[0m => [4/5] RUN pip install --upgrade pip                                    6.2s
+[?25h[1A[1A[1A[1A[1A[1A[1A[1A[1A[0G[?25l[+] Building 8.5s (7/9)                                                         
+[34m => => transferring context: 2B                                            0.0s
+[0m[34m => [internal] load metadata for docker.io/library/python:3.8.6            2.0s
+[0m[34m => [internal] load build context                                          0.0s
+[0m[34m => => transferring context: 12.64kB                                       0.0s
+[0m[34m => [1/5] FROM docker.io/library/python:3.8.6@sha256:c0834fbc6e4b987a8aa1  0.0s
+[0m[34m => CACHED [2/5] WORKDIR /app                                              0.0s
+[0m[34m => [3/5] COPY . .                                                         0.0s
+[0m => [4/5] RUN pip install --upgrade pip                                    6.4s
+[?25h[1A[1A[1A[1A[1A[1A[1A[1A[1A[0G[?25l[+] Building 8.7s (7/9)                                                         
+[34m => => transferring context: 2B                                            0.0s
+[0m[34m => [internal] load metadata for docker.io/library/python:3.8.6            2.0s
+[0m[34m => [internal] load build context                                          0.0s
+[0m[34m => => transferring context: 12.64kB                                       0.0s
+[0m[34m => [1/5] FROM docker.io/library/python:3.8.6@sha256:c0834fbc6e4b987a8aa1  0.0s
+[0m[34m => CACHED [2/5] WORKDIR /app                                              0.0s
+[0m[34m => [3/5] COPY . .                                                         0.0s
+[0m => [4/5] RUN pip install --upgrade pip                                    6.5s
+[?25h[1A[1A[1A[1A[1A[1A[1A[1A[1A[0G[?25l[+] Building 8.8s (7/9)                                                         
+[34m => => transferring context: 2B                                            0.0s
+[0m[34m => [internal] load metadata for docker.io/library/python:3.8.6            2.0s
+[0m[34m => [internal] load build context                                          0.0s
+[0m[34m => => transferring context: 12.64kB                                       0.0s
+[0m[34m => [1/5] FROM docker.io/library/python:3.8.6@sha256:c0834fbc6e4b987a8aa1  0.0s
+[0m[34m => CACHED [2/5] WORKDIR /app                                              0.0s
+[0m[34m => [3/5] COPY . .                                                         0.0s
+[0m => [4/5] RUN pip install --upgrade pip                                    6.7s
+[?25h[1A[1A[1A[1A[1A[1A[1A[1A[1A[0G[?25l[+] Building 9.0s (7/9)                                                         
+[34m => => transferring context: 2B                                            0.0s
+[0m[34m => [internal] load metadata for docker.io/library/python:3.8.6            2.0s
+[0m[34m => [internal] load build context                                          0.0s
+[0m[34m => => transferring context: 12.64kB                                       0.0s
+[0m[34m => [1/5] FROM docker.io/library/python:3.8.6@sha256:c0834fbc6e4b987a8aa1  0.0s
+[0m[34m => CACHED [2/5] WORKDIR /app                                              0.0s
+[0m[34m => [3/5] COPY . .                                                         0.0s
+[0m => [4/5] RUN pip install --upgrade pip                                    6.8s
+[?25h[1A[1A[1A[1A[1A[1A[1A[1A[1A[0G[?25l[+] Building 9.1s (7/9)                                                         
+[34m => => transferring context: 2B                                            0.0s
+[0m[34m => [internal] load metadata for docker.io/library/python:3.8.6            2.0s
+[0m[34m => [internal] load build context                                          0.0s
+[0m[34m => => transferring context: 12.64kB                                       0.0s
+[0m[34m => [1/5] FROM docker.io/library/python:3.8.6@sha256:c0834fbc6e4b987a8aa1  0.0s
+[0m[34m => CACHED [2/5] WORKDIR /app                                              0.0s
+[0m[34m => [3/5] COPY . .                                                         0.0s
+[0m => [4/5] RUN pip install --upgrade pip                                    7.0s
+[?25h[1A[1A[1A[1A[1A[1A[1A[1A[1A[0G[?25l[+] Building 9.3s (7/9)                                                         
+[34m => => transferring context: 2B                                            0.0s
+[0m[34m => [internal] load metadata for docker.io/library/python:3.8.6            2.0s
+[0m[34m => [internal] load build context                                          0.0s
+[0m[34m => => transferring context: 12.64kB                                       0.0s
+[0m[34m => [1/5] FROM docker.io/library/python:3.8.6@sha256:c0834fbc6e4b987a8aa1  0.0s
+[0m[34m => CACHED [2/5] WORKDIR /app                                              0.0s
+[0m[34m => [3/5] COPY . .                                                         0.0s
+[0m => [4/5] RUN pip install --upgrade pip                                    7.1s
+[?25h[1A[1A[1A[1A[1A[1A[1A[1A[1A[0G[?25l[+] Building 9.4s (7/9)                                                         
+[34m => => transferring context: 2B                                            0.0s
+[0m[34m => [internal] load metadata for docker.io/library/python:3.8.6            2.0s
+[0m[34m => [internal] load build context                                          0.0s
+[0m[34m => => transferring context: 12.64kB                                       0.0s
+[0m[34m => [1/5] FROM docker.io/library/python:3.8.6@sha256:c0834fbc6e4b987a8aa1  0.0s
+[0m[34m => CACHED [2/5] WORKDIR /app                                              0.0s
+[0m[34m => [3/5] COPY . .                                                         0.0s
+[0m => [4/5] RUN pip install --upgrade pip                                    7.3s
+[?25h[1A[1A[1A[1A[1A[1A[1A[1A[1A[0G[?25l[+] Building 9.6s (7/9)                                                         
+[34m => => transferring context: 2B                                            0.0s
+[0m[34m => [internal] load metadata for docker.io/library/python:3.8.6            2.0s
+[0m[34m => [internal] load build context                                          0.0s
+[0m[34m => => transferring context: 12.64kB                                       0.0s
+[0m[34m => [1/5] FROM docker.io/library/python:3.8.6@sha256:c0834fbc6e4b987a8aa1  0.0s
+[0m[34m => CACHED [2/5] WORKDIR /app                                              0.0s
+[0m[34m => [3/5] COPY . .                                                         0.0s
+[0m => [4/5] RUN pip install --upgrade pip                                    7.5s
+[?25h[1A[1A[1A[1A[1A[1A[1A[1A[1A[0G[?25l[+] Building 9.8s (7/9)                                                         
+[34m => => transferring context: 2B                                            0.0s
+[0m[34m => [internal] load metadata for docker.io/library/python:3.8.6            2.0s
+[0m[34m => [internal] load build context                                          0.0s
+[0m[34m => => transferring context: 12.64kB                                       0.0s
+[0m[34m => [1/5] FROM docker.io/library/python:3.8.6@sha256:c0834fbc6e4b987a8aa1  0.0s
+[0m[34m => CACHED [2/5] WORKDIR /app                                              0.0s
+[0m[34m => [3/5] COPY . .                                                         0.0s
+[0m => [4/5] RUN pip install --upgrade pip                                    7.6s
+[?25h[1A[1A[1A[1A[1A[1A[1A[1A[1A[0G[?25l[+] Building 9.9s (7/9)                                                         
+[34m => => transferring context: 2B                                            0.0s
+[0m[34m => [internal] load metadata for docker.io/library/python:3.8.6            2.0s
+[0m[34m => [internal] load build context                                          0.0s
+[0m[34m => => transferring context: 12.64kB                                       0.0s
+[0m[34m => [1/5] FROM docker.io/library/python:3.8.6@sha256:c0834fbc6e4b987a8aa1  0.0s
+[0m[34m => CACHED [2/5] WORKDIR /app                                              0.0s
+[0m[34m => [3/5] COPY . .                                                         0.0s
+[0m => [4/5] RUN pip install --upgrade pip                                    7.8s
+[?25h[1A[1A[1A[1A[1A[1A[1A[1A[1A[0G[?25l[+] Building 10.1s (7/9)                                                        
+[34m => => transferring context: 2B                                            0.0s
+[0m[34m => [internal] load metadata for docker.io/library/python:3.8.6            2.0s
+[0m[34m => [internal] load build context                                          0.0s
+[0m[34m => => transferring context: 12.64kB                                       0.0s
+[0m[34m => [1/5] FROM docker.io/library/python:3.8.6@sha256:c0834fbc6e4b987a8aa1  0.0s
+[0m[34m => CACHED [2/5] WORKDIR /app                                              0.0s
+[0m[34m => [3/5] COPY . .                                                         0.0s
+[0m => [4/5] RUN pip install --upgrade pip                                    7.9s
+[?25h[1A[1A[1A[1A[1A[1A[1A[1A[1A[0G[?25l[+] Building 10.2s (7/9)                                                        
+[34m => => transferring context: 2B                                            0.0s
+[0m[34m => [internal] load metadata for docker.io/library/python:3.8.6            2.0s
+[0m[34m => [internal] load build context                                          0.0s
+[0m[34m => => transferring context: 12.64kB                                       0.0s
+[0m[34m => [1/5] FROM docker.io/library/python:3.8.6@sha256:c0834fbc6e4b987a8aa1  0.0s
+[0m[34m => CACHED [2/5] WORKDIR /app                                              0.0s
+[0m[34m => [3/5] COPY . .                                                         0.0s
+[0m => [4/5] RUN pip install --upgrade pip                                    8.1s
+[?25h[1A[1A[1A[1A[1A[1A[1A[1A[1A[0G[?25l[+] Building 10.4s (7/9)                                                        
+[34m => => transferring context: 2B                                            0.0s
+[0m[34m => [internal] load metadata for docker.io/library/python:3.8.6            2.0s
+[0m[34m => [internal] load build context                                          0.0s
+[0m[34m => => transferring context: 12.64kB                                       0.0s
+[0m[34m => [1/5] FROM docker.io/library/python:3.8.6@sha256:c0834fbc6e4b987a8aa1  0.0s
+[0m[34m => CACHED [2/5] WORKDIR /app                                              0.0s
+[0m[34m => [3/5] COPY . .                                                         0.0s
+[0m => [4/5] RUN pip install --upgrade pip                                    8.2s
+[?25h[1A[1A[1A[1A[1A[1A[1A[1A[1A[0G[?25l[+] Building 10.6s (8/9)                                                        
+[34m => [internal] load metadata for docker.io/library/python:3.8.6            2.0s
+[0m[34m => [internal] load build context                                          0.0s
+[0m[34m => => transferring context: 12.64kB                                       0.0s
+[0m[34m => [1/5] FROM docker.io/library/python:3.8.6@sha256:c0834fbc6e4b987a8aa1  0.0s
+[0m[34m => CACHED [2/5] WORKDIR /app                                              0.0s
+[0m[34m => [3/5] COPY . .                                                         0.0s
+[0m[34m => [4/5] RUN pip install --upgrade pip                                    8.3s
+[0m => [5/5] RUN pip install -r requirements.txt                              0.1s
+[?25h[1A[1A[1A[1A[1A[1A[1A[1A[1A[0G[?25l[+] Building 10.7s (8/9)                                                        
+[34m => [internal] load metadata for docker.io/library/python:3.8.6            2.0s
+[0m[34m => [internal] load build context                                          0.0s
+[0m[34m => => transferring context: 12.64kB                                       0.0s
+[0m[34m => [1/5] FROM docker.io/library/python:3.8.6@sha256:c0834fbc6e4b987a8aa1  0.0s
+[0m[34m => CACHED [2/5] WORKDIR /app                                              0.0s
+[0m[34m => [3/5] COPY . .                                                         0.0s
+[0m[34m => [4/5] RUN pip install --upgrade pip                                    8.3s
+[0m => [5/5] RUN pip install -r requirements.txt                              0.3s
+[?25h[1A[1A[1A[1A[1A[1A[1A[1A[1A[0G[?25l[+] Building 10.9s (8/9)                                                        
+[34m => [internal] load metadata for docker.io/library/python:3.8.6            2.0s
+[0m[34m => [internal] load build context                                          0.0s
+[0m[34m => => transferring context: 12.64kB                                       0.0s
+[0m[34m => [1/5] FROM docker.io/library/python:3.8.6@sha256:c0834fbc6e4b987a8aa1  0.0s
+[0m[34m => CACHED [2/5] WORKDIR /app                                              0.0s
+[0m[34m => [3/5] COPY . .                                                         0.0s
+[0m[34m => [4/5] RUN pip install --upgrade pip                                    8.3s
+[0m => [5/5] RUN pip install -r requirements.txt                              0.4s
+[?25h[1A[1A[1A[1A[1A[1A[1A[1A[1A[0G[?25l[+] Building 11.0s (8/9)                                                        
+[34m => [internal] load metadata for docker.io/library/python:3.8.6            2.0s
+[0m[34m => [internal] load build context                                          0.0s
+[0m[34m => => transferring context: 12.64kB                                       0.0s
+[0m[34m => [1/5] FROM docker.io/library/python:3.8.6@sha256:c0834fbc6e4b987a8aa1  0.0s
+[0m[34m => CACHED [2/5] WORKDIR /app                                              0.0s
+[0m[34m => [3/5] COPY . .                                                         0.0s
+[0m[34m => [4/5] RUN pip install --upgrade pip                                    8.3s
+[0m => [5/5] RUN pip install -r requirements.txt                              0.6s
+[?25h[1A[1A[1A[1A[1A[1A[1A[1A[1A[0G[?25l[+] Building 11.2s (8/9)                                                        
+[34m => [internal] load metadata for docker.io/library/python:3.8.6            2.0s
+[0m[34m => [internal] load build context                                          0.0s
+[0m[34m => => transferring context: 12.64kB                                       0.0s
+[0m[34m => [1/5] FROM docker.io/library/python:3.8.6@sha256:c0834fbc6e4b987a8aa1  0.0s
+[0m[34m => CACHED [2/5] WORKDIR /app                                              0.0s
+[0m[34m => [3/5] COPY . .                                                         0.0s
+[0m[34m => [4/5] RUN pip install --upgrade pip                                    8.3s
+[0m => [5/5] RUN pip install -r requirements.txt                              0.7s
+[?25h[1A[1A[1A[1A[1A[1A[1A[1A[1A[0G[?25l[+] Building 11.3s (8/9)                                                        
+[34m => [internal] load metadata for docker.io/library/python:3.8.6            2.0s
+[0m[34m => [internal] load build context                                          0.0s
+[0m[34m => => transferring context: 12.64kB                                       0.0s
+[0m[34m => [1/5] FROM docker.io/library/python:3.8.6@sha256:c0834fbc6e4b987a8aa1  0.0s
+[0m[34m => CACHED [2/5] WORKDIR /app                                              0.0s
+[0m[34m => [3/5] COPY . .                                                         0.0s
+[0m[34m => [4/5] RUN pip install --upgrade pip                                    8.3s
+[0m => [5/5] RUN pip install -r requirements.txt                              0.9s
+[?25h[1A[1A[1A[1A[1A[1A[1A[1A[1A[0G[?25l[+] Building 11.5s (8/9)                                                        
+[34m => [internal] load metadata for docker.io/library/python:3.8.6            2.0s
+[0m[34m => [internal] load build context                                          0.0s
+[0m[34m => => transferring context: 12.64kB                                       0.0s
+[0m[34m => [1/5] FROM docker.io/library/python:3.8.6@sha256:c0834fbc6e4b987a8aa1  0.0s
+[0m[34m => CACHED [2/5] WORKDIR /app                                              0.0s
+[0m[34m => [3/5] COPY . .                                                         0.0s
+[0m[34m => [4/5] RUN pip install --upgrade pip                                    8.3s
+[0m => [5/5] RUN pip install -r requirements.txt                              1.1s
+[?25h[1A[1A[1A[1A[1A[1A[1A[1A[1A[0G[?25l[+] Building 11.7s (8/9)                                                        
+[34m => [internal] load metadata for docker.io/library/python:3.8.6            2.0s
+[0m[34m => [internal] load build context                                          0.0s
+[0m[34m => => transferring context: 12.64kB                                       0.0s
+[0m[34m => [1/5] FROM docker.io/library/python:3.8.6@sha256:c0834fbc6e4b987a8aa1  0.0s
+[0m[34m => CACHED [2/5] WORKDIR /app                                              0.0s
+[0m[34m => [3/5] COPY . .                                                         0.0s
+[0m[34m => [4/5] RUN pip install --upgrade pip                                    8.3s
+[0m => [5/5] RUN pip install -r requirements.txt                              1.2s
+[?25h[1A[1A[1A[1A[1A[1A[1A[1A[1A[0G[?25l[+] Building 11.8s (8/9)                                                        
+[34m => [internal] load metadata for docker.io/library/python:3.8.6            2.0s
+[0m[34m => [internal] load build context                                          0.0s
+[0m[34m => => transferring context: 12.64kB                                       0.0s
+[0m[34m => [1/5] FROM docker.io/library/python:3.8.6@sha256:c0834fbc6e4b987a8aa1  0.0s
+[0m[34m => CACHED [2/5] WORKDIR /app                                              0.0s
+[0m[34m => [3/5] COPY . .                                                         0.0s
+[0m[34m => [4/5] RUN pip install --upgrade pip                                    8.3s
+[0m => [5/5] RUN pip install -r requirements.txt                              1.4s
+[?25h[1A[1A[1A[1A[1A[1A[1A[1A[1A[0G[?25l[+] Building 12.0s (8/9)                                                        
+[34m => [internal] load metadata for docker.io/library/python:3.8.6            2.0s
+[0m[34m => [internal] load build context                                          0.0s
+[0m[34m => => transferring context: 12.64kB                                       0.0s
+[0m[34m => [1/5] FROM docker.io/library/python:3.8.6@sha256:c0834fbc6e4b987a8aa1  0.0s
+[0m[34m => CACHED [2/5] WORKDIR /app                                              0.0s
+[0m[34m => [3/5] COPY . .                                                         0.0s
+[0m[34m => [4/5] RUN pip install --upgrade pip                                    8.3s
+[0m => [5/5] RUN pip install -r requirements.txt                              1.5s
+[?25h[1A[1A[1A[1A[1A[1A[1A[1A[1A[0G[?25l[+] Building 12.1s (8/9)                                                        
+[34m => [internal] load metadata for docker.io/library/python:3.8.6            2.0s
+[0m[34m => [internal] load build context                                          0.0s
+[0m[34m => => transferring context: 12.64kB                                       0.0s
+[0m[34m => [1/5] FROM docker.io/library/python:3.8.6@sha256:c0834fbc6e4b987a8aa1  0.0s
+[0m[34m => CACHED [2/5] WORKDIR /app                                              0.0s
+[0m[34m => [3/5] COPY . .                                                         0.0s
+[0m[34m => [4/5] RUN pip install --upgrade pip                                    8.3s
+[0m => [5/5] RUN pip install -r requirements.txt                              1.7s
+[?25h[1A[1A[1A[1A[1A[1A[1A[1A[1A[0G[?25l[+] Building 12.2s (8/9)                                                        
+[34m => [internal] load metadata for docker.io/library/python:3.8.6            2.0s
+[0m[34m => [internal] load build context                                          0.0s
+[0m[34m => => transferring context: 12.64kB                                       0.0s
+[0m[34m => [1/5] FROM docker.io/library/python:3.8.6@sha256:c0834fbc6e4b987a8aa1  0.0s
+[0m[34m => CACHED [2/5] WORKDIR /app                                              0.0s
+[0m[34m => [3/5] COPY . .                                                         0.0s
+[0m[34m => [4/5] RUN pip install --upgrade pip                                    8.3s
+[0m => [5/5] RUN pip install -r requirements.txt                              1.8s
+[?25h[1A[1A[1A[1A[1A[1A[1A[1A[1A[0G[?25l[+] Building 12.4s (8/9)                                                        
+[34m => [internal] load metadata for docker.io/library/python:3.8.6            2.0s
+[0m[34m => [internal] load build context                                          0.0s
+[0m[34m => => transferring context: 12.64kB                                       0.0s
+[0m[34m => [1/5] FROM docker.io/library/python:3.8.6@sha256:c0834fbc6e4b987a8aa1  0.0s
+[0m[34m => CACHED [2/5] WORKDIR /app                                              0.0s
+[0m[34m => [3/5] COPY . .                                                         0.0s
+[0m[34m => [4/5] RUN pip install --upgrade pip                                    8.3s
+[0m => [5/5] RUN pip install -r requirements.txt                              2.0s
+[?25h[1A[1A[1A[1A[1A[1A[1A[1A[1A[0G[?25l[+] Building 12.5s (8/9)                                                        
+[34m => [internal] load metadata for docker.io/library/python:3.8.6            2.0s
+[0m[34m => [internal] load build context                                          0.0s
+[0m[34m => => transferring context: 12.64kB                                       0.0s
+[0m[34m => [1/5] FROM docker.io/library/python:3.8.6@sha256:c0834fbc6e4b987a8aa1  0.0s
+[0m[34m => CACHED [2/5] WORKDIR /app                                              0.0s
+[0m[34m => [3/5] COPY . .                                                         0.0s
+[0m[34m => [4/5] RUN pip install --upgrade pip                                    8.3s
+[0m => [5/5] RUN pip install -r requirements.txt                              2.1s
+[?25h[1A[1A[1A[1A[1A[1A[1A[1A[1A[0G[?25l[+] Building 12.7s (8/9)                                                        
+[34m => [internal] load metadata for docker.io/library/python:3.8.6            2.0s
+[0m[34m => [internal] load build context                                          0.0s
+[0m[34m => => transferring context: 12.64kB                                       0.0s
+[0m[34m => [1/5] FROM docker.io/library/python:3.8.6@sha256:c0834fbc6e4b987a8aa1  0.0s
+[0m[34m => CACHED [2/5] WORKDIR /app                                              0.0s
+[0m[34m => [3/5] COPY . .                                                         0.0s
+[0m[34m => [4/5] RUN pip install --upgrade pip                                    8.3s
+[0m => [5/5] RUN pip install -r requirements.txt                              2.2s
+[?25h[1A[1A[1A[1A[1A[1A[1A[1A[1A[0G[?25l[+] Building 12.8s (8/9)                                                        
+[34m => [internal] load metadata for docker.io/library/python:3.8.6            2.0s
+[0m[34m => [internal] load build context                                          0.0s
+[0m[34m => => transferring context: 12.64kB                                       0.0s
+[0m[34m => [1/5] FROM docker.io/library/python:3.8.6@sha256:c0834fbc6e4b987a8aa1  0.0s
+[0m[34m => CACHED [2/5] WORKDIR /app                                              0.0s
+[0m[34m => [3/5] COPY . .                                                         0.0s
+[0m[34m => [4/5] RUN pip install --upgrade pip                                    8.3s
+[0m => [5/5] RUN pip install -r requirements.txt                              2.4s
+[?25h[1A[1A[1A[1A[1A[1A[1A[1A[1A[0G[?25l[+] Building 13.0s (8/9)                                                        
+[34m => [internal] load metadata for docker.io/library/python:3.8.6            2.0s
+[0m[34m => [internal] load build context                                          0.0s
+[0m[34m => => transferring context: 12.64kB                                       0.0s
+[0m[34m => [1/5] FROM docker.io/library/python:3.8.6@sha256:c0834fbc6e4b987a8aa1  0.0s
+[0m[34m => CACHED [2/5] WORKDIR /app                                              0.0s
+[0m[34m => [3/5] COPY . .                                                         0.0s
+[0m[34m => [4/5] RUN pip install --upgrade pip                                    8.3s
+[0m => [5/5] RUN pip install -r requirements.txt                              2.5s
+[?25h[1A[1A[1A[1A[1A[1A[1A[1A[1A[0G[?25l[+] Building 13.1s (8/9)                                                        
+[34m => [internal] load metadata for docker.io/library/python:3.8.6            2.0s
+[0m[34m => [internal] load build context                                          0.0s
+[0m[34m => => transferring context: 12.64kB                                       0.0s
+[0m[34m => [1/5] FROM docker.io/library/python:3.8.6@sha256:c0834fbc6e4b987a8aa1  0.0s
+[0m[34m => CACHED [2/5] WORKDIR /app                                              0.0s
+[0m[34m => [3/5] COPY . .                                                         0.0s
+[0m[34m => [4/5] RUN pip install --upgrade pip                                    8.3s
+[0m => [5/5] RUN pip install -r requirements.txt                              2.6s
+[?25h[1A[1A[1A[1A[1A[1A[1A[1A[1A[0G[?25l[+] Building 13.2s (8/9)                                                        
+[34m => [internal] load metadata for docker.io/library/python:3.8.6            2.0s
+[0m[34m => [internal] load build context                                          0.0s
+[0m[34m => => transferring context: 12.64kB                                       0.0s
+[0m[34m => [1/5] FROM docker.io/library/python:3.8.6@sha256:c0834fbc6e4b987a8aa1  0.0s
+[0m[34m => CACHED [2/5] WORKDIR /app                                              0.0s
+[0m[34m => [3/5] COPY . .                                                         0.0s
+[0m[34m => [4/5] RUN pip install --upgrade pip                                    8.3s
+[0m => [5/5] RUN pip install -r requirements.txt                              2.8s
+[?25h[1A[1A[1A[1A[1A[1A[1A[1A[1A[0G[?25l[+] Building 13.4s (8/9)                                                        
+[34m => [internal] load metadata for docker.io/library/python:3.8.6            2.0s
+[0m[34m => [internal] load build context                                          0.0s
+[0m[34m => => transferring context: 12.64kB                                       0.0s
+[0m[34m => [1/5] FROM docker.io/library/python:3.8.6@sha256:c0834fbc6e4b987a8aa1  0.0s
+[0m[34m => CACHED [2/5] WORKDIR /app                                              0.0s
+[0m[34m => [3/5] COPY . .                                                         0.0s
+[0m[34m => [4/5] RUN pip install --upgrade pip                                    8.3s
+[0m => [5/5] RUN pip install -r requirements.txt                              2.9s
+[?25h[1A[1A[1A[1A[1A[1A[1A[1A[1A[0G[?25l[+] Building 13.5s (8/9)                                                        
+[34m => [internal] load metadata for docker.io/library/python:3.8.6            2.0s
+[0m[34m => [internal] load build context                                          0.0s
+[0m[34m => => transferring context: 12.64kB                                       0.0s
+[0m[34m => [1/5] FROM docker.io/library/python:3.8.6@sha256:c0834fbc6e4b987a8aa1  0.0s
+[0m[34m => CACHED [2/5] WORKDIR /app                                              0.0s
+[0m[34m => [3/5] COPY . .                                                         0.0s
+[0m[34m => [4/5] RUN pip install --upgrade pip                                    8.3s
+[0m => [5/5] RUN pip install -r requirements.txt                              3.1s
+[?25h[1A[1A[1A[1A[1A[1A[1A[1A[1A[0G[?25l[+] Building 13.7s (8/9)                                                        
+[34m => [internal] load metadata for docker.io/library/python:3.8.6            2.0s
+[0m[34m => [internal] load build context                                          0.0s
+[0m[34m => => transferring context: 12.64kB                                       0.0s
+[0m[34m => [1/5] FROM docker.io/library/python:3.8.6@sha256:c0834fbc6e4b987a8aa1  0.0s
+[0m[34m => CACHED [2/5] WORKDIR /app                                              0.0s
+[0m[34m => [3/5] COPY . .                                                         0.0s
+[0m[34m => [4/5] RUN pip install --upgrade pip                                    8.3s
+[0m => [5/5] RUN pip install -r requirements.txt                              3.2s
+[?25h[1A[1A[1A[1A[1A[1A[1A[1A[1A[0G[?25l[+] Building 13.8s (8/9)                                                        
+[34m => [internal] load metadata for docker.io/library/python:3.8.6            2.0s
+[0m[34m => [internal] load build context                                          0.0s
+[0m[34m => => transferring context: 12.64kB                                       0.0s
+[0m[34m => [1/5] FROM docker.io/library/python:3.8.6@sha256:c0834fbc6e4b987a8aa1  0.0s
+[0m[34m => CACHED [2/5] WORKDIR /app                                              0.0s
+[0m[34m => [3/5] COPY . .                                                         0.0s
+[0m[34m => [4/5] RUN pip install --upgrade pip                                    8.3s
+[0m => [5/5] RUN pip install -r requirements.txt                              3.4s
+[?25h[1A[1A[1A[1A[1A[1A[1A[1A[1A[0G[?25l[+] Building 14.0s (8/9)                                                        
+[34m => [internal] load metadata for docker.io/library/python:3.8.6            2.0s
+[0m[34m => [internal] load build context                                          0.0s
+[0m[34m => => transferring context: 12.64kB                                       0.0s
+[0m[34m => [1/5] FROM docker.io/library/python:3.8.6@sha256:c0834fbc6e4b987a8aa1  0.0s
+[0m[34m => CACHED [2/5] WORKDIR /app                                              0.0s
+[0m[34m => [3/5] COPY . .                                                         0.0s
+[0m[34m => [4/5] RUN pip install --upgrade pip                                    8.3s
+[0m => [5/5] RUN pip install -r requirements.txt                              3.5s
+[?25h[1A[1A[1A[1A[1A[1A[1A[1A[1A[0G[?25l[+] Building 14.1s (8/9)                                                        
+[34m => [internal] load metadata for docker.io/library/python:3.8.6            2.0s
+[0m[34m => [internal] load build context                                          0.0s
+[0m[34m => => transferring context: 12.64kB                                       0.0s
+[0m[34m => [1/5] FROM docker.io/library/python:3.8.6@sha256:c0834fbc6e4b987a8aa1  0.0s
+[0m[34m => CACHED [2/5] WORKDIR /app                                              0.0s
+[0m[34m => [3/5] COPY . .                                                         0.0s
+[0m[34m => [4/5] RUN pip install --upgrade pip                                    8.3s
+[0m => [5/5] RUN pip install -r requirements.txt                              3.7s
+[?25h[1A[1A[1A[1A[1A[1A[1A[1A[1A[0G[?25l[+] Building 14.2s (8/9)                                                        
+[34m => [internal] load metadata for docker.io/library/python:3.8.6            2.0s
+[0m[34m => [internal] load build context                                          0.0s
+[0m[34m => => transferring context: 12.64kB                                       0.0s
+[0m[34m => [1/5] FROM docker.io/library/python:3.8.6@sha256:c0834fbc6e4b987a8aa1  0.0s
+[0m[34m => CACHED [2/5] WORKDIR /app                                              0.0s
+[0m[34m => [3/5] COPY . .                                                         0.0s
+[0m[34m => [4/5] RUN pip install --upgrade pip                                    8.3s
+[0m => [5/5] RUN pip install -r requirements.txt                              3.8s
+[?25h[1A[1A[1A[1A[1A[1A[1A[1A[1A[0G[?25l[+] Building 14.3s (8/9)                                                        
+[34m => [internal] load metadata for docker.io/library/python:3.8.6            2.0s
+[0m[34m => [internal] load build context                                          0.0s
+[0m[34m => => transferring context: 12.64kB                                       0.0s
+[0m[34m => [1/5] FROM docker.io/library/python:3.8.6@sha256:c0834fbc6e4b987a8aa1  0.0s
+[0m[34m => CACHED [2/5] WORKDIR /app                                              0.0s
+[0m[34m => [3/5] COPY . .                                                         0.0s
+[0m[34m => [4/5] RUN pip install --upgrade pip                                    8.3s
+[0m => [5/5] RUN pip install -r requirements.txt                              3.9s
+[?25h[1A[1A[1A[1A[1A[1A[1A[1A[1A[0G[?25l[+] Building 14.5s (8/9)                                                        
+[34m => [internal] load metadata for docker.io/library/python:3.8.6            2.0s
+[0m[34m => [internal] load build context                                          0.0s
+[0m[34m => => transferring context: 12.64kB                                       0.0s
+[0m[34m => [1/5] FROM docker.io/library/python:3.8.6@sha256:c0834fbc6e4b987a8aa1  0.0s
+[0m[34m => CACHED [2/5] WORKDIR /app                                              0.0s
+[0m[34m => [3/5] COPY . .                                                         0.0s
+[0m[34m => [4/5] RUN pip install --upgrade pip                                    8.3s
+[0m => [5/5] RUN pip install -r requirements.txt                              4.0s
+[?25h[1A[1A[1A[1A[1A[1A[1A[1A[1A[0G[?25l[+] Building 14.6s (8/9)                                                        
+[34m => [internal] load metadata for docker.io/library/python:3.8.6            2.0s
+[0m[34m => [internal] load build context                                          0.0s
+[0m[34m => => transferring context: 12.64kB                                       0.0s
+[0m[34m => [1/5] FROM docker.io/library/python:3.8.6@sha256:c0834fbc6e4b987a8aa1  0.0s
+[0m[34m => CACHED [2/5] WORKDIR /app                                              0.0s
+[0m[34m => [3/5] COPY . .                                                         0.0s
+[0m[34m => [4/5] RUN pip install --upgrade pip                                    8.3s
+[0m => [5/5] RUN pip install -r requirements.txt                              4.1s
+[?25h[1A[1A[1A[1A[1A[1A[1A[1A[1A[0G[?25l[+] Building 14.7s (8/9)                                                        
+[34m => [internal] load metadata for docker.io/library/python:3.8.6            2.0s
+[0m[34m => [internal] load build context                                          0.0s
+[0m[34m => => transferring context: 12.64kB                                       0.0s
+[0m[34m => [1/5] FROM docker.io/library/python:3.8.6@sha256:c0834fbc6e4b987a8aa1  0.0s
+[0m[34m => CACHED [2/5] WORKDIR /app                                              0.0s
+[0m[34m => [3/5] COPY . .                                                         0.0s
+[0m[34m => [4/5] RUN pip install --upgrade pip                                    8.3s
+[0m => [5/5] RUN pip install -r requirements.txt                              4.3s
+[?25h[1A[1A[1A[1A[1A[1A[1A[1A[1A[0G[?25l[+] Building 14.9s (8/9)                                                        
+[34m => [internal] load metadata for docker.io/library/python:3.8.6            2.0s
+[0m[34m => [internal] load build context                                          0.0s
+[0m[34m => => transferring context: 12.64kB                                       0.0s
+[0m[34m => [1/5] FROM docker.io/library/python:3.8.6@sha256:c0834fbc6e4b987a8aa1  0.0s
+[0m[34m => CACHED [2/5] WORKDIR /app                                              0.0s
+[0m[34m => [3/5] COPY . .                                                         0.0s
+[0m[34m => [4/5] RUN pip install --upgrade pip                                    8.3s
+[0m => [5/5] RUN pip install -r requirements.txt                              4.4s
+[?25h[1A[1A[1A[1A[1A[1A[1A[1A[1A[0G[?25l[+] Building 15.0s (8/9)                                                        
+[34m => [internal] load metadata for docker.io/library/python:3.8.6            2.0s
+[0m[34m => [internal] load build context                                          0.0s
+[0m[34m => => transferring context: 12.64kB                                       0.0s
+[0m[34m => [1/5] FROM docker.io/library/python:3.8.6@sha256:c0834fbc6e4b987a8aa1  0.0s
+[0m[34m => CACHED [2/5] WORKDIR /app                                              0.0s
+[0m[34m => [3/5] COPY . .                                                         0.0s
+[0m[34m => [4/5] RUN pip install --upgrade pip                                    8.3s
+[0m => [5/5] RUN pip install -r requirements.txt                              4.6s
+[?25h[1A[1A[1A[1A[1A[1A[1A[1A[1A[0G[?25l[+] Building 15.2s (8/9)                                                        
+[34m => [internal] load metadata for docker.io/library/python:3.8.6            2.0s
+[0m[34m => [internal] load build context                                          0.0s
+[0m[34m => => transferring context: 12.64kB                                       0.0s
+[0m[34m => [1/5] FROM docker.io/library/python:3.8.6@sha256:c0834fbc6e4b987a8aa1  0.0s
+[0m[34m => CACHED [2/5] WORKDIR /app                                              0.0s
+[0m[34m => [3/5] COPY . .                                                         0.0s
+[0m[34m => [4/5] RUN pip install --upgrade pip                                    8.3s
+[0m => [5/5] RUN pip install -r requirements.txt                              4.7s
+[?25h[1A[1A[1A[1A[1A[1A[1A[1A[1A[0G[?25l[+] Building 15.3s (8/9)                                                        
+[34m => [internal] load metadata for docker.io/library/python:3.8.6            2.0s
+[0m[34m => [internal] load build context                                          0.0s
+[0m[34m => => transferring context: 12.64kB                                       0.0s
+[0m[34m => [1/5] FROM docker.io/library/python:3.8.6@sha256:c0834fbc6e4b987a8aa1  0.0s
+[0m[34m => CACHED [2/5] WORKDIR /app                                              0.0s
+[0m[34m => [3/5] COPY . .                                                         0.0s
+[0m[34m => [4/5] RUN pip install --upgrade pip                                    8.3s
+[0m => [5/5] RUN pip install -r requirements.txt                              4.8s
+[?25h[1A[1A[1A[1A[1A[1A[1A[1A[1A[0G[?25l[+] Building 15.4s (8/9)                                                        
+[34m => [internal] load metadata for docker.io/library/python:3.8.6            2.0s
+[0m[34m => [internal] load build context                                          0.0s
+[0m[34m => => transferring context: 12.64kB                                       0.0s
+[0m[34m => [1/5] FROM docker.io/library/python:3.8.6@sha256:c0834fbc6e4b987a8aa1  0.0s
+[0m[34m => CACHED [2/5] WORKDIR /app                                              0.0s
+[0m[34m => [3/5] COPY . .                                                         0.0s
+[0m[34m => [4/5] RUN pip install --upgrade pip                                    8.3s
+[0m => [5/5] RUN pip install -r requirements.txt                              5.0s
+[?25h[1A[1A[1A[1A[1A[1A[1A[1A[1A[0G[?25l[+] Building 15.6s (8/9)                                                        
+[34m => [internal] load metadata for docker.io/library/python:3.8.6            2.0s
+[0m[34m => [internal] load build context                                          0.0s
+[0m[34m => => transferring context: 12.64kB                                       0.0s
+[0m[34m => [1/5] FROM docker.io/library/python:3.8.6@sha256:c0834fbc6e4b987a8aa1  0.0s
+[0m[34m => CACHED [2/5] WORKDIR /app                                              0.0s
+[0m[34m => [3/5] COPY . .                                                         0.0s
+[0m[34m => [4/5] RUN pip install --upgrade pip                                    8.3s
+[0m => [5/5] RUN pip install -r requirements.txt                              5.1s
+[?25h[1A[1A[1A[1A[1A[1A[1A[1A[1A[0G[?25l[+] Building 15.7s (8/9)                                                        
+[34m => [internal] load metadata for docker.io/library/python:3.8.6            2.0s
+[0m[34m => [internal] load build context                                          0.0s
+[0m[34m => => transferring context: 12.64kB                                       0.0s
+[0m[34m => [1/5] FROM docker.io/library/python:3.8.6@sha256:c0834fbc6e4b987a8aa1  0.0s
+[0m[34m => CACHED [2/5] WORKDIR /app                                              0.0s
+[0m[34m => [3/5] COPY . .                                                         0.0s
+[0m[34m => [4/5] RUN pip install --upgrade pip                                    8.3s
+[0m => [5/5] RUN pip install -r requirements.txt                              5.3s
+[?25h[1A[1A[1A[1A[1A[1A[1A[1A[1A[0G[?25l[+] Building 15.9s (8/9)                                                        
+[34m => [internal] load metadata for docker.io/library/python:3.8.6            2.0s
+[0m[34m => [internal] load build context                                          0.0s
+[0m[34m => => transferring context: 12.64kB                                       0.0s
+[0m[34m => [1/5] FROM docker.io/library/python:3.8.6@sha256:c0834fbc6e4b987a8aa1  0.0s
+[0m[34m => CACHED [2/5] WORKDIR /app                                              0.0s
+[0m[34m => [3/5] COPY . .                                                         0.0s
+[0m[34m => [4/5] RUN pip install --upgrade pip                                    8.3s
+[0m => [5/5] RUN pip install -r requirements.txt                              5.5s
+[?25h[1A[1A[1A[1A[1A[1A[1A[1A[1A[0G[?25l[+] Building 16.1s (8/9)                                                        
+[34m => [internal] load metadata for docker.io/library/python:3.8.6            2.0s
+[0m[34m => [internal] load build context                                          0.0s
+[0m[34m => => transferring context: 12.64kB                                       0.0s
+[0m[34m => [1/5] FROM docker.io/library/python:3.8.6@sha256:c0834fbc6e4b987a8aa1  0.0s
+[0m[34m => CACHED [2/5] WORKDIR /app                                              0.0s
+[0m[34m => [3/5] COPY . .                                                         0.0s
+[0m[34m => [4/5] RUN pip install --upgrade pip                                    8.3s
+[0m => [5/5] RUN pip install -r requirements.txt                              5.6s
+[?25h[1A[1A[1A[1A[1A[1A[1A[1A[1A[0G[?25l[+] Building 16.2s (8/9)                                                        
+[34m => [internal] load metadata for docker.io/library/python:3.8.6            2.0s
+[0m[34m => [internal] load build context                                          0.0s
+[0m[34m => => transferring context: 12.64kB                                       0.0s
+[0m[34m => [1/5] FROM docker.io/library/python:3.8.6@sha256:c0834fbc6e4b987a8aa1  0.0s
+[0m[34m => CACHED [2/5] WORKDIR /app                                              0.0s
+[0m[34m => [3/5] COPY . .                                                         0.0s
+[0m[34m => [4/5] RUN pip install --upgrade pip                                    8.3s
+[0m => [5/5] RUN pip install -r requirements.txt                              5.8s
+[?25h[1A[1A[1A[1A[1A[1A[1A[1A[1A[0G[?25l[+] Building 16.4s (8/9)                                                        
+[34m => [internal] load metadata for docker.io/library/python:3.8.6            2.0s
+[0m[34m => [internal] load build context                                          0.0s
+[0m[34m => => transferring context: 12.64kB                                       0.0s
+[0m[34m => [1/5] FROM docker.io/library/python:3.8.6@sha256:c0834fbc6e4b987a8aa1  0.0s
+[0m[34m => CACHED [2/5] WORKDIR /app                                              0.0s
+[0m[34m => [3/5] COPY . .                                                         0.0s
+[0m[34m => [4/5] RUN pip install --upgrade pip                                    8.3s
+[0m => [5/5] RUN pip install -r requirements.txt                              5.9s
+[?25h[1A[1A[1A[1A[1A[1A[1A[1A[1A[0G[?25l[+] Building 16.5s (8/9)                                                        
+[34m => [internal] load metadata for docker.io/library/python:3.8.6            2.0s
+[0m[34m => [internal] load build context                                          0.0s
+[0m[34m => => transferring context: 12.64kB                                       0.0s
+[0m[34m => [1/5] FROM docker.io/library/python:3.8.6@sha256:c0834fbc6e4b987a8aa1  0.0s
+[0m[34m => CACHED [2/5] WORKDIR /app                                              0.0s
+[0m[34m => [3/5] COPY . .                                                         0.0s
+[0m[34m => [4/5] RUN pip install --upgrade pip                                    8.3s
+[0m => [5/5] RUN pip install -r requirements.txt                              6.1s
+[?25h[1A[1A[1A[1A[1A[1A[1A[1A[1A[0G[?25l[+] Building 16.7s (8/9)                                                        
+[34m => [internal] load metadata for docker.io/library/python:3.8.6            2.0s
+[0m[34m => [internal] load build context                                          0.0s
+[0m[34m => => transferring context: 12.64kB                                       0.0s
+[0m[34m => [1/5] FROM docker.io/library/python:3.8.6@sha256:c0834fbc6e4b987a8aa1  0.0s
+[0m[34m => CACHED [2/5] WORKDIR /app                                              0.0s
+[0m[34m => [3/5] COPY . .                                                         0.0s
+[0m[34m => [4/5] RUN pip install --upgrade pip                                    8.3s
+[0m => [5/5] RUN pip install -r requirements.txt                              6.3s
+[?25h[1A[1A[1A[1A[1A[1A[1A[1A[1A[0G[?25l[+] Building 16.9s (8/9)                                                        
+[34m => [internal] load metadata for docker.io/library/python:3.8.6            2.0s
+[0m[34m => [internal] load build context                                          0.0s
+[0m[34m => => transferring context: 12.64kB                                       0.0s
+[0m[34m => [1/5] FROM docker.io/library/python:3.8.6@sha256:c0834fbc6e4b987a8aa1  0.0s
+[0m[34m => CACHED [2/5] WORKDIR /app                                              0.0s
+[0m[34m => [3/5] COPY . .                                                         0.0s
+[0m[34m => [4/5] RUN pip install --upgrade pip                                    8.3s
+[0m => [5/5] RUN pip install -r requirements.txt                              6.4s
+[?25h[1A[1A[1A[1A[1A[1A[1A[1A[1A[0G[?25l[+] Building 17.0s (8/9)                                                        
+[34m => [internal] load metadata for docker.io/library/python:3.8.6            2.0s
+[0m[34m => [internal] load build context                                          0.0s
+[0m[34m => => transferring context: 12.64kB                                       0.0s
+[0m[34m => [1/5] FROM docker.io/library/python:3.8.6@sha256:c0834fbc6e4b987a8aa1  0.0s
+[0m[34m => CACHED [2/5] WORKDIR /app                                              0.0s
+[0m[34m => [3/5] COPY . .                                                         0.0s
+[0m[34m => [4/5] RUN pip install --upgrade pip                                    8.3s
+[0m => [5/5] RUN pip install -r requirements.txt                              6.6s
+[?25h[1A[1A[1A[1A[1A[1A[1A[1A[1A[0G[?25l[+] Building 17.2s (8/9)                                                        
+[34m => [internal] load metadata for docker.io/library/python:3.8.6            2.0s
+[0m[34m => [internal] load build context                                          0.0s
+[0m[34m => => transferring context: 12.64kB                                       0.0s
+[0m[34m => [1/5] FROM docker.io/library/python:3.8.6@sha256:c0834fbc6e4b987a8aa1  0.0s
+[0m[34m => CACHED [2/5] WORKDIR /app                                              0.0s
+[0m[34m => [3/5] COPY . .                                                         0.0s
+[0m[34m => [4/5] RUN pip install --upgrade pip                                    8.3s
+[0m => [5/5] RUN pip install -r requirements.txt                              6.7s
+[?25h[1A[1A[1A[1A[1A[1A[1A[1A[1A[0G[?25l[+] Building 17.3s (8/9)                                                        
+[34m => [internal] load metadata for docker.io/library/python:3.8.6            2.0s
+[0m[34m => [internal] load build context                                          0.0s
+[0m[34m => => transferring context: 12.64kB                                       0.0s
+[0m[34m => [1/5] FROM docker.io/library/python:3.8.6@sha256:c0834fbc6e4b987a8aa1  0.0s
+[0m[34m => CACHED [2/5] WORKDIR /app                                              0.0s
+[0m[34m => [3/5] COPY . .                                                         0.0s
+[0m[34m => [4/5] RUN pip install --upgrade pip                                    8.3s
+[0m => [5/5] RUN pip install -r requirements.txt                              6.9s
+[?25h[1A[1A[1A[1A[1A[1A[1A[1A[1A[0G[?25l[+] Building 17.5s (8/9)                                                        
+[34m => [internal] load metadata for docker.io/library/python:3.8.6            2.0s
+[0m[34m => [internal] load build context                                          0.0s
+[0m[34m => => transferring context: 12.64kB                                       0.0s
+[0m[34m => [1/5] FROM docker.io/library/python:3.8.6@sha256:c0834fbc6e4b987a8aa1  0.0s
+[0m[34m => CACHED [2/5] WORKDIR /app                                              0.0s
+[0m[34m => [3/5] COPY . .                                                         0.0s
+[0m[34m => [4/5] RUN pip install --upgrade pip                                    8.3s
+[0m => [5/5] RUN pip install -r requirements.txt                              7.0s
+[?25h[1A[1A[1A[1A[1A[1A[1A[1A[1A[0G[?25l[+] Building 17.6s (8/9)                                                        
+[34m => [internal] load metadata for docker.io/library/python:3.8.6            2.0s
+[0m[34m => [internal] load build context                                          0.0s
+[0m[34m => => transferring context: 12.64kB                                       0.0s
+[0m[34m => [1/5] FROM docker.io/library/python:3.8.6@sha256:c0834fbc6e4b987a8aa1  0.0s
+[0m[34m => CACHED [2/5] WORKDIR /app                                              0.0s
+[0m[34m => [3/5] COPY . .                                                         0.0s
+[0m[34m => [4/5] RUN pip install --upgrade pip                                    8.3s
+[0m => [5/5] RUN pip install -r requirements.txt                              7.2s
+[?25h[1A[1A[1A[1A[1A[1A[1A[1A[1A[0G[?25l[+] Building 17.8s (8/9)                                                        
+[34m => [internal] load metadata for docker.io/library/python:3.8.6            2.0s
+[0m[34m => [internal] load build context                                          0.0s
+[0m[34m => => transferring context: 12.64kB                                       0.0s
+[0m[34m => [1/5] FROM docker.io/library/python:3.8.6@sha256:c0834fbc6e4b987a8aa1  0.0s
+[0m[34m => CACHED [2/5] WORKDIR /app                                              0.0s
+[0m[34m => [3/5] COPY . .                                                         0.0s
+[0m[34m => [4/5] RUN pip install --upgrade pip                                    8.3s
+[0m => [5/5] RUN pip install -r requirements.txt                              7.4s
+[?25h[1A[1A[1A[1A[1A[1A[1A[1A[1A[0G[?25l[+] Building 18.0s (9/10)                                                       
+[34m => => transferring context: 12.64kB                                       0.0s
+[0m[34m => [1/5] FROM docker.io/library/python:3.8.6@sha256:c0834fbc6e4b987a8aa1  0.0s
+[0m[34m => CACHED [2/5] WORKDIR /app                                              0.0s
+[0m[34m => [3/5] COPY . .                                                         0.0s
+[0m[34m => [4/5] RUN pip install --upgrade pip                                    8.3s
+[0m[34m => [5/5] RUN pip install -r requirements.txt                              7.5s
+[0m => exporting to image                                                     0.0s
+ => => exporting layers                                                    0.0s
+[?25h[1A[1A[1A[1A[1A[1A[1A[1A[1A[0G[?25l[+] Building 18.1s (9/10)                                                       
+[34m => => transferring context: 12.64kB                                       0.0s
+[0m[34m => [1/5] FROM docker.io/library/python:3.8.6@sha256:c0834fbc6e4b987a8aa1  0.0s
+[0m[34m => CACHED [2/5] WORKDIR /app                                              0.0s
+[0m[34m => [3/5] COPY . .                                                         0.0s
+[0m[34m => [4/5] RUN pip install --upgrade pip                                    8.3s
+[0m[34m => [5/5] RUN pip install -r requirements.txt                              7.5s
+[0m => exporting to image                                                     0.2s
+ => => exporting layers                                                    0.2s
+[?25h[1A[1A[1A[1A[1A[1A[1A[1A[1A[0G[?25l[+] Building 18.2s (9/10)                                                       
+[34m => => transferring context: 12.64kB                                       0.0s
+[0m[34m => [1/5] FROM docker.io/library/python:3.8.6@sha256:c0834fbc6e4b987a8aa1  0.0s
+[0m[34m => CACHED [2/5] WORKDIR /app                                              0.0s
+[0m[34m => [3/5] COPY . .                                                         0.0s
+[0m[34m => [4/5] RUN pip install --upgrade pip                                    8.3s
+[0m[34m => [5/5] RUN pip install -r requirements.txt                              7.5s
+[0m => exporting to image                                                     0.3s
+[34m => => exporting layers                                                    0.3s
+[0m[?25h[1A[1A[1A[1A[1A[1A[1A[1A[1A[0G[?25l[+] Building 18.3s (10/10) FINISHED                                             
+[34m => [internal] load build definition from Dockerfile                       0.0s
+[0m[34m => => transferring dockerfile: 32B                                        0.0s
+[0m[34m => [internal] load .dockerignore                                          0.0s
+[0m[34m => => transferring context: 2B                                            0.0s
+[0m[34m => [internal] load metadata for docker.io/library/python:3.8.6            2.0s
+[0m[34m => [internal] load build context                                          0.0s
+[0m[34m => => transferring context: 12.64kB                                       0.0s
+[0m[34m => [1/5] FROM docker.io/library/python:3.8.6@sha256:c0834fbc6e4b987a8aa1  0.0s
+[0m[34m => CACHED [2/5] WORKDIR /app                                              0.0s
+[0m[34m => [3/5] COPY . .                                                         0.0s
+[0m[34m => [4/5] RUN pip install --upgrade pip                                    8.3s
+[0m[34m => [5/5] RUN pip install -r requirements.txt                              7.5s
+[0m[34m => exporting to image                                                     0.3s
+[0m[34m => => exporting layers                                                    0.3s
+[0m[34m => => writing image sha256:ae718cc7ec1711dabc3c59c1ed25cc0efed665f233490  0.0s
+[0m[34m => => naming to docker.io/library/player_v2                               0.0s
+[0m[?25hHost: http://host.docker.internal:8080
+Dealer: D1, Player: P1
+Client connect successfully!
+Send join-room event.
+req_data: 
+{'room_name': 'D1', 'player': 'P1'}
+Receive join-room event.
+res_data: 
+{'room_name': 'D1', 'player': 'P1'}
+Send join-room event.
+res_data: 
+{
+    'room_name': 'D1',
+    'player': 'P1',
+    'game_id': 'D-00000001',
+    'your_id': 'P-00000001',
+    'total_turn': 3,
+    'white_wild': 'skip_bind_2'
+}
+Client join room successfully!
+My id is P-00000001
+Receive join-room event.
+res_data: 
+{'room_name': 'D1', 'player': 'Alternative 2'}
+Receive join-room event.
+res_data: 
+{'room_name': 'D1', 'player': 'Alternative 3'}
+Receive join-room event.
+res_data: 
+{'room_name': 'D1', 'player': 'Alternative 4'}
+場札または手札にないのは
+{'blue': {'0': 1, '1': 2, '2': 2, '3': 0, '4': 2, '5': 2, '6': 1, '7': 2, '8': 2, '9': 2, 'draw_2': 2, 'skip': 2, 'reverse': 2}, 'green': {'0': 1, '1': 2, '2': 2, '3': 2, '4': 2, '5': 2, '6': 2, '7': 2, '8': 2, '9': 2, 'draw_2': 2, 'skip': 1, 'reverse': 2}, 'red': {'0': 1, '1': 1, '2': 2, '3': 2, '4': 2, '5': 2, '6': 2, '7': 2, '8': 2, '9': 1, 'draw_2': 2, 'skip': 2, 'reverse': 2}, 'yellow': {'0': 1, '1': 2, '2': 2, '3': 2, '4': 2, '5': 2, '6': 2, '7': 2, '8': 1, '9': 2, 'draw_2': 2, 'skip': 2, 'reverse': 2}, 'black': {'wild': 4, 'wild_draw_4': 4, 'wild_shuffle': 1}, 'white': {'white_wild': 3}}
+Receive receiver-card event.
+res_data: 
+{
+    'cards_receive': [
+        {'color': 'green', 'special': 'skip'},
+        {'color': 'blue', 'number': 3},
+        {'color': 'red', 'number': 9},
+        {'color': 'red', 'number': 1},
+        {'color': 'blue', 'number': 3},
+        {'color': 'blue', 'number': 6},
+        {'color': 'yellow', 'number': 8}
+    ],
+    'is_penalty': False
+}
+Receive first-player event.
+res_data: 
+{
+    'first_player': 'P-00000004',
+    'first_card': {'color': 'red', 'number': 8},
+    'play_order': ['P-00000004', 'P-00000001', 'P-00000002', 'P-00000003'],
+    'total_turn': 3,
+    'white_wild': 'skip_bind_2'
+}
+場札または手札にないのは
+{'blue': {'0': 1, '1': 2, '2': 2, '3': 0, '4': 2, '5': 2, '6': 1, '7': 2, '8': 2, '9': 2, 'draw_2': 2, 'skip': 2, 'reverse': 2}, 'green': {'0': 1, '1': 2, '2': 2, '3': 2, '4': 2, '5': 2, '6': 2, '7': 2, '8': 2, '9': 2, 'draw_2': 2, 'skip': 1, 'reverse': 2}, 'red': {'0': 1, '1': 1, '2': 2, '3': 2, '4': 2, '5': 2, '6': 2, '7': 1, '8': 2, '9': 1, 'draw_2': 2, 'skip': 2, 'reverse': 2}, 'yellow': {'0': 1, '1': 2, '2': 2, '3': 2, '4': 2, '5': 2, '6': 2, '7': 2, '8': 1, '9': 2, 'draw_2': 2, 'skip': 2, 'reverse': 2}, 'black': {'wild': 4, 'wild_draw_4': 4, 'wild_shuffle': 1}, 'white': {'white_wild': 3}}
+---場にカードを出した---
+プレイヤー: P-00000004
+カード: {'color': 'red', 'number': 7}
+プレイヤーの手札枚数
+P-00000004:6枚 P-00000001:7枚 P-00000002:7枚 P-00000003:7枚 
+Receive play-card event.
+res_data: 
+{
+    'card_play': {'color': 'red', 'number': 7},
+    'yell_uno': False,
+    'player': 'P-00000004'
+}
+Receive next-player event.
+res_data: 
+{
+    'next_player': 'P-00000001',
+    'before_player': 'P-00000004',
+    'card_before': {'color': 'red', 'number': 7},
+    'card_of_player': [
+        {'color': 'yellow', 'number': 8},
+        {'color': 'green', 'special': 'skip'},
+        {'color': 'blue', 'number': 3},
+        {'color': 'blue', 'number': 3},
+        {'color': 'blue', 'number': 6},
+        {'color': 'red', 'number': 1},
+        {'color': 'red', 'number': 9}
+    ],
+    'must_call_draw_card': False,
+    'draw_reason': 'nothing',
+    'turn_right': True,
+    'number_card_play': 2,
+    'number_turn_play': 1,
+    'number_card_of_player': {
+        'P-00000004': 6,
+        'P-00000001': 7,
+        'P-00000002': 7,
+        'P-00000003': 7
+    }
+}
+---枚数照合---
+誰？： P-00000004
+dealerから送られてきたカード枚数: 6
+game_statusで記録していたカード枚数: 6
+正しいか: True
+---枚数照合---
+誰？： P-00000001
+dealerから送られてきたカード枚数: 7
+game_statusで記録していたカード枚数: 7
+正しいか: True
+---枚数照合---
+誰？： P-00000002
+dealerから送られてきたカード枚数: 7
+game_statusで記録していたカード枚数: 7
+正しいか: True
+---枚数照合---
+誰？： P-00000003
+dealerから送られてきたカード枚数: 7
+game_statusで記録していたカード枚数: 7
+正しいか: True
+Send special-logic event.
+req_data: 
+{'title': '◯◯◯◯◯◯◯◯◯◯◯◯◯◯◯◯◯◯◯◯◯'}
+selected card: red 1
+Send play-card event.
+req_data: 
+{'card_play': {'color': 'red', 'number': 1}, 'yell_uno': False}
+Send special-logic event.
+res_data: 
+{'title': '◯◯◯◯◯◯◯◯◯◯◯◯◯◯◯◯◯◯◯◯◯'}
+---場にカードを出した---
+プレイヤー: P-00000001
+カード: {'color': 'red', 'number': 1}
+プレイヤーの手札枚数
+P-00000004:6枚 P-00000001:6枚 P-00000002:7枚 P-00000003:7枚 
+Receive play-card event.
+res_data: 
+{
+    'card_play': {'color': 'red', 'number': 1},
+    'yell_uno': False,
+    'player': 'P-00000001'
+}
+Send play-card event.
+res_data: 
+{'card_play': {'color': 'red', 'number': 1}, 'yell_uno': False}
+場札または手札にないのは
+{'blue': {'0': 1, '1': 2, '2': 2, '3': 0, '4': 2, '5': 2, '6': 1, '7': 2, '8': 2, '9': 2, 'draw_2': 2, 'skip': 2, 'reverse': 2}, 'green': {'0': 1, '1': 1, '2': 2, '3': 2, '4': 2, '5': 2, '6': 2, '7': 2, '8': 2, '9': 2, 'draw_2': 2, 'skip': 1, 'reverse': 2}, 'red': {'0': 1, '1': 1, '2': 2, '3': 2, '4': 2, '5': 2, '6': 2, '7': 1, '8': 2, '9': 1, 'draw_2': 2, 'skip': 2, 'reverse': 2}, 'yellow': {'0': 1, '1': 2, '2': 2, '3': 2, '4': 2, '5': 2, '6': 2, '7': 2, '8': 1, '9': 2, 'draw_2': 2, 'skip': 2, 'reverse': 2}, 'black': {'wild': 4, 'wild_draw_4': 4, 'wild_shuffle': 1}, 'white': {'white_wild': 3}}
+---場にカードを出した---
+プレイヤー: P-00000002
+カード: {'color': 'green', 'number': 1}
+プレイヤーの手札枚数
+P-00000004:6枚 P-00000001:6枚 P-00000002:6枚 P-00000003:7枚 
+Receive play-card event.
+res_data: 
+{
+    'card_play': {'color': 'green', 'number': 1},
+    'yell_uno': False,
+    'player': 'P-00000002'
+}
+場札または手札にないのは
+{'blue': {'0': 1, '1': 2, '2': 2, '3': 0, '4': 2, '5': 2, '6': 1, '7': 2, '8': 2, '9': 2, 'draw_2': 2, 'skip': 2, 'reverse': 2}, 'green': {'0': 1, '1': 1, '2': 1, '3': 2, '4': 2, '5': 2, '6': 2, '7': 2, '8': 2, '9': 2, 'draw_2': 2, 'skip': 1, 'reverse': 2}, 'red': {'0': 1, '1': 1, '2': 2, '3': 2, '4': 2, '5': 2, '6': 2, '7': 1, '8': 2, '9': 1, 'draw_2': 2, 'skip': 2, 'reverse': 2}, 'yellow': {'0': 1, '1': 2, '2': 2, '3': 2, '4': 2, '5': 2, '6': 2, '7': 2, '8': 1, '9': 2, 'draw_2': 2, 'skip': 2, 'reverse': 2}, 'black': {'wild': 4, 'wild_draw_4': 4, 'wild_shuffle': 1}, 'white': {'white_wild': 3}}
+---場にカードを出した---
+プレイヤー: P-00000003
+カード: {'color': 'green', 'number': 2}
+プレイヤーの手札枚数
+P-00000004:6枚 P-00000001:6枚 P-00000002:6枚 P-00000003:6枚 
+Receive play-card event.
+res_data: 
+{
+    'card_play': {'color': 'green', 'number': 2},
+    'yell_uno': False,
+    'player': 'P-00000003'
+}
+Receive draw-card event.
+res_data: 
+{'player': 'P-00000004', 'is_draw': True}
+カードを引きます
+引く理由: 場に出すカードがない(最行動可能)
+---更新前---
+山札:83枚
+P-00000004:6枚 P-00000001:6枚 P-00000002:6枚 P-00000003:6枚 
+---更新後---
+山札からP-00000004へ1枚移動
+山札:82枚
+P-00000004:7枚 P-00000001:6枚 P-00000002:6枚 P-00000003:6枚 
+Receive play-draw-card event.
+res_data: 
+{
+    'is_play_card': True,
+    'yell_uno': False,
+    'player': 'P-00000004',
+    'card_play': {'color': 'green', 'number': 3}
+}
+Receive next-player event.
+res_data: 
+{
+    'next_player': 'P-00000001',
+    'before_player': 'P-00000004',
+    'card_before': {'color': 'green', 'number': 3},
+    'card_of_player': [
+        {'color': 'yellow', 'number': 8},
+        {'color': 'green', 'special': 'skip'},
+        {'color': 'blue', 'number': 3},
+        {'color': 'blue', 'number': 3},
+        {'color': 'blue', 'number': 6},
+        {'color': 'red', 'number': 9}
+    ],
+    'must_call_draw_card': False,
+    'draw_reason': 'nothing',
+    'turn_right': True,
+    'number_card_play': 6,
+    'number_turn_play': 5,
+    'number_card_of_player': {
+        'P-00000004': 6,
+        'P-00000001': 6,
+        'P-00000002': 6,
+        'P-00000003': 6
+    }
+}
+---枚数照合---
+誰？： P-00000004
+dealerから送られてきたカード枚数: 6
+game_statusで記録していたカード枚数: 7
+正しいか: False
+---枚数照合---
+誰？： P-00000001
+dealerから送られてきたカード枚数: 6
+game_statusで記録していたカード枚数: 6
+正しいか: True
+---枚数照合---
+誰？： P-00000002
+dealerから送られてきたカード枚数: 6
+game_statusで記録していたカード枚数: 6
+正しいか: True
+---枚数照合---
+誰？： P-00000003
+dealerから送られてきたカード枚数: 6
+game_statusで記録していたカード枚数: 6
+正しいか: True
+selected card: green skip
+Send play-card event.
+req_data: 
+{'card_play': {'color': 'green', 'special': 'skip'}, 'yell_uno': False}
+---場にカードを出した---
+プレイヤー: P-00000001
+カード: {'color': 'green', 'special': 'skip'}
+プレイヤーの手札枚数
+P-00000004:6枚 P-00000001:5枚 P-00000002:6枚 P-00000003:6枚 
+Receive play-card event.
+res_data: 
+{
+    'card_play': {'color': 'green', 'special': 'skip'},
+    'yell_uno': False,
+    'player': 'P-00000001'
+}
+Send play-card event.
+res_data: 
+{'card_play': {'color': 'green', 'special': 'skip'}, 'yell_uno': False}
+場札または手札にないのは
+{'blue': {'0': 1, '1': 2, '2': 2, '3': 0, '4': 2, '5': 2, '6': 1, '7': 2, '8': 2, '9': 2, 'draw_2': 2, 'skip': 2, 'reverse': 2}, 'green': {'0': 1, '1': 1, '2': 1, '3': 2, '4': 2, '5': 1, '6': 2, '7': 2, '8': 2, '9': 2, 'draw_2': 2, 'skip': 1, 'reverse': 2}, 'red': {'0': 1, '1': 1, '2': 2, '3': 2, '4': 2, '5': 2, '6': 2, '7': 1, '8': 2, '9': 1, 'draw_2': 2, 'skip': 2, 'reverse': 2}, 'yellow': {'0': 1, '1': 2, '2': 2, '3': 2, '4': 2, '5': 2, '6': 2, '7': 2, '8': 1, '9': 2, 'draw_2': 2, 'skip': 2, 'reverse': 2}, 'black': {'wild': 4, 'wild_draw_4': 4, 'wild_shuffle': 1}, 'white': {'white_wild': 3}}
+---場にカードを出した---
+プレイヤー: P-00000003
+カード: {'color': 'green', 'number': 5}
+プレイヤーの手札枚数
+P-00000004:6枚 P-00000001:5枚 P-00000002:6枚 P-00000003:5枚 
+Receive play-card event.
+res_data: 
+{
+    'card_play': {'color': 'green', 'number': 5},
+    'yell_uno': False,
+    'player': 'P-00000003'
+}
+Receive draw-card event.
+res_data: 
+{'player': 'P-00000004', 'is_draw': True}
+カードを引きます
+引く理由: 場に出すカードがない(最行動可能)
+---更新前---
+山札:82枚
+P-00000004:6枚 P-00000001:5枚 P-00000002:6枚 P-00000003:5枚 
+---更新後---
+山札からP-00000004へ1枚移動
+山札:81枚
+P-00000004:7枚 P-00000001:5枚 P-00000002:6枚 P-00000003:5枚 
+Receive next-player event.
+res_data: 
+{
+    'next_player': 'P-00000001',
+    'before_player': 'P-00000004',
+    'card_before': {'color': 'green', 'number': 5},
+    'card_of_player': [
+        {'color': 'yellow', 'number': 8},
+        {'color': 'blue', 'number': 3},
+        {'color': 'blue', 'number': 3},
+        {'color': 'blue', 'number': 6},
+        {'color': 'red', 'number': 9}
+    ],
+    'must_call_draw_card': False,
+    'draw_reason': 'nothing',
+    'turn_right': True,
+    'number_card_play': 8,
+    'number_turn_play': 8,
+    'number_card_of_player': {
+        'P-00000004': 7,
+        'P-00000001': 5,
+        'P-00000002': 6,
+        'P-00000003': 5
+    }
+}
+---枚数照合---
+誰？： P-00000004
+dealerから送られてきたカード枚数: 7
+game_statusで記録していたカード枚数: 7
+正しいか: True
+---枚数照合---
+誰？： P-00000001
+dealerから送られてきたカード枚数: 5
+game_statusで記録していたカード枚数: 5
+正しいか: True
+---枚数照合---
+誰？： P-00000002
+dealerから送られてきたカード枚数: 6
+game_statusで記録していたカード枚数: 6
+正しいか: True
+---枚数照合---
+誰？： P-00000003
+dealerから送られてきたカード枚数: 5
+game_statusで記録していたカード枚数: 5
+正しいか: True
+Send draw-card event.
+req_data: 
+{} #ERROR?
+場札または手札にないのは
+{'blue': {'0': 1, '1': 2, '2': 2, '3': 0, '4': 2, '5': 2, '6': 1, '7': 2, '8': 2, '9': 1, 'draw_2': 2, 'skip': 2, 'reverse': 2}, 'green': {'0': 1, '1': 1, '2': 1, '3': 2, '4': 2, '5': 1, '6': 2, '7': 2, '8': 2, '9': 2, 'draw_2': 2, 'skip': 1, 'reverse': 2}, 'red': {'0': 1, '1': 1, '2': 2, '3': 2, '4': 2, '5': 2, '6': 2, '7': 1, '8': 2, '9': 1, 'draw_2': 2, 'skip': 2, 'reverse': 2}, 'yellow': {'0': 1, '1': 2, '2': 2, '3': 2, '4': 2, '5': 2, '6': 2, '7': 2, '8': 1, '9': 2, 'draw_2': 2, 'skip': 2, 'reverse': 2}, 'black': {'wild': 4, 'wild_draw_4': 4, 'wild_shuffle': 1}, 'white': {'white_wild': 3}}
+Receive receiver-card event.
+res_data: 
+{'cards_receive': [{'color': 'blue', 'number': 9}], 'is_penalty': False}
+Receive draw-card event.
+res_data: 
+{'player': 'P-00000001', 'is_draw': True}
+カードを引きます
+引く理由: 場に出すカードがない(最行動可能)
+---更新前---
+山札:81枚
+P-00000004:7枚 P-00000001:5枚 P-00000002:6枚 P-00000003:5枚 
+---更新後---
+山札からP-00000001へ1枚移動
+山札:80枚
+P-00000004:7枚 P-00000001:6枚 P-00000002:6枚 P-00000003:5枚 
+Send draw-card event.
+res_data: 
+{
+    'player': 'P-00000001',
+    'is_draw': True,
+    'can_play_draw_card': False,
+    'draw_card': [{'color': 'blue', 'number': 9}]
+}
+場札または手札にないのは
+{'blue': {'0': 1, '1': 2, '2': 2, '3': 0, '4': 2, '5': 2, '6': 1, '7': 2, '8': 2, '9': 1, 'draw_2': 2, 'skip': 2, 'reverse': 2}, 'green': {'0': 1, '1': 0, '2': 1, '3': 2, '4': 2, '5': 1, '6': 2, '7': 2, '8': 2, '9': 2, 'draw_2': 2, 'skip': 1, 'reverse': 2}, 'red': {'0': 1, '1': 1, '2': 2, '3': 2, '4': 2, '5': 2, '6': 2, '7': 1, '8': 2, '9': 1, 'draw_2': 2, 'skip': 2, 'reverse': 2}, 'yellow': {'0': 1, '1': 2, '2': 2, '3': 2, '4': 2, '5': 2, '6': 2, '7': 2, '8': 1, '9': 2, 'draw_2': 2, 'skip': 2, 'reverse': 2}, 'black': {'wild': 4, 'wild_draw_4': 4, 'wild_shuffle': 1}, 'white': {'white_wild': 3}}
+---場にカードを出した---
+プレイヤー: P-00000002
+カード: {'color': 'green', 'number': 1}
+プレイヤーの手札枚数
+P-00000004:7枚 P-00000001:6枚 P-00000002:5枚 P-00000003:5枚 
+Receive play-card event.
+res_data: 
+{
+    'card_play': {'color': 'green', 'number': 1},
+    'yell_uno': False,
+    'player': 'P-00000002'
+}
+場札または手札にないのは
+{'blue': {'0': 1, '1': 2, '2': 2, '3': 0, '4': 2, '5': 2, '6': 1, '7': 2, '8': 2, '9': 1, 'draw_2': 2, 'skip': 2, 'reverse': 2}, 'green': {'0': 1, '1': 0, '2': 1, '3': 2, '4': 2, '5': 1, '6': 1, '7': 2, '8': 2, '9': 2, 'draw_2': 2, 'skip': 1, 'reverse': 2}, 'red': {'0': 1, '1': 1, '2': 2, '3': 2, '4': 2, '5': 2, '6': 2, '7': 1, '8': 2, '9': 1, 'draw_2': 2, 'skip': 2, 'reverse': 2}, 'yellow': {'0': 1, '1': 2, '2': 2, '3': 2, '4': 2, '5': 2, '6': 2, '7': 2, '8': 1, '9': 2, 'draw_2': 2, 'skip': 2, 'reverse': 2}, 'black': {'wild': 4, 'wild_draw_4': 4, 'wild_shuffle': 1}, 'white': {'white_wild': 3}}
+---場にカードを出した---
+プレイヤー: P-00000003
+カード: {'color': 'green', 'number': 6}
+プレイヤーの手札枚数
+P-00000004:7枚 P-00000001:6枚 P-00000002:5枚 P-00000003:4枚 
+Receive play-card event.
+res_data: 
+{
+    'card_play': {'color': 'green', 'number': 6},
+    'yell_uno': False,
+    'player': 'P-00000003'
+}
+Receive draw-card event.
+res_data: 
+{'player': 'P-00000004', 'is_draw': True}
+カードを引きます
+引く理由: 場に出すカードがない(最行動可能)
+---更新前---
+山札:80枚
+P-00000004:7枚 P-00000001:6枚 P-00000002:5枚 P-00000003:4枚 
+---更新後---
+山札からP-00000004へ1枚移動
+山札:79枚
+P-00000004:8枚 P-00000001:6枚 P-00000002:5枚 P-00000003:4枚 
+Receive next-player event.
+res_data: 
+{
+    'next_player': 'P-00000001',
+    'before_player': 'P-00000004',
+    'card_before': {'color': 'green', 'number': 6},
+    'card_of_player': [
+        {'color': 'yellow', 'number': 8},
+        {'color': 'blue', 'number': 3},
+        {'color': 'blue', 'number': 3},
+        {'color': 'blue', 'number': 6},
+        {'color': 'blue', 'number': 9},
+        {'color': 'red', 'number': 9}
+    ],
+    'must_call_draw_card': False,
+    'draw_reason': 'nothing',
+    'turn_right': True,
+    'number_card_play': 10,
+    'number_turn_play': 12,
+    'number_card_of_player': {
+        'P-00000004': 8,
+        'P-00000001': 6,
+        'P-00000002': 5,
+        'P-00000003': 4
+    }
+}
+---枚数照合---
+誰？： P-00000004
+dealerから送られてきたカード枚数: 8
+game_statusで記録していたカード枚数: 8
+正しいか: True
+---枚数照合---
+誰？： P-00000001
+dealerから送られてきたカード枚数: 6
+game_statusで記録していたカード枚数: 6
+正しいか: True
+---枚数照合---
+誰？： P-00000002
+dealerから送られてきたカード枚数: 5
+game_statusで記録していたカード枚数: 5
+正しいか: True
+---枚数照合---
+誰？： P-00000003
+dealerから送られてきたカード枚数: 4
+game_statusで記録していたカード枚数: 4
+正しいか: True
+selected card: blue 6
+Send play-card event.
+req_data: 
+{'card_play': {'color': 'blue', 'number': 6}, 'yell_uno': False}
+---場にカードを出した---
+プレイヤー: P-00000001
+カード: {'color': 'blue', 'number': 6}
+プレイヤーの手札枚数
+P-00000004:8枚 P-00000001:5枚 P-00000002:5枚 P-00000003:4枚 
+Receive play-card event.
+res_data: 
+{
+    'card_play': {'color': 'blue', 'number': 6},
+    'yell_uno': False,
+    'player': 'P-00000001'
+}
+Send play-card event.
+res_data: 
+{'card_play': {'color': 'blue', 'number': 6}, 'yell_uno': False}
+場札または手札にないのは
+{'blue': {'0': 1, '1': 2, '2': 2, '3': 0, '4': 2, '5': 2, '6': 1, '7': 2, '8': 1, '9': 1, 'draw_2': 2, 'skip': 2, 'reverse': 2}, 'green': {'0': 1, '1': 0, '2': 1, '3': 2, '4': 2, '5': 1, '6': 1, '7': 2, '8': 2, '9': 2, 'draw_2': 2, 'skip': 1, 'reverse': 2}, 'red': {'0': 1, '1': 1, '2': 2, '3': 2, '4': 2, '5': 2, '6': 2, '7': 1, '8': 2, '9': 1, 'draw_2': 2, 'skip': 2, 'reverse': 2}, 'yellow': {'0': 1, '1': 2, '2': 2, '3': 2, '4': 2, '5': 2, '6': 2, '7': 2, '8': 1, '9': 2, 'draw_2': 2, 'skip': 2, 'reverse': 2}, 'black': {'wild': 4, 'wild_draw_4': 4, 'wild_shuffle': 1}, 'white': {'white_wild': 3}}
+---場にカードを出した---
+プレイヤー: P-00000002
+カード: {'color': 'blue', 'number': 8}
+プレイヤーの手札枚数
+P-00000004:8枚 P-00000001:5枚 P-00000002:4枚 P-00000003:4枚 
+Receive play-card event.
+res_data: 
+{
+    'card_play': {'color': 'blue', 'number': 8},
+    'yell_uno': False,
+    'player': 'P-00000002'
+}
+場札または手札にないのは
+{'blue': {'0': 1, '1': 2, '2': 2, '3': 0, '4': 2, '5': 2, '6': 1, '7': 2, '8': 1, '9': 1, 'draw_2': 1, 'skip': 2, 'reverse': 2}, 'green': {'0': 1, '1': 0, '2': 1, '3': 2, '4': 2, '5': 1, '6': 1, '7': 2, '8': 2, '9': 2, 'draw_2': 2, 'skip': 1, 'reverse': 2}, 'red': {'0': 1, '1': 1, '2': 2, '3': 2, '4': 2, '5': 2, '6': 2, '7': 1, '8': 2, '9': 1, 'draw_2': 2, 'skip': 2, 'reverse': 2}, 'yellow': {'0': 1, '1': 2, '2': 2, '3': 2, '4': 2, '5': 2, '6': 2, '7': 2, '8': 1, '9': 2, 'draw_2': 2, 'skip': 2, 'reverse': 2}, 'black': {'wild': 4, 'wild_draw_4': 4, 'wild_shuffle': 1}, 'white': {'white_wild': 3}}
+---場にカードを出した---
+プレイヤー: P-00000003
+カード: {'color': 'blue', 'special': 'draw_2'}
+プレイヤーの手札枚数
+P-00000004:8枚 P-00000001:5枚 P-00000002:4枚 P-00000003:3枚 
+Receive play-card event.
+res_data: 
+{
+    'card_play': {'color': 'blue', 'special': 'draw_2'},
+    'yell_uno': False,
+    'player': 'P-00000003'
+}
+Receive draw-card event.
+res_data: 
+{'player': 'P-00000004', 'is_draw': True}
+カードを引きます
+引く理由: draw_2
+---更新前---
+山札:79枚
+P-00000004:8枚 P-00000001:5枚 P-00000002:4枚 P-00000003:3枚 
+---更新後---
+山札からP-00000004へ2枚移動
+山札:77枚
+P-00000004:10枚 P-00000001:5枚 P-00000002:4枚 P-00000003:3枚 
+Receive next-player event.
+res_data: 
+{
+    'next_player': 'P-00000001',
+    'before_player': 'P-00000004',
+    'card_before': {'color': 'blue', 'special': 'draw_2'},
+    'card_of_player': [
+        {'color': 'yellow', 'number': 8},
+        {'color': 'blue', 'number': 3},
+        {'color': 'blue', 'number': 3},
+        {'color': 'blue', 'number': 9},
+        {'color': 'red', 'number': 9}
+    ],
+    'must_call_draw_card': False,
+    'draw_reason': 'nothing',
+    'turn_right': True,
+    'number_card_play': 13,
+    'number_turn_play': 16,
+    'number_card_of_player': {
+        'P-00000004': 10,
+        'P-00000001': 5,
+        'P-00000002': 4,
+        'P-00000003': 3
+    }
+}
+---枚数照合---
+誰？： P-00000004
+dealerから送られてきたカード枚数: 10
+game_statusで記録していたカード枚数: 10
+正しいか: True
+---枚数照合---
+誰？： P-00000001
+dealerから送られてきたカード枚数: 5
+game_statusで記録していたカード枚数: 5
+正しいか: True
+---枚数照合---
+誰？： P-00000002
+dealerから送られてきたカード枚数: 4
+game_statusで記録していたカード枚数: 4
+正しいか: True
+---枚数照合---
+誰？： P-00000003
+dealerから送られてきたカード枚数: 3
+game_statusで記録していたカード枚数: 3
+正しいか: True
+selected card: blue 3
+Send play-card event.
+req_data: 
+{'card_play': {'color': 'blue', 'number': 3}, 'yell_uno': False}
+---場にカードを出した---
+プレイヤー: P-00000001
+カード: {'color': 'blue', 'number': 3}
+プレイヤーの手札枚数
+P-00000004:10枚 P-00000001:4枚 P-00000002:4枚 P-00000003:3枚 
+Receive play-card event.
+res_data: 
+{
+    'card_play': {'color': 'blue', 'number': 3},
+    'yell_uno': False,
+    'player': 'P-00000001'
+}
+Send play-card event.
+res_data: 
+{'card_play': {'color': 'blue', 'number': 3}, 'yell_uno': False}
+場札または手札にないのは
+{'blue': {'0': 1, '1': 2, '2': 2, '3': 0, '4': 2, '5': 2, '6': 1, '7': 2, '8': 1, '9': 1, 'draw_2': 1, 'skip': 2, 'reverse': 2}, 'green': {'0': 1, '1': 0, '2': 1, '3': 1, '4': 2, '5': 1, '6': 1, '7': 2, '8': 2, '9': 2, 'draw_2': 2, 'skip': 1, 'reverse': 2}, 'red': {'0': 1, '1': 1, '2': 2, '3': 2, '4': 2, '5': 2, '6': 2, '7': 1, '8': 2, '9': 1, 'draw_2': 2, 'skip': 2, 'reverse': 2}, 'yellow': {'0': 1, '1': 2, '2': 2, '3': 2, '4': 2, '5': 2, '6': 2, '7': 2, '8': 1, '9': 2, 'draw_2': 2, 'skip': 2, 'reverse': 2}, 'black': {'wild': 4, 'wild_draw_4': 4, 'wild_shuffle': 1}, 'white': {'white_wild': 3}}
+---場にカードを出した---
+プレイヤー: P-00000002
+カード: {'color': 'green', 'number': 3}
+プレイヤーの手札枚数
+P-00000004:10枚 P-00000001:4枚 P-00000002:3枚 P-00000003:3枚 
+Receive play-card event.
+res_data: 
+{
+    'card_play': {'color': 'green', 'number': 3},
+    'yell_uno': False,
+    'player': 'P-00000002'
+}
+場札または手札にないのは
+{'blue': {'0': 1, '1': 2, '2': 2, '3': 0, '4': 2, '5': 2, '6': 1, '7': 2, '8': 1, '9': 1, 'draw_2': 1, 'skip': 2, 'reverse': 2}, 'green': {'0': 1, '1': 0, '2': 1, '3': 1, '4': 2, '5': 1, '6': 1, '7': 2, '8': 2, '9': 2, 'draw_2': 2, 'skip': 1, 'reverse': 2}, 'red': {'0': 1, '1': 1, '2': 2, '3': 1, '4': 2, '5': 2, '6': 2, '7': 1, '8': 2, '9': 1, 'draw_2': 2, 'skip': 2, 'reverse': 2}, 'yellow': {'0': 1, '1': 2, '2': 2, '3': 2, '4': 2, '5': 2, '6': 2, '7': 2, '8': 1, '9': 2, 'draw_2': 2, 'skip': 2, 'reverse': 2}, 'black': {'wild': 4, 'wild_draw_4': 4, 'wild_shuffle': 1}, 'white': {'white_wild': 3}}
+---場にカードを出した---
+プレイヤー: P-00000003
+カード: {'color': 'red', 'number': 3}
+プレイヤーの手札枚数
+P-00000004:10枚 P-00000001:4枚 P-00000002:3枚 P-00000003:2枚 
+Receive play-card event.
+res_data: 
+{
+    'card_play': {'color': 'red', 'number': 3},
+    'yell_uno': False,
+    'player': 'P-00000003'
+}
+場札または手札にないのは
+{'blue': {'0': 1, '1': 2, '2': 2, '3': 0, '4': 2, '5': 2, '6': 1, '7': 2, '8': 1, '9': 1, 'draw_2': 1, 'skip': 2, 'reverse': 2}, 'green': {'0': 1, '1': 0, '2': 1, '3': 1, '4': 2, '5': 1, '6': 1, '7': 2, '8': 2, '9': 2, 'draw_2': 2, 'skip': 1, 'reverse': 2}, 'red': {'0': 1, '1': 1, '2': 2, '3': 1, '4': 2, '5': 2, '6': 2, '7': 1, '8': 2, '9': 1, 'draw_2': 2, 'skip': 2, 'reverse': 2}, 'yellow': {'0': 1, '1': 2, '2': 2, '3': 1, '4': 2, '5': 2, '6': 2, '7': 2, '8': 1, '9': 2, 'draw_2': 2, 'skip': 2, 'reverse': 2}, 'black': {'wild': 4, 'wild_draw_4': 4, 'wild_shuffle': 1}, 'white': {'white_wild': 3}}
+---場にカードを出した---
+プレイヤー: P-00000004
+カード: {'color': 'yellow', 'number': 3}
+プレイヤーの手札枚数
+P-00000004:9枚 P-00000001:4枚 P-00000002:3枚 P-00000003:2枚 
+Receive play-card event.
+res_data: 
+{
+    'card_play': {'color': 'yellow', 'number': 3},
+    'yell_uno': False,
+    'player': 'P-00000004'
+}
+Receive next-player event.
+res_data: 
+{
+    'next_player': 'P-00000001',
+    'before_player': 'P-00000004',
+    'card_before': {'color': 'yellow', 'number': 3},
+    'card_of_player': [
+        {'color': 'yellow', 'number': 8},
+        {'color': 'blue', 'number': 3},
+        {'color': 'blue', 'number': 9},
+        {'color': 'red', 'number': 9}
+    ],
+    'must_call_draw_card': False,
+    'draw_reason': 'nothing',
+    'turn_right': True,
+    'number_card_play': 17,
+    'number_turn_play': 20,
+    'number_card_of_player': {
+        'P-00000004': 9,
+        'P-00000001': 4,
+        'P-00000002': 3,
+        'P-00000003': 2
+    }
+}
+---枚数照合---
+誰？： P-00000004
+dealerから送られてきたカード枚数: 9
+game_statusで記録していたカード枚数: 9
+正しいか: True
+---枚数照合---
+誰？： P-00000001
+dealerから送られてきたカード枚数: 4
+game_statusで記録していたカード枚数: 4
+正しいか: True
+---枚数照合---
+誰？： P-00000002
+dealerから送られてきたカード枚数: 3
+game_statusで記録していたカード枚数: 3
+正しいか: True
+---枚数照合---
+誰？： P-00000003
+dealerから送られてきたカード枚数: 2
+game_statusで記録していたカード枚数: 2
+正しいか: True
+selected card: yellow 8
+Send play-card event.
+req_data: 
+{'card_play': {'color': 'yellow', 'number': 8}, 'yell_uno': False}
+---場にカードを出した---
+プレイヤー: P-00000001
+カード: {'color': 'yellow', 'number': 8}
+プレイヤーの手札枚数
+P-00000004:9枚 P-00000001:3枚 P-00000002:3枚 P-00000003:2枚 
+Receive play-card event.
+res_data: 
+{
+    'card_play': {'color': 'yellow', 'number': 8},
+    'yell_uno': False,
+    'player': 'P-00000001'
+}
+Send play-card event.
+res_data: 
+{'card_play': {'color': 'yellow', 'number': 8}, 'yell_uno': False}
+場札または手札にないのは
+{'blue': {'0': 1, '1': 2, '2': 2, '3': 0, '4': 2, '5': 2, '6': 1, '7': 2, '8': 1, '9': 1, 'draw_2': 1, 'skip': 2, 'reverse': 2}, 'green': {'0': 1, '1': 0, '2': 1, '3': 1, '4': 2, '5': 1, '6': 1, '7': 2, '8': 2, '9': 2, 'draw_2': 2, 'skip': 1, 'reverse': 2}, 'red': {'0': 1, '1': 1, '2': 2, '3': 1, '4': 2, '5': 2, '6': 2, '7': 1, '8': 2, '9': 1, 'draw_2': 2, 'skip': 2, 'reverse': 2}, 'yellow': {'0': 1, '1': 2, '2': 1, '3': 1, '4': 2, '5': 2, '6': 2, '7': 2, '8': 1, '9': 2, 'draw_2': 2, 'skip': 2, 'reverse': 2}, 'black': {'wild': 4, 'wild_draw_4': 4, 'wild_shuffle': 1}, 'white': {'white_wild': 3}}
+---場にカードを出した---
+プレイヤー: P-00000002
+カード: {'color': 'yellow', 'number': 2}
+プレイヤーの手札枚数
+P-00000004:9枚 P-00000001:3枚 P-00000002:2枚 P-00000003:2枚 
+Receive play-card event.
+res_data: 
+{
+    'card_play': {'color': 'yellow', 'number': 2},
+    'yell_uno': False,
+    'player': 'P-00000002'
+}
+Receive draw-card event.
+res_data: 
+{'player': 'P-00000003', 'is_draw': True}
+カードを引きます
+引く理由: 場に出すカードがない(最行動可能)
+---更新前---
+山札:77枚
+P-00000004:9枚 P-00000001:3枚 P-00000002:2枚 P-00000003:2枚 
+---更新後---
+山札からP-00000003へ1枚移動
+山札:76枚
+P-00000004:9枚 P-00000001:3枚 P-00000002:2枚 P-00000003:3枚 
+Receive play-draw-card event.
+res_data: 
+{
+    'is_play_card': True,
+    'yell_uno': False,
+    'color_of_wild': 'yellow',
+    'player': 'P-00000003',
+    'card_play': {'color': 'black', 'special': 'wild_draw_4'}
+}
+Receive update-color event.
+res_data: 
+{'color': 'yellow'}
+Receive draw-card event.
+res_data: 
+{'player': 'P-00000004', 'is_draw': True}
+カードを引きます
+引く理由: 場に出すカードがない(最行動可能)
+---更新前---
+山札:76枚
+P-00000004:9枚 P-00000001:3枚 P-00000002:2枚 P-00000003:3枚 
+---更新後---
+山札からP-00000004へ1枚移動
+山札:75枚
+P-00000004:10枚 P-00000001:3枚 P-00000002:2枚 P-00000003:3枚 
+Receive next-player event.
+res_data: 
+{
+    'next_player': 'P-00000001',
+    'before_player': 'P-00000004',
+    'card_before': {'color': 'yellow', 'special': 'wild_draw_4'},
+    'card_of_player': [
+        {'color': 'blue', 'number': 3},
+        {'color': 'blue', 'number': 9},
+        {'color': 'red', 'number': 9}
+    ],
+    'must_call_draw_card': False,
+    'draw_reason': 'nothing',
+    'turn_right': True,
+    'number_card_play': 20,
+    'number_turn_play': 24,
+    'number_card_of_player': {
+        'P-00000004': 13,
+        'P-00000001': 3,
+        'P-00000002': 2,
+        'P-00000003': 2
+    }
+}
+---枚数照合---
+誰？： P-00000004
+dealerから送られてきたカード枚数: 13
+game_statusで記録していたカード枚数: 10
+正しいか: False
+---枚数照合---
+誰？： P-00000001
+dealerから送られてきたカード枚数: 3
+game_statusで記録していたカード枚数: 3
+正しいか: True
+---枚数照合---
+誰？： P-00000002
+dealerから送られてきたカード枚数: 2
+game_statusで記録していたカード枚数: 2
+正しいか: True
+---枚数照合---
+誰？： P-00000003
+dealerから送られてきたカード枚数: 2
+game_statusで記録していたカード枚数: 3
+正しいか: False
+Send special-logic event.
+req_data: 
+{'title': '◯◯◯◯◯◯◯◯◯◯◯◯◯◯◯◯◯◯◯◯◯'}
+Send draw-card event.
+req_data: 
+{}
+Send special-logic event.
+res_data: 
+{'title': '◯◯◯◯◯◯◯◯◯◯◯◯◯◯◯◯◯◯◯◯◯'}
+場札または手札にないのは
+{'blue': {'0': 1, '1': 2, '2': 2, '3': 0, '4': 2, '5': 2, '6': 1, '7': 2, '8': 1, '9': 1, 'draw_2': 1, 'skip': 2, 'reverse': 2}, 'green': {'0': 1, '1': 0, '2': 1, '3': 1, '4': 2, '5': 1, '6': 1, '7': 2, '8': 2, '9': 2, 'draw_2': 2, 'skip': 1, 'reverse': 2}, 'red': {'0': 1, '1': 1, '2': 2, '3': 1, '4': 1, '5': 2, '6': 2, '7': 1, '8': 2, '9': 1, 'draw_2': 2, 'skip': 2, 'reverse': 2}, 'yellow': {'0': 1, '1': 2, '2': 1, '3': 1, '4': 2, '5': 2, '6': 2, '7': 2, '8': 1, '9': 2, 'draw_2': 2, 'skip': 2, 'reverse': 2}, 'black': {'wild': 4, 'wild_draw_4': 4, 'wild_shuffle': 1}, 'white': {'white_wild': 3}}
+Receive receiver-card event.
+res_data: 
+{'cards_receive': [{'color': 'red', 'number': 4}], 'is_penalty': False}
+Receive draw-card event.
+res_data: 
+{'player': 'P-00000001', 'is_draw': True}
+カードを引きます
+引く理由: 場に出すカードがない(最行動可能)
+---更新前---
+山札:75枚
+P-00000004:13枚 P-00000001:3枚 P-00000002:2枚 P-00000003:2枚 
+---更新後---
+山札からP-00000001へ1枚移動
+山札:74枚
+P-00000004:13枚 P-00000001:4枚 P-00000002:2枚 P-00000003:2枚 
+Send draw-card event.
+res_data: 
+{
+    'player': 'P-00000001',
+    'is_draw': True,
+    'can_play_draw_card': False,
+    'draw_card': [{'color': 'red', 'number': 4}]
+}
+場札または手札にないのは
+{'blue': {'0': 1, '1': 2, '2': 2, '3': 0, '4': 2, '5': 2, '6': 1, '7': 2, '8': 1, '9': 1, 'draw_2': 1, 'skip': 2, 'reverse': 2}, 'green': {'0': 1, '1': 0, '2': 1, '3': 1, '4': 2, '5': 1, '6': 1, '7': 2, '8': 2, '9': 2, 'draw_2': 2, 'skip': 1, 'reverse': 2}, 'red': {'0': 1, '1': 1, '2': 2, '3': 1, '4': 1, '5': 2, '6': 2, '7': 1, '8': 2, '9': 1, 'draw_2': 2, 'skip': 2, 'reverse': 2}, 'yellow': {'0': 1, '1': 2, '2': 1, '3': 1, '4': 2, '5': 2, '6': 2, '7': 2, '8': 1, '9': 2, 'draw_2': 2, 'skip': 2, 'reverse': 2}, 'black': {'wild': 3, 'wild_draw_4': 4, 'wild_shuffle': 1}, 'white': {'white_wild': 3}}
+---場にカードを出した---
+プレイヤー: P-00000002
+カード: {'color': 'black', 'special': 'wild'}
+プレイヤーの手札枚数
+P-00000004:13枚 P-00000001:4枚 P-00000002:1枚 P-00000003:2枚 
+Receive play-card event.
+res_data: 
+{
+    'card_play': {'color': 'black', 'special': 'wild'},
+    'yell_uno': True,
+    'color_of_wild': 'blue',
+    'player': 'P-00000002'
+}
+P-00000002がUNOしました
+Receive update-color event.
+res_data: 
+{'color': 'yellow'}
+場札または手札にないのは
+{'blue': {'0': 1, '1': 2, '2': 2, '3': 0, '4': 2, '5': 2, '6': 1, '7': 2, '8': 1, '9': 1, 'draw_2': 1, 'skip': 1, 'reverse': 2}, 'green': {'0': 1, '1': 0, '2': 1, '3': 1, '4': 2, '5': 1, '6': 1, '7': 2, '8': 2, '9': 2, 'draw_2': 2, 'skip': 1, 'reverse': 2}, 'red': {'0': 1, '1': 1, '2': 2, '3': 1, '4': 1, '5': 2, '6': 2, '7': 1, '8': 2, '9': 1, 'draw_2': 2, 'skip': 2, 'reverse': 2}, 'yellow': {'0': 1, '1': 2, '2': 1, '3': 1, '4': 2, '5': 2, '6': 2, '7': 2, '8': 1, '9': 2, 'draw_2': 2, 'skip': 2, 'reverse': 2}, 'black': {'wild': 3, 'wild_draw_4': 4, 'wild_shuffle': 1}, 'white': {'white_wild': 3}}
+---場にカードを出した---
+プレイヤー: P-00000003
+カード: {'color': 'blue', 'special': 'skip'}
+プレイヤーの手札枚数
+P-00000004:13枚 P-00000001:4枚 P-00000002:1枚 P-00000003:1枚 
+Receive play-card event.
+res_data: 
+{
+    'card_play': {'color': 'blue', 'special': 'skip'},
+    'yell_uno': True,
+    'player': 'P-00000003'
+}
+P-00000003がUNOしました
+Receive next-player event.
+res_data: 
+{
+    'next_player': 'P-00000001',
+    'before_player': 'P-00000003',
+    'card_before': {'color': 'blue', 'special': 'skip'},
+    'card_of_player': [
+        {'color': 'blue', 'number': 3},
+        {'color': 'blue', 'number': 9},
+        {'color': 'red', 'number': 4},
+        {'color': 'red', 'number': 9}
+    ],
+    'must_call_draw_card': False,
+    'draw_reason': 'nothing',
+    'turn_right': True,
+    'number_card_play': 22,
+    'number_turn_play': 27,
+    'number_card_of_player': {
+        'P-00000004': 13,
+        'P-00000001': 4,
+        'P-00000002': 1,
+        'P-00000003': 1
+    }
+}
+---枚数照合---
+誰？： P-00000004
+dealerから送られてきたカード枚数: 13
+game_statusで記録していたカード枚数: 13
+正しいか: True
+---枚数照合---
+誰？： P-00000001
+dealerから送られてきたカード枚数: 4
+game_statusで記録していたカード枚数: 4
+正しいか: True
+---枚数照合---
+誰？： P-00000002
+dealerから送られてきたカード枚数: 1
+game_statusで記録していたカード枚数: 1
+正しいか: True
+---枚数照合---
+誰？： P-00000003
+dealerから送られてきたカード枚数: 1
+game_statusで記録していたカード枚数: 1
+正しいか: True
+pos is  直後
+特別カード
+defaultdict(<class 'list'>, {})
+数字カード
+defaultdict(<class 'dict'>, {'blue': {3: {'color': 'blue', 'number': 3}, 9: {'color': 'blue', 'number': 9}}})
+多く出されている色の順は ['blue', 'green', 'red', 'yellow']
+sorted_by_cnt
+['3', '0', '6', '8', '9', 'draw_2', 'skip', '1', '2', '4', '5', '7', 'reverse']
+sorted_by_cnt
+['1', '0', '2', '3', '5', '6', 'skip', '4', '7', '8', '9', 'draw_2', 'reverse']
+sorted_by_cnt
+['0', '1', '3', '4', '7', '9', '2', '5', '6', '8', 'draw_2', 'skip', 'reverse']
+sorted_by_cnt
+['0', '2', '3', '8', '1', '4', '5', '6', '7', '9', 'draw_2', 'skip', 'reverse']
+tmp_num_list
+[{'color': 'blue', 'number': 3}, {'color': 'blue', 'number': 9}]
+---出す順---
+blueの3 blueの9 [{'color': 'blue', 'number': 3}, {'color': 'blue', 'number': 9}]
+selected card: blue 3
+Send play-card event.
+req_data: 
+{'card_play': {'color': 'blue', 'number': 3}, 'yell_uno': False}
+---場にカードを出した---
+プレイヤー: P-00000001
+カード: {'color': 'blue', 'number': 3}
+プレイヤーの手札枚数
+P-00000004:13枚 P-00000001:3枚 P-00000002:1枚 P-00000003:1枚 
+Receive play-card event.
+res_data: 
+{
+    'card_play': {'color': 'blue', 'number': 3},
+    'yell_uno': False,
+    'player': 'P-00000001'
+}
+Send play-card event.
+res_data: 
+{'card_play': {'color': 'blue', 'number': 3}, 'yell_uno': False}
+Receive draw-card event.
+res_data: 
+{'player': 'P-00000002', 'is_draw': True}
+P-00000002がUNO解除しました
+カードを引きます
+引く理由: 場に出すカードがない(最行動可能)
+---更新前---
+山札:74枚
+P-00000004:13枚 P-00000001:3枚 P-00000002:1枚 P-00000003:1枚 
+---更新後---
+山札からP-00000002へ1枚移動
+山札:73枚
+P-00000004:13枚 P-00000001:3枚 P-00000002:2枚 P-00000003:1枚 
+Receive play-draw-card event.
+res_data: 
+{
+    'is_play_card': True,
+    'yell_uno': True,
+    'color_of_wild': 'green',
+    'player': 'P-00000002',
+    'card_play': {'color': 'black', 'special': 'wild_draw_4'}
+}
+P-00000002がUNOしました
+Receive update-color event.
+res_data: 
+{'color': 'blue'}
+Receive draw-card event.
+res_data: 
+{'player': 'P-00000003', 'is_draw': True}
+P-00000003がUNO解除しました
+カードを引きます
+引く理由: 場に出すカードがない(最行動可能)
+---更新前---
+山札:73枚
+P-00000004:13枚 P-00000001:3枚 P-00000002:2枚 P-00000003:1枚 
+---更新後---
+山札からP-00000003へ1枚移動
+山札:72枚
+P-00000004:13枚 P-00000001:3枚 P-00000002:2枚 P-00000003:2枚 
+場札または手札にないのは
+{'blue': {'0': 1, '1': 2, '2': 2, '3': 0, '4': 2, '5': 2, '6': 1, '7': 2, '8': 1, '9': 1, 'draw_2': 1, 'skip': 1, 'reverse': 2}, 'green': {'0': 1, '1': 0, '2': 1, '3': 1, '4': 2, '5': 1, '6': 1, '7': 1, '8': 2, '9': 2, 'draw_2': 2, 'skip': 1, 'reverse': 2}, 'red': {'0': 1, '1': 1, '2': 2, '3': 1, '4': 1, '5': 2, '6': 2, '7': 1, '8': 2, '9': 1, 'draw_2': 2, 'skip': 2, 'reverse': 2}, 'yellow': {'0': 1, '1': 2, '2': 1, '3': 1, '4': 2, '5': 2, '6': 2, '7': 2, '8': 1, '9': 2, 'draw_2': 2, 'skip': 2, 'reverse': 2}, 'black': {'wild': 3, 'wild_draw_4': 4, 'wild_shuffle': 1}, 'white': {'white_wild': 3}}
+---場にカードを出した---
+プレイヤー: P-00000004
+カード: {'color': 'green', 'number': 7}
+プレイヤーの手札枚数
+P-00000004:12枚 P-00000001:3枚 P-00000002:2枚 P-00000003:2枚 
+Receive play-card event.
+res_data: 
+{
+    'card_play': {'color': 'green', 'number': 7},
+    'yell_uno': False,
+    'player': 'P-00000004'
+}
+Receive next-player event.
+res_data: 
+{
+    'next_player': 'P-00000001',
+    'before_player': 'P-00000004',
+    'card_before': {'color': 'green', 'number': 7},
+    'card_of_player': [
+        {'color': 'blue', 'number': 9},
+        {'color': 'red', 'number': 4},
+        {'color': 'red', 'number': 9}
+    ],
+    'must_call_draw_card': False,
+    'draw_reason': 'nothing',
+    'turn_right': True,
+    'number_card_play': 25,
+    'number_turn_play': 31,
+    'number_card_of_player': {
+        'P-00000004': 12,
+        'P-00000001': 3,
+        'P-00000002': 1,
+        'P-00000003': 5
+    }
+}
+---枚数照合---
+誰？： P-00000004
+dealerから送られてきたカード枚数: 12
+game_statusで記録していたカード枚数: 12
+正しいか: True
+---枚数照合---
+誰？： P-00000001
+dealerから送られてきたカード枚数: 3
+game_statusで記録していたカード枚数: 3
+正しいか: True
+---枚数照合---
+誰？： P-00000002
+dealerから送られてきたカード枚数: 1
+game_statusで記録していたカード枚数: 2
+正しいか: False
+---枚数照合---
+誰？： P-00000003
+dealerから送られてきたカード枚数: 5
+game_statusで記録していたカード枚数: 2
+正しいか: False
+Send draw-card event.
+req_data: 
+{}
+場札または手札にないのは
+{'blue': {'0': 1, '1': 2, '2': 2, '3': 0, '4': 2, '5': 2, '6': 1, '7': 2, '8': 1, '9': 1, 'draw_2': 1, 'skip': 1, 'reverse': 2}, 'green': {'0': 1, '1': 0, '2': 1, '3': 1, '4': 2, '5': 1, '6': 1, '7': 1, '8': 2, '9': 2, 'draw_2': 2, 'skip': 1, 'reverse': 2}, 'red': {'0': 1, '1': 1, '2': 2, '3': 1, '4': 1, '5': 2, '6': 2, '7': 1, '8': 1, '9': 1, 'draw_2': 2, 'skip': 2, 'reverse': 2}, 'yellow': {'0': 1, '1': 2, '2': 1, '3': 1, '4': 2, '5': 2, '6': 2, '7': 2, '8': 1, '9': 2, 'draw_2': 2, 'skip': 2, 'reverse': 2}, 'black': {'wild': 3, 'wild_draw_4': 4, 'wild_shuffle': 1}, 'white': {'white_wild': 3}}
+Receive receiver-card event.
+res_data: 
+{'cards_receive': [{'color': 'red', 'number': 8}], 'is_penalty': False}
+Receive draw-card event.
+res_data: 
+{'player': 'P-00000001', 'is_draw': True}
+カードを引きます
+引く理由: 場に出すカードがない(最行動可能)
+---更新前---
+山札:72枚
+P-00000004:12枚 P-00000001:3枚 P-00000002:1枚 P-00000003:5枚 
+---更新後---
+山札からP-00000001へ1枚移動
+山札:71枚
+P-00000004:12枚 P-00000001:4枚 P-00000002:1枚 P-00000003:5枚 
+Send draw-card event.
+res_data: 
+{
+    'player': 'P-00000001',
+    'is_draw': True,
+    'can_play_draw_card': False,
+    'draw_card': [{'color': 'red', 'number': 8}]
+}
+Receive draw-card event.
+res_data: 
+{'player': 'P-00000002', 'is_draw': True}
+P-00000002がUNO解除しました
+カードを引きます
+引く理由: 場に出すカードがない(最行動可能)
+---更新前---
+山札:71枚
+P-00000004:12枚 P-00000001:4枚 P-00000002:1枚 P-00000003:5枚 
+---更新後---
+山札からP-00000002へ1枚移動
+山札:70枚
+P-00000004:12枚 P-00000001:4枚 P-00000002:2枚 P-00000003:5枚 
+場札または手札にないのは
+{'blue': {'0': 1, '1': 2, '2': 2, '3': 0, '4': 2, '5': 2, '6': 1, '7': 2, '8': 1, '9': 1, 'draw_2': 1, 'skip': 1, 'reverse': 2}, 'green': {'0': 1, '1': 0, '2': 1, '3': 1, '4': 2, '5': 1, '6': 1, '7': 1, '8': 2, '9': 2, 'draw_2': 2, 'skip': 1, 'reverse': 1}, 'red': {'0': 1, '1': 1, '2': 2, '3': 1, '4': 1, '5': 2, '6': 2, '7': 1, '8': 1, '9': 1, 'draw_2': 2, 'skip': 2, 'reverse': 2}, 'yellow': {'0': 1, '1': 2, '2': 1, '3': 1, '4': 2, '5': 2, '6': 2, '7': 2, '8': 1, '9': 2, 'draw_2': 2, 'skip': 2, 'reverse': 2}, 'black': {'wild': 3, 'wild_draw_4': 4, 'wild_shuffle': 1}, 'white': {'white_wild': 3}}
+反転発動
+{'P-00000002': {'位置': '直後', 'UNO': False}, 'P-00000003': {'位置': '対面', 'UNO': False}, 'P-00000004': {'位置': '直前', 'UNO': False}}
+---場にカードを出した---
+プレイヤー: P-00000003
+カード: {'color': 'green', 'special': 'reverse'}
+プレイヤーの手札枚数
+P-00000004:12枚 P-00000001:4枚 P-00000002:2枚 P-00000003:4枚 
+Receive play-card event.
+res_data: 
+{
+    'card_play': {'color': 'green', 'special': 'reverse'},
+    'yell_uno': False,
+    'player': 'P-00000003'
+}
+Receive draw-card event.
+res_data: 
+{'player': 'P-00000002', 'is_draw': True}
+カードを引きます
+引く理由: 場に出すカードがない(最行動可能)
+---更新前---
+山札:70枚
+P-00000004:12枚 P-00000001:4枚 P-00000002:2枚 P-00000003:4枚 
+---更新後---
+山札からP-00000002へ1枚移動
+山札:69枚
+P-00000004:12枚 P-00000001:4枚 P-00000002:3枚 P-00000003:4枚 
+Receive next-player event.
+res_data: 
+{
+    'next_player': 'P-00000001',
+    'before_player': 'P-00000002',
+    'card_before': {'color': 'green', 'special': 'reverse'},
+    'card_of_player': [
+        {'color': 'blue', 'number': 9},
+        {'color': 'red', 'number': 4},
+        {'color': 'red', 'number': 8},
+        {'color': 'red', 'number': 9}
+    ],
+    'must_call_draw_card': False,
+    'draw_reason': 'nothing',
+    'turn_right': False,
+    'number_card_play': 26,
+    'number_turn_play': 35,
+    'number_card_of_player': {
+        'P-00000004': 12,
+        'P-00000001': 4,
+        'P-00000002': 3,
+        'P-00000003': 4
+    }
+}
+---枚数照合---
+誰？： P-00000004
+dealerから送られてきたカード枚数: 12
+game_statusで記録していたカード枚数: 12
+正しいか: True
+---枚数照合---
+誰？： P-00000001
+dealerから送られてきたカード枚数: 4
+game_statusで記録していたカード枚数: 4
+正しいか: True
+---枚数照合---
+誰？： P-00000002
+dealerから送られてきたカード枚数: 3
+game_statusで記録していたカード枚数: 3
+正しいか: True
+---枚数照合---
+誰？： P-00000003
+dealerから送られてきたカード枚数: 4
+game_statusで記録していたカード枚数: 4
+正しいか: True
+Send draw-card event.
+req_data: 
+{}
+場札または手札にないのは
+{'blue': {'0': 1, '1': 2, '2': 2, '3': 0, '4': 2, '5': 2, '6': 1, '7': 2, '8': 1, '9': 1, 'draw_2': 1, 'skip': 1, 'reverse': 2}, 'green': {'0': 1, '1': 0, '2': 1, '3': 1, '4': 2, '5': 1, '6': 1, '7': 1, '8': 2, '9': 2, 'draw_2': 2, 'skip': 1, 'reverse': 1}, 'red': {'0': 1, '1': 1, '2': 2, '3': 1, '4': 1, '5': 2, '6': 2, '7': 1, '8': 1, '9': 1, 'draw_2': 2, 'skip': 2, 'reverse': 2}, 'yellow': {'0': 1, '1': 2, '2': 1, '3': 1, '4': 2, '5': 2, '6': 2, '7': 2, '8': 1, '9': 2, 'draw_2': 2, 'skip': 2, 'reverse': 2}, 'black': {'wild': 3, 'wild_draw_4': 3, 'wild_shuffle': 1}, 'white': {'white_wild': 3}}
+Receive receiver-card event.
+res_data: 
+{
+    'cards_receive': [{'color': 'black', 'special': 'wild_draw_4'}],
+    'is_penalty': False
+}
+Receive draw-card event.
+res_data: 
+{'player': 'P-00000001', 'is_draw': True}
+カードを引きます
+引く理由: 場に出すカードがない(最行動可能)
+---更新前---
+山札:69枚
+P-00000004:12枚 P-00000001:4枚 P-00000002:3枚 P-00000003:4枚 
+---更新後---
+山札からP-00000001へ1枚移動
+山札:68枚
+P-00000004:12枚 P-00000001:5枚 P-00000002:3枚 P-00000003:4枚 
+Send draw-card event.
+res_data: 
+{
+    'player': 'P-00000001',
+    'is_draw': True,
+    'draw_card': [{'color': 'black', 'special': 'wild_draw_4'}],
+    'can_play_draw_card': True
+}
+change_card
+[('red', 3), ('blue', 1), ('green', 0), ('yellow', 0)]
+Send play-draw-card event.
+req_data: 
+{'is_play_card': True, 'yell_uno': False, 'color_of_wild': 'red'}
+Receive play-draw-card event.
+res_data: 
+{
+    'is_play_card': True,
+    'yell_uno': False,
+    'color_of_wild': 'red',
+    'player': 'P-00000001',
+    'card_play': {'color': 'black', 'special': 'wild_draw_4'}
+}
+Receive update-color event.
+res_data: 
+{'color': 'green'}
+Send play-draw-card event.
+res_data: 
+{'is_play_card': True, 'yell_uno': False, 'color_of_wild': 'red'}
+Receive draw-card event.
+res_data: 
+{'player': 'P-00000004', 'is_draw': True}
+カードを引きます
+引く理由: 場に出すカードがない(最行動可能)
+---更新前---
+山札:68枚
+P-00000004:12枚 P-00000001:5枚 P-00000002:3枚 P-00000003:4枚 
+---更新後---
+山札からP-00000004へ1枚移動
+山札:67枚
+P-00000004:13枚 P-00000001:5枚 P-00000002:3枚 P-00000003:4枚 
+場札または手札にないのは
+{'blue': {'0': 1, '1': 2, '2': 2, '3': 0, '4': 2, '5': 2, '6': 1, '7': 2, '8': 1, '9': 1, 'draw_2': 1, 'skip': 1, 'reverse': 2}, 'green': {'0': 1, '1': 0, '2': 1, '3': 1, '4': 2, '5': 1, '6': 1, '7': 1, '8': 2, '9': 2, 'draw_2': 2, 'skip': 1, 'reverse': 1}, 'red': {'0': 1, '1': 1, '2': 2, '3': 1, '4': 1, '5': 2, '6': 1, '7': 1, '8': 1, '9': 1, 'draw_2': 2, 'skip': 2, 'reverse': 2}, 'yellow': {'0': 1, '1': 2, '2': 1, '3': 1, '4': 2, '5': 2, '6': 2, '7': 2, '8': 1, '9': 2, 'draw_2': 2, 'skip': 2, 'reverse': 2}, 'black': {'wild': 3, 'wild_draw_4': 3, 'wild_shuffle': 1}, 'white': {'white_wild': 3}}
+---場にカードを出した---
+プレイヤー: P-00000003
+カード: {'color': 'red', 'number': 6}
+プレイヤーの手札枚数
+P-00000004:13枚 P-00000001:5枚 P-00000002:3枚 P-00000003:3枚 
+Receive play-card event.
+res_data: 
+{
+    'card_play': {'color': 'red', 'number': 6},
+    'yell_uno': False,
+    'player': 'P-00000003'
+}
+場札または手札にないのは
+{'blue': {'0': 1, '1': 2, '2': 2, '3': 0, '4': 2, '5': 2, '6': 1, '7': 2, '8': 1, '9': 1, 'draw_2': 1, 'skip': 1, 'reverse': 2}, 'green': {'0': 1, '1': 0, '2': 1, '3': 1, '4': 2, '5': 1, '6': 1, '7': 1, '8': 2, '9': 2, 'draw_2': 2, 'skip': 1, 'reverse': 1}, 'red': {'0': 1, '1': 1, '2': 1, '3': 1, '4': 1, '5': 2, '6': 1, '7': 1, '8': 1, '9': 1, 'draw_2': 2, 'skip': 2, 'reverse': 2}, 'yellow': {'0': 1, '1': 2, '2': 1, '3': 1, '4': 2, '5': 2, '6': 2, '7': 2, '8': 1, '9': 2, 'draw_2': 2, 'skip': 2, 'reverse': 2}, 'black': {'wild': 3, 'wild_draw_4': 3, 'wild_shuffle': 1}, 'white': {'white_wild': 3}}
+---場にカードを出した---
+プレイヤー: P-00000002
+カード: {'color': 'red', 'number': 2}
+プレイヤーの手札枚数
+P-00000004:13枚 P-00000001:5枚 P-00000002:2枚 P-00000003:3枚 
+Receive play-card event.
+res_data: 
+{
+    'card_play': {'color': 'red', 'number': 2},
+    'yell_uno': False,
+    'player': 'P-00000002'
+}
+Receive next-player event.
+res_data: 
+{
+    'next_player': 'P-00000001',
+    'before_player': 'P-00000002',
+    'card_before': {'color': 'red', 'number': 2},
+    'card_of_player': [
+        {'color': 'blue', 'number': 9},
+        {'color': 'red', 'number': 4},
+        {'color': 'red', 'number': 8},
+        {'color': 'red', 'number': 9}
+    ],
+    'must_call_draw_card': False,
+    'draw_reason': 'nothing',
+    'turn_right': False,
+    'number_card_play': 29,
+    'number_turn_play': 39,
+    'number_card_of_player': {
+        'P-00000004': 16,
+        'P-00000001': 4,
+        'P-00000002': 2,
+        'P-00000003': 3
+    }
+}
+---枚数照合---
+誰？： P-00000004
+dealerから送られてきたカード枚数: 16
+game_statusで記録していたカード枚数: 13
+正しいか: False
+---枚数照合---
+誰？： P-00000001
+dealerから送られてきたカード枚数: 4
+game_statusで記録していたカード枚数: 5
+正しいか: False
+---枚数照合---
+誰？： P-00000002
+dealerから送られてきたカード枚数: 2
+game_statusで記録していたカード枚数: 2
+正しいか: True
+---枚数照合---
+誰？： P-00000003
+dealerから送られてきたカード枚数: 3
+game_statusで記録していたカード枚数: 3
+正しいか: True
+selected card: red 4
+Send play-card event.
+req_data: 
+{'card_play': {'color': 'red', 'number': 4}, 'yell_uno': False}
+---場にカードを出した---
+プレイヤー: P-00000001
+カード: {'color': 'red', 'number': 4}
+プレイヤーの手札枚数
+P-00000004:16枚 P-00000001:3枚 P-00000002:2枚 P-00000003:3枚 
+Receive play-card event.
+res_data: 
+{
+    'card_play': {'color': 'red', 'number': 4},
+    'yell_uno': False,
+    'player': 'P-00000001'
+}
+Send play-card event.
+res_data: 
+{'card_play': {'color': 'red', 'number': 4}, 'yell_uno': False}
+場札または手札にないのは
+{'blue': {'0': 1, '1': 2, '2': 2, '3': 0, '4': 2, '5': 2, '6': 1, '7': 2, '8': 1, '9': 1, 'draw_2': 1, 'skip': 1, 'reverse': 2}, 'green': {'0': 1, '1': 0, '2': 1, '3': 1, '4': 2, '5': 1, '6': 1, '7': 1, '8': 2, '9': 2, 'draw_2': 2, 'skip': 1, 'reverse': 1}, 'red': {'0': 1, '1': 1, '2': 0, '3': 1, '4': 1, '5': 2, '6': 1, '7': 1, '8': 1, '9': 1, 'draw_2': 2, 'skip': 2, 'reverse': 2}, 'yellow': {'0': 1, '1': 2, '2': 1, '3': 1, '4': 2, '5': 2, '6': 2, '7': 2, '8': 1, '9': 2, 'draw_2': 2, 'skip': 2, 'reverse': 2}, 'black': {'wild': 3, 'wild_draw_4': 3, 'wild_shuffle': 1}, 'white': {'white_wild': 3}}
+---場にカードを出した---
+プレイヤー: P-00000004
+カード: {'color': 'red', 'number': 2}
+プレイヤーの手札枚数
+P-00000004:15枚 P-00000001:3枚 P-00000002:2枚 P-00000003:3枚 
+Receive play-card event.
+res_data: 
+{
+    'card_play': {'color': 'red', 'number': 2},
+    'yell_uno': False,
+    'player': 'P-00000004'
+}
+Receive draw-card event.
+res_data: 
+{'player': 'P-00000003', 'is_draw': True}
+カードを引きます
+引く理由: 場に出すカードがない(最行動可能)
+---更新前---
+山札:67枚
+P-00000004:15枚 P-00000001:3枚 P-00000002:2枚 P-00000003:3枚 
+---更新後---
+山札からP-00000003へ1枚移動
+山札:66枚
+P-00000004:15枚 P-00000001:3枚 P-00000002:2枚 P-00000003:4枚 
+場札または手札にないのは
+{'blue': {'0': 1, '1': 2, '2': 2, '3': 0, '4': 1, '5': 2, '6': 1, '7': 2, '8': 1, '9': 1, 'draw_2': 1, 'skip': 1, 'reverse': 1}, 'green': {'0': 1, '1': 0, '2': 1, '3': 1, '4': 2, '5': 1, '6': 1, '7': 1, '8': 2, '9': 2, 'draw_2': 2, 'skip': 1, 'reverse': 1}, 'red': {'0': 1, '1': 1, '2': 0, '3': 1, '4': 2, '5': 2, '6': 1, '7': 1, '8': 2, '9': 2, 'draw_2': 2, 'skip': 2, 'reverse': 2}, 'yellow': {'0': 1, '1': 2, '2': 1, '3': 1, '4': 2, '5': 1, '6': 2, '7': 2, '8': 1, '9': 0, 'draw_2': 2, 'skip': 2, 'reverse': 2}, 'black': {'wild': 3, 'wild_draw_4': 3, 'wild_shuffle': 1}, 'white': {'white_wild': 3}}
+---枚数照合---
+誰？： P-00000004
+dealerから送られてきたカード枚数: 6
+game_statusで記録していたカード枚数: 15
+正しいか: False
+---枚数照合---
+誰？： P-00000001
+dealerから送られてきたカード枚数: 6
+game_statusで記録していたカード枚数: 3
+正しいか: False
+---枚数照合---
+誰？： P-00000002
+dealerから送られてきたカード枚数: 6
+game_statusで記録していたカード枚数: 2
+正しいか: False
+---枚数照合---
+誰？： P-00000003
+dealerから送られてきたカード枚数: 5
+game_statusで記録していたカード枚数: 4
+正しいか: False
+Receive shuffle-wild event.
+res_data: 
+{
+    'cards_receive': [
+        {'color': 'yellow', 'number': 5},
+        {'color': 'yellow', 'number': 9},
+        {'color': 'yellow', 'number': 9},
+        {'color': 'blue', 'number': 9},
+        {'color': 'blue', 'special': 'reverse'},
+        {'color': 'blue', 'number': 4}
+    ],
+    'number_card_of_player': {
+        'P-00000004': 6,
+        'P-00000001': 6,
+        'P-00000002': 6,
+        'P-00000003': 5
+    }
+}
+シャッフルワイルドにより手札状況が変更
+{
+    'cards_receive': [
+        {'color': 'yellow', 'number': 5},
+        {'color': 'yellow', 'number': 9},
+        {'color': 'yellow', 'number': 9},
+        {'color': 'blue', 'number': 9},
+        {'color': 'blue', 'special': 'reverse'},
+        {'color': 'blue', 'number': 4}
+    ],
+    'number_card_of_player': {
+        'P-00000004': 6,
+        'P-00000001': 6,
+        'P-00000002': 6,
+        'P-00000003': 5
+    }
+}
+Receive play-draw-card event.
+res_data: 
+{
+    'is_play_card': True,
+    'yell_uno': False,
+    'player': 'P-00000003',
+    'card_play': {'color': 'black', 'special': 'wild_shuffle'}
+}
+Receive update-color event.
+res_data: 
+{'color': 'blue'}
+場札または手札にないのは
+{'blue': {'0': 1, '1': 2, '2': 1, '3': 0, '4': 1, '5': 2, '6': 1, '7': 2, '8': 1, '9': 1, 'draw_2': 1, 'skip': 1, 'reverse': 1}, 'green': {'0': 1, '1': 0, '2': 1, '3': 1, '4': 2, '5': 1, '6': 1, '7': 1, '8': 2, '9': 2, 'draw_2': 2, 'skip': 1, 'reverse': 1}, 'red': {'0': 1, '1': 1, '2': 0, '3': 1, '4': 2, '5': 2, '6': 1, '7': 1, '8': 2, '9': 2, 'draw_2': 2, 'skip': 2, 'reverse': 2}, 'yellow': {'0': 1, '1': 2, '2': 1, '3': 1, '4': 2, '5': 1, '6': 2, '7': 2, '8': 1, '9': 0, 'draw_2': 2, 'skip': 2, 'reverse': 2}, 'black': {'wild': 3, 'wild_draw_4': 3, 'wild_shuffle': 1}, 'white': {'white_wild': 3}}
+---場にカードを出した---
+プレイヤー: P-00000002
+カード: {'color': 'blue', 'number': 2}
+プレイヤーの手札枚数
+P-00000004:6枚 P-00000001:6枚 P-00000002:5枚 P-00000003:5枚 
+Receive play-card event.
+res_data: 
+{
+    'card_play': {'color': 'blue', 'number': 2},
+    'yell_uno': False,
+    'player': 'P-00000002'
+}
+Receive next-player event.
+res_data: 
+{
+    'next_player': 'P-00000001',
+    'before_player': 'P-00000002',
+    'card_before': {'color': 'blue', 'number': 2},
+    'card_of_player': [
+        {'color': 'yellow', 'number': 5},
+        {'color': 'yellow', 'number': 9},
+        {'color': 'yellow', 'number': 9},
+        {'color': 'blue', 'number': 9},
+        {'color': 'blue', 'special': 'reverse'},
+        {'color': 'blue', 'number': 4}
+    ],
+    'must_call_draw_card': False,
+    'draw_reason': 'nothing',
+    'turn_right': False,
+    'number_card_play': 33,
+    'number_turn_play': 43,
+    'number_card_of_player': {
+        'P-00000004': 6,
+        'P-00000001': 6,
+        'P-00000002': 5,
+        'P-00000003': 5
+    }
+}
+---枚数照合---
+誰？： P-00000004
+dealerから送られてきたカード枚数: 6
+game_statusで記録していたカード枚数: 6
+正しいか: True
+---枚数照合---
+誰？： P-00000001
+dealerから送られてきたカード枚数: 6
+game_statusで記録していたカード枚数: 6
+正しいか: True
+---枚数照合---
+誰？： P-00000002
+dealerから送られてきたカード枚数: 5
+game_statusで記録していたカード枚数: 5
+正しいか: True
+---枚数照合---
+誰？： P-00000003
+dealerから送られてきたカード枚数: 5
+game_statusで記録していたカード枚数: 5
+正しいか: True
+selected card: blue 9
+Send play-card event.
+req_data: 
+{'card_play': {'color': 'blue', 'number': 9}, 'yell_uno': False}
+---場にカードを出した---
+プレイヤー: P-00000001
+カード: {'color': 'blue', 'number': 9}
+プレイヤーの手札枚数
+P-00000004:6枚 P-00000001:5枚 P-00000002:5枚 P-00000003:5枚 
+Receive play-card event.
+res_data: 
+{
+    'card_play': {'color': 'blue', 'number': 9},
+    'yell_uno': False,
+    'player': 'P-00000001'
+}
+Send play-card event.
+res_data: 
+{'card_play': {'color': 'blue', 'number': 9}, 'yell_uno': False}
+場札または手札にないのは
+{'blue': {'0': 1, '1': 2, '2': 1, '3': 0, '4': 1, '5': 2, '6': 1, '7': 2, '8': 1, '9': 1, 'draw_2': 1, 'skip': 1, 'reverse': 0}, 'green': {'0': 1, '1': 0, '2': 1, '3': 1, '4': 2, '5': 1, '6': 1, '7': 1, '8': 2, '9': 2, 'draw_2': 2, 'skip': 1, 'reverse': 1}, 'red': {'0': 1, '1': 1, '2': 0, '3': 1, '4': 2, '5': 2, '6': 1, '7': 1, '8': 2, '9': 2, 'draw_2': 2, 'skip': 2, 'reverse': 2}, 'yellow': {'0': 1, '1': 2, '2': 1, '3': 1, '4': 2, '5': 1, '6': 2, '7': 2, '8': 1, '9': 0, 'draw_2': 2, 'skip': 2, 'reverse': 2}, 'black': {'wild': 3, 'wild_draw_4': 3, 'wild_shuffle': 1}, 'white': {'white_wild': 3}}
+反転発動
+{'P-00000002': {'位置': '直前', 'UNO': False}, 'P-00000003': {'位置': '対面', 'UNO': False}, 'P-00000004': {'位置': '直後', 'UNO': False}}
+---場にカードを出した---
+プレイヤー: P-00000004
+カード: {'color': 'blue', 'special': 'reverse'}
+プレイヤーの手札枚数
+P-00000004:5枚 P-00000001:5枚 P-00000002:5枚 P-00000003:5枚 
+Receive play-card event.
+res_data: 
+{
+    'card_play': {'color': 'blue', 'special': 'reverse'},
+    'yell_uno': False,
+    'player': 'P-00000004'
+}
+Receive next-player event.
+res_data: 
+{
+    'next_player': 'P-00000001',
+    'before_player': 'P-00000004',
+    'card_before': {'color': 'blue', 'special': 'reverse'},
+    'card_of_player': [
+        {'color': 'yellow', 'number': 5},
+        {'color': 'yellow', 'number': 9},
+        {'color': 'yellow', 'number': 9},
+        {'color': 'blue', 'special': 'reverse'},
+        {'color': 'blue', 'number': 4}
+    ],
+    'must_call_draw_card': False,
+    'draw_reason': 'nothing',
+    'turn_right': True,
+    'number_card_play': 35,
+    'number_turn_play': 45,
+    'number_card_of_player': {
+        'P-00000004': 5,
+        'P-00000001': 5,
+        'P-00000002': 5,
+        'P-00000003': 5
+    }
+}
+---枚数照合---
+誰？： P-00000004
+dealerから送られてきたカード枚数: 5
+game_statusで記録していたカード枚数: 5
+正しいか: True
+---枚数照合---
+誰？： P-00000001
+dealerから送られてきたカード枚数: 5
+game_statusで記録していたカード枚数: 5
+正しいか: True
+---枚数照合---
+誰？： P-00000002
+dealerから送られてきたカード枚数: 5
+game_statusで記録していたカード枚数: 5
+正しいか: True
+---枚数照合---
+誰？： P-00000003
+dealerから送られてきたカード枚数: 5
+game_statusで記録していたカード枚数: 5
+正しいか: True
+selected card: blue reverse
+Send play-card event.
+req_data: 
+{'card_play': {'color': 'blue', 'special': 'reverse'}, 'yell_uno': False}
+反転発動
+{'P-00000002': {'位置': '直後', 'UNO': False}, 'P-00000003': {'位置': '対面', 'UNO': False}, 'P-00000004': {'位置': '直前', 'UNO': False}}
+---場にカードを出した---
+プレイヤー: P-00000001
+カード: {'color': 'blue', 'special': 'reverse'}
+プレイヤーの手札枚数
+P-00000004:5枚 P-00000001:4枚 P-00000002:5枚 P-00000003:5枚 
+Receive play-card event.
+res_data: 
+{
+    'card_play': {'color': 'blue', 'special': 'reverse'},
+    'yell_uno': False,
+    'player': 'P-00000001'
+}
+Send play-card event.
+res_data: 
+{'card_play': {'color': 'blue', 'special': 'reverse'}, 'yell_uno': False}
+Receive draw-card event.
+res_data: 
+{'player': 'P-00000004', 'is_draw': True}
+カードを引きます
+引く理由: 場に出すカードがない(最行動可能)
+---更新前---
+山札:66枚
+P-00000004:5枚 P-00000001:4枚 P-00000002:5枚 P-00000003:5枚 
+---更新後---
+山札からP-00000004へ1枚移動
+山札:65枚
+P-00000004:6枚 P-00000001:4枚 P-00000002:5枚 P-00000003:5枚 
+Receive play-draw-card event.
+res_data: 
+{
+    'is_play_card': True,
+    'yell_uno': False,
+    'player': 'P-00000004',
+    'card_play': {'color': 'yellow', 'special': 'reverse'}
+}
+Receive next-player event.
+res_data: 
+{
+    'next_player': 'P-00000001',
+    'before_player': 'P-00000004',
+    'card_before': {'color': 'yellow', 'special': 'reverse'},
+    'card_of_player': [
+        {'color': 'yellow', 'number': 5},
+        {'color': 'yellow', 'number': 9},
+        {'color': 'yellow', 'number': 9},
+        {'color': 'blue', 'number': 4}
+    ],
+    'must_call_draw_card': False,
+    'draw_reason': 'nothing',
+    'turn_right': True,
+    'number_card_play': 37,
+    'number_turn_play': 47,
+    'number_card_of_player': {
+        'P-00000004': 5,
+        'P-00000001': 4,
+        'P-00000002': 5,
+        'P-00000003': 5
+    }
+}
+---枚数照合---
+誰？： P-00000004
+dealerから送られてきたカード枚数: 5
+game_statusで記録していたカード枚数: 6
+正しいか: False
+---枚数照合---
+誰？： P-00000001
+dealerから送られてきたカード枚数: 4
+game_statusで記録していたカード枚数: 4
+正しいか: True
+---枚数照合---
+誰？： P-00000002
+dealerから送られてきたカード枚数: 5
+game_statusで記録していたカード枚数: 5
+正しいか: True
+---枚数照合---
+誰？： P-00000003
+dealerから送られてきたカード枚数: 5
+game_statusで記録していたカード枚数: 5
+正しいか: True
+selected card: yellow 5
+Send play-card event.
+req_data: 
+{'card_play': {'color': 'yellow', 'number': 5}, 'yell_uno': False}
+---場にカードを出した---
+プレイヤー: P-00000001
+カード: {'color': 'yellow', 'number': 5}
+プレイヤーの手札枚数
+P-00000004:5枚 P-00000001:3枚 P-00000002:5枚 P-00000003:5枚 
+Receive play-card event.
+res_data: 
+{
+    'card_play': {'color': 'yellow', 'number': 5},
+    'yell_uno': False,
+    'player': 'P-00000001'
+}
+Send play-card event.
+res_data: 
+{'card_play': {'color': 'yellow', 'number': 5}, 'yell_uno': False}
+場札または手札にないのは
+{'blue': {'0': 1, '1': 2, '2': 1, '3': 0, '4': 1, '5': 2, '6': 1, '7': 2, '8': 1, '9': 1, 'draw_2': 1, 'skip': 1, 'reverse': 0}, 'green': {'0': 1, '1': 0, '2': 1, '3': 1, '4': 2, '5': 1, '6': 1, '7': 1, '8': 2, '9': 2, 'draw_2': 2, 'skip': 1, 'reverse': 1}, 'red': {'0': 1, '1': 1, '2': 0, '3': 1, '4': 2, '5': 2, '6': 1, '7': 1, '8': 2, '9': 2, 'draw_2': 2, 'skip': 2, 'reverse': 2}, 'yellow': {'0': 1, '1': 2, '2': 1, '3': 1, '4': 1, '5': 1, '6': 2, '7': 2, '8': 1, '9': 0, 'draw_2': 2, 'skip': 2, 'reverse': 2}, 'black': {'wild': 3, 'wild_draw_4': 3, 'wild_shuffle': 1}, 'white': {'white_wild': 3}}
+---場にカードを出した---
+プレイヤー: P-00000002
+カード: {'color': 'yellow', 'number': 4}
+プレイヤーの手札枚数
+P-00000004:5枚 P-00000001:3枚 P-00000002:4枚 P-00000003:5枚 
+Receive play-card event.
+res_data: 
+{
+    'card_play': {'color': 'yellow', 'number': 4},
+    'yell_uno': False,
+    'player': 'P-00000002'
+}
+場札または手札にないのは
+{'blue': {'0': 1, '1': 2, '2': 1, '3': 0, '4': 1, '5': 2, '6': 1, '7': 2, '8': 1, '9': 1, 'draw_2': 1, 'skip': 1, 'reverse': 0}, 'green': {'0': 1, '1': 0, '2': 1, '3': 1, '4': 2, '5': 1, '6': 1, '7': 1, '8': 2, '9': 2, 'draw_2': 2, 'skip': 1, 'reverse': 1}, 'red': {'0': 1, '1': 1, '2': 0, '3': 1, '4': 2, '5': 2, '6': 1, '7': 1, '8': 2, '9': 2, 'draw_2': 2, 'skip': 2, 'reverse': 2}, 'yellow': {'0': 1, '1': 2, '2': 1, '3': 1, '4': 1, '5': 1, '6': 2, '7': 2, '8': 1, '9': 0, 'draw_2': 1, 'skip': 2, 'reverse': 2}, 'black': {'wild': 3, 'wild_draw_4': 3, 'wild_shuffle': 1}, 'white': {'white_wild': 3}}
+---場にカードを出した---
+プレイヤー: P-00000003
+カード: {'color': 'yellow', 'special': 'draw_2'}
+プレイヤーの手札枚数
+P-00000004:5枚 P-00000001:3枚 P-00000002:4枚 P-00000003:4枚 
+Receive play-card event.
+res_data: 
+{
+    'card_play': {'color': 'yellow', 'special': 'draw_2'},
+    'yell_uno': False,
+    'player': 'P-00000003'
+}
+Receive draw-card event.
+res_data: 
+{'player': 'P-00000004', 'is_draw': True}
+カードを引きます
+引く理由: draw_2
+---更新前---
+山札:65枚
+P-00000004:5枚 P-00000001:3枚 P-00000002:4枚 P-00000003:4枚 
+---更新後---
+山札からP-00000004へ2枚移動
+山札:63枚
+P-00000004:7枚 P-00000001:3枚 P-00000002:4枚 P-00000003:4枚 
+Receive next-player event.
+res_data: 
+{
+    'next_player': 'P-00000001',
+    'before_player': 'P-00000004',
+    'card_before': {'color': 'yellow', 'special': 'draw_2'},
+    'card_of_player': [
+        {'color': 'yellow', 'number': 9},
+        {'color': 'yellow', 'number': 9},
+        {'color': 'blue', 'number': 4}
+    ],
+    'must_call_draw_card': False,
+    'draw_reason': 'nothing',
+    'turn_right': True,
+    'number_card_play': 40,
+    'number_turn_play': 51,
+    'number_card_of_player': {
+        'P-00000004': 7,
+        'P-00000001': 3,
+        'P-00000002': 4,
+        'P-00000003': 4
+    }
+}
+---枚数照合---
+誰？： P-00000004
+dealerから送られてきたカード枚数: 7
+game_statusで記録していたカード枚数: 7
+正しいか: True
+---枚数照合---
+誰？： P-00000001
+dealerから送られてきたカード枚数: 3
+game_statusで記録していたカード枚数: 3
+正しいか: True
+---枚数照合---
+誰？： P-00000002
+dealerから送られてきたカード枚数: 4
+game_statusで記録していたカード枚数: 4
+正しいか: True
+---枚数照合---
+誰？： P-00000003
+dealerから送られてきたカード枚数: 4
+game_statusで記録していたカード枚数: 4
+正しいか: True
+selected card: yellow 9
+Send play-card event.
+req_data: 
+{'card_play': {'color': 'yellow', 'number': 9}, 'yell_uno': False}
+---場にカードを出した---
+プレイヤー: P-00000001
+カード: {'color': 'yellow', 'number': 9}
+プレイヤーの手札枚数
+P-00000004:7枚 P-00000001:2枚 P-00000002:4枚 P-00000003:4枚 
+Receive play-card event.
+res_data: 
+{
+    'card_play': {'color': 'yellow', 'number': 9},
+    'yell_uno': False,
+    'player': 'P-00000001'
+}
+Send play-card event.
+res_data: 
+{'card_play': {'color': 'yellow', 'number': 9}, 'yell_uno': False}
+場札または手札にないのは
+{'blue': {'0': 1, '1': 2, '2': 1, '3': 0, '4': 1, '5': 2, '6': 1, '7': 2, '8': 1, '9': 1, 'draw_2': 1, 'skip': 1, 'reverse': 0}, 'green': {'0': 1, '1': 0, '2': 1, '3': 1, '4': 2, '5': 1, '6': 1, '7': 1, '8': 2, '9': 2, 'draw_2': 2, 'skip': 1, 'reverse': 1}, 'red': {'0': 1, '1': 1, '2': 0, '3': 1, '4': 2, '5': 2, '6': 1, '7': 1, '8': 2, '9': 2, 'draw_2': 2, 'skip': 2, 'reverse': 2}, 'yellow': {'0': 1, '1': 2, '2': 1, '3': 1, '4': 1, '5': 1, '6': 2, '7': 1, '8': 1, '9': 0, 'draw_2': 1, 'skip': 2, 'reverse': 2}, 'black': {'wild': 3, 'wild_draw_4': 3, 'wild_shuffle': 1}, 'white': {'white_wild': 3}}
+---場にカードを出した---
+プレイヤー: P-00000002
+カード: {'color': 'yellow', 'number': 7}
+プレイヤーの手札枚数
+P-00000004:7枚 P-00000001:2枚 P-00000002:3枚 P-00000003:4枚 
+Receive play-card event.
+res_data: 
+{
+    'card_play': {'color': 'yellow', 'number': 7},
+    'yell_uno': False,
+    'player': 'P-00000002'
+}
+場札または手札にないのは
+{'blue': {'0': 1, '1': 2, '2': 1, '3': 0, '4': 1, '5': 2, '6': 1, '7': 1, '8': 1, '9': 1, 'draw_2': 1, 'skip': 1, 'reverse': 0}, 'green': {'0': 1, '1': 0, '2': 1, '3': 1, '4': 2, '5': 1, '6': 1, '7': 1, '8': 2, '9': 2, 'draw_2': 2, 'skip': 1, 'reverse': 1}, 'red': {'0': 1, '1': 1, '2': 0, '3': 1, '4': 2, '5': 2, '6': 1, '7': 1, '8': 2, '9': 2, 'draw_2': 2, 'skip': 2, 'reverse': 2}, 'yellow': {'0': 1, '1': 2, '2': 1, '3': 1, '4': 1, '5': 1, '6': 2, '7': 1, '8': 1, '9': 0, 'draw_2': 1, 'skip': 2, 'reverse': 2}, 'black': {'wild': 3, 'wild_draw_4': 3, 'wild_shuffle': 1}, 'white': {'white_wild': 3}}
+---場にカードを出した---
+プレイヤー: P-00000003
+カード: {'color': 'blue', 'number': 7}
+プレイヤーの手札枚数
+P-00000004:7枚 P-00000001:2枚 P-00000002:3枚 P-00000003:3枚 
+Receive play-card event.
+res_data: 
+{
+    'card_play': {'color': 'blue', 'number': 7},
+    'yell_uno': False,
+    'player': 'P-00000003'
+}
+場札または手札にないのは
+{'blue': {'0': 1, '1': 2, '2': 1, '3': 0, '4': 1, '5': 2, '6': 1, '7': 1, '8': 1, '9': 1, 'draw_2': 1, 'skip': 1, 'reverse': 0}, 'green': {'0': 1, '1': 0, '2': 1, '3': 1, '4': 2, '5': 1, '6': 1, '7': 1, '8': 2, '9': 2, 'draw_2': 2, 'skip': 1, 'reverse': 1}, 'red': {'0': 1, '1': 1, '2': 0, '3': 1, '4': 2, '5': 2, '6': 1, '7': 1, '8': 2, '9': 2, 'draw_2': 2, 'skip': 2, 'reverse': 2}, 'yellow': {'0': 1, '1': 2, '2': 1, '3': 1, '4': 1, '5': 1, '6': 2, '7': 0, '8': 1, '9': 0, 'draw_2': 1, 'skip': 2, 'reverse': 2}, 'black': {'wild': 3, 'wild_draw_4': 3, 'wild_shuffle': 1}, 'white': {'white_wild': 3}}
+---場にカードを出した---
+プレイヤー: P-00000004
+カード: {'color': 'yellow', 'number': 7}
+プレイヤーの手札枚数
+P-00000004:6枚 P-00000001:2枚 P-00000002:3枚 P-00000003:3枚 
+Receive play-card event.
+res_data: 
+{
+    'card_play': {'color': 'yellow', 'number': 7},
+    'yell_uno': False,
+    'player': 'P-00000004'
+}
+Receive next-player event.
+res_data: 
+{
+    'next_player': 'P-00000001',
+    'before_player': 'P-00000004',
+    'card_before': {'color': 'yellow', 'number': 7},
+    'card_of_player': [
+        {'color': 'yellow', 'number': 9},
+        {'color': 'blue', 'number': 4}
+    ],
+    'must_call_draw_card': False,
+    'draw_reason': 'nothing',
+    'turn_right': True,
+    'number_card_play': 44,
+    'number_turn_play': 55,
+    'number_card_of_player': {
+        'P-00000004': 6,
+        'P-00000001': 2,
+        'P-00000002': 3,
+        'P-00000003': 3
+    }
+}
+---枚数照合---
+誰？： P-00000004
+dealerから送られてきたカード枚数: 6
+game_statusで記録していたカード枚数: 6
+正しいか: True
+---枚数照合---
+誰？： P-00000001
+dealerから送られてきたカード枚数: 2
+game_statusで記録していたカード枚数: 2
+正しいか: True
+---枚数照合---
+誰？： P-00000002
+dealerから送られてきたカード枚数: 3
+game_statusで記録していたカード枚数: 3
+正しいか: True
+---枚数照合---
+誰？： P-00000003
+dealerから送られてきたカード枚数: 3
+game_statusで記録していたカード枚数: 3
+正しいか: True
+Send special-logic event.
+req_data: 
+{'title': '◯◯◯◯◯◯◯◯◯◯◯◯◯◯◯◯◯◯◯◯◯'}
+selected card: yellow 9
+Send play-card event.
+req_data: 
+{'card_play': {'color': 'yellow', 'number': 9}, 'yell_uno': True}
+Send special-logic event.
+res_data: 
+{'title': '◯◯◯◯◯◯◯◯◯◯◯◯◯◯◯◯◯◯◯◯◯'}
+---場にカードを出した---
+プレイヤー: P-00000001
+カード: {'color': 'yellow', 'number': 9}
+プレイヤーの手札枚数
+P-00000004:6枚 P-00000001:1枚 P-00000002:3枚 P-00000003:3枚 
+Receive play-card event.
+res_data: 
+{
+    'card_play': {'color': 'yellow', 'number': 9},
+    'yell_uno': True,
+    'player': 'P-00000001'
+}
+Send play-card event.
+res_data: 
+{'card_play': {'color': 'yellow', 'number': 9}, 'yell_uno': True}
+場札または手札にないのは
+{'blue': {'0': 1, '1': 2, '2': 1, '3': 0, '4': 1, '5': 2, '6': 1, '7': 1, '8': 1, '9': 1, 'draw_2': 1, 'skip': 1, 'reverse': 0}, 'green': {'0': 1, '1': 0, '2': 1, '3': 1, '4': 2, '5': 1, '6': 1, '7': 1, '8': 2, '9': 2, 'draw_2': 2, 'skip': 1, 'reverse': 1}, 'red': {'0': 1, '1': 1, '2': 0, '3': 1, '4': 2, '5': 2, '6': 1, '7': 1, '8': 2, '9': 2, 'draw_2': 2, 'skip': 2, 'reverse': 2}, 'yellow': {'0': 1, '1': 2, '2': 1, '3': 1, '4': 1, '5': 1, '6': 2, '7': 0, '8': 1, '9': 0, 'draw_2': 1, 'skip': 1, 'reverse': 2}, 'black': {'wild': 3, 'wild_draw_4': 3, 'wild_shuffle': 1}, 'white': {'white_wild': 3}}
+---場にカードを出した---
+プレイヤー: P-00000002
+カード: {'color': 'yellow', 'special': 'skip'}
+プレイヤーの手札枚数
+P-00000004:6枚 P-00000001:1枚 P-00000002:2枚 P-00000003:3枚 
+Receive play-card event.
+res_data: 
+{
+    'card_play': {'color': 'yellow', 'special': 'skip'},
+    'yell_uno': False,
+    'player': 'P-00000002'
+}
+Receive draw-card event.
+res_data: 
+{'player': 'P-00000004', 'is_draw': True}
+カードを引きます
+引く理由: 場に出すカードがない(最行動可能)
+---更新前---
+山札:63枚
+P-00000004:6枚 P-00000001:1枚 P-00000002:2枚 P-00000003:3枚 
+---更新後---
+山札からP-00000004へ1枚移動
+山札:62枚
+P-00000004:7枚 P-00000001:1枚 P-00000002:2枚 P-00000003:3枚 
+Receive next-player event.
+res_data: 
+{
+    'next_player': 'P-00000001',
+    'before_player': 'P-00000004',
+    'card_before': {'color': 'yellow', 'special': 'skip'},
+    'card_of_player': [{'color': 'blue', 'number': 4}],
+    'must_call_draw_card': False,
+    'draw_reason': 'nothing',
+    'turn_right': True,
+    'number_card_play': 46,
+    'number_turn_play': 58,
+    'number_card_of_player': {
+        'P-00000004': 7,
+        'P-00000001': 1,
+        'P-00000002': 2,
+        'P-00000003': 3
+    }
+}
+---枚数照合---
+誰？： P-00000004
+dealerから送られてきたカード枚数: 7
+game_statusで記録していたカード枚数: 7
+正しいか: True
+---枚数照合---
+誰？： P-00000001
+dealerから送られてきたカード枚数: 1
+game_statusで記録していたカード枚数: 1
+正しいか: True
+---枚数照合---
+誰？： P-00000002
+dealerから送られてきたカード枚数: 2
+game_statusで記録していたカード枚数: 2
+正しいか: True
+---枚数照合---
+誰？： P-00000003
+dealerから送られてきたカード枚数: 3
+game_statusで記録していたカード枚数: 3
+正しいか: True
+Send draw-card event.
+req_data: 
+{}
+場札または手札にないのは
+{'blue': {'0': 1, '1': 2, '2': 1, '3': 0, '4': 1, '5': 2, '6': 1, '7': 1, '8': 1, '9': 1, 'draw_2': 1, 'skip': 1, 'reverse': 0}, 'green': {'0': 1, '1': 0, '2': 1, '3': 1, '4': 2, '5': 1, '6': 1, '7': 1, '8': 2, '9': 2, 'draw_2': 2, 'skip': 1, 'reverse': 1}, 'red': {'0': 1, '1': 1, '2': 0, '3': 1, '4': 2, '5': 2, '6': 1, '7': 1, '8': 2, '9': 2, 'draw_2': 2, 'skip': 2, 'reverse': 2}, 'yellow': {'0': 1, '1': 2, '2': 1, '3': 0, '4': 1, '5': 1, '6': 2, '7': 0, '8': 1, '9': 0, 'draw_2': 1, 'skip': 1, 'reverse': 2}, 'black': {'wild': 3, 'wild_draw_4': 3, 'wild_shuffle': 1}, 'white': {'white_wild': 3}}
+Receive receiver-card event.
+res_data: 
+{'cards_receive': [{'color': 'yellow', 'number': 3}], 'is_penalty': False}
+Receive draw-card event.
+res_data: 
+{'player': 'P-00000001', 'is_draw': True}
+カードを引きます
+引く理由: 場に出すカードがない(最行動可能)
+---更新前---
+山札:62枚
+P-00000004:7枚 P-00000001:1枚 P-00000002:2枚 P-00000003:3枚 
+---更新後---
+山札からP-00000001へ1枚移動
+山札:61枚
+P-00000004:7枚 P-00000001:2枚 P-00000002:2枚 P-00000003:3枚 
+Send draw-card event.
+res_data: 
+{
+    'player': 'P-00000001',
+    'is_draw': True,
+    'draw_card': [{'color': 'yellow', 'number': 3}],
+    'can_play_draw_card': True
+}
+Send play-draw-card event.
+req_data: 
+{'is_play_card': True, 'yell_uno': True}
+Receive play-draw-card event.
+res_data: 
+{
+    'is_play_card': True,
+    'yell_uno': True,
+    'player': 'P-00000001',
+    'card_play': {'color': 'yellow', 'number': 3}
+}
+Send play-draw-card event.
+res_data: 
+{'is_play_card': True, 'yell_uno': True}
+場札または手札にないのは
+{'blue': {'0': 1, '1': 2, '2': 1, '3': 0, '4': 1, '5': 2, '6': 1, '7': 1, '8': 1, '9': 1, 'draw_2': 1, 'skip': 1, 'reverse': 0}, 'green': {'0': 1, '1': 0, '2': 1, '3': 1, '4': 2, '5': 1, '6': 1, '7': 1, '8': 2, '9': 2, 'draw_2': 2, 'skip': 1, 'reverse': 1}, 'red': {'0': 1, '1': 1, '2': 0, '3': 1, '4': 2, '5': 2, '6': 1, '7': 1, '8': 2, '9': 2, 'draw_2': 2, 'skip': 2, 'reverse': 2}, 'yellow': {'0': 1, '1': 2, '2': 1, '3': 0, '4': 1, '5': 1, '6': 2, '7': 0, '8': 1, '9': 0, 'draw_2': 1, 'skip': 1, 'reverse': 2}, 'black': {'wild': 3, 'wild_draw_4': 3, 'wild_shuffle': 1}, 'white': {'white_wild': 2}}
+---場にカードを出した---
+プレイヤー: P-00000002
+カード: {'color': 'white', 'special': 'white_wild'}
+プレイヤーの手札枚数
+P-00000004:7枚 P-00000001:2枚 P-00000002:1枚 P-00000003:3枚 
+Receive play-card event.
+res_data: 
+{
+    'card_play': {'color': 'white', 'special': 'white_wild'},
+    'yell_uno': True,
+    'player': 'P-00000002'
+}
+P-00000002がUNOしました
+Receive draw-card event.
+res_data: 
+{'player': 'P-00000004', 'is_draw': True}
+カードを引きます
+引く理由: white_wild
+---更新前---
+山札:61枚
+P-00000004:7枚 P-00000001:2枚 P-00000002:1枚 P-00000003:3枚 
+---更新後---
+山札からP-00000004へ2枚移動
+山札:59枚
+P-00000004:9枚 P-00000001:2枚 P-00000002:1枚 P-00000003:3枚 
+Receive next-player event.
+res_data: 
+{
+    'next_player': 'P-00000001',
+    'before_player': 'P-00000004',
+    'card_before': {'color': 'yellow', 'special': 'white_wild'},
+    'card_of_player': [{'color': 'blue', 'number': 4}],
+    'must_call_draw_card': False,
+    'draw_reason': 'nothing',
+    'turn_right': True,
+    'number_card_play': 48,
+    'number_turn_play': 61,
+    'number_card_of_player': {
+        'P-00000004': 8,
+        'P-00000001': 1,
+        'P-00000002': 1,
+        'P-00000003': 3
+    }
+}
+---枚数照合---
+誰？： P-00000004
+dealerから送られてきたカード枚数: 8
+game_statusで記録していたカード枚数: 9
+正しいか: False
+---枚数照合---
+誰？： P-00000001
+dealerから送られてきたカード枚数: 1
+game_statusで記録していたカード枚数: 2
+正しいか: False
+---枚数照合---
+誰？： P-00000002
+dealerから送られてきたカード枚数: 1
+game_statusで記録していたカード枚数: 1
+正しいか: True
+---枚数照合---
+誰？： P-00000003
+dealerから送られてきたカード枚数: 3
+game_statusで記録していたカード枚数: 3
+正しいか: True
+Send draw-card event.
+req_data: 
+{}
+場札または手札にないのは
+{'blue': {'0': 1, '1': 2, '2': 1, '3': 0, '4': 1, '5': 2, '6': 1, '7': 1, '8': 1, '9': 1, 'draw_2': 1, 'skip': 1, 'reverse': 0}, 'green': {'0': 1, '1': 0, '2': 1, '3': 1, '4': 2, '5': 1, '6': 1, '7': 1, '8': 2, '9': 2, 'draw_2': 2, 'skip': 1, 'reverse': 1}, 'red': {'0': 1, '1': 1, '2': 0, '3': 1, '4': 2, '5': 2, '6': 1, '7': 1, '8': 2, '9': 2, 'draw_2': 2, 'skip': 2, 'reverse': 2}, 'yellow': {'0': 1, '1': 2, '2': 0, '3': 0, '4': 1, '5': 1, '6': 2, '7': 0, '8': 1, '9': 0, 'draw_2': 1, 'skip': 1, 'reverse': 2}, 'black': {'wild': 3, 'wild_draw_4': 3, 'wild_shuffle': 1}, 'white': {'white_wild': 2}}
+Receive receiver-card event.
+res_data: 
+{'cards_receive': [{'color': 'yellow', 'number': 2}], 'is_penalty': False}
+Receive draw-card event.
+res_data: 
+{'player': 'P-00000001', 'is_draw': True}
+カードを引きます
+引く理由: 場に出すカードがない(最行動可能)
+---更新前---
+山札:59枚
+P-00000004:8枚 P-00000001:1枚 P-00000002:1枚 P-00000003:3枚 
+---更新後---
+山札からP-00000001へ1枚移動
+山札:58枚
+P-00000004:8枚 P-00000001:2枚 P-00000002:1枚 P-00000003:3枚 
+Send draw-card event.
+res_data: 
+{
+    'player': 'P-00000001',
+    'is_draw': True,
+    'draw_card': [{'color': 'yellow', 'number': 2}],
+    'can_play_draw_card': True
+}
+Send play-draw-card event.
+req_data: 
+{'is_play_card': True, 'yell_uno': True}
+Receive play-draw-card event.
+res_data: 
+{
+    'is_play_card': True,
+    'yell_uno': True,
+    'player': 'P-00000001',
+    'card_play': {'color': 'yellow', 'number': 2}
+}
+Send play-draw-card event.
+res_data: 
+{'is_play_card': True, 'yell_uno': True}
+Receive draw-card event.
+res_data: 
+{'player': 'P-00000002', 'is_draw': True}
+P-00000002がUNO解除しました
+カードを引きます
+引く理由: 場に出すカードがない(最行動可能)
+---更新前---
+山札:58枚
+P-00000004:8枚 P-00000001:2枚 P-00000002:1枚 P-00000003:3枚 
+---更新後---
+山札からP-00000002へ1枚移動
+山札:57枚
+P-00000004:8枚 P-00000001:2枚 P-00000002:2枚 P-00000003:3枚 
+場札または手札にないのは
+{'blue': {'0': 1, '1': 2, '2': 1, '3': 0, '4': 1, '5': 2, '6': 1, '7': 1, '8': 1, '9': 1, 'draw_2': 1, 'skip': 1, 'reverse': 0}, 'green': {'0': 1, '1': 0, '2': 1, '3': 1, '4': 2, '5': 1, '6': 1, '7': 1, '8': 2, '9': 2, 'draw_2': 2, 'skip': 1, 'reverse': 1}, 'red': {'0': 1, '1': 1, '2': 0, '3': 1, '4': 2, '5': 2, '6': 1, '7': 1, '8': 2, '9': 2, 'draw_2': 2, 'skip': 2, 'reverse': 2}, 'yellow': {'0': 1, '1': 2, '2': 0, '3': 0, '4': 1, '5': 1, '6': 2, '7': 0, '8': 1, '9': 0, 'draw_2': 1, 'skip': 1, 'reverse': 2}, 'black': {'wild': 3, 'wild_draw_4': 3, 'wild_shuffle': 1}, 'white': {'white_wild': 1}}
+---場にカードを出した---
+プレイヤー: P-00000003
+カード: {'color': 'white', 'special': 'white_wild'}
+プレイヤーの手札枚数
+P-00000004:8枚 P-00000001:2枚 P-00000002:2枚 P-00000003:2枚 
+Receive play-card event.
+res_data: 
+{
+    'card_play': {'color': 'white', 'special': 'white_wild'},
+    'yell_uno': False,
+    'player': 'P-00000003'
+}
+Receive next-player event.
+res_data: 
+{
+    'next_player': 'P-00000001',
+    'before_player': 'P-00000003',
+    'card_before': {'color': 'yellow', 'special': 'white_wild'},
+    'card_of_player': [{'color': 'blue', 'number': 4}],
+    'must_call_draw_card': True,
+    'draw_reason': 'skip_bind_2',
+    'turn_right': True,
+    'number_card_play': 50,
+    'number_turn_play': 64,
+    'number_card_of_player': {
+        'P-00000004': 8,
+        'P-00000001': 1,
+        'P-00000002': 2,
+        'P-00000003': 2
+    }
+}
+---枚数照合---
+誰？： P-00000004
+dealerから送られてきたカード枚数: 8
+game_statusで記録していたカード枚数: 8
+正しいか: True
+---枚数照合---
+誰？： P-00000001
+dealerから送られてきたカード枚数: 1
+game_statusで記録していたカード枚数: 2
+正しいか: False
+---枚数照合---
+誰？： P-00000002
+dealerから送られてきたカード枚数: 2
+game_statusで記録していたカード枚数: 2
+正しいか: True
+---枚数照合---
+誰？： P-00000003
+dealerから送られてきたカード枚数: 2
+game_statusで記録していたカード枚数: 2
+正しいか: True
+Send draw-card event.
+req_data: 
+{}
+場札または手札にないのは
+{'blue': {'0': 1, '1': 2, '2': 1, '3': 0, '4': 1, '5': 2, '6': 1, '7': 1, '8': 1, '9': 1, 'draw_2': 1, 'skip': 1, 'reverse': 0}, 'green': {'0': 1, '1': 0, '2': 1, '3': 1, '4': 2, '5': 1, '6': 1, '7': 1, '8': 2, '9': 2, 'draw_2': 2, 'skip': 1, 'reverse': 1}, 'red': {'0': 0, '1': 1, '2': 0, '3': 1, '4': 2, '5': 2, '6': 1, '7': 1, '8': 2, '9': 2, 'draw_2': 2, 'skip': 2, 'reverse': 2}, 'yellow': {'0': 1, '1': 2, '2': 0, '3': 0, '4': 1, '5': 1, '6': 2, '7': 0, '8': 1, '9': 0, 'draw_2': 1, 'skip': 1, 'reverse': 2}, 'black': {'wild': 3, 'wild_draw_4': 3, 'wild_shuffle': 1}, 'white': {'white_wild': 1}}
+Receive receiver-card event.
+res_data: 
+{'cards_receive': [{'color': 'red', 'number': 0}], 'is_penalty': False}
+Receive draw-card event.
+Send draw-card event.
+res_data: 
+{'player': 'P-00000001', 'is_draw': True}
+カードを引きます
+引く理由: white_wild
+---更新前---
+山札:57枚
+P-00000004:8枚 P-00000001:1枚 P-00000002:2枚 P-00000003:2枚 
+---更新後---
+山札からP-00000001へ2枚移動
+山札:55枚
+P-00000004:8枚 P-00000001:3枚 P-00000002:2枚 P-00000003:2枚 
+res_data: 
+{
+    'player': 'P-00000001',
+    'is_draw': True,
+    'can_play_draw_card': False,
+    'draw_card': [{'color': 'red', 'number': 0}]
+}
+Receive draw-card event.
+res_data: 
+{'player': 'P-00000002', 'is_draw': True}
+カードを引きます
+引く理由: 場に出すカードがない(最行動可能)
+---更新前---
+山札:55枚
+P-00000004:8枚 P-00000001:3枚 P-00000002:2枚 P-00000003:2枚 
+---更新後---
+山札からP-00000002へ1枚移動
+山札:54枚
+P-00000004:8枚 P-00000001:3枚 P-00000002:3枚 P-00000003:2枚 
+Receive play-draw-card event.
+res_data: 
+{
+    'is_play_card': True,
+    'yell_uno': False,
+    'player': 'P-00000002',
+    'card_play': {'color': 'yellow', 'number': 6}
+}
+Receive draw-card event.
+res_data: 
+{'player': 'P-00000003', 'is_draw': True}
+カードを引きます
+引く理由: 場に出すカードがない(最行動可能)
+---更新前---
+山札:54枚
+P-00000004:8枚 P-00000001:3枚 P-00000002:3枚 P-00000003:2枚 
+---更新後---
+山札からP-00000003へ1枚移動
+山札:53枚
+P-00000004:8枚 P-00000001:3枚 P-00000002:3枚 P-00000003:3枚 
+Receive draw-card event.
+res_data: 
+{'player': 'P-00000004', 'is_draw': True}
+カードを引きます
+引く理由: 場に出すカードがない(最行動可能)
+---更新前---
+山札:53枚
+P-00000004:8枚 P-00000001:3枚 P-00000002:3枚 P-00000003:3枚 
+---更新後---
+山札からP-00000004へ1枚移動
+山札:52枚
+P-00000004:9枚 P-00000001:3枚 P-00000002:3枚 P-00000003:3枚 
+Receive next-player event.
+res_data: 
+{
+    'next_player': 'P-00000001',
+    'before_player': 'P-00000004',
+    'card_before': {'color': 'yellow', 'number': 6},
+    'card_of_player': [
+        {'color': 'blue', 'number': 4},
+        {'color': 'red', 'number': 0}
+    ],
+    'must_call_draw_card': True,
+    'draw_reason': 'nothing',
+    'turn_right': True,
+    'number_card_play': 51,
+    'number_turn_play': 68,
+    'number_card_of_player': {
+        'P-00000004': 9,
+        'P-00000001': 2,
+        'P-00000002': 2,
+        'P-00000003': 3
+    }
+}
+---枚数照合---
+誰？： P-00000004
+dealerから送られてきたカード枚数: 9
+game_statusで記録していたカード枚数: 9
+正しいか: True
+---枚数照合---
+誰？： P-00000001
+dealerから送られてきたカード枚数: 2
+game_statusで記録していたカード枚数: 3
+正しいか: False
+---枚数照合---
+誰？： P-00000002
+dealerから送られてきたカード枚数: 2
+game_statusで記録していたカード枚数: 3
+正しいか: False
+---枚数照合---
+誰？： P-00000003
+dealerから送られてきたカード枚数: 3
+game_statusで記録していたカード枚数: 3
+正しいか: True
+Send draw-card event.
+req_data: 
+{}
+場札または手札にないのは
+{'blue': {'0': 1, '1': 2, '2': 1, '3': 0, '4': 1, '5': 2, '6': 1, '7': 1, '8': 1, '9': 1, 'draw_2': 1, 'skip': 1, 'reverse': 0}, 'green': {'0': 1, '1': 0, '2': 1, '3': 1, '4': 2, '5': 1, '6': 1, '7': 1, '8': 2, '9': 2, 'draw_2': 2, 'skip': 1, 'reverse': 1}, 'red': {'0': 0, '1': 1, '2': 0, '3': 1, '4': 2, '5': 2, '6': 1, '7': 1, '8': 2, '9': 2, 'draw_2': 2, 'skip': 2, 'reverse': 2}, 'yellow': {'0': 1, '1': 2, '2': 0, '3': 0, '4': 1, '5': 0, '6': 2, '7': 0, '8': 1, '9': 0, 'draw_2': 1, 'skip': 1, 'reverse': 2}, 'black': {'wild': 3, 'wild_draw_4': 3, 'wild_shuffle': 1}, 'white': {'white_wild': 1}}
+Receive receiver-card event.
+res_data: 
+{'cards_receive': [{'color': 'yellow', 'number': 5}], 'is_penalty': False}
+Receive draw-card event.
+res_data: 
+{'player': 'P-00000001', 'is_draw': True}
+カードを引きます
+引く理由: 場に出すカードがない(最行動可能)
+---更新前---
+山札:52枚
+P-00000004:9枚 P-00000001:2枚 P-00000002:2枚 P-00000003:3枚 
+---更新後---
+山札からP-00000001へ1枚移動
+山札:51枚
+P-00000004:9枚 P-00000001:3枚 P-00000002:2枚 P-00000003:3枚 
+Send draw-card event.
+res_data: 
+{
+    'player': 'P-00000001',
+    'is_draw': True,
+    'can_play_draw_card': False,
+    'draw_card': [{'color': 'yellow', 'number': 5}]
+}
+Receive draw-card event.
+res_data: 
+{'player': 'P-00000002', 'is_draw': True}
+カードを引きます
+引く理由: 場に出すカードがない(最行動可能)
+---更新前---
+山札:51枚
+P-00000004:9枚 P-00000001:3枚 P-00000002:2枚 P-00000003:3枚 
+---更新後---
+山札からP-00000002へ1枚移動
+山札:50枚
+P-00000004:9枚 P-00000001:3枚 P-00000002:3枚 P-00000003:3枚 
+Receive play-draw-card event.
+res_data: 
+{
+    'is_play_card': True,
+    'yell_uno': False,
+    'player': 'P-00000002',
+    'card_play': {'color': 'yellow', 'number': 6}
+}
+Receive draw-card event.
+res_data: 
+{'player': 'P-00000003', 'is_draw': True}
+カードを引きます
+引く理由: 場に出すカードがない(最行動可能)
+---更新前---
+山札:50枚
+P-00000004:9枚 P-00000001:3枚 P-00000002:3枚 P-00000003:3枚 
+---更新後---
+山札からP-00000003へ1枚移動
+山札:49枚
+P-00000004:9枚 P-00000001:3枚 P-00000002:3枚 P-00000003:4枚 
+場札または手札にないのは
+{'blue': {'0': 1, '1': 2, '2': 1, '3': 0, '4': 1, '5': 2, '6': 1, '7': 1, '8': 1, '9': 1, 'draw_2': 1, 'skip': 1, 'reverse': 0}, 'green': {'0': 1, '1': 0, '2': 1, '3': 1, '4': 2, '5': 1, '6': 1, '7': 1, '8': 2, '9': 2, 'draw_2': 2, 'skip': 1, 'reverse': 1}, 'red': {'0': 0, '1': 1, '2': 0, '3': 1, '4': 2, '5': 2, '6': 1, '7': 1, '8': 2, '9': 2, 'draw_2': 2, 'skip': 2, 'reverse': 2}, 'yellow': {'0': 1, '1': 2, '2': 0, '3': 0, '4': 1, '5': 0, '6': 2, '7': 0, '8': 1, '9': 0, 'draw_2': 0, 'skip': 1, 'reverse': 2}, 'black': {'wild': 3, 'wild_draw_4': 3, 'wild_shuffle': 1}, 'white': {'white_wild': 1}}
+---場にカードを出した---
+プレイヤー: P-00000004
+カード: {'color': 'yellow', 'special': 'draw_2'}
+プレイヤーの手札枚数
+P-00000004:8枚 P-00000001:3枚 P-00000002:3枚 P-00000003:4枚 
+Receive play-card event.
+res_data: 
+{
+    'card_play': {'color': 'yellow', 'special': 'draw_2'},
+    'yell_uno': False,
+    'player': 'P-00000004'
+}
+Receive next-player event.
+res_data: 
+{
+    'next_player': 'P-00000001',
+    'before_player': 'P-00000004',
+    'card_before': {'color': 'yellow', 'special': 'draw_2'},
+    'card_of_player': [
+        {'color': 'yellow', 'number': 5},
+        {'color': 'blue', 'number': 4},
+        {'color': 'red', 'number': 0}
+    ],
+    'must_call_draw_card': True,
+    'draw_reason': 'draw_2',
+    'turn_right': True,
+    'number_card_play': 53,
+    'number_turn_play': 72,
+    'number_card_of_player': {
+        'P-00000004': 8,
+        'P-00000001': 3,
+        'P-00000002': 2,
+        'P-00000003': 4
+    }
+}
+---枚数照合---
+誰？： P-00000004
+dealerから送られてきたカード枚数: 8
+game_statusで記録していたカード枚数: 8
+正しいか: True
+---枚数照合---
+誰？： P-00000001
+dealerから送られてきたカード枚数: 3
+game_statusで記録していたカード枚数: 3
+正しいか: True
+---枚数照合---
+誰？： P-00000002
+dealerから送られてきたカード枚数: 2
+game_statusで記録していたカード枚数: 3
+正しいか: False
+---枚数照合---
+誰？： P-00000003
+dealerから送られてきたカード枚数: 4
+game_statusで記録していたカード枚数: 4
+正しいか: True
+Send draw-card event.
+req_data: 
+{}
+場札または手札にないのは
+{'blue': {'0': 1, '1': 2, '2': 1, '3': 0, '4': 1, '5': 2, '6': 1, '7': 1, '8': 1, '9': 1, 'draw_2': 1, 'skip': 1, 'reverse': 0}, 'green': {'0': 0, '1': 0, '2': 1, '3': 1, '4': 2, '5': 1, '6': 1, '7': 1, '8': 2, '9': 2, 'draw_2': 2, 'skip': 1, 'reverse': 1}, 'red': {'0': 0, '1': 1, '2': 0, '3': 1, '4': 2, '5': 2, '6': 1, '7': 1, '8': 2, '9': 2, 'draw_2': 2, 'skip': 1, 'reverse': 2}, 'yellow': {'0': 1, '1': 2, '2': 0, '3': 0, '4': 1, '5': 0, '6': 2, '7': 0, '8': 1, '9': 0, 'draw_2': 0, 'skip': 1, 'reverse': 2}, 'black': {'wild': 3, 'wild_draw_4': 3, 'wild_shuffle': 1}, 'white': {'white_wild': 1}}
+Receive receiver-card event.
+res_data: 
+{
+    'cards_receive': [
+        {'color': 'green', 'number': 0},
+        {'color': 'red', 'special': 'skip'}
+    ],
+    'is_penalty': False
+}
+Receive draw-card event.
+res_data: 
+{'player': 'P-00000001', 'is_draw': True}
+カードを引きます
+引く理由: draw_2
+---更新前---
+山札:49枚
+P-00000004:8枚 P-00000001:3枚 P-00000002:2枚 P-00000003:4枚 
+---更新後---
+山札からP-00000001へ2枚移動
+山札:47枚
+P-00000004:8枚 P-00000001:5枚 P-00000002:2枚 P-00000003:4枚 
+Send draw-card event.
+res_data: 
+{
+    'player': 'P-00000001',
+    'is_draw': True,
+    'can_play_draw_card': False,
+    'draw_card': [
+        {'color': 'green', 'number': 0},
+        {'color': 'red', 'special': 'skip'}
+    ]
+}
+Receive draw-card event.
+res_data: 
+{'player': 'P-00000002', 'is_draw': True}
+カードを引きます
+引く理由: 場に出すカードがない(最行動可能)
+---更新前---
+山札:47枚
+P-00000004:8枚 P-00000001:5枚 P-00000002:2枚 P-00000003:4枚 
+---更新後---
+山札からP-00000002へ1枚移動
+山札:46枚
+P-00000004:8枚 P-00000001:5枚 P-00000002:3枚 P-00000003:4枚 
+Receive play-draw-card event.
+res_data: 
+{
+    'is_play_card': True,
+    'yell_uno': False,
+    'player': 'P-00000002',
+    'card_play': {'color': 'yellow', 'number': 0}
+}
+場札または手札にないのは
+{'blue': {'0': 0, '1': 2, '2': 1, '3': 0, '4': 1, '5': 2, '6': 1, '7': 1, '8': 1, '9': 1, 'draw_2': 1, 'skip': 1, 'reverse': 0}, 'green': {'0': 0, '1': 0, '2': 1, '3': 1, '4': 2, '5': 1, '6': 1, '7': 1, '8': 2, '9': 2, 'draw_2': 2, 'skip': 1, 'reverse': 1}, 'red': {'0': 0, '1': 1, '2': 0, '3': 1, '4': 2, '5': 2, '6': 1, '7': 1, '8': 2, '9': 2, 'draw_2': 2, 'skip': 1, 'reverse': 2}, 'yellow': {'0': 1, '1': 2, '2': 0, '3': 0, '4': 1, '5': 0, '6': 2, '7': 0, '8': 1, '9': 0, 'draw_2': 0, 'skip': 1, 'reverse': 2}, 'black': {'wild': 3, 'wild_draw_4': 3, 'wild_shuffle': 1}, 'white': {'white_wild': 1}}
+---場にカードを出した---
+プレイヤー: P-00000003
+カード: {'color': 'blue', 'number': 0}
+プレイヤーの手札枚数
+P-00000004:8枚 P-00000001:5枚 P-00000002:3枚 P-00000003:3枚 
+Receive play-card event.
+res_data: 
+{
+    'card_play': {'color': 'blue', 'number': 0},
+    'yell_uno': False,
+    'player': 'P-00000003'
+}
+場札または手札にないのは
+{'blue': {'0': 0, '1': 2, '2': 1, '3': 0, '4': 1, '5': 2, '6': 1, '7': 1, '8': 0, '9': 1, 'draw_2': 1, 'skip': 1, 'reverse': 0}, 'green': {'0': 0, '1': 0, '2': 1, '3': 1, '4': 2, '5': 1, '6': 1, '7': 1, '8': 2, '9': 2, 'draw_2': 2, 'skip': 1, 'reverse': 1}, 'red': {'0': 0, '1': 1, '2': 0, '3': 1, '4': 2, '5': 2, '6': 1, '7': 1, '8': 2, '9': 2, 'draw_2': 2, 'skip': 1, 'reverse': 2}, 'yellow': {'0': 1, '1': 2, '2': 0, '3': 0, '4': 1, '5': 0, '6': 2, '7': 0, '8': 1, '9': 0, 'draw_2': 0, 'skip': 1, 'reverse': 2}, 'black': {'wild': 3, 'wild_draw_4': 3, 'wild_shuffle': 1}, 'white': {'white_wild': 1}}
+---場にカードを出した---
+プレイヤー: P-00000004
+カード: {'color': 'blue', 'number': 8}
+プレイヤーの手札枚数
+P-00000004:7枚 P-00000001:5枚 P-00000002:3枚 P-00000003:3枚 
+Receive play-card event.
+res_data: 
+{
+    'card_play': {'color': 'blue', 'number': 8},
+    'yell_uno': False,
+    'player': 'P-00000004'
+}
+Receive next-player event.
+res_data: 
+{
+    'next_player': 'P-00000001',
+    'before_player': 'P-00000004',
+    'card_before': {'color': 'blue', 'number': 8},
+    'card_of_player': [
+        {'color': 'yellow', 'number': 5},
+        {'color': 'green', 'number': 0},
+        {'color': 'blue', 'number': 4},
+        {'color': 'red', 'number': 0},
+        {'color': 'red', 'special': 'skip'}
+    ],
+    'must_call_draw_card': False,
+    'draw_reason': 'nothing',
+    'turn_right': True,
+    'number_card_play': 56,
+    'number_turn_play': 76,
+    'number_card_of_player': {
+        'P-00000004': 7,
+        'P-00000001': 5,
+        'P-00000002': 2,
+        'P-00000003': 3
+    }
+}
+---枚数照合---
+誰？： P-00000004
+dealerから送られてきたカード枚数: 7
+game_statusで記録していたカード枚数: 7
+正しいか: True
+---枚数照合---
+誰？： P-00000001
+dealerから送られてきたカード枚数: 5
+game_statusで記録していたカード枚数: 5
+正しいか: True
+---枚数照合---
+誰？： P-00000002
+dealerから送られてきたカード枚数: 2
+game_statusで記録していたカード枚数: 3
+正しいか: False
+---枚数照合---
+誰？： P-00000003
+dealerから送られてきたカード枚数: 3
+game_statusで記録していたカード枚数: 3
+正しいか: True
+selected card: blue 4
+Send play-card event.
+req_data: 
+{'card_play': {'color': 'blue', 'number': 4}, 'yell_uno': False}
+---場にカードを出した---
+プレイヤー: P-00000001
+カード: {'color': 'blue', 'number': 4}
+プレイヤーの手札枚数
+P-00000004:7枚 P-00000001:4枚 P-00000002:2枚 P-00000003:3枚 
+Receive play-card event.
+res_data: 
+{
+    'card_play': {'color': 'blue', 'number': 4},
+    'yell_uno': False,
+    'player': 'P-00000001'
+}
+Send play-card event.
+res_data: 
+{'card_play': {'color': 'blue', 'number': 4}, 'yell_uno': False}
+場札または手札にないのは
+{'blue': {'0': 0, '1': 2, '2': 1, '3': 0, '4': 1, '5': 1, '6': 1, '7': 1, '8': 0, '9': 1, 'draw_2': 1, 'skip': 1, 'reverse': 0}, 'green': {'0': 0, '1': 0, '2': 1, '3': 1, '4': 2, '5': 1, '6': 1, '7': 1, '8': 2, '9': 2, 'draw_2': 2, 'skip': 1, 'reverse': 1}, 'red': {'0': 0, '1': 1, '2': 0, '3': 1, '4': 2, '5': 2, '6': 1, '7': 1, '8': 2, '9': 2, 'draw_2': 2, 'skip': 1, 'reverse': 2}, 'yellow': {'0': 1, '1': 2, '2': 0, '3': 0, '4': 1, '5': 0, '6': 2, '7': 0, '8': 1, '9': 0, 'draw_2': 0, 'skip': 1, 'reverse': 2}, 'black': {'wild': 3, 'wild_draw_4': 3, 'wild_shuffle': 1}, 'white': {'white_wild': 1}}
+---場にカードを出した---
+プレイヤー: P-00000002
+カード: {'color': 'blue', 'number': 5}
+プレイヤーの手札枚数
+P-00000004:7枚 P-00000001:4枚 P-00000002:1枚 P-00000003:3枚 
+Receive play-card event.
+res_data: 
+{
+    'card_play': {'color': 'blue', 'number': 5},
+    'yell_uno': True,
+    'player': 'P-00000002'
+}
+P-00000002がUNOしました
+場札または手札にないのは
+{'blue': {'0': 0, '1': 2, '2': 1, '3': 0, '4': 1, '5': 1, '6': 1, '7': 1, '8': 0, '9': 1, 'draw_2': 0, 'skip': 1, 'reverse': 0}, 'green': {'0': 0, '1': 0, '2': 1, '3': 1, '4': 2, '5': 1, '6': 1, '7': 1, '8': 2, '9': 2, 'draw_2': 2, 'skip': 1, 'reverse': 1}, 'red': {'0': 0, '1': 1, '2': 0, '3': 1, '4': 2, '5': 2, '6': 1, '7': 1, '8': 2, '9': 2, 'draw_2': 2, 'skip': 1, 'reverse': 2}, 'yellow': {'0': 1, '1': 2, '2': 0, '3': 0, '4': 1, '5': 0, '6': 2, '7': 0, '8': 1, '9': 0, 'draw_2': 0, 'skip': 1, 'reverse': 2}, 'black': {'wild': 3, 'wild_draw_4': 3, 'wild_shuffle': 1}, 'white': {'white_wild': 1}}
+---場にカードを出した---
+プレイヤー: P-00000003
+カード: {'color': 'blue', 'special': 'draw_2'}
+プレイヤーの手札枚数
+P-00000004:7枚 P-00000001:4枚 P-00000002:1枚 P-00000003:2枚 
+Receive play-card event.
+res_data: 
+{
+    'card_play': {'color': 'blue', 'special': 'draw_2'},
+    'yell_uno': False,
+    'player': 'P-00000003'
+}
+Receive draw-card event.
+res_data: 
+{'player': 'P-00000004', 'is_draw': True}
+カードを引きます
+引く理由: draw_2
+---更新前---
+山札:46枚
+P-00000004:7枚 P-00000001:4枚 P-00000002:1枚 P-00000003:2枚 
+---更新後---
+山札からP-00000004へ2枚移動
+山札:44枚
+P-00000004:9枚 P-00000001:4枚 P-00000002:1枚 P-00000003:2枚 
+Receive next-player event.
+res_data: 
+{
+    'next_player': 'P-00000001',
+    'before_player': 'P-00000004',
+    'card_before': {'color': 'blue', 'special': 'draw_2'},
+    'card_of_player': [
+        {'color': 'yellow', 'number': 5},
+        {'color': 'green', 'number': 0},
+        {'color': 'red', 'number': 0},
+        {'color': 'red', 'special': 'skip'}
+    ],
+    'must_call_draw_card': False,
+    'draw_reason': 'nothing',
+    'turn_right': True,
+    'number_card_play': 59,
+    'number_turn_play': 80,
+    'number_card_of_player': {
+        'P-00000004': 9,
+        'P-00000001': 4,
+        'P-00000002': 1,
+        'P-00000003': 2
+    }
+}
+---枚数照合---
+誰？： P-00000004
+dealerから送られてきたカード枚数: 9
+game_statusで記録していたカード枚数: 9
+正しいか: True
+---枚数照合---
+誰？： P-00000001
+dealerから送られてきたカード枚数: 4
+game_statusで記録していたカード枚数: 4
+正しいか: True
+---枚数照合---
+誰？： P-00000002
+dealerから送られてきたカード枚数: 1
+game_statusで記録していたカード枚数: 1
+正しいか: True
+---枚数照合---
+誰？： P-00000003
+dealerから送られてきたカード枚数: 2
+game_statusで記録していたカード枚数: 2
+正しいか: True
+Send draw-card event.
+req_data: 
+{}
+場札または手札にないのは
+{'blue': {'0': 0, '1': 2, '2': 1, '3': 0, '4': 1, '5': 1, '6': 1, '7': 1, '8': 0, '9': 1, 'draw_2': 0, 'skip': 1, 'reverse': 0}, 'green': {'0': 0, '1': 0, '2': 1, '3': 1, '4': 2, '5': 1, '6': 1, '7': 1, '8': 2, '9': 2, 'draw_2': 2, 'skip': 1, 'reverse': 0}, 'red': {'0': 0, '1': 1, '2': 0, '3': 1, '4': 2, '5': 2, '6': 1, '7': 1, '8': 2, '9': 2, 'draw_2': 2, 'skip': 1, 'reverse': 2}, 'yellow': {'0': 1, '1': 2, '2': 0, '3': 0, '4': 1, '5': 0, '6': 2, '7': 0, '8': 1, '9': 0, 'draw_2': 0, 'skip': 1, 'reverse': 2}, 'black': {'wild': 3, 'wild_draw_4': 3, 'wild_shuffle': 1}, 'white': {'white_wild': 1}}
+Receive receiver-card event.
+res_data: 
+{
+    'cards_receive': [{'color': 'green', 'special': 'reverse'}],
+    'is_penalty': False
+}
+Receive draw-card event.
+res_data: 
+{'player': 'P-00000001', 'is_draw': True}
+カードを引きます
+引く理由: 場に出すカードがない(最行動可能)
+---更新前---
+山札:44枚
+P-00000004:9枚 P-00000001:4枚 P-00000002:1枚 P-00000003:2枚 
+---更新後---
+山札からP-00000001へ1枚移動
+山札:43枚
+P-00000004:9枚 P-00000001:5枚 P-00000002:1枚 P-00000003:2枚 
+Send draw-card event.
+res_data: 
+{
+    'player': 'P-00000001',
+    'is_draw': True,
+    'can_play_draw_card': False,
+    'draw_card': [{'color': 'green', 'special': 'reverse'}]
+}
+Receive draw-card event.
+res_data: 
+{'player': 'P-00000002', 'is_draw': True}
+P-00000002がUNO解除しました
+カードを引きます
+引く理由: 場に出すカードがない(最行動可能)
+---更新前---
+山札:43枚
+P-00000004:9枚 P-00000001:5枚 P-00000002:1枚 P-00000003:2枚 
+---更新後---
+山札からP-00000002へ1枚移動
+山札:42枚
+P-00000004:9枚 P-00000001:5枚 P-00000002:2枚 P-00000003:2枚 
+場札または手札にないのは
+{'blue': {'0': 0, '1': 2, '2': 1, '3': 0, '4': 1, '5': 0, '6': 1, '7': 1, '8': 0, '9': 1, 'draw_2': 0, 'skip': 1, 'reverse': 0}, 'green': {'0': 0, '1': 0, '2': 1, '3': 1, '4': 2, '5': 1, '6': 1, '7': 1, '8': 2, '9': 2, 'draw_2': 2, 'skip': 1, 'reverse': 0}, 'red': {'0': 0, '1': 1, '2': 0, '3': 1, '4': 2, '5': 2, '6': 1, '7': 1, '8': 2, '9': 2, 'draw_2': 2, 'skip': 1, 'reverse': 2}, 'yellow': {'0': 1, '1': 2, '2': 0, '3': 0, '4': 1, '5': 0, '6': 2, '7': 0, '8': 1, '9': 0, 'draw_2': 0, 'skip': 1, 'reverse': 2}, 'black': {'wild': 3, 'wild_draw_4': 3, 'wild_shuffle': 1}, 'white': {'white_wild': 1}}
+---場にカードを出した---
+プレイヤー: P-00000003
+カード: {'color': 'blue', 'number': 5}
+プレイヤーの手札枚数
+P-00000004:9枚 P-00000001:5枚 P-00000002:2枚 P-00000003:1枚 
+Receive play-card event.
+res_data: 
+{
+    'card_play': {'color': 'blue', 'number': 5},
+    'yell_uno': True,
+    'player': 'P-00000003'
+}
+P-00000003がUNOしました
+場札または手札にないのは
+{'blue': {'0': 0, '1': 2, '2': 1, '3': 0, '4': 1, '5': 0, '6': 1, '7': 1, '8': 0, '9': 1, 'draw_2': 0, 'skip': 1, 'reverse': 0}, 'green': {'0': 0, '1': 0, '2': 1, '3': 1, '4': 2, '5': 1, '6': 1, '7': 1, '8': 2, '9': 2, 'draw_2': 2, 'skip': 1, 'reverse': 0}, 'red': {'0': 0, '1': 1, '2': 0, '3': 1, '4': 2, '5': 1, '6': 1, '7': 1, '8': 2, '9': 2, 'draw_2': 2, 'skip': 1, 'reverse': 2}, 'yellow': {'0': 1, '1': 2, '2': 0, '3': 0, '4': 1, '5': 0, '6': 2, '7': 0, '8': 1, '9': 0, 'draw_2': 0, 'skip': 1, 'reverse': 2}, 'black': {'wild': 3, 'wild_draw_4': 3, 'wild_shuffle': 1}, 'white': {'white_wild': 1}}
+---場にカードを出した---
+プレイヤー: P-00000004
+カード: {'color': 'red', 'number': 5}
+プレイヤーの手札枚数
+P-00000004:8枚 P-00000001:5枚 P-00000002:2枚 P-00000003:1枚 
+Receive play-card event.
+res_data: 
+{
+    'card_play': {'color': 'red', 'number': 5},
+    'yell_uno': False,
+    'player': 'P-00000004'
+}
+Receive next-player event.
+res_data: 
+{
+    'next_player': 'P-00000001',
+    'before_player': 'P-00000004',
+    'card_before': {'color': 'red', 'number': 5},
+    'card_of_player': [
+        {'color': 'yellow', 'number': 5},
+        {'color': 'green', 'number': 0},
+        {'color': 'green', 'special': 'reverse'},
+        {'color': 'red', 'number': 0},
+        {'color': 'red', 'special': 'skip'}
+    ],
+    'must_call_draw_card': False,
+    'draw_reason': 'nothing',
+    'turn_right': True,
+    'number_card_play': 61,
+    'number_turn_play': 84,
+    'number_card_of_player': {
+        'P-00000004': 8,
+        'P-00000001': 5,
+        'P-00000002': 2,
+        'P-00000003': 1
+    }
+}
+---枚数照合---
+誰？： P-00000004
+dealerから送られてきたカード枚数: 8
+game_statusで記録していたカード枚数: 8
+正しいか: True
+---枚数照合---
+誰？： P-00000001
+dealerから送られてきたカード枚数: 5
+game_statusで記録していたカード枚数: 5
+正しいか: True
+---枚数照合---
+誰？： P-00000002
+dealerから送られてきたカード枚数: 2
+game_statusで記録していたカード枚数: 2
+正しいか: True
+---枚数照合---
+誰？： P-00000003
+dealerから送られてきたカード枚数: 1
+game_statusで記録していたカード枚数: 1
+正しいか: True
+pos is  対面
+tmp_num_list
+[{'color': 'yellow', 'number': 5}, {'color': 'red', 'number': 0}]
+rtn_list_1 :
+[{'color': 'red', 'special': 'skip'}]
+---出す順---
+redのNone None None [{'color': 'red', 'special': 'skip'}, {'color': 'yellow', 'number': 5}, {'color': 'red', 'number': 0}]
+selected card: red skip
+Send play-card event.
+req_data: 
+{'card_play': {'color': 'red', 'special': 'skip'}, 'yell_uno': False}
+---場にカードを出した---
+プレイヤー: P-00000001
+カード: {'color': 'red', 'special': 'skip'}
+プレイヤーの手札枚数
+P-00000004:8枚 P-00000001:4枚 P-00000002:2枚 P-00000003:1枚 
+Receive play-card event.
+res_data: 
+{
+    'card_play': {'color': 'red', 'special': 'skip'},
+    'yell_uno': False,
+    'player': 'P-00000001'
+}
+Send play-card event.
+res_data: 
+{'card_play': {'color': 'red', 'special': 'skip'}, 'yell_uno': False}
+場札または手札にないのは
+{'blue': {'0': 0, '1': 2, '2': 1, '3': 0, '4': 1, '5': 0, '6': 1, '7': 1, '8': 0, '9': 1, 'draw_2': 0, 'skip': 1, 'reverse': 0}, 'green': {'0': 0, '1': 0, '2': 1, '3': 1, '4': 2, '5': 1, '6': 1, '7': 1, '8': 2, '9': 2, 'draw_2': 2, 'skip': 1, 'reverse': 0}, 'red': {'0': 0, '1': 1, '2': 0, '3': 1, '4': 2, '5': 0, '6': 1, '7': 1, '8': 2, '9': 2, 'draw_2': 2, 'skip': 1, 'reverse': 2}, 'yellow': {'0': 1, '1': 2, '2': 0, '3': 0, '4': 1, '5': 0, '6': 2, '7': 0, '8': 1, '9': 0, 'draw_2': 0, 'skip': 1, 'reverse': 2}, 'black': {'wild': 3, 'wild_draw_4': 3, 'wild_shuffle': 1}, 'white': {'white_wild': 1}}
+---場にカードを出した---
+プレイヤー: P-00000003
+カード: {'color': 'red', 'number': 5}
+プレイヤーの手札枚数
+P-00000004:8枚 P-00000001:4枚 P-00000002:2枚 P-00000003:0枚 
+Receive play-card event.
+res_data: 
+{
+    'card_play': {'color': 'red', 'number': 5},
+    'yell_uno': False,
+    'player': 'P-00000003'
+}
+Receive finish-turn event.
+res_data: 
+{
+    'winner': 'P-00000003',
+    'turn_no': 187,
+    'score': {
+        'P-00000004': -72,
+        'P-00000001': -25,
+        'P-00000002': -11,
+        'P-00000003': 108
+    }
+}
+Receive finish-game event.
+res_data: 
+{
+    'winner': 'P-00000001',
+    'turn_win': 52,
+    'order': {
+        'P-00000001': 52,
+        'P-00000004': 47,
+        'P-00000003': 43,
+        'P-00000002': 42
+    },
+    'total_score': {
+        'P-00000001': 2256,
+        'P-00000004': 10,
+        'P-00000002': -575,
+        'P-00000003': -1691
+    }
+}
+Client disconnect.

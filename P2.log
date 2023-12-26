@@ -1,0 +1,823 @@
+failed to get console mode for stdout: The handle is invalid.
+[1A[1B[0G[?25l[+] Building 0.0s (0/1)                                                         
+[?25h[1A[0G[?25l[+] Building 0.1s (2/3)                                                         
+[34m => [internal] load build definition from Dockerfile                       0.0s
+[0m[34m => => transferring dockerfile: 32B                                        0.0s
+[0m[34m => [internal] load .dockerignore                                          0.0s
+[0m[34m => => transferring context: 2B                                            0.0s
+[0m => [internal] load metadata for docker.io/library/python:3.8.6            0.0s
+[?25h[1A[1A[1A[1A[1A[1A[0G[?25l[+] Building 0.3s (2/3)                                                         
+[34m => [internal] load build definition from Dockerfile                       0.0s
+[0m[34m => => transferring dockerfile: 32B                                        0.0s
+[0m[34m => [internal] load .dockerignore                                          0.0s
+[0m[34m => => transferring context: 2B                                            0.0s
+[0m => [internal] load metadata for docker.io/library/python:3.8.6            0.2s
+[?25h[1A[1A[1A[1A[1A[1A[0G[?25l[+] Building 0.4s (2/3)                                                         
+[34m => [internal] load build definition from Dockerfile                       0.0s
+[0m[34m => => transferring dockerfile: 32B                                        0.0s
+[0m[34m => [internal] load .dockerignore                                          0.0s
+[0m[34m => => transferring context: 2B                                            0.0s
+[0m => [internal] load metadata for docker.io/library/python:3.8.6            0.3s
+[?25h[1A[1A[1A[1A[1A[1A[0G[?25l[+] Building 0.6s (2/3)                                                         
+[34m => [internal] load build definition from Dockerfile                       0.0s
+[0m[34m => => transferring dockerfile: 32B                                        0.0s
+[0m[34m => [internal] load .dockerignore                                          0.0s
+[0m[34m => => transferring context: 2B                                            0.0s
+[0m => [internal] load metadata for docker.io/library/python:3.8.6            0.5s
+[?25h[1A[1A[1A[1A[1A[1A[0G[?25l[+] Building 0.8s (2/3)                                                         
+[34m => [internal] load build definition from Dockerfile                       0.0s
+[0m[34m => => transferring dockerfile: 32B                                        0.0s
+[0m[34m => [internal] load .dockerignore                                          0.0s
+[0m[34m => => transferring context: 2B                                            0.0s
+[0m => [internal] load metadata for docker.io/library/python:3.8.6            0.6s
+[?25h[1A[1A[1A[1A[1A[1A[0G[?25l[+] Building 0.9s (2/3)                                                         
+[34m => [internal] load build definition from Dockerfile                       0.0s
+[0m[34m => => transferring dockerfile: 32B                                        0.0s
+[0m[34m => [internal] load .dockerignore                                          0.0s
+[0m[34m => => transferring context: 2B                                            0.0s
+[0m => [internal] load metadata for docker.io/library/python:3.8.6            0.8s
+[?25h[1A[1A[1A[1A[1A[1A[0G[?25l[+] Building 1.1s (2/3)                                                         
+[34m => [internal] load build definition from Dockerfile                       0.0s
+[0m[34m => => transferring dockerfile: 32B                                        0.0s
+[0m[34m => [internal] load .dockerignore                                          0.0s
+[0m[34m => => transferring context: 2B                                            0.0s
+[0m => [internal] load metadata for docker.io/library/python:3.8.6            0.9s
+[?25h[1A[1A[1A[1A[1A[1A[0G[?25l[+] Building 1.1s (10/10) FINISHED                                              
+[34m => [internal] load build definition from Dockerfile                       0.0s
+[0m[34m => => transferring dockerfile: 32B                                        0.0s
+[0m[34m => [internal] load .dockerignore                                          0.0s
+[0m[34m => => transferring context: 2B                                            0.0s
+[0m[34m => [internal] load metadata for docker.io/library/python:3.8.6            1.0s
+[0m[34m => [1/5] FROM docker.io/library/python:3.8.6@sha256:c0834fbc6e4b987a8aa1  0.0s
+[0m[34m => [internal] load build context                                          0.0s
+[0m[34m => => transferring context: 187B                                          0.0s
+[0m[34m => CACHED [2/5] WORKDIR /app                                              0.0s
+[0m[34m => CACHED [3/5] COPY . .                                                  0.0s
+[0m[34m => CACHED [4/5] RUN pip install --upgrade pip                             0.0s
+[0m[34m => CACHED [5/5] RUN pip install -r requirements.txt                       0.0s
+[0m[34m => exporting to image                                                     0.0s
+[0m[34m => => exporting layers                                                    0.0s
+[0m[34m => => writing image sha256:c8ff07b07431057323a97786ff366c04f596e44c8189d  0.0s
+[0m[34m => => naming to docker.io/library/player_v2                               0.0s
+[0m[?25hHost: http://host.docker.internal:8080
+Dealer: D1, Player: P2
+Client connect successfully!
+Send join-room event.
+req_data: 
+{'room_name': 'D1', 'player': 'P2'}
+Receive join-room event.
+res_data: 
+{'room_name': 'D1', 'player': 'P2'}
+Send join-room event.
+res_data: 
+{
+    'room_name': 'D1',
+    'player': 'P2',
+    'game_id': 'D-00000001',
+    'your_id': 'P-00000002',
+    'total_turn': 4,
+    'white_wild': 'skip_bind_2'
+}
+Client join room successfully!
+My id is P-00000002
+Receive join-room event.
+res_data: 
+{'room_name': 'D1', 'player': 'Alternative 3'}
+Receive join-room event.
+res_data: 
+{'room_name': 'D1', 'player': 'Alternative 4'}
+場札または手札にないのは
+{'blue': {'0': 1, '1': 2, '2': 2, '3': 2, '4': 2, '5': 1, '6': 2, '7': 2, '8': 2, '9': 2, 'draw_2': 1, 'skip': 2, 'reverse': 2}, 'green': {'0': 1, '1': 2, '2': 2, '3': 2, '4': 2, '5': 2, '6': 2, '7': 2, '8': 2, '9': 1, 'draw_2': 2, 'skip': 2, 'reverse': 2}, 'red': {'0': 1, '1': 2, '2': 2, '3': 2, '4': 2, '5': 2, '6': 2, '7': 2, '8': 2, '9': 2, 'draw_2': 2, 'skip': 2, 'reverse': 2}, 'yellow': {'0': 1, '1': 1, '2': 2, '3': 1, '4': 2, '5': 2, '6': 2, '7': 2, '8': 2, '9': 1, 'draw_2': 2, 'skip': 1, 'reverse': 2}, 'black': {'wild': 4, 'wild_draw_4': 4, 'wild_shuffle': 1}, 'white': {'white_wild': 3}}
+Receive receiver-card event.
+res_data: 
+{
+    'cards_receive': [
+        {'color': 'yellow', 'number': 9},
+        {'color': 'yellow', 'number': 1},
+        {'color': 'green', 'number': 9},
+        {'color': 'blue', 'special': 'draw_2'},
+        {'color': 'yellow', 'number': 3},
+        {'color': 'blue', 'number': 5},
+        {'color': 'yellow', 'special': 'skip'}
+    ],
+    'is_penalty': False
+}
+Receive first-player event.
+res_data: 
+{
+    'first_player': 'P-00000003',
+    'first_card': {'color': 'blue', 'number': 8},
+    'play_order': ['P-00000003', 'P-00000001', 'P-00000004', 'P-00000002'],
+    'total_turn': 4,
+    'white_wild': 'skip_bind_2'
+}
+場札または手札にないのは
+{'blue': {'0': 1, '1': 2, '2': 2, '3': 2, '4': 2, '5': 1, '6': 2, '7': 2, '8': 2, '9': 2, 'draw_2': 1, 'skip': 2, 'reverse': 2}, 'green': {'0': 1, '1': 2, '2': 2, '3': 2, '4': 2, '5': 2, '6': 1, '7': 2, '8': 2, '9': 1, 'draw_2': 2, 'skip': 2, 'reverse': 2}, 'red': {'0': 1, '1': 2, '2': 2, '3': 1, '4': 2, '5': 2, '6': 2, '7': 2, '8': 2, '9': 2, 'draw_2': 1, 'skip': 2, 'reverse': 2}, 'yellow': {'0': 0, '1': 1, '2': 2, '3': 1, '4': 2, '5': 1, '6': 2, '7': 2, '8': 2, '9': 0, 'draw_2': 2, 'skip': 0, 'reverse': 2}, 'black': {'wild': 4, 'wild_draw_4': 4, 'wild_shuffle': 1}, 'white': {'white_wild': 3}}
+---枚数照合---
+誰？： P-00000003
+dealerから送られてきたカード枚数: 6
+game_statusで記録していたカード枚数: 7
+正しいか: False
+---枚数照合---
+誰？： P-00000001
+dealerから送られてきたカード枚数: 7
+game_statusで記録していたカード枚数: 7
+正しいか: True
+---枚数照合---
+誰？： P-00000004
+dealerから送られてきたカード枚数: 7
+game_statusで記録していたカード枚数: 7
+正しいか: True
+---枚数照合---
+誰？： P-00000002
+dealerから送られてきたカード枚数: 7
+game_statusで記録していたカード枚数: 7
+正しいか: True
+Receive shuffle-wild event.
+res_data: 
+{
+    'cards_receive': [
+        {'color': 'yellow', 'number': 0},
+        {'color': 'yellow', 'number': 5},
+        {'color': 'yellow', 'number': 9},
+        {'color': 'yellow', 'special': 'skip'},
+        {'color': 'green', 'number': 6},
+        {'color': 'red', 'number': 3},
+        {'color': 'red', 'special': 'draw_2'}
+    ],
+    'number_card_of_player': {
+        'P-00000003': 6,
+        'P-00000001': 7,
+        'P-00000004': 7,
+        'P-00000002': 7
+    }
+}
+シャッフルワイルドにより手札状況が変更
+{
+    'cards_receive': [
+        {'color': 'yellow', 'number': 0},
+        {'color': 'yellow', 'number': 5},
+        {'color': 'yellow', 'number': 9},
+        {'color': 'yellow', 'special': 'skip'},
+        {'color': 'green', 'number': 6},
+        {'color': 'red', 'number': 3},
+        {'color': 'red', 'special': 'draw_2'}
+    ],
+    'number_card_of_player': {
+        'P-00000003': 6,
+        'P-00000001': 7,
+        'P-00000004': 7,
+        'P-00000002': 7
+    }
+}
+場札または手札にないのは
+{'blue': {'0': 1, '1': 2, '2': 2, '3': 2, '4': 2, '5': 1, '6': 2, '7': 2, '8': 2, '9': 2, 'draw_2': 1, 'skip': 2, 'reverse': 2}, 'green': {'0': 1, '1': 2, '2': 2, '3': 2, '4': 2, '5': 2, '6': 1, '7': 2, '8': 2, '9': 1, 'draw_2': 2, 'skip': 2, 'reverse': 2}, 'red': {'0': 1, '1': 2, '2': 2, '3': 1, '4': 2, '5': 2, '6': 2, '7': 2, '8': 2, '9': 2, 'draw_2': 1, 'skip': 2, 'reverse': 2}, 'yellow': {'0': 0, '1': 1, '2': 2, '3': 1, '4': 2, '5': 1, '6': 2, '7': 2, '8': 2, '9': 0, 'draw_2': 2, 'skip': 0, 'reverse': 2}, 'black': {'wild': 4, 'wild_draw_4': 4, 'wild_shuffle': 0}, 'white': {'white_wild': 3}}
+Receive update-color event.
+res_data: 
+{'color': 'red'}
+場札または手札にないのは
+{'blue': {'0': 1, '1': 2, '2': 2, '3': 2, '4': 2, '5': 1, '6': 2, '7': 2, '8': 2, '9': 2, 'draw_2': 1, 'skip': 2, 'reverse': 2}, 'green': {'0': 1, '1': 2, '2': 2, '3': 2, '4': 2, '5': 2, '6': 1, '7': 2, '8': 2, '9': 1, 'draw_2': 2, 'skip': 2, 'reverse': 2}, 'red': {'0': 1, '1': 2, '2': 2, '3': 1, '4': 2, '5': 2, '6': 2, '7': 2, '8': 2, '9': 2, 'draw_2': 1, 'skip': 2, 'reverse': 2}, 'yellow': {'0': 0, '1': 1, '2': 2, '3': 1, '4': 2, '5': 1, '6': 2, '7': 2, '8': 2, '9': 0, 'draw_2': 2, 'skip': 0, 'reverse': 2}, 'black': {'wild': 3, 'wild_draw_4': 4, 'wild_shuffle': 0}, 'white': {'white_wild': 3}}
+Receive update-color event.
+res_data: 
+{'color': 'red'}
+場札または手札にないのは
+{'blue': {'0': 1, '1': 2, '2': 2, '3': 2, '4': 2, '5': 1, '6': 2, '7': 2, '8': 2, '9': 2, 'draw_2': 1, 'skip': 2, 'reverse': 2}, 'green': {'0': 1, '1': 2, '2': 2, '3': 2, '4': 2, '5': 2, '6': 1, '7': 2, '8': 2, '9': 1, 'draw_2': 2, 'skip': 2, 'reverse': 2}, 'red': {'0': 1, '1': 2, '2': 2, '3': 1, '4': 2, '5': 2, '6': 2, '7': 2, '8': 2, '9': 2, 'draw_2': 1, 'skip': 2, 'reverse': 2}, 'yellow': {'0': 0, '1': 1, '2': 2, '3': 1, '4': 2, '5': 1, '6': 2, '7': 1, '8': 2, '9': 0, 'draw_2': 2, 'skip': 0, 'reverse': 2}, 'black': {'wild': 3, 'wild_draw_4': 4, 'wild_shuffle': 0}, 'white': {'white_wild': 3}}
+Receive next-player event.
+res_data: 
+{
+    'next_player': 'P-00000002',
+    'before_player': 'P-00000004',
+    'card_before': {'color': 'yellow', 'number': 7},
+    'card_of_player': [
+        {'color': 'yellow', 'number': 0},
+        {'color': 'yellow', 'number': 5},
+        {'color': 'yellow', 'number': 9},
+        {'color': 'yellow', 'special': 'skip'},
+        {'color': 'green', 'number': 6},
+        {'color': 'red', 'number': 3},
+        {'color': 'red', 'special': 'draw_2'}
+    ],
+    'must_call_draw_card': False,
+    'draw_reason': 'nothing',
+    'turn_right': True,
+    'number_card_play': 4,
+    'number_turn_play': 3,
+    'number_card_of_player': {
+        'P-00000003': 6,
+        'P-00000001': 6,
+        'P-00000004': 6,
+        'P-00000002': 7
+    }
+}
+---枚数照合---
+誰？： P-00000003
+dealerから送られてきたカード枚数: 6
+game_statusで記録していたカード枚数: 6
+正しいか: True
+---枚数照合---
+誰？： P-00000001
+dealerから送られてきたカード枚数: 6
+game_statusで記録していたカード枚数: 7
+正しいか: False
+---枚数照合---
+誰？： P-00000004
+dealerから送られてきたカード枚数: 6
+game_statusで記録していたカード枚数: 7
+正しいか: False
+---枚数照合---
+誰？： P-00000002
+dealerから送られてきたカード枚数: 7
+game_statusで記録していたカード枚数: 7
+正しいか: True
+selected card: yellow None
+Send play-card event.
+req_data: 
+{'card_play': {'color': 'yellow', 'number': 0}, 'yell_uno': False}
+Send play-card event.
+res_data: 
+{'card_play': {'color': 'yellow', 'number': 0}, 'yell_uno': False}
+場札または手札にないのは
+{'blue': {'0': 1, '1': 2, '2': 2, '3': 2, '4': 2, '5': 1, '6': 2, '7': 2, '8': 2, '9': 2, 'draw_2': 1, 'skip': 2, 'reverse': 2}, 'green': {'0': 1, '1': 2, '2': 2, '3': 2, '4': 2, '5': 2, '6': 1, '7': 2, '8': 2, '9': 1, 'draw_2': 2, 'skip': 2, 'reverse': 2}, 'red': {'0': 1, '1': 2, '2': 2, '3': 1, '4': 2, '5': 2, '6': 2, '7': 2, '8': 2, '9': 2, 'draw_2': 1, 'skip': 2, 'reverse': 2}, 'yellow': {'0': 0, '1': 1, '2': 2, '3': 1, '4': 2, '5': 1, '6': 2, '7': 1, '8': 2, '9': 0, 'draw_2': 2, 'skip': 0, 'reverse': 2}, 'black': {'wild': 3, 'wild_draw_4': 4, 'wild_shuffle': 0}, 'white': {'white_wild': 2}}
+Receive draw-card event.
+res_data: 
+{'player': 'P-00000004', 'is_draw': True}
+カードを引きます
+Receive next-player event.
+res_data: 
+{
+    'next_player': 'P-00000002',
+    'before_player': 'P-00000004',
+    'card_before': {'color': 'yellow', 'special': 'white_wild'},
+    'card_of_player': [
+        {'color': 'yellow', 'number': 5},
+        {'color': 'yellow', 'number': 9},
+        {'color': 'yellow', 'special': 'skip'},
+        {'color': 'green', 'number': 6},
+        {'color': 'red', 'number': 3},
+        {'color': 'red', 'special': 'draw_2'}
+    ],
+    'must_call_draw_card': False,
+    'draw_reason': 'nothing',
+    'turn_right': True,
+    'number_card_play': 6,
+    'number_turn_play': 6,
+    'number_card_of_player': {
+        'P-00000003': 5,
+        'P-00000001': 6,
+        'P-00000004': 7,
+        'P-00000002': 6
+    }
+}
+---枚数照合---
+誰？： P-00000003
+dealerから送られてきたカード枚数: 5
+game_statusで記録していたカード枚数: 6
+正しいか: False
+---枚数照合---
+誰？： P-00000001
+dealerから送られてきたカード枚数: 6
+game_statusで記録していたカード枚数: 6
+正しいか: True
+---枚数照合---
+誰？： P-00000004
+dealerから送られてきたカード枚数: 7
+game_statusで記録していたカード枚数: 6
+正しいか: False
+---枚数照合---
+誰？： P-00000002
+dealerから送られてきたカード枚数: 6
+game_statusで記録していたカード枚数: 7
+正しいか: False
+selected card: yellow 5
+Send play-card event.
+req_data: 
+{'card_play': {'color': 'yellow', 'number': 5}, 'yell_uno': False}
+Send play-card event.
+res_data: 
+{'card_play': {'color': 'yellow', 'number': 5}, 'yell_uno': False}
+場札または手札にないのは
+{'blue': {'0': 1, '1': 2, '2': 2, '3': 2, '4': 2, '5': 0, '6': 2, '7': 2, '8': 2, '9': 2, 'draw_2': 1, 'skip': 2, 'reverse': 2}, 'green': {'0': 1, '1': 2, '2': 2, '3': 2, '4': 2, '5': 2, '6': 1, '7': 2, '8': 2, '9': 1, 'draw_2': 2, 'skip': 2, 'reverse': 2}, 'red': {'0': 1, '1': 2, '2': 2, '3': 1, '4': 2, '5': 2, '6': 2, '7': 2, '8': 2, '9': 2, 'draw_2': 1, 'skip': 2, 'reverse': 2}, 'yellow': {'0': 0, '1': 1, '2': 2, '3': 1, '4': 2, '5': 1, '6': 2, '7': 1, '8': 2, '9': 0, 'draw_2': 2, 'skip': 0, 'reverse': 2}, 'black': {'wild': 3, 'wild_draw_4': 4, 'wild_shuffle': 0}, 'white': {'white_wild': 2}}
+場札または手札にないのは
+{'blue': {'0': 1, '1': 2, '2': 2, '3': 2, '4': 2, '5': 0, '6': 2, '7': 2, '8': 2, '9': 2, 'draw_2': 0, 'skip': 2, 'reverse': 2}, 'green': {'0': 1, '1': 2, '2': 2, '3': 2, '4': 2, '5': 2, '6': 1, '7': 2, '8': 2, '9': 1, 'draw_2': 2, 'skip': 2, 'reverse': 2}, 'red': {'0': 1, '1': 2, '2': 2, '3': 1, '4': 2, '5': 2, '6': 2, '7': 2, '8': 2, '9': 2, 'draw_2': 1, 'skip': 2, 'reverse': 2}, 'yellow': {'0': 0, '1': 1, '2': 2, '3': 1, '4': 2, '5': 1, '6': 2, '7': 1, '8': 2, '9': 0, 'draw_2': 2, 'skip': 0, 'reverse': 2}, 'black': {'wild': 3, 'wild_draw_4': 4, 'wild_shuffle': 0}, 'white': {'white_wild': 2}}
+Receive draw-card event.
+res_data: 
+{'player': 'P-00000004', 'is_draw': True}
+カードを引きます
+Receive next-player event.
+res_data: 
+{
+    'next_player': 'P-00000002',
+    'before_player': 'P-00000004',
+    'card_before': {'color': 'blue', 'special': 'draw_2'},
+    'card_of_player': [
+        {'color': 'yellow', 'number': 9},
+        {'color': 'yellow', 'special': 'skip'},
+        {'color': 'green', 'number': 6},
+        {'color': 'red', 'number': 3},
+        {'color': 'red', 'special': 'draw_2'}
+    ],
+    'must_call_draw_card': False,
+    'draw_reason': 'nothing',
+    'turn_right': True,
+    'number_card_play': 9,
+    'number_turn_play': 10,
+    'number_card_of_player': {
+        'P-00000003': 4,
+        'P-00000001': 5,
+        'P-00000004': 9,
+        'P-00000002': 5
+    }
+}
+---枚数照合---
+誰？： P-00000003
+dealerから送られてきたカード枚数: 4
+game_statusで記録していたカード枚数: 5
+正しいか: False
+---枚数照合---
+誰？： P-00000001
+dealerから送られてきたカード枚数: 5
+game_statusで記録していたカード枚数: 6
+正しいか: False
+---枚数照合---
+誰？： P-00000004
+dealerから送られてきたカード枚数: 9
+game_statusで記録していたカード枚数: 7
+正しいか: False
+---枚数照合---
+誰？： P-00000002
+dealerから送られてきたカード枚数: 5
+game_statusで記録していたカード枚数: 6
+正しいか: False
+Send special-logic event.
+req_data: 
+{'title': '◯◯◯◯◯◯◯◯◯◯◯◯◯◯◯◯◯◯◯◯◯'}
+selected card: red draw_2
+Send play-card event.
+req_data: 
+{'card_play': {'color': 'red', 'special': 'draw_2'}, 'yell_uno': False}
+Send special-logic event.
+res_data: 
+{'title': '◯◯◯◯◯◯◯◯◯◯◯◯◯◯◯◯◯◯◯◯◯'}
+Send play-card event.
+res_data: 
+{'card_play': {'color': 'red', 'special': 'draw_2'}, 'yell_uno': False}
+Receive draw-card event.
+res_data: 
+{'player': 'P-00000003', 'is_draw': True}
+カードを引きます
+場札または手札にないのは
+{'blue': {'0': 1, '1': 2, '2': 2, '3': 2, '4': 2, '5': 0, '6': 2, '7': 2, '8': 2, '9': 2, 'draw_2': 0, 'skip': 2, 'reverse': 2}, 'green': {'0': 1, '1': 2, '2': 2, '3': 2, '4': 2, '5': 2, '6': 1, '7': 2, '8': 2, '9': 1, 'draw_2': 1, 'skip': 2, 'reverse': 2}, 'red': {'0': 1, '1': 2, '2': 2, '3': 1, '4': 2, '5': 2, '6': 2, '7': 2, '8': 2, '9': 2, 'draw_2': 1, 'skip': 2, 'reverse': 2}, 'yellow': {'0': 0, '1': 1, '2': 2, '3': 1, '4': 2, '5': 1, '6': 2, '7': 1, '8': 2, '9': 0, 'draw_2': 2, 'skip': 0, 'reverse': 2}, 'black': {'wild': 3, 'wild_draw_4': 4, 'wild_shuffle': 0}, 'white': {'white_wild': 2}}
+Receive draw-card event.
+res_data: 
+{'player': 'P-00000004', 'is_draw': True}
+カードを引きます
+Receive next-player event.
+res_data: 
+{
+    'next_player': 'P-00000002',
+    'before_player': 'P-00000004',
+    'card_before': {'color': 'green', 'special': 'draw_2'},
+    'card_of_player': [
+        {'color': 'yellow', 'number': 9},
+        {'color': 'yellow', 'special': 'skip'},
+        {'color': 'green', 'number': 6},
+        {'color': 'red', 'number': 3}
+    ],
+    'must_call_draw_card': False,
+    'draw_reason': 'nothing',
+    'turn_right': True,
+    'number_card_play': 11,
+    'number_turn_play': 14,
+    'number_card_of_player': {
+        'P-00000003': 6,
+        'P-00000001': 4,
+        'P-00000004': 11,
+        'P-00000002': 4
+    }
+}
+---枚数照合---
+誰？： P-00000003
+dealerから送られてきたカード枚数: 6
+game_statusで記録していたカード枚数: 4
+正しいか: False
+---枚数照合---
+誰？： P-00000001
+dealerから送られてきたカード枚数: 4
+game_statusで記録していたカード枚数: 5
+正しいか: False
+---枚数照合---
+誰？： P-00000004
+dealerから送られてきたカード枚数: 11
+game_statusで記録していたカード枚数: 9
+正しいか: False
+---枚数照合---
+誰？： P-00000002
+dealerから送られてきたカード枚数: 4
+game_statusで記録していたカード枚数: 5
+正しいか: False
+selected card: green 6
+Send play-card event.
+req_data: 
+{'card_play': {'color': 'green', 'number': 6}, 'yell_uno': False}
+Send play-card event.
+res_data: 
+{'card_play': {'color': 'green', 'number': 6}, 'yell_uno': False}
+場札または手札にないのは
+{'blue': {'0': 1, '1': 2, '2': 2, '3': 2, '4': 2, '5': 0, '6': 2, '7': 2, '8': 2, '9': 2, 'draw_2': 0, 'skip': 2, 'reverse': 2}, 'green': {'0': 1, '1': 2, '2': 1, '3': 2, '4': 2, '5': 2, '6': 1, '7': 2, '8': 2, '9': 1, 'draw_2': 1, 'skip': 2, 'reverse': 2}, 'red': {'0': 1, '1': 2, '2': 2, '3': 1, '4': 2, '5': 2, '6': 2, '7': 2, '8': 2, '9': 2, 'draw_2': 1, 'skip': 2, 'reverse': 2}, 'yellow': {'0': 0, '1': 1, '2': 2, '3': 1, '4': 2, '5': 1, '6': 2, '7': 1, '8': 2, '9': 0, 'draw_2': 2, 'skip': 0, 'reverse': 2}, 'black': {'wild': 3, 'wild_draw_4': 4, 'wild_shuffle': 0}, 'white': {'white_wild': 2}}
+場札または手札にないのは
+{'blue': {'0': 1, '1': 2, '2': 2, '3': 2, '4': 2, '5': 0, '6': 2, '7': 2, '8': 2, '9': 2, 'draw_2': 0, 'skip': 2, 'reverse': 2}, 'green': {'0': 1, '1': 2, '2': 1, '3': 2, '4': 2, '5': 2, '6': 1, '7': 2, '8': 2, '9': 1, 'draw_2': 1, 'skip': 2, 'reverse': 2}, 'red': {'0': 1, '1': 2, '2': 2, '3': 1, '4': 2, '5': 2, '6': 2, '7': 2, '8': 2, '9': 2, 'draw_2': 1, 'skip': 2, 'reverse': 2}, 'yellow': {'0': 0, '1': 1, '2': 1, '3': 1, '4': 2, '5': 1, '6': 2, '7': 1, '8': 2, '9': 0, 'draw_2': 2, 'skip': 0, 'reverse': 2}, 'black': {'wild': 3, 'wild_draw_4': 4, 'wild_shuffle': 0}, 'white': {'white_wild': 2}}
+場札または手札にないのは
+{'blue': {'0': 1, '1': 2, '2': 2, '3': 2, '4': 2, '5': 0, '6': 2, '7': 2, '8': 2, '9': 2, 'draw_2': 0, 'skip': 2, 'reverse': 2}, 'green': {'0': 1, '1': 2, '2': 1, '3': 2, '4': 2, '5': 2, '6': 1, '7': 2, '8': 2, '9': 1, 'draw_2': 1, 'skip': 2, 'reverse': 2}, 'red': {'0': 1, '1': 2, '2': 2, '3': 1, '4': 2, '5': 2, '6': 2, '7': 2, '8': 2, '9': 2, 'draw_2': 1, 'skip': 2, 'reverse': 2}, 'yellow': {'0': 0, '1': 1, '2': 1, '3': 1, '4': 1, '5': 1, '6': 2, '7': 1, '8': 2, '9': 0, 'draw_2': 2, 'skip': 0, 'reverse': 2}, 'black': {'wild': 3, 'wild_draw_4': 4, 'wild_shuffle': 0}, 'white': {'white_wild': 2}}
+Receive next-player event.
+res_data: 
+{
+    'next_player': 'P-00000002',
+    'before_player': 'P-00000004',
+    'card_before': {'color': 'yellow', 'number': 4},
+    'card_of_player': [
+        {'color': 'yellow', 'number': 9},
+        {'color': 'yellow', 'special': 'skip'},
+        {'color': 'red', 'number': 3}
+    ],
+    'must_call_draw_card': False,
+    'draw_reason': 'nothing',
+    'turn_right': True,
+    'number_card_play': 15,
+    'number_turn_play': 18,
+    'number_card_of_player': {
+        'P-00000003': 5,
+        'P-00000001': 3,
+        'P-00000004': 10,
+        'P-00000002': 3
+    }
+}
+---枚数照合---
+誰？： P-00000003
+dealerから送られてきたカード枚数: 5
+game_statusで記録していたカード枚数: 6
+正しいか: False
+---枚数照合---
+誰？： P-00000001
+dealerから送られてきたカード枚数: 3
+game_statusで記録していたカード枚数: 4
+正しいか: False
+---枚数照合---
+誰？： P-00000004
+dealerから送られてきたカード枚数: 10
+game_statusで記録していたカード枚数: 11
+正しいか: False
+---枚数照合---
+誰？： P-00000002
+dealerから送られてきたカード枚数: 3
+game_statusで記録していたカード枚数: 4
+正しいか: False
+selected card: yellow 9
+Send play-card event.
+req_data: 
+{'card_play': {'color': 'yellow', 'number': 9}, 'yell_uno': False}
+Send play-card event.
+res_data: 
+{'card_play': {'color': 'yellow', 'number': 9}, 'yell_uno': False}
+場札または手札にないのは
+{'blue': {'0': 1, '1': 2, '2': 2, '3': 2, '4': 2, '5': 0, '6': 2, '7': 2, '8': 2, '9': 2, 'draw_2': 0, 'skip': 2, 'reverse': 2}, 'green': {'0': 1, '1': 2, '2': 1, '3': 2, '4': 2, '5': 2, '6': 1, '7': 2, '8': 2, '9': 1, 'draw_2': 1, 'skip': 2, 'reverse': 2}, 'red': {'0': 1, '1': 2, '2': 2, '3': 1, '4': 2, '5': 2, '6': 2, '7': 2, '8': 2, '9': 2, 'draw_2': 1, 'skip': 2, 'reverse': 2}, 'yellow': {'0': 0, '1': 1, '2': 1, '3': 1, '4': 1, '5': 1, '6': 2, '7': 1, '8': 2, '9': 0, 'draw_2': 1, 'skip': 0, 'reverse': 2}, 'black': {'wild': 3, 'wild_draw_4': 4, 'wild_shuffle': 0}, 'white': {'white_wild': 2}}
+Receive draw-card event.
+res_data: 
+{'player': 'P-00000001', 'is_draw': True}
+カードを引きます
+Receive draw-card event.
+res_data: 
+{'player': 'P-00000004', 'is_draw': True}
+カードを引きます
+Receive play-draw-card event.
+res_data: 
+{
+    'is_play_card': True,
+    'yell_uno': False,
+    'player': 'P-00000004',
+    'card_play': {'color': 'yellow', 'number': 5}
+}
+Receive next-player event.
+res_data: 
+{
+    'next_player': 'P-00000002',
+    'before_player': 'P-00000004',
+    'card_before': {'color': 'yellow', 'number': 5},
+    'card_of_player': [
+        {'color': 'yellow', 'special': 'skip'},
+        {'color': 'red', 'number': 3}
+    ],
+    'must_call_draw_card': False,
+    'draw_reason': 'nothing',
+    'turn_right': True,
+    'number_card_play': 18,
+    'number_turn_play': 22,
+    'number_card_of_player': {
+        'P-00000003': 4,
+        'P-00000001': 5,
+        'P-00000004': 10,
+        'P-00000002': 2
+    }
+}
+---枚数照合---
+誰？： P-00000003
+dealerから送られてきたカード枚数: 4
+game_statusで記録していたカード枚数: 5
+正しいか: False
+---枚数照合---
+誰？： P-00000001
+dealerから送られてきたカード枚数: 5
+game_statusで記録していたカード枚数: 3
+正しいか: False
+---枚数照合---
+誰？： P-00000004
+dealerから送られてきたカード枚数: 10
+game_statusで記録していたカード枚数: 10
+正しいか: True
+---枚数照合---
+誰？： P-00000002
+dealerから送られてきたカード枚数: 2
+game_statusで記録していたカード枚数: 3
+正しいか: False
+selected card: yellow skip
+Send play-card event.
+req_data: 
+{'card_play': {'color': 'yellow', 'special': 'skip'}, 'yell_uno': True}
+Send play-card event.
+res_data: 
+{'card_play': {'color': 'yellow', 'special': 'skip'}, 'yell_uno': True}
+UNOコールを忘れていることを指摘
+{'pointer': 'P-00000001', 'target': 'P-00000002', 'have_say_uno': True}
+Receive pointed-not-say-uno event.
+res_data: 
+{'pointer': 'P-00000001', 'target': 'P-00000002', 'have_say_uno': True}
+場札または手札にないのは
+{'blue': {'0': 1, '1': 2, '2': 2, '3': 2, '4': 2, '5': 0, '6': 2, '7': 2, '8': 2, '9': 2, 'draw_2': 0, 'skip': 2, 'reverse': 2}, 'green': {'0': 1, '1': 2, '2': 1, '3': 2, '4': 2, '5': 2, '6': 1, '7': 2, '8': 2, '9': 1, 'draw_2': 1, 'skip': 2, 'reverse': 2}, 'red': {'0': 1, '1': 2, '2': 2, '3': 1, '4': 2, '5': 2, '6': 2, '7': 2, '8': 2, '9': 2, 'draw_2': 1, 'skip': 2, 'reverse': 2}, 'yellow': {'0': 0, '1': 1, '2': 1, '3': 0, '4': 1, '5': 1, '6': 2, '7': 1, '8': 2, '9': 0, 'draw_2': 1, 'skip': 0, 'reverse': 2}, 'black': {'wild': 3, 'wild_draw_4': 4, 'wild_shuffle': 0}, 'white': {'white_wild': 2}}
+Receive draw-card event.
+res_data: 
+{'player': 'P-00000004', 'is_draw': True}
+カードを引きます
+Receive play-draw-card event.
+res_data: 
+{
+    'is_play_card': True,
+    'yell_uno': False,
+    'player': 'P-00000004',
+    'card_play': {'color': 'yellow', 'special': 'reverse'}
+}
+場札または手札にないのは
+{'blue': {'0': 1, '1': 2, '2': 2, '3': 2, '4': 2, '5': 0, '6': 2, '7': 2, '8': 2, '9': 2, 'draw_2': 0, 'skip': 2, 'reverse': 2}, 'green': {'0': 1, '1': 2, '2': 1, '3': 2, '4': 2, '5': 2, '6': 1, '7': 2, '8': 2, '9': 1, 'draw_2': 1, 'skip': 2, 'reverse': 2}, 'red': {'0': 1, '1': 2, '2': 2, '3': 1, '4': 2, '5': 2, '6': 2, '7': 2, '8': 2, '9': 2, 'draw_2': 1, 'skip': 2, 'reverse': 2}, 'yellow': {'0': 0, '1': 0, '2': 1, '3': 0, '4': 1, '5': 1, '6': 2, '7': 1, '8': 2, '9': 0, 'draw_2': 1, 'skip': 0, 'reverse': 2}, 'black': {'wild': 3, 'wild_draw_4': 4, 'wild_shuffle': 0}, 'white': {'white_wild': 2}}
+Receive draw-card event.
+res_data: 
+{'player': 'P-00000003', 'is_draw': True}
+カードを引きます
+Receive next-player event.
+res_data: 
+{
+    'next_player': 'P-00000002',
+    'before_player': 'P-00000003',
+    'card_before': {'color': 'yellow', 'number': 1},
+    'card_of_player': [{'color': 'red', 'number': 3}],
+    'must_call_draw_card': False,
+    'draw_reason': 'nothing',
+    'turn_right': False,
+    'number_card_play': 22,
+    'number_turn_play': 27,
+    'number_card_of_player': {
+        'P-00000003': 5,
+        'P-00000001': 3,
+        'P-00000004': 10,
+        'P-00000002': 1
+    }
+}
+---枚数照合---
+誰？： P-00000003
+dealerから送られてきたカード枚数: 5
+game_statusで記録していたカード枚数: 4
+正しいか: False
+---枚数照合---
+誰？： P-00000001
+dealerから送られてきたカード枚数: 3
+game_statusで記録していたカード枚数: 5
+正しいか: False
+---枚数照合---
+誰？： P-00000004
+dealerから送られてきたカード枚数: 10
+game_statusで記録していたカード枚数: 10
+正しいか: True
+---枚数照合---
+誰？： P-00000002
+dealerから送られてきたカード枚数: 1
+game_statusで記録していたカード枚数: 2
+正しいか: False
+Send draw-card event.
+req_data: 
+{}
+場札または手札にないのは
+{'blue': {'0': 1, '1': 2, '2': 2, '3': 2, '4': 2, '5': 0, '6': 2, '7': 2, '8': 2, '9': 2, 'draw_2': 0, 'skip': 2, 'reverse': 2}, 'green': {'0': 1, '1': 2, '2': 1, '3': 2, '4': 2, '5': 2, '6': 1, '7': 2, '8': 2, '9': 1, 'draw_2': 1, 'skip': 2, 'reverse': 2}, 'red': {'0': 1, '1': 1, '2': 2, '3': 1, '4': 2, '5': 2, '6': 2, '7': 2, '8': 2, '9': 2, 'draw_2': 1, 'skip': 2, 'reverse': 2}, 'yellow': {'0': 0, '1': 0, '2': 1, '3': 0, '4': 1, '5': 1, '6': 2, '7': 1, '8': 2, '9': 0, 'draw_2': 1, 'skip': 0, 'reverse': 2}, 'black': {'wild': 3, 'wild_draw_4': 4, 'wild_shuffle': 0}, 'white': {'white_wild': 2}}
+Receive receiver-card event.
+res_data: 
+{'cards_receive': [{'color': 'red', 'number': 1}], 'is_penalty': False}
+Receive draw-card event.
+res_data: 
+{'player': 'P-00000002', 'is_draw': True}
+カードを引きます
+Send draw-card event.
+res_data: 
+{
+    'player': 'P-00000002',
+    'is_draw': True,
+    'draw_card': [{'color': 'red', 'number': 1}],
+    'can_play_draw_card': True
+}
+Send play-draw-card event.
+req_data: 
+{'is_play_card': True, 'yell_uno': True}
+Receive play-draw-card event.
+res_data: 
+{
+    'is_play_card': True,
+    'yell_uno': True,
+    'player': 'P-00000002',
+    'card_play': {'color': 'red', 'number': 1}
+}
+Send play-draw-card event.
+res_data: 
+{'is_play_card': True, 'yell_uno': True}
+場札または手札にないのは
+{'blue': {'0': 1, '1': 2, '2': 2, '3': 2, '4': 2, '5': 0, '6': 2, '7': 2, '8': 2, '9': 2, 'draw_2': 0, 'skip': 2, 'reverse': 2}, 'green': {'0': 1, '1': 2, '2': 1, '3': 2, '4': 2, '5': 2, '6': 1, '7': 2, '8': 2, '9': 1, 'draw_2': 1, 'skip': 2, 'reverse': 2}, 'red': {'0': 1, '1': 1, '2': 2, '3': 1, '4': 2, '5': 2, '6': 2, '7': 2, '8': 2, '9': 1, 'draw_2': 1, 'skip': 2, 'reverse': 2}, 'yellow': {'0': 0, '1': 0, '2': 1, '3': 0, '4': 1, '5': 1, '6': 2, '7': 1, '8': 2, '9': 0, 'draw_2': 1, 'skip': 0, 'reverse': 2}, 'black': {'wild': 3, 'wild_draw_4': 4, 'wild_shuffle': 0}, 'white': {'white_wild': 2}}
+場札または手札にないのは
+{'blue': {'0': 1, '1': 2, '2': 2, '3': 2, '4': 2, '5': 0, '6': 2, '7': 2, '8': 2, '9': 2, 'draw_2': 0, 'skip': 2, 'reverse': 2}, 'green': {'0': 1, '1': 2, '2': 1, '3': 2, '4': 2, '5': 2, '6': 1, '7': 2, '8': 2, '9': 1, 'draw_2': 1, 'skip': 2, 'reverse': 2}, 'red': {'0': 1, '1': 1, '2': 2, '3': 1, '4': 2, '5': 2, '6': 1, '7': 2, '8': 2, '9': 1, 'draw_2': 1, 'skip': 2, 'reverse': 2}, 'yellow': {'0': 0, '1': 0, '2': 1, '3': 0, '4': 1, '5': 1, '6': 2, '7': 1, '8': 2, '9': 0, 'draw_2': 1, 'skip': 0, 'reverse': 2}, 'black': {'wild': 3, 'wild_draw_4': 4, 'wild_shuffle': 0}, 'white': {'white_wild': 2}}
+場札または手札にないのは
+{'blue': {'0': 1, '1': 2, '2': 2, '3': 2, '4': 2, '5': 0, '6': 2, '7': 2, '8': 2, '9': 2, 'draw_2': 0, 'skip': 2, 'reverse': 2}, 'green': {'0': 1, '1': 2, '2': 1, '3': 2, '4': 2, '5': 2, '6': 1, '7': 2, '8': 2, '9': 1, 'draw_2': 1, 'skip': 2, 'reverse': 2}, 'red': {'0': 1, '1': 1, '2': 2, '3': 1, '4': 2, '5': 2, '6': 1, '7': 2, '8': 2, '9': 1, 'draw_2': 1, 'skip': 2, 'reverse': 1}, 'yellow': {'0': 0, '1': 0, '2': 1, '3': 0, '4': 1, '5': 1, '6': 2, '7': 1, '8': 2, '9': 0, 'draw_2': 1, 'skip': 0, 'reverse': 2}, 'black': {'wild': 3, 'wild_draw_4': 4, 'wild_shuffle': 0}, 'white': {'white_wild': 2}}
+反転発動
+{'P-00000003': {'位置': '直後', 'UNO': False}, 'P-00000001': {'位置': '対面', 'UNO': False}, 'P-00000004': {'位置': '直前', 'UNO': False}}
+Receive draw-card event.
+res_data: 
+{'player': 'P-00000001', 'is_draw': True}
+カードを引きます
+Receive play-draw-card event.
+res_data: 
+{
+    'is_play_card': True,
+    'yell_uno': False,
+    'player': 'P-00000001',
+    'card_play': {'color': 'red', 'number': 8}
+}
+場札または手札にないのは
+{'blue': {'0': 1, '1': 2, '2': 2, '3': 2, '4': 2, '5': 0, '6': 2, '7': 2, '8': 1, '9': 2, 'draw_2': 0, 'skip': 2, 'reverse': 2}, 'green': {'0': 1, '1': 2, '2': 1, '3': 2, '4': 2, '5': 2, '6': 1, '7': 2, '8': 2, '9': 1, 'draw_2': 1, 'skip': 2, 'reverse': 2}, 'red': {'0': 1, '1': 1, '2': 2, '3': 1, '4': 2, '5': 2, '6': 1, '7': 2, '8': 2, '9': 1, 'draw_2': 1, 'skip': 2, 'reverse': 1}, 'yellow': {'0': 0, '1': 0, '2': 1, '3': 0, '4': 1, '5': 1, '6': 2, '7': 1, '8': 2, '9': 0, 'draw_2': 1, 'skip': 0, 'reverse': 2}, 'black': {'wild': 3, 'wild_draw_4': 4, 'wild_shuffle': 0}, 'white': {'white_wild': 2}}
+Receive next-player event.
+res_data: 
+{
+    'next_player': 'P-00000002',
+    'before_player': 'P-00000004',
+    'card_before': {'color': 'blue', 'number': 8},
+    'card_of_player': [{'color': 'red', 'number': 3}],
+    'must_call_draw_card': False,
+    'draw_reason': 'nothing',
+    'turn_right': True,
+    'number_card_play': 28,
+    'number_turn_play': 33,
+    'number_card_of_player': {
+        'P-00000003': 4,
+        'P-00000001': 2,
+        'P-00000004': 8,
+        'P-00000002': 1
+    }
+}
+---枚数照合---
+誰？： P-00000003
+dealerから送られてきたカード枚数: 4
+game_statusで記録していたカード枚数: 5
+正しいか: False
+---枚数照合---
+誰？： P-00000001
+dealerから送られてきたカード枚数: 2
+game_statusで記録していたカード枚数: 3
+正しいか: False
+---枚数照合---
+誰？： P-00000004
+dealerから送られてきたカード枚数: 8
+game_statusで記録していたカード枚数: 10
+正しいか: False
+---枚数照合---
+誰？： P-00000002
+dealerから送られてきたカード枚数: 1
+game_statusで記録していたカード枚数: 1
+正しいか: True
+Send draw-card event.
+req_data: 
+{}
+場札または手札にないのは
+{'blue': {'0': 1, '1': 2, '2': 2, '3': 2, '4': 2, '5': 0, '6': 2, '7': 2, '8': 1, '9': 2, 'draw_2': 0, 'skip': 2, 'reverse': 2}, 'green': {'0': 1, '1': 2, '2': 0, '3': 2, '4': 2, '5': 2, '6': 1, '7': 2, '8': 2, '9': 1, 'draw_2': 1, 'skip': 2, 'reverse': 2}, 'red': {'0': 1, '1': 1, '2': 2, '3': 1, '4': 2, '5': 2, '6': 1, '7': 2, '8': 2, '9': 1, 'draw_2': 1, 'skip': 2, 'reverse': 1}, 'yellow': {'0': 0, '1': 0, '2': 1, '3': 0, '4': 1, '5': 1, '6': 2, '7': 1, '8': 2, '9': 0, 'draw_2': 1, 'skip': 0, 'reverse': 2}, 'black': {'wild': 3, 'wild_draw_4': 4, 'wild_shuffle': 0}, 'white': {'white_wild': 2}}
+Receive receiver-card event.
+res_data: 
+{'cards_receive': [{'color': 'green', 'number': 2}], 'is_penalty': False}
+Receive draw-card event.
+res_data: 
+{'player': 'P-00000002', 'is_draw': True}
+カードを引きます
+Send draw-card event.
+res_data: 
+{
+    'player': 'P-00000002',
+    'is_draw': True,
+    'can_play_draw_card': False,
+    'draw_card': [{'color': 'green', 'number': 2}]
+}
+Receive draw-card event.
+res_data: 
+{'player': 'P-00000003', 'is_draw': True}
+カードを引きます
+場札または手札にないのは
+{'blue': {'0': 1, '1': 2, '2': 2, '3': 1, '4': 2, '5': 0, '6': 2, '7': 2, '8': 1, '9': 2, 'draw_2': 0, 'skip': 2, 'reverse': 2}, 'green': {'0': 1, '1': 2, '2': 0, '3': 2, '4': 2, '5': 2, '6': 1, '7': 2, '8': 2, '9': 1, 'draw_2': 1, 'skip': 2, 'reverse': 2}, 'red': {'0': 1, '1': 1, '2': 2, '3': 1, '4': 2, '5': 2, '6': 1, '7': 2, '8': 2, '9': 1, 'draw_2': 1, 'skip': 2, 'reverse': 1}, 'yellow': {'0': 0, '1': 0, '2': 1, '3': 0, '4': 1, '5': 1, '6': 2, '7': 1, '8': 2, '9': 0, 'draw_2': 1, 'skip': 0, 'reverse': 2}, 'black': {'wild': 3, 'wild_draw_4': 4, 'wild_shuffle': 0}, 'white': {'white_wild': 2}}
+場札または手札にないのは
+{'blue': {'0': 1, '1': 2, '2': 1, '3': 1, '4': 2, '5': 0, '6': 2, '7': 2, '8': 1, '9': 2, 'draw_2': 0, 'skip': 2, 'reverse': 2}, 'green': {'0': 1, '1': 2, '2': 0, '3': 2, '4': 2, '5': 2, '6': 1, '7': 2, '8': 2, '9': 1, 'draw_2': 1, 'skip': 2, 'reverse': 2}, 'red': {'0': 1, '1': 1, '2': 2, '3': 1, '4': 2, '5': 2, '6': 1, '7': 2, '8': 2, '9': 1, 'draw_2': 1, 'skip': 2, 'reverse': 1}, 'yellow': {'0': 0, '1': 0, '2': 1, '3': 0, '4': 1, '5': 1, '6': 2, '7': 1, '8': 2, '9': 0, 'draw_2': 1, 'skip': 0, 'reverse': 2}, 'black': {'wild': 3, 'wild_draw_4': 4, 'wild_shuffle': 0}, 'white': {'white_wild': 2}}
+Receive next-player event.
+res_data: 
+{
+    'next_player': 'P-00000002',
+    'before_player': 'P-00000004',
+    'card_before': {'color': 'blue', 'number': 2},
+    'card_of_player': [
+        {'color': 'green', 'number': 2},
+        {'color': 'red', 'number': 3}
+    ],
+    'must_call_draw_card': False,
+    'draw_reason': 'nothing',
+    'turn_right': True,
+    'number_card_play': 30,
+    'number_turn_play': 37,
+    'number_card_of_player': {
+        'P-00000003': 5,
+        'P-00000001': 1,
+        'P-00000004': 7,
+        'P-00000002': 2
+    }
+}
+---枚数照合---
+誰？： P-00000003
+dealerから送られてきたカード枚数: 5
+game_statusで記録していたカード枚数: 4
+正しいか: False
+---枚数照合---
+誰？： P-00000001
+dealerから送られてきたカード枚数: 1
+game_statusで記録していたカード枚数: 2
+正しいか: False
+---枚数照合---
+誰？： P-00000004
+dealerから送られてきたカード枚数: 7
+game_statusで記録していたカード枚数: 8
+正しいか: False
+---枚数照合---
+誰？： P-00000002
+dealerから送られてきたカード枚数: 2
+game_statusで記録していたカード枚数: 1
+正しいか: False
+Send pointed-not-say-uno event.
+req_data: 
+{'target': 'P-00000001'}
+selected card: green 2
+Send play-card event.
+req_data: 
+{'card_play': {'color': 'green', 'number': 2}, 'yell_uno': True}
+pointed-not-say-uno event failed!
+{'message': 'Out of target.', 'code': 'bad_request', 'status': 400}
+Send play-card event.
+res_data: 
+{'card_play': {'color': 'green', 'number': 2}, 'yell_uno': True}
+場札または手札にないのは
+{'blue': {'0': 1, '1': 2, '2': 1, '3': 1, '4': 2, '5': 0, '6': 2, '7': 2, '8': 1, '9': 2, 'draw_2': 0, 'skip': 2, 'reverse': 2}, 'green': {'0': 1, '1': 2, '2': 0, '3': 2, '4': 2, '5': 2, '6': 1, '7': 1, '8': 2, '9': 1, 'draw_2': 1, 'skip': 2, 'reverse': 2}, 'red': {'0': 1, '1': 1, '2': 2, '3': 1, '4': 2, '5': 2, '6': 1, '7': 2, '8': 2, '9': 1, 'draw_2': 1, 'skip': 2, 'reverse': 1}, 'yellow': {'0': 0, '1': 0, '2': 1, '3': 0, '4': 1, '5': 1, '6': 2, '7': 1, '8': 2, '9': 0, 'draw_2': 1, 'skip': 0, 'reverse': 2}, 'black': {'wild': 3, 'wild_draw_4': 4, 'wild_shuffle': 0}, 'white': {'white_wild': 2}}
+場札または手札にないのは
+{'blue': {'0': 1, '1': 2, '2': 1, '3': 1, '4': 2, '5': 0, '6': 2, '7': 2, '8': 1, '9': 2, 'draw_2': 0, 'skip': 2, 'reverse': 2}, 'green': {'0': 1, '1': 2, '2': 0, '3': 1, '4': 2, '5': 2, '6': 1, '7': 1, '8': 2, '9': 1, 'draw_2': 1, 'skip': 2, 'reverse': 2}, 'red': {'0': 1, '1': 1, '2': 2, '3': 1, '4': 2, '5': 2, '6': 1, '7': 2, '8': 2, '9': 1, 'draw_2': 1, 'skip': 2, 'reverse': 1}, 'yellow': {'0': 0, '1': 0, '2': 1, '3': 0, '4': 1, '5': 1, '6': 2, '7': 1, '8': 2, '9': 0, 'draw_2': 1, 'skip': 0, 'reverse': 2}, 'black': {'wild': 3, 'wild_draw_4': 4, 'wild_shuffle': 0}, 'white': {'white_wild': 2}}
+Receive finish-turn event.
+res_data: 
+{
+    'winner': 'P-00000001',
+    'turn_no': 184,
+    'score': {
+        'P-00000003': -36,
+        'P-00000004': -58,
+        'P-00000002': -3,
+        'P-00000001': 97
+    }
+}
+Receive finish-game event.
+res_data: 
+{
+    'winner': 'P-00000001',
+    'turn_win': 51,
+    'order': {
+        'P-00000001': 51,
+        'P-00000004': 47,
+        'P-00000003': 42,
+        'P-00000002': 41
+    },
+    'total_score': {
+        'P-00000001': 2257,
+        'P-00000004': 155,
+        'P-00000002': -710,
+        'P-00000003': -1702
+    }
+}
+Client disconnect.
