@@ -158,6 +158,15 @@ class Status:
                 self.order_dic[i]["位置"] = "直前"
 
 
+    def get_before_id(self) -> str:
+        """直前のプレイヤーのidを入手する関数(ごめん)"""
+        for i, v in self.order_dic.items():
+            if v["位置"] == "直前":
+                return i
+            
+        return ""    
+
+
     def set_uno_player(self, player_id: str) -> None:
         """UNO宣言したやつの記憶"""
         print(player_id + "がUNOしました" )

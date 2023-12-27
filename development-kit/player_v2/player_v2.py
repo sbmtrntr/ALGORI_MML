@@ -314,6 +314,7 @@ def on_first_player(data_res):
     
     # プレイヤー全員の手札枚数を初期化する
     game_status.init_player_card_counts(data_res['play_order'])
+    game_status.feild_cards.append(data_res['first_card'])
 
     receive_event(SocketConst.EMIT.FIRST_PLAYER, data_res)
 
@@ -386,7 +387,7 @@ def on_next_player(data_res):
     global game_status
 
     def next_player_callback(data_res):
-        global game_status, challenge_sucess
+        global game_status, challenge_sucess, id
 
         # 各プレイヤーの手札枚数を最新状態に更新しておく
         for k, v in data_res['number_card_of_player'].items():
@@ -400,9 +401,28 @@ def on_next_player(data_res):
 
         if (data_res.get('draw_reason') == DrawReason.WILD_DRAW_4):
             # カードを引く理由がワイルドドロー4の時、チャレンジを行うことができる。
-            if game_status.my_uno_flag == True:
+            # if game_status.my_uno_flag == True:
+            #     send_event(SocketConst.EMIT.CHALLENGE, { 'is_challenge': True } )
+            #     return
+            
+            print("チャレンジされました")
+            #print(game_status.feild_cards)
+
+            # 特殊戦術_v1
+            before_id = game_status.get_before_id()
+            before_card_num = data_res['number_card_of_player']
+            yama = game_status.num_of_deck
+            cnt = 1
+            while game_status.feild_cards[-1*cnt - 1].get('color',None) == "white" or game_status.feild_cards[-1*cnt - 1].get('color',None) is None: #直前の色が白以外になるまで探索
+                cnt += 1
+            field_card = game_status.feild_cards[-1*cnt - 1] 
+            print("wild前は")
+            print(field_card)
+
+            if challenge_dicision(field_card, game_status.cards_status, id, before_id, before_card_num, yama):
                 send_event(SocketConst.EMIT.CHALLENGE, { 'is_challenge': True } )
-                return
+                return  
+
 
         if str(data_res.get('must_call_draw_card')) == 'True':
             # カードを引かないと行けない時
@@ -476,6 +496,7 @@ def on_play_card(data_res):
     global game_status
     def play_card_callback(data_res):
         # UNO宣言を行った場合は記録する
+        global game_status
         if data_res.get('yell_uno'):
             game_status.uno_declared[data_res.get('player')] = data_res.get('yell_uno')
             if id != data_res.get('player'):
@@ -501,7 +522,7 @@ def on_play_card(data_res):
 def on_draw_card(data_res):
     global game_status
     def draw_card_callback(data_res):
-        global game_status
+        global game_status,id
         # カードが増えているのでUNO宣言の状態をリセットする
         if data_res.get('player') in game_status.uno_declared:
             if id != data_res.get('player'):
@@ -543,6 +564,8 @@ def on_challenge(data_res):
     
     if data_res.get("target") == id and data_res.get("is_challenge_success") == True:#自分にチャレンジされて成功されたら
         challenge_sucess = True
+    else:
+        challenge_sucess = False
 
     # レスポンス取得
     challenger = data_res.get("challenger")

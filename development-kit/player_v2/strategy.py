@@ -1,4 +1,5 @@
 from collections import defaultdict
+import math
 
 
 def select_play_card(my_cards: list, player_card_counts: dict, before_card: dict, status: dict, order_dic: dict, wild_shuffle_flag: bool, challenge_sucess: bool) -> dict:
@@ -12,6 +13,7 @@ def select_play_card(my_cards: list, player_card_counts: dict, before_card: dict
         status: Card_Statusインスタンス
         order_dic: 順番
         wild_shuffle_flag: シャッフルワイルドを持ってるか
+        challenge_sucess: 自分に対してチャレンジされたか否か
     Return:
         best_card(dict): 最善手
     """
@@ -64,7 +66,7 @@ def select_play_card(my_cards: list, player_card_counts: dict, before_card: dict
                 return tmp_list[0]
 
         if analyze_situation(my_cards, player_card_counts, wild_shuffle_flag) == "deffensive": #防御モード
-            tmp_list = deffesive_mode(valid_card_list, player_card_counts)
+            tmp_list = deffesive_mode(valid_card_list, player_card_counts, challenge_sucess)
             if len(tmp_list) == 0:
                 return None
             
@@ -368,7 +370,7 @@ def offensive_mode(cards: list, my_card: list, player_cards_cnt: dict, challenge
             if card.get("special") == "wild_shuffle" and len(my_card) == 1: # シャッフルワイルドを持っているときはそれを残す
                 spe_lis.append((card, 4))
             else:
-                if card.get("special") != "wild_shuffle":
+                if card.get("special") != "wild_shuffle": # ワイルド、白いワイルドの方を優先度高く出す
                     spe_lis.append((card, ["wild", "white_wild", "wild_draw_4"].index(card.get("special"))))
     
     spe_lis_2 = [item[0] for item in sorted(spe_lis, key=lambda x: x[1])]
@@ -401,7 +403,7 @@ def my_color_cnt(cards: dict) -> list:
     return ans
 
 
-def deffesive_mode(cards: list, player_cards_cnt: dict) -> list:
+def deffesive_mode(cards: list, player_cards_cnt: dict, challenge_sucess: bool) -> list:
     """
     防御モードの手札選択
 
@@ -422,7 +424,10 @@ def deffesive_mode(cards: list, player_cards_cnt: dict) -> list:
                 ans_list.append([card, (2, 1)])
 
             elif card_special == "wild_draw_4":
-                ans_list.append([card, (3, 1)])
+                if challenge_sucess == False: #直前のチャレンジ成功がなかったら
+                    ans_list.append([card, (3, 1)])
+                else: #あったら
+                    ans_list.append([card, (9, 1)])
 
             elif card_special == "wild":
                 ans_list.append([card, (1, 1)])
@@ -437,6 +442,54 @@ def deffesive_mode(cards: list, player_cards_cnt: dict) -> list:
             ans_list.append([card, (6, card.get("number"))])
 
     return ans_list
+
+
+def challenge_dicision(card_before: dict, card_status: dict, my_id: int, before_id: int, other_cards: dict, cards_num: int):
+    """
+    チャレンジの判断関数
+    args:
+        before_card: dict = wild_draw_4前のカード
+        card_status: dict = 見えてないカードの山の内容
+        my_id: int = 自分のID
+        before_id: int = 直前のプレイヤーのID
+        other_cards: dict = 直前のプレイヤーが持つカードの枚数
+        cards_num: int = 山札の枚数
+    return:
+        bool値 = チャレンジするか否か
+    """
+
+    if other_cards[before_id] >= 15: # 相手が15枚以上持っているときは必ずチャレンジ
+        return True
+
+    # 場札と自分の手札から相手が (同じ色を出せる確率) + (同じ数字・記号を出せる確率) + (ワイルド系カードを出せる確率) がp以上であればチャレンジ
+    card_color = card_before.get("color") 
+    color_num = 0
+    for i in card_status[card_color].values():
+        color_num += i
+    
+    other_card_num = 0
+    for id,num in other_cards.items():
+        if id != my_id:
+            other_card_num += num
+    
+    other_card_num_2 = other_card_num - other_cards[before_id]
+
+    p1 = 1 - (math.comb(cards_num + other_card_num_2, color_num) / math.comb(cards_num + other_card_num, color_num))
+
+    wild_num = 0
+    for i in card_status["black"].values():
+        wild_num += i
+    
+    wild_num += card_status["white"]["white_wild"]
+
+    p2 = 1 - (math.comb(cards_num + other_card_num_2, wild_num) / math.comb(cards_num + other_card_num, wild_num))
+
+    p = p1 + p2
+
+    if p >= 0.75:
+        return True
+    else:
+        return False
 
 
 

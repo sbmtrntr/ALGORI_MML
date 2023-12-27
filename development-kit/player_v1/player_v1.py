@@ -486,7 +486,7 @@ def on_play_card(data_res):
 @sio.on(SocketConst.EMIT.DRAW_CARD)
 def on_draw_card(data_res):
     def draw_card_callback(data_res):
-        global uno_declared,strategy
+        global uno_declared,strategy,id
         # カードが増えているのでUNO宣言の状態をリセットする
         if data_res.get('player') in uno_declared:
             if id != data_res.get('player'):
@@ -501,7 +501,7 @@ def on_draw_card(data_res):
 @sio.on(SocketConst.EMIT.PLAY_DRAW_CARD)
 def on_play_draw_card(data_res):
     def play_draw_card_callback(data_res):
-        global uno_declared,strategy
+        global uno_declared,strategy,id
         # UNO宣言を行った場合は記録する
         if data_res.get('yell_uno'):
             uno_declared[data_res.get('player')] = data_res.get('yell_uno')
