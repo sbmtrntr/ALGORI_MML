@@ -186,7 +186,9 @@ class Status:
             self.cards_status[card_color][card_type] -= 1
 
         # 山札枚数を再計算する
-        self.num_of_deck = self.num_of_field - 1 # 最後の1枚を除いて山札に戻す
+        # 最後の1枚を除いて山札に戻す
+        # 山札枚数がマイナスになることも考慮
+        self.num_of_deck = self.num_of_field - 1 + self.num_of_deck 
         self.num_of_field = 1 # 場のカードは1枚にする
 
         # debug print
