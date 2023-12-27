@@ -69,7 +69,7 @@ TEST_TOOL_HOST_PORT = '3000' # 開発ガイドラインツールのポート番�
 ARR_COLOR = [Color.RED, Color.YELLOW, Color.GREEN, Color.BLUE] # 色変更の選択肢
 
 game_status = Status()
-challenge_sucess = False
+challenge_success = False
 # strategy = Card_Select()
 # game_status.my_uno_flag = False
 
@@ -387,7 +387,7 @@ def on_next_player(data_res):
     global game_status
 
     def next_player_callback(data_res):
-        global game_status, challenge_sucess, id
+        global game_status, challenge_success, id
 
         # 各プレイヤーの手札枚数を最新状態に更新しておく
         for k, v in data_res['number_card_of_player'].items():
@@ -434,7 +434,7 @@ def on_next_player(data_res):
         if special_logic_num_random == 0:
             send_event(SocketConst.EMIT.SPECIAL_LOGIC, { 'title': SPECIAL_LOGIC_TITLE })
 
-        play_card = select_play_card(cards, game_status.player_card_counts, data_res.get('card_before'), game_status.cards_status, game_status.order_dic, game_status.wild_shuffle_flag(), challenge_sucess)
+        play_card = select_play_card(cards, game_status.player_card_counts, data_res.get('card_before'), game_status.cards_status, game_status.order_dic, game_status.wild_shuffle_flag(), challenge_success)
 
         if play_card:
             # 選出したカードがある時
@@ -560,12 +560,12 @@ def on_play_draw_card(data_res):
 # チャレンジの結果
 @sio.on(SocketConst.EMIT.CHALLENGE)
 def on_challenge(data_res):
-    global game_status, id, challenge_sucess
+    global game_status, id, challenge_success
     
     if data_res.get("target") == id and data_res.get("is_challenge_success") == True:#自分にチャレンジされて成功されたら
-        challenge_sucess = True
+        challenge_success = True
     else:
-        challenge_sucess = False
+        challenge_success = False
 
     # レスポンス取得
     challenger = data_res.get("challenger")
