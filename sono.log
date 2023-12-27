@@ -1,0 +1,1168 @@
+Host: http://host.docker.internal:8080
+Dealer: D1, Player: P1
+Client connect successfully!
+Send join-room event.
+req_data: 
+{'room_name': 'D1', 'player': 'P1'}
+Receive join-room event.
+res_data: 
+{'room_name': 'D1', 'player': 'P1'}
+Send join-room event.
+res_data: 
+{
+    'room_name': 'D1',
+    'player': 'P1',
+    'game_id': 'D-00000001',
+    'your_id': 'P-00000001',
+    'total_turn': 1,
+    'white_wild': 'skip_bind_2'
+}
+Client join room successfully!
+My id is P-00000001
+Receive join-room event.
+res_data: 
+{'room_name': 'D1', 'player': 'Alternative 2'}
+Receive join-room event.
+res_data: 
+{'room_name': 'D1', 'player': 'Alternative 3'}
+Receive join-room event.
+res_data: 
+{'room_name': 'D1', 'player': 'Alternative 4'}
+場札または手札にないのは
+カードステータス: {'blue': {'0': 1, '1': 2, '2': 2, '3': 2, '4': 1, '5': 2, '6': 2, '7': 2, '8': 2, '9': 2, 'draw_2': 2, 'skip': 2, 'reverse': 2}, 'green': {'0': 1, '1': 2, '2': 2, '3': 2, '4': 2, '5': 2, '6': 2, '7': 2, '8': 1, '9': 1, 'draw_2': 2, 'skip': 2, 'reverse': 2}, 'red': {'0': 1, '1': 2, '2': 2, '3': 2, '4': 2, '5': 2, '6': 1, '7': 2, '8': 2, '9': 2, 'draw_2': 2, 'skip': 2, 'reverse': 2}, 'yellow': {'0': 1, '1': 2, '2': 1, '3': 2, '4': 1, '5': 2, '6': 2, '7': 1, '8': 2, '9': 2, 'draw_2': 2, 'skip': 2, 'reverse': 2}, 'black': {'wild': 4, 'wild_draw_4': 4, 'wild_shuffle': 1}, 'white': {'white_wild': 3}}
+Receive receiver-card event.
+Receive first-player event.
+res_data: 
+{
+    'cards_receive': [
+        {'color': 'blue', 'number': 4},
+        {'color': 'yellow', 'number': 4},
+        {'color': 'yellow', 'number': 2},
+        {'color': 'yellow', 'number': 7},
+        {'color': 'red', 'number': 6},
+        {'color': 'green', 'number': 9},
+        {'color': 'green', 'number': 8}
+    ],
+    'is_penalty': False
+}
+res_data: 
+{
+    'first_player': 'P-00000004',
+    'first_card': {'color': 'yellow', 'number': 9},
+    'play_order': ['P-00000004', 'P-00000001', 'P-00000002', 'P-00000003'],
+    'total_turn': 1,
+    'white_wild': 'skip_bind_2'
+}
+場札または手札にないのは
+カードステータス: {'blue': {'0': 1, '1': 2, '2': 2, '3': 2, '4': 1, '5': 2, '6': 2, '7': 2, '8': 2, '9': 2, 'draw_2': 2, 'skip': 2, 'reverse': 2}, 'green': {'0': 1, '1': 2, '2': 2, '3': 2, '4': 2, '5': 2, '6': 2, '7': 2, '8': 1, '9': 1, 'draw_2': 2, 'skip': 2, 'reverse': 2}, 'red': {'0': 1, '1': 2, '2': 2, '3': 2, '4': 2, '5': 2, '6': 1, '7': 2, '8': 2, '9': 2, 'draw_2': 2, 'skip': 2, 'reverse': 2}, 'yellow': {'0': 1, '1': 2, '2': 0, '3': 2, '4': 1, '5': 2, '6': 2, '7': 1, '8': 2, '9': 2, 'draw_2': 2, 'skip': 2, 'reverse': 2}, 'black': {'wild': 4, 'wild_draw_4': 4, 'wild_shuffle': 1}, 'white': {'white_wild': 3}}
+---場にカードを出した---
+プレイヤー: P-00000004
+カード: {'color': 'yellow', 'number': 2}
+山札の枚数: 83
+場の枚数: 2
+P-00000004の枚数: 6
+P-00000001の枚数: 7
+P-00000002の枚数: 7
+P-00000003の枚数: 7
+カード合計: 112
+CHECK: True
+最後に記録されたカード: {'color': 'yellow', 'number': 2}
+Receive play-card event.
+res_data: 
+{
+    'card_play': {'color': 'yellow', 'number': 2},
+    'yell_uno': False,
+    'player': 'P-00000004'
+}
+Receive next-player event.
+res_data: 
+{
+    'next_player': 'P-00000001',
+    'before_player': 'P-00000004',
+    'card_before': {'color': 'yellow', 'number': 2},
+    'card_of_player': [
+        {'color': 'yellow', 'number': 2},
+        {'color': 'yellow', 'number': 4},
+        {'color': 'yellow', 'number': 7},
+        {'color': 'green', 'number': 8},
+        {'color': 'green', 'number': 9},
+        {'color': 'blue', 'number': 4},
+        {'color': 'red', 'number': 6}
+    ],
+    'must_call_draw_card': False,
+    'draw_reason': 'nothing',
+    'turn_right': True,
+    'number_card_play': 2,
+    'number_turn_play': 1,
+    'number_card_of_player': {
+        'P-00000004': 6,
+        'P-00000001': 7,
+        'P-00000002': 7,
+        'P-00000003': 7
+    }
+}
+---枚数照合---
+誰？： P-00000004
+dealerから送られてきたカード枚数: 6
+game_statusで記録していたカード枚数: 6
+正しいか: True
+---枚数照合---
+誰？： P-00000001
+dealerから送られてきたカード枚数: 7
+game_statusで記録していたカード枚数: 7
+正しいか: True
+---枚数照合---
+誰？： P-00000002
+dealerから送られてきたカード枚数: 7
+game_statusで記録していたカード枚数: 7
+正しいか: True
+---枚数照合---
+誰？： P-00000003
+dealerから送られてきたカード枚数: 7
+game_statusで記録していたカード枚数: 7
+正しいか: True
+selected card: yellow 2
+Send play-card event.
+req_data: 
+{'card_play': {'color': 'yellow', 'number': 2}, 'yell_uno': False}
+---場にカードを出した---
+プレイヤー: P-00000001
+カード: {'color': 'yellow', 'number': 2}
+山札の枚数: 83
+場の枚数: 3
+P-00000004の枚数: 6
+P-00000001の枚数: 6
+P-00000002の枚数: 7
+P-00000003の枚数: 7
+カード合計: 112
+CHECK: True
+最後に記録されたカード: {'color': 'yellow', 'number': 2}
+Receive play-card event.
+res_data: 
+{
+    'card_play': {'color': 'yellow', 'number': 2},
+    'yell_uno': False,
+    'player': 'P-00000001'
+}
+Send play-card event.
+res_data: 
+{'card_play': {'color': 'yellow', 'number': 2}, 'yell_uno': False}
+場札または手札にないのは
+カードステータス: {'blue': {'0': 1, '1': 2, '2': 2, '3': 2, '4': 1, '5': 2, '6': 2, '7': 2, '8': 2, '9': 2, 'draw_2': 2, 'skip': 2, 'reverse': 2}, 'green': {'0': 1, '1': 2, '2': 2, '3': 2, '4': 2, '5': 2, '6': 2, '7': 2, '8': 1, '9': 1, 'draw_2': 2, 'skip': 2, 'reverse': 2}, 'red': {'0': 1, '1': 2, '2': 2, '3': 2, '4': 2, '5': 2, '6': 1, '7': 2, '8': 2, '9': 2, 'draw_2': 2, 'skip': 2, 'reverse': 2}, 'yellow': {'0': 1, '1': 1, '2': 0, '3': 2, '4': 1, '5': 2, '6': 2, '7': 1, '8': 2, '9': 2, 'draw_2': 2, 'skip': 2, 'reverse': 2}, 'black': {'wild': 4, 'wild_draw_4': 4, 'wild_shuffle': 1}, 'white': {'white_wild': 3}}
+---場にカードを出した---
+プレイヤー: P-00000002
+カード: {'color': 'yellow', 'number': 1}
+山札の枚数: 83
+場の枚数: 4
+P-00000004の枚数: 6
+P-00000001の枚数: 6
+P-00000002の枚数: 6
+P-00000003の枚数: 7
+カード合計: 112
+CHECK: True
+最後に記録されたカード: {'color': 'yellow', 'number': 1}
+Receive play-card event.
+res_data: 
+{
+    'card_play': {'color': 'yellow', 'number': 1},
+    'yell_uno': False,
+    'player': 'P-00000002'
+}
+場札または手札にないのは
+カードステータス: {'blue': {'0': 1, '1': 2, '2': 2, '3': 2, '4': 1, '5': 2, '6': 2, '7': 2, '8': 2, '9': 2, 'draw_2': 2, 'skip': 2, 'reverse': 2}, 'green': {'0': 1, '1': 2, '2': 2, '3': 2, '4': 2, '5': 2, '6': 2, '7': 2, '8': 1, '9': 1, 'draw_2': 2, 'skip': 2, 'reverse': 2}, 'red': {'0': 1, '1': 2, '2': 2, '3': 2, '4': 2, '5': 2, '6': 1, '7': 2, '8': 2, '9': 2, 'draw_2': 2, 'skip': 2, 'reverse': 2}, 'yellow': {'0': 1, '1': 1, '2': 0, '3': 2, '4': 1, '5': 2, '6': 2, '7': 1, '8': 1, '9': 2, 'draw_2': 2, 'skip': 2, 'reverse': 2}, 'black': {'wild': 4, 'wild_draw_4': 4, 'wild_shuffle': 1}, 'white': {'white_wild': 3}}
+---場にカードを出した---
+プレイヤー: P-00000003
+カード: {'color': 'yellow', 'number': 8}
+山札の枚数: 83
+場の枚数: 5
+P-00000004の枚数: 6
+P-00000001の枚数: 6
+P-00000002の枚数: 6
+P-00000003の枚数: 6
+カード合計: 112
+CHECK: True
+最後に記録されたカード: {'color': 'yellow', 'number': 8}
+Receive play-card event.
+res_data: 
+{
+    'card_play': {'color': 'yellow', 'number': 8},
+    'yell_uno': False,
+    'player': 'P-00000003'
+}
+場札または手札にないのは
+カードステータス: {'blue': {'0': 1, '1': 2, '2': 2, '3': 2, '4': 1, '5': 2, '6': 2, '7': 2, '8': 2, '9': 2, 'draw_2': 2, 'skip': 2, 'reverse': 2}, 'green': {'0': 1, '1': 2, '2': 2, '3': 2, '4': 2, '5': 2, '6': 2, '7': 2, '8': 1, '9': 1, 'draw_2': 2, 'skip': 2, 'reverse': 2}, 'red': {'0': 1, '1': 2, '2': 2, '3': 2, '4': 2, '5': 2, '6': 1, '7': 2, '8': 2, '9': 2, 'draw_2': 2, 'skip': 2, 'reverse': 2}, 'yellow': {'0': 1, '1': 1, '2': 0, '3': 2, '4': 1, '5': 2, '6': 2, '7': 1, '8': 1, '9': 2, 'draw_2': 2, 'skip': 2, 'reverse': 1}, 'black': {'wild': 4, 'wild_draw_4': 4, 'wild_shuffle': 1}, 'white': {'white_wild': 3}}
+今のは{'card_counts': 5, 'card': {'color': 'yellow', 'special': 'reverse'}}
+その前は{'card_counts': 6, 'card': {'color': 'yellow', 'number': 2}}
+---場にカードを出した---
+プレイヤー: P-00000004
+カード: {'color': 'yellow', 'special': 'reverse'}
+山札の枚数: 83
+場の枚数: 6
+P-00000004の枚数: 5
+P-00000001の枚数: 6
+P-00000002の枚数: 6
+P-00000003の枚数: 6
+カード合計: 112
+CHECK: True
+最後に記録されたカード: {'color': 'yellow', 'special': 'reverse'}
+反転発動
+{'P-00000002': {'位置': '直後', 'UNO': False}, 'P-00000003': {'位置': '対面', 'UNO': False}, 'P-00000004': {'位置': '直前', 'UNO': False}}
+Receive play-card event.
+res_data: 
+{
+    'card_play': {'color': 'yellow', 'special': 'reverse'},
+    'yell_uno': False,
+    'player': 'P-00000004'
+}
+場札または手札にないのは
+カードステータス: {'blue': {'0': 1, '1': 2, '2': 2, '3': 2, '4': 1, '5': 2, '6': 2, '7': 2, '8': 2, '9': 2, 'draw_2': 2, 'skip': 2, 'reverse': 2}, 'green': {'0': 1, '1': 2, '2': 2, '3': 2, '4': 2, '5': 2, '6': 2, '7': 2, '8': 1, '9': 1, 'draw_2': 2, 'skip': 2, 'reverse': 2}, 'red': {'0': 1, '1': 2, '2': 2, '3': 2, '4': 2, '5': 2, '6': 1, '7': 2, '8': 2, '9': 2, 'draw_2': 2, 'skip': 2, 'reverse': 2}, 'yellow': {'0': 1, '1': 1, '2': 0, '3': 2, '4': 1, '5': 2, '6': 2, '7': 1, '8': 1, '9': 1, 'draw_2': 2, 'skip': 2, 'reverse': 1}, 'black': {'wild': 4, 'wild_draw_4': 4, 'wild_shuffle': 1}, 'white': {'white_wild': 3}}
+今のは{'card_counts': 5, 'card': {'color': 'yellow', 'number': 9}}
+その前は{'card_counts': 6, 'card': {'color': 'yellow', 'number': 8}}
+---場にカードを出した---
+プレイヤー: P-00000003
+カード: {'color': 'yellow', 'number': 9}
+山札の枚数: 83
+場の枚数: 7
+P-00000004の枚数: 5
+P-00000001の枚数: 6
+P-00000002の枚数: 6
+P-00000003の枚数: 5
+カード合計: 112
+CHECK: True
+最後に記録されたカード: {'color': 'yellow', 'number': 9}
+Receive play-card event.
+res_data: 
+{
+    'card_play': {'color': 'yellow', 'number': 9},
+    'yell_uno': False,
+    'player': 'P-00000003'
+}
+場札または手札にないのは
+カードステータス: {'blue': {'0': 1, '1': 2, '2': 2, '3': 2, '4': 1, '5': 2, '6': 2, '7': 2, '8': 2, '9': 1, 'draw_2': 2, 'skip': 2, 'reverse': 2}, 'green': {'0': 1, '1': 2, '2': 2, '3': 2, '4': 2, '5': 2, '6': 2, '7': 2, '8': 1, '9': 1, 'draw_2': 2, 'skip': 2, 'reverse': 2}, 'red': {'0': 1, '1': 2, '2': 2, '3': 2, '4': 2, '5': 2, '6': 1, '7': 2, '8': 2, '9': 2, 'draw_2': 2, 'skip': 2, 'reverse': 2}, 'yellow': {'0': 1, '1': 1, '2': 0, '3': 2, '4': 1, '5': 2, '6': 2, '7': 1, '8': 1, '9': 1, 'draw_2': 2, 'skip': 2, 'reverse': 1}, 'black': {'wild': 4, 'wild_draw_4': 4, 'wild_shuffle': 1}, 'white': {'white_wild': 3}}
+今のは{'card_counts': 5, 'card': {'color': 'blue', 'number': 9}}
+その前は{'card_counts': 6, 'card': {'color': 'yellow', 'number': 1}}
+---場にカードを出した---
+プレイヤー: P-00000002
+カード: {'color': 'blue', 'number': 9}
+山札の枚数: 83
+場の枚数: 8
+P-00000004の枚数: 5
+P-00000001の枚数: 6
+P-00000002の枚数: 5
+P-00000003の枚数: 5
+カード合計: 112
+CHECK: True
+最後に記録されたカード: {'color': 'blue', 'number': 9}
+Receive play-card event.
+res_data: 
+{
+    'card_play': {'color': 'blue', 'number': 9},
+    'yell_uno': False,
+    'player': 'P-00000002'
+}
+Receive next-player event.
+res_data: 
+{
+    'next_player': 'P-00000001',
+    'before_player': 'P-00000002',
+    'card_before': {'color': 'blue', 'number': 9},
+    'card_of_player': [
+        {'color': 'yellow', 'number': 4},
+        {'color': 'yellow', 'number': 7},
+        {'color': 'green', 'number': 8},
+        {'color': 'green', 'number': 9},
+        {'color': 'blue', 'number': 4},
+        {'color': 'red', 'number': 6}
+    ],
+    'must_call_draw_card': False,
+    'draw_reason': 'nothing',
+    'turn_right': False,
+    'number_card_play': 8,
+    'number_turn_play': 7,
+    'number_card_of_player': {
+        'P-00000004': 5,
+        'P-00000001': 6,
+        'P-00000002': 5,
+        'P-00000003': 5
+    }
+}
+---枚数照合---
+誰？： P-00000004
+dealerから送られてきたカード枚数: 5
+game_statusで記録していたカード枚数: 5
+正しいか: True
+---枚数照合---
+誰？： P-00000001
+dealerから送られてきたカード枚数: 6
+game_statusで記録していたカード枚数: 6
+正しいか: True
+---枚数照合---
+誰？： P-00000002
+dealerから送られてきたカード枚数: 5
+game_statusで記録していたカード枚数: 5
+正しいか: True
+---枚数照合---
+誰？： P-00000003
+dealerから送られてきたカード枚数: 5
+game_statusで記録していたカード枚数: 5
+正しいか: True
+Send special-logic event.
+req_data: 
+{'title': '◯◯◯◯◯◯◯◯◯◯◯◯◯◯◯◯◯◯◯◯◯'}
+selected card: green 9
+Send play-card event.
+req_data: 
+{'card_play': {'color': 'green', 'number': 9}, 'yell_uno': False}
+Send special-logic event.
+res_data: 
+{'title': '◯◯◯◯◯◯◯◯◯◯◯◯◯◯◯◯◯◯◯◯◯'}
+今のは{'card_counts': 5, 'card': {'color': 'green', 'number': 9}}
+その前は{'card_counts': 6, 'card': {'color': 'yellow', 'number': 2}}
+---場にカードを出した---
+プレイヤー: P-00000001
+カード: {'color': 'green', 'number': 9}
+山札の枚数: 83
+場の枚数: 9
+P-00000004の枚数: 5
+P-00000001の枚数: 5
+P-00000002の枚数: 5
+P-00000003の枚数: 5
+カード合計: 112
+CHECK: True
+最後に記録されたカード: {'color': 'green', 'number': 9}
+Receive play-card event.
+res_data: 
+{
+    'card_play': {'color': 'green', 'number': 9},
+    'yell_uno': False,
+    'player': 'P-00000001'
+}
+Send play-card event.
+res_data: 
+{'card_play': {'color': 'green', 'number': 9}, 'yell_uno': False}
+場札または手札にないのは
+カードステータス: {'blue': {'0': 1, '1': 2, '2': 2, '3': 2, '4': 1, '5': 2, '6': 2, '7': 2, '8': 2, '9': 1, 'draw_2': 2, 'skip': 2, 'reverse': 2}, 'green': {'0': 1, '1': 1, '2': 2, '3': 2, '4': 2, '5': 2, '6': 2, '7': 2, '8': 1, '9': 1, 'draw_2': 2, 'skip': 2, 'reverse': 2}, 'red': {'0': 1, '1': 2, '2': 2, '3': 2, '4': 2, '5': 2, '6': 1, '7': 2, '8': 2, '9': 2, 'draw_2': 2, 'skip': 2, 'reverse': 2}, 'yellow': {'0': 1, '1': 1, '2': 0, '3': 2, '4': 1, '5': 2, '6': 2, '7': 1, '8': 1, '9': 1, 'draw_2': 2, 'skip': 2, 'reverse': 1}, 'black': {'wild': 4, 'wild_draw_4': 4, 'wild_shuffle': 1}, 'white': {'white_wild': 3}}
+今のは{'card_counts': 4, 'card': {'color': 'green', 'number': 1}}
+その前は{'card_counts': 5, 'card': {'color': 'yellow', 'special': 'reverse'}}
+---場にカードを出した---
+プレイヤー: P-00000004
+カード: {'color': 'green', 'number': 1}
+山札の枚数: 83
+場の枚数: 10
+P-00000004の枚数: 4
+P-00000001の枚数: 5
+P-00000002の枚数: 5
+P-00000003の枚数: 5
+カード合計: 112
+CHECK: True
+最後に記録されたカード: {'color': 'green', 'number': 1}
+Receive play-card event.
+res_data: 
+{
+    'card_play': {'color': 'green', 'number': 1},
+    'yell_uno': False,
+    'player': 'P-00000004'
+}
+場札または手札にないのは
+カードステータス: {'blue': {'0': 1, '1': 2, '2': 2, '3': 2, '4': 1, '5': 2, '6': 2, '7': 2, '8': 2, '9': 1, 'draw_2': 2, 'skip': 2, 'reverse': 2}, 'green': {'0': 1, '1': 1, '2': 2, '3': 2, '4': 2, '5': 2, '6': 2, '7': 2, '8': 1, '9': 1, 'draw_2': 2, 'skip': 2, 'reverse': 1}, 'red': {'0': 1, '1': 2, '2': 2, '3': 2, '4': 2, '5': 2, '6': 1, '7': 2, '8': 2, '9': 2, 'draw_2': 2, 'skip': 2, 'reverse': 2}, 'yellow': {'0': 1, '1': 1, '2': 0, '3': 2, '4': 1, '5': 2, '6': 2, '7': 1, '8': 1, '9': 1, 'draw_2': 2, 'skip': 2, 'reverse': 1}, 'black': {'wild': 4, 'wild_draw_4': 4, 'wild_shuffle': 1}, 'white': {'white_wild': 3}}
+今のは{'card_counts': 4, 'card': {'color': 'green', 'special': 'reverse'}}
+その前は{'card_counts': 5, 'card': {'color': 'yellow', 'number': 9}}
+---場にカードを出した---
+プレイヤー: P-00000003
+カード: {'color': 'green', 'special': 'reverse'}
+山札の枚数: 83
+場の枚数: 11
+P-00000004の枚数: 4
+P-00000001の枚数: 5
+P-00000002の枚数: 5
+P-00000003の枚数: 4
+カード合計: 112
+CHECK: True
+最後に記録されたカード: {'color': 'green', 'special': 'reverse'}
+反転発動
+{'P-00000002': {'位置': '直前', 'UNO': False}, 'P-00000003': {'位置': '対面', 'UNO': False}, 'P-00000004': {'位置': '直後', 'UNO': False}}
+Receive play-card event.
+res_data: 
+{
+    'card_play': {'color': 'green', 'special': 'reverse'},
+    'yell_uno': False,
+    'player': 'P-00000003'
+}
+場札または手札にないのは
+カードステータス: {'blue': {'0': 1, '1': 2, '2': 2, '3': 2, '4': 1, '5': 2, '6': 2, '7': 2, '8': 2, '9': 1, 'draw_2': 2, 'skip': 2, 'reverse': 2}, 'green': {'0': 1, '1': 1, '2': 2, '3': 2, '4': 2, '5': 1, '6': 2, '7': 2, '8': 1, '9': 1, 'draw_2': 2, 'skip': 2, 'reverse': 1}, 'red': {'0': 1, '1': 2, '2': 2, '3': 2, '4': 2, '5': 2, '6': 1, '7': 2, '8': 2, '9': 2, 'draw_2': 2, 'skip': 2, 'reverse': 2}, 'yellow': {'0': 1, '1': 1, '2': 0, '3': 2, '4': 1, '5': 2, '6': 2, '7': 1, '8': 1, '9': 1, 'draw_2': 2, 'skip': 2, 'reverse': 1}, 'black': {'wild': 4, 'wild_draw_4': 4, 'wild_shuffle': 1}, 'white': {'white_wild': 3}}
+今のは{'card_counts': 3, 'card': {'color': 'green', 'number': 5}}
+その前は{'card_counts': 4, 'card': {'color': 'green', 'number': 1}}
+---場にカードを出した---
+プレイヤー: P-00000004
+カード: {'color': 'green', 'number': 5}
+山札の枚数: 83
+場の枚数: 12
+P-00000004の枚数: 3
+P-00000001の枚数: 5
+P-00000002の枚数: 5
+P-00000003の枚数: 4
+カード合計: 112
+CHECK: True
+最後に記録されたカード: {'color': 'green', 'number': 5}
+Receive play-card event.
+res_data: 
+{
+    'card_play': {'color': 'green', 'number': 5},
+    'yell_uno': False,
+    'player': 'P-00000004'
+}
+Receive next-player event.
+res_data: 
+{
+    'next_player': 'P-00000001',
+    'before_player': 'P-00000004',
+    'card_before': {'color': 'green', 'number': 5},
+    'card_of_player': [
+        {'color': 'yellow', 'number': 4},
+        {'color': 'yellow', 'number': 7},
+        {'color': 'green', 'number': 8},
+        {'color': 'blue', 'number': 4},
+        {'color': 'red', 'number': 6}
+    ],
+    'must_call_draw_card': False,
+    'draw_reason': 'nothing',
+    'turn_right': True,
+    'number_card_play': 12,
+    'number_turn_play': 11,
+    'number_card_of_player': {
+        'P-00000004': 3,
+        'P-00000001': 5,
+        'P-00000002': 5,
+        'P-00000003': 4
+    }
+}
+---枚数照合---
+誰？： P-00000004
+dealerから送られてきたカード枚数: 3
+game_statusで記録していたカード枚数: 3
+正しいか: True
+---枚数照合---
+誰？： P-00000001
+dealerから送られてきたカード枚数: 5
+game_statusで記録していたカード枚数: 5
+正しいか: True
+---枚数照合---
+誰？： P-00000002
+dealerから送られてきたカード枚数: 5
+game_statusで記録していたカード枚数: 5
+正しいか: True
+---枚数照合---
+誰？： P-00000003
+dealerから送られてきたカード枚数: 4
+game_statusで記録していたカード枚数: 4
+正しいか: True
+selected card: green 8
+Send play-card event.
+req_data: 
+{'card_play': {'color': 'green', 'number': 8}, 'yell_uno': False}
+今のは{'card_counts': 4, 'card': {'color': 'green', 'number': 8}}
+その前は{'card_counts': 5, 'card': {'color': 'green', 'number': 9}}
+---場にカードを出した---
+プレイヤー: P-00000001
+カード: {'color': 'green', 'number': 8}
+山札の枚数: 83
+場の枚数: 13
+P-00000004の枚数: 3
+P-00000001の枚数: 4
+P-00000002の枚数: 5
+P-00000003の枚数: 4
+カード合計: 112
+CHECK: True
+最後に記録されたカード: {'color': 'green', 'number': 8}
+Receive play-card event.
+res_data: 
+{
+    'card_play': {'color': 'green', 'number': 8},
+    'yell_uno': False,
+    'player': 'P-00000001'
+}
+Send play-card event.
+res_data: 
+{'card_play': {'color': 'green', 'number': 8}, 'yell_uno': False}
+場札または手札にないのは
+カードステータス: {'blue': {'0': 1, '1': 2, '2': 2, '3': 2, '4': 1, '5': 2, '6': 2, '7': 2, '8': 2, '9': 1, 'draw_2': 2, 'skip': 2, 'reverse': 2}, 'green': {'0': 1, '1': 1, '2': 2, '3': 2, '4': 2, '5': 1, '6': 2, '7': 2, '8': 1, '9': 1, 'draw_2': 1, 'skip': 2, 'reverse': 1}, 'red': {'0': 1, '1': 2, '2': 2, '3': 2, '4': 2, '5': 2, '6': 1, '7': 2, '8': 2, '9': 2, 'draw_2': 2, 'skip': 2, 'reverse': 2}, 'yellow': {'0': 1, '1': 1, '2': 0, '3': 2, '4': 1, '5': 2, '6': 2, '7': 1, '8': 1, '9': 1, 'draw_2': 2, 'skip': 2, 'reverse': 1}, 'black': {'wild': 4, 'wild_draw_4': 4, 'wild_shuffle': 1}, 'white': {'white_wild': 3}}
+今のは{'card_counts': 4, 'card': {'color': 'green', 'special': 'draw_2'}}
+その前は{'card_counts': 5, 'card': {'color': 'blue', 'number': 9}}
+---場にカードを出した---
+プレイヤー: P-00000002
+カード: {'color': 'green', 'special': 'draw_2'}
+山札の枚数: 83
+場の枚数: 14
+P-00000004の枚数: 3
+P-00000001の枚数: 4
+P-00000002の枚数: 4
+P-00000003の枚数: 4
+カード合計: 112
+CHECK: True
+最後に記録されたカード: {'color': 'green', 'special': 'draw_2'}
+Receive play-card event.
+res_data: 
+{
+    'card_play': {'color': 'green', 'special': 'draw_2'},
+    'yell_uno': False,
+    'player': 'P-00000002'
+}
+Receive draw-card event.
+res_data: 
+{'player': 'P-00000003', 'is_draw': True}
+---P-00000003がカードを引きます---
+引く理由: draw_2
+---更新前---
+山札:83枚
+P-00000004:3枚 P-00000001:4枚 P-00000002:4枚 P-00000003:4枚 
+---更新後---
+山札からP-00000003へ2枚移動
+山札:81枚
+P-00000004:3枚 P-00000001:4枚 P-00000002:4枚 P-00000003:6枚 
+Receive draw-card event.
+res_data: 
+{'player': 'P-00000004', 'is_draw': True}
+---P-00000004がカードを引きます---
+引く理由: 場に出すカードがない(再行動可能)
+---更新前---
+山札:81枚
+P-00000004:3枚 P-00000001:4枚 P-00000002:4枚 P-00000003:6枚 
+---更新後---
+山札からP-00000004へ1枚移動
+山札:80枚
+P-00000004:4枚 P-00000001:4枚 P-00000002:4枚 P-00000003:6枚 
+Receive next-player event.
+res_data: 
+{
+    'next_player': 'P-00000001',
+    'before_player': 'P-00000004',
+    'card_before': {'color': 'green', 'special': 'draw_2'},
+    'card_of_player': [
+        {'color': 'yellow', 'number': 4},
+        {'color': 'yellow', 'number': 7},
+        {'color': 'blue', 'number': 4},
+        {'color': 'red', 'number': 6}
+    ],
+    'must_call_draw_card': False,
+    'draw_reason': 'nothing',
+    'turn_right': True,
+    'number_card_play': 14,
+    'number_turn_play': 15,
+    'number_card_of_player': {
+        'P-00000004': 4,
+        'P-00000001': 4,
+        'P-00000002': 4,
+        'P-00000003': 6
+    }
+}
+---枚数照合---
+誰？： P-00000004
+dealerから送られてきたカード枚数: 4
+game_statusで記録していたカード枚数: 4
+正しいか: True
+---枚数照合---
+誰？： P-00000001
+dealerから送られてきたカード枚数: 4
+game_statusで記録していたカード枚数: 4
+正しいか: True
+---枚数照合---
+誰？： P-00000002
+dealerから送られてきたカード枚数: 4
+game_statusで記録していたカード枚数: 4
+正しいか: True
+---枚数照合---
+誰？： P-00000003
+dealerから送られてきたカード枚数: 6
+game_statusで記録していたカード枚数: 6
+正しいか: True
+Send draw-card event.
+req_data: 
+{}
+場札または手札にないのは
+カードステータス: {'blue': {'0': 1, '1': 2, '2': 2, '3': 1, '4': 1, '5': 2, '6': 2, '7': 2, '8': 2, '9': 1, 'draw_2': 2, 'skip': 2, 'reverse': 2}, 'green': {'0': 1, '1': 1, '2': 2, '3': 2, '4': 2, '5': 1, '6': 2, '7': 2, '8': 1, '9': 1, 'draw_2': 1, 'skip': 2, 'reverse': 1}, 'red': {'0': 1, '1': 2, '2': 2, '3': 2, '4': 2, '5': 2, '6': 1, '7': 2, '8': 2, '9': 2, 'draw_2': 2, 'skip': 2, 'reverse': 2}, 'yellow': {'0': 1, '1': 1, '2': 0, '3': 2, '4': 1, '5': 2, '6': 2, '7': 1, '8': 1, '9': 1, 'draw_2': 2, 'skip': 2, 'reverse': 1}, 'black': {'wild': 4, 'wild_draw_4': 4, 'wild_shuffle': 1}, 'white': {'white_wild': 3}}
+Receive receiver-card event.
+res_data: 
+{'cards_receive': [{'color': 'blue', 'number': 3}], 'is_penalty': False}
+Receive draw-card event.
+res_data: 
+{'player': 'P-00000001', 'is_draw': True}
+---P-00000001がカードを引きます---
+引く理由: 場に出すカードがない(再行動可能)
+---更新前---
+山札:80枚
+P-00000004:4枚 P-00000001:4枚 P-00000002:4枚 P-00000003:6枚 
+---更新後---
+山札からP-00000001へ1枚移動
+山札:79枚
+P-00000004:4枚 P-00000001:5枚 P-00000002:4枚 P-00000003:6枚 
+Send draw-card event.
+res_data: 
+{
+    'player': 'P-00000001',
+    'is_draw': True,
+    'can_play_draw_card': False,
+    'draw_card': [{'color': 'blue', 'number': 3}]
+}
+場札または手札にないのは
+カードステータス: {'blue': {'0': 1, '1': 2, '2': 2, '3': 1, '4': 1, '5': 2, '6': 2, '7': 2, '8': 2, '9': 1, 'draw_2': 2, 'skip': 2, 'reverse': 2}, 'green': {'0': 1, '1': 1, '2': 2, '3': 2, '4': 1, '5': 1, '6': 2, '7': 2, '8': 1, '9': 1, 'draw_2': 1, 'skip': 2, 'reverse': 1}, 'red': {'0': 1, '1': 2, '2': 2, '3': 2, '4': 2, '5': 2, '6': 1, '7': 2, '8': 2, '9': 2, 'draw_2': 2, 'skip': 2, 'reverse': 2}, 'yellow': {'0': 1, '1': 1, '2': 0, '3': 2, '4': 1, '5': 2, '6': 2, '7': 1, '8': 1, '9': 1, 'draw_2': 2, 'skip': 2, 'reverse': 1}, 'black': {'wild': 4, 'wild_draw_4': 4, 'wild_shuffle': 1}, 'white': {'white_wild': 3}}
+今のは{'card_counts': 3, 'card': {'color': 'green', 'number': 4}}
+その前は{'card_counts': 4, 'card': {'color': 'green', 'special': 'draw_2'}}
+---場にカードを出した---
+プレイヤー: P-00000002
+カード: {'color': 'green', 'number': 4}
+山札の枚数: 79
+場の枚数: 15
+P-00000004の枚数: 4
+P-00000001の枚数: 5
+P-00000002の枚数: 3
+P-00000003の枚数: 6
+カード合計: 112
+CHECK: True
+最後に記録されたカード: {'color': 'green', 'number': 4}
+Receive play-card event.
+res_data: 
+{
+    'card_play': {'color': 'green', 'number': 4},
+    'yell_uno': False,
+    'player': 'P-00000002'
+}
+場札または手札にないのは
+カードステータス: {'blue': {'0': 1, '1': 2, '2': 2, '3': 1, '4': 1, '5': 2, '6': 2, '7': 2, '8': 2, '9': 1, 'draw_2': 2, 'skip': 2, 'reverse': 2}, 'green': {'0': 1, '1': 1, '2': 2, '3': 2, '4': 0, '5': 1, '6': 2, '7': 2, '8': 1, '9': 1, 'draw_2': 1, 'skip': 2, 'reverse': 1}, 'red': {'0': 1, '1': 2, '2': 2, '3': 2, '4': 2, '5': 2, '6': 1, '7': 2, '8': 2, '9': 2, 'draw_2': 2, 'skip': 2, 'reverse': 2}, 'yellow': {'0': 1, '1': 1, '2': 0, '3': 2, '4': 1, '5': 2, '6': 2, '7': 1, '8': 1, '9': 1, 'draw_2': 2, 'skip': 2, 'reverse': 1}, 'black': {'wild': 4, 'wild_draw_4': 4, 'wild_shuffle': 1}, 'white': {'white_wild': 3}}
+今のは{'card_counts': 5, 'card': {'color': 'green', 'number': 4}}
+その前は{'card_counts': 4, 'card': {'color': 'green', 'special': 'reverse'}}
+---場にカードを出した---
+プレイヤー: P-00000003
+カード: {'color': 'green', 'number': 4}
+山札の枚数: 79
+場の枚数: 16
+P-00000004の枚数: 4
+P-00000001の枚数: 5
+P-00000002の枚数: 3
+P-00000003の枚数: 5
+カード合計: 112
+CHECK: True
+最後に記録されたカード: {'color': 'green', 'number': 4}
+Receive play-card event.
+res_data: 
+{
+    'card_play': {'color': 'green', 'number': 4},
+    'yell_uno': False,
+    'player': 'P-00000003'
+}
+Receive draw-card event.
+res_data: 
+{'player': 'P-00000004', 'is_draw': True}
+---P-00000004がカードを引きます---
+引く理由: 場に出すカードがない(再行動可能)
+---更新前---
+山札:79枚
+P-00000004:4枚 P-00000001:5枚 P-00000002:3枚 P-00000003:5枚 
+---更新後---
+山札からP-00000004へ1枚移動
+山札:78枚
+P-00000004:5枚 P-00000001:5枚 P-00000002:3枚 P-00000003:5枚 
+Receive next-player event.
+res_data: 
+{
+    'next_player': 'P-00000001',
+    'before_player': 'P-00000004',
+    'card_before': {'color': 'green', 'number': 4},
+    'card_of_player': [
+        {'color': 'yellow', 'number': 4},
+        {'color': 'yellow', 'number': 7},
+        {'color': 'blue', 'number': 3},
+        {'color': 'blue', 'number': 4},
+        {'color': 'red', 'number': 6}
+    ],
+    'must_call_draw_card': False,
+    'draw_reason': 'nothing',
+    'turn_right': True,
+    'number_card_play': 16,
+    'number_turn_play': 19,
+    'number_card_of_player': {
+        'P-00000004': 5,
+        'P-00000001': 5,
+        'P-00000002': 3,
+        'P-00000003': 5
+    }
+}
+---枚数照合---
+誰？： P-00000004
+dealerから送られてきたカード枚数: 5
+game_statusで記録していたカード枚数: 5
+正しいか: True
+---枚数照合---
+誰？： P-00000001
+dealerから送られてきたカード枚数: 5
+game_statusで記録していたカード枚数: 5
+正しいか: True
+---枚数照合---
+誰？： P-00000002
+dealerから送られてきたカード枚数: 3
+game_statusで記録していたカード枚数: 3
+正しいか: True
+---枚数照合---
+誰？： P-00000003
+dealerから送られてきたカード枚数: 5
+game_statusで記録していたカード枚数: 5
+正しいか: True
+selected card: yellow 4
+Send play-card event.
+req_data: 
+{'card_play': {'color': 'yellow', 'number': 4}, 'yell_uno': False}
+今のは{'card_counts': 4, 'card': {'color': 'yellow', 'number': 4}}
+その前は{'card_counts': 4, 'card': {'color': 'green', 'number': 8}}
+---場にカードを出した---
+プレイヤー: P-00000001
+カード: {'color': 'yellow', 'number': 4}
+山札の枚数: 78
+場の枚数: 17
+P-00000004の枚数: 5
+P-00000001の枚数: 4
+P-00000002の枚数: 3
+P-00000003の枚数: 5
+カード合計: 112
+CHECK: True
+最後に記録されたカード: {'color': 'yellow', 'number': 4}
+Receive play-card event.
+res_data: 
+{
+    'card_play': {'color': 'yellow', 'number': 4},
+    'yell_uno': False,
+    'player': 'P-00000001'
+}
+Send play-card event.
+res_data: 
+{'card_play': {'color': 'yellow', 'number': 4}, 'yell_uno': False}
+Receive draw-card event.
+res_data: 
+{'player': 'P-00000002', 'is_draw': True}
+---P-00000002がカードを引きます---
+引く理由: 場に出すカードがない(再行動可能)
+---更新前---
+山札:78枚
+P-00000004:5枚 P-00000001:4枚 P-00000002:3枚 P-00000003:5枚 
+---更新後---
+山札からP-00000002へ1枚移動
+山札:77枚
+P-00000004:5枚 P-00000001:4枚 P-00000002:4枚 P-00000003:5枚 
+場札または手札にないのは
+カードステータス: {'blue': {'0': 1, '1': 2, '2': 2, '3': 1, '4': 1, '5': 2, '6': 2, '7': 2, '8': 2, '9': 1, 'draw_2': 2, 'skip': 2, 'reverse': 2}, 'green': {'0': 1, '1': 1, '2': 2, '3': 2, '4': 0, '5': 1, '6': 2, '7': 2, '8': 1, '9': 1, 'draw_2': 1, 'skip': 2, 'reverse': 1}, 'red': {'0': 1, '1': 2, '2': 2, '3': 2, '4': 2, '5': 2, '6': 1, '7': 2, '8': 2, '9': 2, 'draw_2': 2, 'skip': 2, 'reverse': 2}, 'yellow': {'0': 1, '1': 1, '2': 0, '3': 2, '4': 1, '5': 1, '6': 2, '7': 1, '8': 1, '9': 1, 'draw_2': 2, 'skip': 2, 'reverse': 1}, 'black': {'wild': 4, 'wild_draw_4': 4, 'wild_shuffle': 1}, 'white': {'white_wild': 3}}
+今のは{'card_counts': 4, 'card': {'color': 'yellow', 'number': 5}}
+その前は{'card_counts': 5, 'card': {'color': 'green', 'number': 4}}
+---場にカードを出した---
+プレイヤー: P-00000003
+カード: {'color': 'yellow', 'number': 5}
+山札の枚数: 77
+場の枚数: 18
+P-00000004の枚数: 5
+P-00000001の枚数: 4
+P-00000002の枚数: 4
+P-00000003の枚数: 4
+カード合計: 112
+CHECK: True
+最後に記録されたカード: {'color': 'yellow', 'number': 5}
+Receive play-card event.
+res_data: 
+{
+    'card_play': {'color': 'yellow', 'number': 5},
+    'yell_uno': False,
+    'player': 'P-00000003'
+}
+場札または手札にないのは
+カードステータス: {'blue': {'0': 1, '1': 2, '2': 2, '3': 1, '4': 1, '5': 2, '6': 2, '7': 2, '8': 2, '9': 1, 'draw_2': 2, 'skip': 2, 'reverse': 2}, 'green': {'0': 1, '1': 1, '2': 2, '3': 2, '4': 0, '5': 1, '6': 2, '7': 2, '8': 1, '9': 1, 'draw_2': 1, 'skip': 2, 'reverse': 1}, 'red': {'0': 1, '1': 2, '2': 2, '3': 2, '4': 2, '5': 2, '6': 1, '7': 2, '8': 2, '9': 2, 'draw_2': 2, 'skip': 2, 'reverse': 2}, 'yellow': {'0': 1, '1': 1, '2': 0, '3': 2, '4': 1, '5': 1, '6': 2, '7': 1, '8': 1, '9': 1, 'draw_2': 2, 'skip': 1, 'reverse': 1}, 'black': {'wild': 4, 'wild_draw_4': 4, 'wild_shuffle': 1}, 'white': {'white_wild': 3}}
+今のは{'card_counts': 4, 'card': {'color': 'yellow', 'special': 'skip'}}
+その前は{'card_counts': 3, 'card': {'color': 'green', 'number': 5}}
+---場にカードを出した---
+プレイヤー: P-00000004
+カード: {'color': 'yellow', 'special': 'skip'}
+山札の枚数: 77
+場の枚数: 19
+P-00000004の枚数: 4
+P-00000001の枚数: 4
+P-00000002の枚数: 4
+P-00000003の枚数: 4
+カード合計: 112
+CHECK: True
+最後に記録されたカード: {'color': 'yellow', 'special': 'skip'}
+Receive play-card event.
+res_data: 
+{
+    'card_play': {'color': 'yellow', 'special': 'skip'},
+    'yell_uno': False,
+    'player': 'P-00000004'
+}
+場札または手札にないのは
+カードステータス: {'blue': {'0': 1, '1': 2, '2': 2, '3': 1, '4': 1, '5': 2, '6': 2, '7': 2, '8': 2, '9': 1, 'draw_2': 2, 'skip': 2, 'reverse': 2}, 'green': {'0': 1, '1': 1, '2': 2, '3': 2, '4': 0, '5': 1, '6': 2, '7': 2, '8': 1, '9': 1, 'draw_2': 1, 'skip': 2, 'reverse': 1}, 'red': {'0': 1, '1': 2, '2': 2, '3': 2, '4': 2, '5': 2, '6': 1, '7': 2, '8': 2, '9': 2, 'draw_2': 2, 'skip': 1, 'reverse': 2}, 'yellow': {'0': 1, '1': 1, '2': 0, '3': 2, '4': 1, '5': 1, '6': 2, '7': 1, '8': 1, '9': 1, 'draw_2': 2, 'skip': 1, 'reverse': 1}, 'black': {'wild': 4, 'wild_draw_4': 4, 'wild_shuffle': 1}, 'white': {'white_wild': 3}}
+今のは{'card_counts': 3, 'card': {'color': 'red', 'special': 'skip'}}
+その前は{'card_counts': 3, 'card': {'color': 'green', 'number': 4}}
+---場にカードを出した---
+プレイヤー: P-00000002
+カード: {'color': 'red', 'special': 'skip'}
+山札の枚数: 77
+場の枚数: 20
+P-00000004の枚数: 4
+P-00000001の枚数: 4
+P-00000002の枚数: 3
+P-00000003の枚数: 4
+カード合計: 112
+CHECK: True
+最後に記録されたカード: {'color': 'red', 'special': 'skip'}
+Receive play-card event.
+res_data: 
+{
+    'card_play': {'color': 'red', 'special': 'skip'},
+    'yell_uno': False,
+    'player': 'P-00000002'
+}
+場札または手札にないのは
+カードステータス: {'blue': {'0': 1, '1': 2, '2': 2, '3': 1, '4': 1, '5': 2, '6': 2, '7': 2, '8': 2, '9': 1, 'draw_2': 2, 'skip': 1, 'reverse': 2}, 'green': {'0': 1, '1': 1, '2': 2, '3': 2, '4': 0, '5': 1, '6': 2, '7': 2, '8': 1, '9': 1, 'draw_2': 1, 'skip': 2, 'reverse': 1}, 'red': {'0': 1, '1': 2, '2': 2, '3': 2, '4': 2, '5': 2, '6': 1, '7': 2, '8': 2, '9': 2, 'draw_2': 2, 'skip': 1, 'reverse': 2}, 'yellow': {'0': 1, '1': 1, '2': 0, '3': 2, '4': 1, '5': 1, '6': 2, '7': 1, '8': 1, '9': 1, 'draw_2': 2, 'skip': 1, 'reverse': 1}, 'black': {'wild': 4, 'wild_draw_4': 4, 'wild_shuffle': 1}, 'white': {'white_wild': 3}}
+今のは{'card_counts': 3, 'card': {'color': 'blue', 'special': 'skip'}}
+その前は{'card_counts': 4, 'card': {'color': 'yellow', 'special': 'skip'}}
+---場にカードを出した---
+プレイヤー: P-00000004
+カード: {'color': 'blue', 'special': 'skip'}
+山札の枚数: 77
+場の枚数: 21
+P-00000004の枚数: 3
+P-00000001の枚数: 4
+P-00000002の枚数: 3
+P-00000003の枚数: 4
+カード合計: 112
+CHECK: True
+最後に記録されたカード: {'color': 'blue', 'special': 'skip'}
+Receive play-card event.
+res_data: 
+{
+    'card_play': {'color': 'blue', 'special': 'skip'},
+    'yell_uno': False,
+    'player': 'P-00000004'
+}
+場札または手札にないのは
+カードステータス: {'blue': {'0': 1, '1': 2, '2': 2, '3': 1, '4': 1, '5': 2, '6': 2, '7': 1, '8': 2, '9': 1, 'draw_2': 2, 'skip': 1, 'reverse': 2}, 'green': {'0': 1, '1': 1, '2': 2, '3': 2, '4': 0, '5': 1, '6': 2, '7': 2, '8': 1, '9': 1, 'draw_2': 1, 'skip': 2, 'reverse': 1}, 'red': {'0': 1, '1': 2, '2': 2, '3': 2, '4': 2, '5': 2, '6': 1, '7': 2, '8': 2, '9': 2, 'draw_2': 2, 'skip': 1, 'reverse': 2}, 'yellow': {'0': 1, '1': 1, '2': 0, '3': 2, '4': 1, '5': 1, '6': 2, '7': 1, '8': 1, '9': 1, 'draw_2': 2, 'skip': 1, 'reverse': 1}, 'black': {'wild': 4, 'wild_draw_4': 4, 'wild_shuffle': 1}, 'white': {'white_wild': 3}}
+今のは{'card_counts': 2, 'card': {'color': 'blue', 'number': 7}}
+その前は{'card_counts': 3, 'card': {'color': 'red', 'special': 'skip'}}
+---場にカードを出した---
+プレイヤー: P-00000002
+カード: {'color': 'blue', 'number': 7}
+山札の枚数: 77
+場の枚数: 22
+P-00000004の枚数: 3
+P-00000001の枚数: 4
+P-00000002の枚数: 2
+P-00000003の枚数: 4
+カード合計: 112
+CHECK: True
+最後に記録されたカード: {'color': 'blue', 'number': 7}
+Receive play-card event.
+res_data: 
+{
+    'card_play': {'color': 'blue', 'number': 7},
+    'yell_uno': False,
+    'player': 'P-00000002'
+}
+場札または手札にないのは
+カードステータス: {'blue': {'0': 1, '1': 2, '2': 2, '3': 1, '4': 0, '5': 2, '6': 2, '7': 1, '8': 2, '9': 1, 'draw_2': 2, 'skip': 1, 'reverse': 2}, 'green': {'0': 1, '1': 1, '2': 2, '3': 2, '4': 0, '5': 1, '6': 2, '7': 2, '8': 1, '9': 1, 'draw_2': 1, 'skip': 2, 'reverse': 1}, 'red': {'0': 1, '1': 2, '2': 2, '3': 2, '4': 2, '5': 2, '6': 1, '7': 2, '8': 2, '9': 2, 'draw_2': 2, 'skip': 1, 'reverse': 2}, 'yellow': {'0': 1, '1': 1, '2': 0, '3': 2, '4': 1, '5': 1, '6': 2, '7': 1, '8': 1, '9': 1, 'draw_2': 2, 'skip': 1, 'reverse': 1}, 'black': {'wild': 4, 'wild_draw_4': 4, 'wild_shuffle': 1}, 'white': {'white_wild': 3}}
+今のは{'card_counts': 3, 'card': {'color': 'blue', 'number': 4}}
+その前は{'card_counts': 4, 'card': {'color': 'yellow', 'number': 5}}
+---場にカードを出した---
+プレイヤー: P-00000003
+カード: {'color': 'blue', 'number': 4}
+山札の枚数: 77
+場の枚数: 23
+P-00000004の枚数: 3
+P-00000001の枚数: 4
+P-00000002の枚数: 2
+P-00000003の枚数: 3
+カード合計: 112
+CHECK: True
+最後に記録されたカード: {'color': 'blue', 'number': 4}
+Receive play-card event.
+res_data: 
+{
+    'card_play': {'color': 'blue', 'number': 4},
+    'yell_uno': False,
+    'player': 'P-00000003'
+}
+場札または手札にないのは
+カードステータス: {'blue': {'0': 1, '1': 2, '2': 2, '3': 1, '4': 0, '5': 1, '6': 2, '7': 1, '8': 2, '9': 1, 'draw_2': 2, 'skip': 1, 'reverse': 2}, 'green': {'0': 1, '1': 1, '2': 2, '3': 2, '4': 0, '5': 1, '6': 2, '7': 2, '8': 1, '9': 1, 'draw_2': 1, 'skip': 2, 'reverse': 1}, 'red': {'0': 1, '1': 2, '2': 2, '3': 2, '4': 2, '5': 2, '6': 1, '7': 2, '8': 2, '9': 2, 'draw_2': 2, 'skip': 1, 'reverse': 2}, 'yellow': {'0': 1, '1': 1, '2': 0, '3': 2, '4': 1, '5': 1, '6': 2, '7': 1, '8': 1, '9': 1, 'draw_2': 2, 'skip': 1, 'reverse': 1}, 'black': {'wild': 4, 'wild_draw_4': 4, 'wild_shuffle': 1}, 'white': {'white_wild': 3}}
+今のは{'card_counts': 2, 'card': {'color': 'blue', 'number': 5}}
+その前は{'card_counts': 3, 'card': {'color': 'blue', 'special': 'skip'}}
+---場にカードを出した---
+プレイヤー: P-00000004
+カード: {'color': 'blue', 'number': 5}
+山札の枚数: 77
+場の枚数: 24
+P-00000004の枚数: 2
+P-00000001の枚数: 4
+P-00000002の枚数: 2
+P-00000003の枚数: 3
+カード合計: 112
+CHECK: True
+最後に記録されたカード: {'color': 'blue', 'number': 5}
+Receive play-card event.
+res_data: 
+{
+    'card_play': {'color': 'blue', 'number': 5},
+    'yell_uno': False,
+    'player': 'P-00000004'
+}
+Receive next-player event.
+res_data: 
+{
+    'next_player': 'P-00000001',
+    'before_player': 'P-00000004',
+    'card_before': {'color': 'blue', 'number': 5},
+    'card_of_player': [
+        {'color': 'yellow', 'number': 7},
+        {'color': 'blue', 'number': 3},
+        {'color': 'blue', 'number': 4},
+        {'color': 'red', 'number': 6}
+    ],
+    'must_call_draw_card': False,
+    'draw_reason': 'nothing',
+    'turn_right': True,
+    'number_card_play': 24,
+    'number_turn_play': 28,
+    'number_card_of_player': {
+        'P-00000004': 2,
+        'P-00000001': 4,
+        'P-00000002': 2,
+        'P-00000003': 3
+    }
+}
+---枚数照合---
+誰？： P-00000004
+dealerから送られてきたカード枚数: 2
+game_statusで記録していたカード枚数: 2
+正しいか: True
+---枚数照合---
+誰？： P-00000001
+dealerから送られてきたカード枚数: 4
+game_statusで記録していたカード枚数: 4
+正しいか: True
+---枚数照合---
+誰？： P-00000002
+dealerから送られてきたカード枚数: 2
+game_statusで記録していたカード枚数: 2
+正しいか: True
+---枚数照合---
+誰？： P-00000003
+dealerから送られてきたカード枚数: 3
+game_statusで記録していたカード枚数: 3
+正しいか: True
+selected card: blue 3
+Send play-card event.
+req_data: 
+{'card_play': {'color': 'blue', 'number': 3}, 'yell_uno': False}
+今のは{'card_counts': 3, 'card': {'color': 'blue', 'number': 3}}
+その前は{'card_counts': 4, 'card': {'color': 'yellow', 'number': 4}}
+---場にカードを出した---
+プレイヤー: P-00000001
+カード: {'color': 'blue', 'number': 3}
+山札の枚数: 77
+場の枚数: 25
+P-00000004の枚数: 2
+P-00000001の枚数: 3
+P-00000002の枚数: 2
+P-00000003の枚数: 3
+カード合計: 112
+CHECK: True
+最後に記録されたカード: {'color': 'blue', 'number': 3}
+Receive play-card event.
+res_data: 
+{
+    'card_play': {'color': 'blue', 'number': 3},
+    'yell_uno': False,
+    'player': 'P-00000001'
+}
+Send play-card event.
+res_data: 
+{'card_play': {'color': 'blue', 'number': 3}, 'yell_uno': False}
+場札または手札にないのは
+カードステータス: {'blue': {'0': 1, '1': 2, '2': 2, '3': 1, '4': 0, '5': 1, '6': 2, '7': 1, '8': 2, '9': 1, 'draw_2': 2, 'skip': 1, 'reverse': 2}, 'green': {'0': 1, '1': 1, '2': 2, '3': 2, '4': 0, '5': 1, '6': 2, '7': 2, '8': 1, '9': 1, 'draw_2': 1, 'skip': 2, 'reverse': 1}, 'red': {'0': 1, '1': 2, '2': 2, '3': 1, '4': 2, '5': 2, '6': 1, '7': 2, '8': 2, '9': 2, 'draw_2': 2, 'skip': 1, 'reverse': 2}, 'yellow': {'0': 1, '1': 1, '2': 0, '3': 2, '4': 1, '5': 1, '6': 2, '7': 1, '8': 1, '9': 1, 'draw_2': 2, 'skip': 1, 'reverse': 1}, 'black': {'wild': 4, 'wild_draw_4': 4, 'wild_shuffle': 1}, 'white': {'white_wild': 3}}
+今のは{'card_counts': 1, 'card': {'color': 'red', 'number': 3}}
+その前は{'card_counts': 2, 'card': {'color': 'blue', 'number': 7}}
+---場にカードを出した---
+プレイヤー: P-00000002
+カード: {'color': 'red', 'number': 3}
+山札の枚数: 77
+場の枚数: 26
+P-00000004の枚数: 2
+P-00000001の枚数: 3
+P-00000002の枚数: 1
+P-00000003の枚数: 3
+カード合計: 112
+CHECK: True
+最後に記録されたカード: {'color': 'red', 'number': 3}
+Receive play-card event.
+res_data: 
+{
+    'card_play': {'color': 'red', 'number': 3},
+    'yell_uno': True,
+    'player': 'P-00000002'
+}
+P-00000002がUNOしました
+場札または手札にないのは
+カードステータス: {'blue': {'0': 1, '1': 2, '2': 2, '3': 1, '4': 0, '5': 1, '6': 2, '7': 1, '8': 2, '9': 1, 'draw_2': 2, 'skip': 1, 'reverse': 2}, 'green': {'0': 1, '1': 1, '2': 2, '3': 2, '4': 0, '5': 1, '6': 2, '7': 2, '8': 1, '9': 1, 'draw_2': 1, 'skip': 2, 'reverse': 1}, 'red': {'0': 1, '1': 1, '2': 2, '3': 1, '4': 2, '5': 2, '6': 1, '7': 2, '8': 2, '9': 2, 'draw_2': 2, 'skip': 1, 'reverse': 2}, 'yellow': {'0': 1, '1': 1, '2': 0, '3': 2, '4': 1, '5': 1, '6': 2, '7': 1, '8': 1, '9': 1, 'draw_2': 2, 'skip': 1, 'reverse': 1}, 'black': {'wild': 4, 'wild_draw_4': 4, 'wild_shuffle': 1}, 'white': {'white_wild': 3}}
+今のは{'card_counts': 2, 'card': {'color': 'red', 'number': 1}}
+その前は{'card_counts': 3, 'card': {'color': 'blue', 'number': 4}}
+---場にカードを出した---
+プレイヤー: P-00000003
+カード: {'color': 'red', 'number': 1}
+山札の枚数: 77
+場の枚数: 27
+P-00000004の枚数: 2
+P-00000001の枚数: 3
+P-00000002の枚数: 1
+P-00000003の枚数: 2
+カード合計: 112
+CHECK: True
+最後に記録されたカード: {'color': 'red', 'number': 1}
+Receive play-card event.
+res_data: 
+{
+    'card_play': {'color': 'red', 'number': 1},
+    'yell_uno': False,
+    'player': 'P-00000003'
+}
+場札または手札にないのは
+カードステータス: {'blue': {'0': 1, '1': 2, '2': 2, '3': 1, '4': 0, '5': 1, '6': 2, '7': 1, '8': 2, '9': 1, 'draw_2': 2, 'skip': 1, 'reverse': 2}, 'green': {'0': 1, '1': 1, '2': 2, '3': 2, '4': 0, '5': 1, '6': 2, '7': 2, '8': 1, '9': 1, 'draw_2': 1, 'skip': 2, 'reverse': 1}, 'red': {'0': 1, '1': 1, '2': 2, '3': 1, '4': 2, '5': 2, '6': 1, '7': 2, '8': 2, '9': 2, 'draw_2': 2, 'skip': 0, 'reverse': 2}, 'yellow': {'0': 1, '1': 1, '2': 0, '3': 2, '4': 1, '5': 1, '6': 2, '7': 1, '8': 1, '9': 1, 'draw_2': 2, 'skip': 1, 'reverse': 1}, 'black': {'wild': 4, 'wild_draw_4': 4, 'wild_shuffle': 1}, 'white': {'white_wild': 3}}
+今のは{'card_counts': 1, 'card': {'color': 'red', 'special': 'skip'}}
+その前は{'card_counts': 2, 'card': {'color': 'blue', 'number': 5}}
+---場にカードを出した---
+プレイヤー: P-00000004
+カード: {'color': 'red', 'special': 'skip'}
+山札の枚数: 77
+場の枚数: 28
+P-00000004の枚数: 1
+P-00000001の枚数: 3
+P-00000002の枚数: 1
+P-00000003の枚数: 2
+カード合計: 112
+CHECK: True
+最後に記録されたカード: {'color': 'red', 'special': 'skip'}
+Receive play-card event.
+res_data: 
+{
+    'card_play': {'color': 'red', 'special': 'skip'},
+    'yell_uno': True,
+    'player': 'P-00000004'
+}
+P-00000004がUNOしました
+Receive draw-card event.
+res_data: 
+{'player': 'P-00000002', 'is_draw': True}
+P-00000002がUNO解除しました
+---P-00000002がカードを引きます---
+引く理由: 場に出すカードがない(再行動可能)
+---更新前---
+山札:77枚
+P-00000004:1枚 P-00000001:3枚 P-00000002:1枚 P-00000003:2枚 
+---更新後---
+山札からP-00000002へ1枚移動
+山札:76枚
+P-00000004:1枚 P-00000001:3枚 P-00000002:2枚 P-00000003:2枚 
+Receive play-draw-card event.
+res_data: 
+{
+    'is_play_card': True,
+    'yell_uno': True,
+    'player': 'P-00000002',
+    'card_play': {'color': 'red', 'number': 9}
+}
+P-00000002がUNOしました
+今のは{'card_counts': 1, 'card': {'color': 'red', 'number': 9}}
+その前は{'card_counts': 1, 'card': {'color': 'red', 'number': 3}}
+---場にカードを出した---
+プレイヤー: P-00000002
+カード: {'color': 'red', 'number': 9}
+山札の枚数: 76
+場の枚数: 29
+P-00000004の枚数: 1
+P-00000001の枚数: 3
+P-00000002の枚数: 1
+P-00000003の枚数: 2
+カード合計: 112
+CHECK: True
+最後に記録されたカード: {'color': 'red', 'number': 9}
+場札または手札にないのは
+カードステータス: {'blue': {'0': 1, '1': 2, '2': 2, '3': 1, '4': 0, '5': 1, '6': 2, '7': 1, '8': 2, '9': 1, 'draw_2': 2, 'skip': 1, 'reverse': 2}, 'green': {'0': 1, '1': 1, '2': 2, '3': 2, '4': 0, '5': 1, '6': 2, '7': 2, '8': 1, '9': 1, 'draw_2': 1, 'skip': 2, 'reverse': 1}, 'red': {'0': 1, '1': 1, '2': 2, '3': 1, '4': 2, '5': 2, '6': 1, '7': 2, '8': 2, '9': 1, 'draw_2': 2, 'skip': 0, 'reverse': 2}, 'yellow': {'0': 1, '1': 1, '2': 0, '3': 2, '4': 1, '5': 1, '6': 2, '7': 1, '8': 1, '9': 1, 'draw_2': 2, 'skip': 1, 'reverse': 1}, 'black': {'wild': 4, 'wild_draw_4': 4, 'wild_shuffle': 1}, 'white': {'white_wild': 3}}
+場札または手札にないのは
+カードステータス: {'blue': {'0': 1, '1': 2, '2': 2, '3': 1, '4': 0, '5': 1, '6': 2, '7': 1, '8': 2, '9': 1, 'draw_2': 2, 'skip': 1, 'reverse': 2}, 'green': {'0': 1, '1': 1, '2': 2, '3': 2, '4': 0, '5': 1, '6': 2, '7': 2, '8': 1, '9': 1, 'draw_2': 1, 'skip': 2, 'reverse': 1}, 'red': {'0': 1, '1': 1, '2': 2, '3': 1, '4': 2, '5': 2, '6': 1, '7': 1, '8': 2, '9': 1, 'draw_2': 2, 'skip': 0, 'reverse': 2}, 'yellow': {'0': 1, '1': 1, '2': 0, '3': 2, '4': 1, '5': 1, '6': 2, '7': 1, '8': 1, '9': 1, 'draw_2': 2, 'skip': 1, 'reverse': 1}, 'black': {'wild': 4, 'wild_draw_4': 4, 'wild_shuffle': 1}, 'white': {'white_wild': 3}}
+今のは{'card_counts': 1, 'card': {'color': 'red', 'number': 7}}
+その前は{'card_counts': 2, 'card': {'color': 'red', 'number': 1}}
+---場にカードを出した---
+プレイヤー: P-00000003
+カード: {'color': 'red', 'number': 7}
+山札の枚数: 76
+場の枚数: 30
+P-00000004の枚数: 1
+P-00000001の枚数: 3
+P-00000002の枚数: 1
+P-00000003の枚数: 1
+カード合計: 112
+CHECK: True
+最後に記録されたカード: {'color': 'red', 'number': 7}
+Receive play-card event.
+res_data: 
+{
+    'card_play': {'color': 'red', 'number': 7},
+    'yell_uno': True,
+    'player': 'P-00000003'
+}
+P-00000003がUNOしました
+場札または手札にないのは
+カードステータス: {'blue': {'0': 1, '1': 2, '2': 2, '3': 1, '4': 0, '5': 1, '6': 2, '7': 1, '8': 2, '9': 1, 'draw_2': 2, 'skip': 1, 'reverse': 2}, 'green': {'0': 1, '1': 1, '2': 2, '3': 2, '4': 0, '5': 1, '6': 2, '7': 2, '8': 1, '9': 1, 'draw_2': 1, 'skip': 2, 'reverse': 1}, 'red': {'0': 1, '1': 1, '2': 2, '3': 1, '4': 2, '5': 2, '6': 1, '7': 1, '8': 1, '9': 1, 'draw_2': 2, 'skip': 0, 'reverse': 2}, 'yellow': {'0': 1, '1': 1, '2': 0, '3': 2, '4': 1, '5': 1, '6': 2, '7': 1, '8': 1, '9': 1, 'draw_2': 2, 'skip': 1, 'reverse': 1}, 'black': {'wild': 4, 'wild_draw_4': 4, 'wild_shuffle': 1}, 'white': {'white_wild': 3}}
+今のは{'card_counts': 0, 'card': {'color': 'red', 'number': 8}}
+その前は{'card_counts': 1, 'card': {'color': 'red', 'special': 'skip'}}
+---場にカードを出した---
+プレイヤー: P-00000004
+カード: {'color': 'red', 'number': 8}
+山札の枚数: 76
+場の枚数: 31
+P-00000004の枚数: 0
+P-00000001の枚数: 3
+P-00000002の枚数: 1
+P-00000003の枚数: 1
+カード合計: 112
+CHECK: True
+最後に記録されたカード: {'color': 'red', 'number': 8}
+Receive play-card event.
+res_data: 
+{
+    'card_play': {'color': 'red', 'number': 8},
+    'yell_uno': False,
+    'player': 'P-00000004'
+}
+Receive finish-turn event.
+res_data: 
+{
+    'winner': 'P-00000004',
+    'turn_no': 194,
+    'score': {
+        'P-00000001': -17,
+        'P-00000002': -8,
+        'P-00000003': -6,
+        'P-00000004': 31
+    }
+}
+Receive finish-game event.
+res_data: 
+{
+    'winner': 'P-00000001',
+    'turn_win': 52,
+    'order': {
+        'P-00000001': 52,
+        'P-00000004': 51,
+        'P-00000003': 45,
+        'P-00000002': 43
+    },
+    'total_score': {
+        'P-00000001': 1524,
+        'P-00000004': 303,
+        'P-00000002': -656,
+        'P-00000003': -1171
+    }
+}
+Client disconnect.

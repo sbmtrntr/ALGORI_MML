@@ -168,7 +168,7 @@ def random_by_number(num):
     return math.floor(random.random() * num)
 
 
-def determine_if_execute_pointed_not_say_uno(number_card_of_player: dict) -> None:
+def determine_if_execute_pointed_not_say_uno(number_card_of_player:dict) -> None:
     """
     他のプレイヤーのUNO宣言漏れをチェックする
 
@@ -177,7 +177,7 @@ def determine_if_execute_pointed_not_say_uno(number_card_of_player: dict) -> Non
     Returns:
         None
     """
-    global id
+    global id, game_status
 
     target = None
     # 手札の枚数が1枚だけのプレイヤーを抽出する
@@ -301,6 +301,7 @@ def on_join_room(data_res):
 # カードが手札に追加された
 @sio.on(SocketConst.EMIT.RECEIVER_CARD)
 def on_reciever_card(data_res):
+    global game_status
     game_status.update_cards_status(data_res["cards_receive"])
     receive_event(SocketConst.EMIT.RECEIVER_CARD, data_res)
 
@@ -308,8 +309,12 @@ def on_reciever_card(data_res):
 # 対戦の開始
 @sio.on(SocketConst.EMIT.FIRST_PLAYER)
 def on_first_player(data_res):
-    global id
+    global id, game_status
     game_status.set_play_order(data_res['play_order'], id)
+    
+    # プレイヤー全員の手札枚数を初期化する
+    game_status.init_player_card_counts(data_res['play_order'])
+
     receive_event(SocketConst.EMIT.FIRST_PLAYER, data_res)
 
 
@@ -317,6 +322,7 @@ def on_first_player(data_res):
 @sio.on(SocketConst.EMIT.COLOR_OF_WILD)
 def on_color_of_wild(data_res):
     def color_of_wild_callback(data_res):
+        global game_status
         print("場札の色指定を要求", data_res)
         color = select_change_color(game_status.my_cards, game_status.cards_status)
         data = {
@@ -338,7 +344,9 @@ def on_update_color(data_res):
 # シャッフルワイルドにより手札状況が変更
 @sio.on(SocketConst.EMIT.SHUFFLE_WILD)
 def on_shuffle_wild(data_res):
+    global game_status
     def shuffle_wild_callback(data_res):
+        global game_status
         print("シャッフルワイルドにより手札状況が変更", data_res)
         game_status.uno_declared = {}
         for k, v in data_res.get('number_card_of_player').items():
@@ -364,16 +372,29 @@ def on_shuffle_wild(data_res):
     game_status.update_cards_status(data_res.get("cards_receive"))
     game_status.set_my_cards(data_res.get("cards_receive"))
 
+    # shuffle wildにより各プレイヤーの手札枚数がりセット
+    # 最新状態に更新しておく
+    for k, v in data_res['number_card_of_player'].items():
+        game_status.check_player_card_counts(k, v)
+
     receive_event(SocketConst.EMIT.SHUFFLE_WILD, data_res, shuffle_wild_callback)
 
 
 # 自分の番
 @sio.on(SocketConst.EMIT.NEXT_PLAYER)
 def on_next_player(data_res):
+    global game_status
+
     def next_player_callback(data_res):
-        global challenge_sucess
+        global game_status, challenge_sucess
+
+        # 各プレイヤーの手札枚数を最新状態に更新しておく
+        for k, v in data_res['number_card_of_player'].items():
+            game_status.check_player_card_counts(k, v)
+
         determine_if_execute_pointed_not_say_uno(data_res.get('number_card_of_player'))  ##########
 
+        # 自分の手札を更新しておく
         cards = data_res.get('card_of_player')
         game_status.set_my_cards(cards)
 
@@ -405,20 +426,17 @@ def on_next_player(data_res):
             }
             # if len(cards) == 2:
             #     game_status.my_uno_flag = True
-            # else:
-            #     game_status.my_uno_flag = False
-
             if play_card.get('special') == Special.WILD or play_card.get('special') == Special.WILD_DRAW_4:
                 color = select_change_color(game_status.my_cards, game_status.cards_status)
                 data['color_of_wild'] = color
 
-            # カードを出すイベントを実行
             send_event(SocketConst.EMIT.PLAY_CARD, data)
-        else:
-            # 選出したカードが無かった時
 
-            # draw-cardイベント受信時の個別処理
+        else:
+            # カードを出すイベントを実行
             def draw_card_callback(res):
+                global game_status
+
                 if not res.get('can_play_draw_card'):
                     # 引いたカードが場に出せないので処理を終了
                     return
@@ -449,15 +467,13 @@ def on_next_player(data_res):
             # カードを引くイベントを実行
             send_event(SocketConst.EMIT.DRAW_CARD, {}, draw_card_callback)
 
-    for k, v in data_res['number_card_of_player'].items():
-        game_status.update_player_card_counts(k, v)
-
     receive_event(SocketConst.EMIT.NEXT_PLAYER, data_res, next_player_callback)
 
 
 # カードが場に出た
 @sio.on(SocketConst.EMIT.PLAY_CARD)
 def on_play_card(data_res):
+    global game_status
     def play_card_callback(data_res):
         # UNO宣言を行った場合は記録する
         if data_res.get('yell_uno'):
@@ -466,8 +482,11 @@ def on_play_card(data_res):
                 game_status.set_uno_player(data_res.get('player'))
 
     if id != data_res['player']:
+        # 自分の出したカードでなければ cards_statusを更新する
         game_status.update_cards_status(data_res['card_play'])
-        game_status.update_player_card_log(data_res['player'],data_res['card_play'])
+
+    # カードを場に出した(game_status側処理)
+    game_status.play_card(data_res.get('card_play'), data_res.get('player'))
 
     play_content = data_res['card_play']
     if "special" in play_content.keys():
@@ -480,12 +499,17 @@ def on_play_card(data_res):
 # 山札からカードを引いた(現在曽野編集中メソッド)
 @sio.on(SocketConst.EMIT.DRAW_CARD)
 def on_draw_card(data_res):
+    global game_status
     def draw_card_callback(data_res):
+        global game_status
         # カードが増えているのでUNO宣言の状態をリセットする
         if data_res.get('player') in game_status.uno_declared:
             if id != data_res.get('player'):
                 game_status.undo_uno_player(data_res.get('player'))
             del game_status.uno_declared[data_res.get('player')]
+
+        # 山札からカードが引かれた(game_status側処理)
+        game_status.draw_card(data_res.get('player'))
 
     receive_event(SocketConst.EMIT.DRAW_CARD, data_res, draw_card_callback)
 
@@ -493,12 +517,21 @@ def on_draw_card(data_res):
 # 山札から引いたカードが場に出た
 @sio.on(SocketConst.EMIT.PLAY_DRAW_CARD)
 def on_play_draw_card(data_res):
+    global game_status, id
     def play_draw_card_callback(data_res):
+        global game_status, id
         # UNO宣言を行った場合は記録する
         if data_res.get('yell_uno'):
             game_status.uno_declared[data_res.get('player')] = data_res.get('yell_uno')
             if id != data_res.get('player'):
                 game_status.set_uno_player(data_res.get('player'))
+
+        # カードを場に出した(game_status側処理)
+        game_status.play_card(data_res.get("card_play"), data_res.get('player'))
+
+        if id != data_res['player']:
+            # 自分の出したカードでなければ cards_statusを更新する
+            game_status.update_cards_status(data_res['card_play'])
 
     receive_event(SocketConst.EMIT.PLAY_DRAW_CARD, data_res, play_draw_card_callback)
 
@@ -506,9 +539,46 @@ def on_play_draw_card(data_res):
 # チャレンジの結果
 @sio.on(SocketConst.EMIT.CHALLENGE)
 def on_challenge(data_res):
-    global challenge_sucess
+    global game_status, id, challenge_sucess
+    
     if data_res.get("target") == id and data_res.get("is_challenge_success") == True:#自分にチャレンジされて成功されたら
         challenge_sucess = True
+
+    # レスポンス取得
+    challenger = data_res.get("challenger")
+    target = data_res.get("target")
+    is_challenge = data_res.get("is_challenge")
+    is_challenge_success = data_res.get("is_challenge_success")
+
+    # チャレンジした場合
+    if is_challenge:
+
+        # チャレンジが成功した場合は
+        if is_challenge_success:
+            # ターゲットがペナルティとして山札から4枚引く
+            game_status.draw_card(target, penalty_draw=4)
+
+            # 場に出されていたwild_draw_4を手札に戻す
+            game_status.cards_status.pop() # 空辞書が取り出される
+            wild_draw_4 = game_status.cards_status.pop() # wild_draw_4が取り出される
+            game_status.num_of_field -= 1 # 場のカードが1枚減る
+            game_status.player_card_counts[target] += 1 # プレイヤーの手札の枚数が+1される
+            if target != id: # wild_draw_4を出したプレイヤーが自分でない場合
+                # 自分からwild_draw_4が見えなくなるので cards_statusを元に戻す
+                game_status.cards_status["black"]["wild_draw_4"] += 1
+        
+        # チャレンジが失敗した場合は
+        else:
+            # チャレンジャーが wild_draw_4の効果を受けて4枚ドロー
+            game_status.draw_card(challenger)
+
+            # 追加でペナルティとして山札から2枚引く
+            game_status.draw_card(challenger, penalty_draw=2)
+
+    # チャレンジしない場合
+    else:
+        # wild_draw_4の効果を受けて4枚ドロー
+        game_status.draw_card(challenger)
 
     receive_event(SocketConst.EMIT.CHALLENGE, data_res)
 
@@ -530,8 +600,11 @@ def on_pointed_not_say_uno(data_res):
 # 対戦が終了
 @sio.on(SocketConst.EMIT.FINISH_TURN)
 def on_finish_turn(data_res):
+    global game_status
     def finish_turn_callback(data_res):
+        global game_status
         game_status = Status()
+
     receive_event(SocketConst.EMIT.FINISH_TURN, data_res, finish_turn_callback)
 
 
@@ -540,16 +613,21 @@ def on_finish_turn(data_res):
 def on_finish_game(data_res):
     receive_event(SocketConst.EMIT.FINISH_GAME, data_res)
 
-
 # ペナルティ発生
 @sio.on(SocketConst.EMIT.PENALTY)
 def on_penalty(data_res):
+    global game_status
     def penalty_callback(data_res):
+        global game_status
+
+        # ペナルティによりカードを2枚引く
+        game_status.draw_card(data_res.get('player'), penalty_draw=2)
+
         print("ペナルティ発生", data_res)
         # カードが増えているのでUNO宣言の状態をリセットする
         if data_res.get('player') in game_status.uno_declared:
             del game_status.uno_declared[data_res.get('player')]
-
+        
     receive_event(SocketConst.EMIT.PENALTY, data_res, penalty_callback)
 
 
