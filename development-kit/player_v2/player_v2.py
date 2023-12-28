@@ -350,6 +350,10 @@ def on_shuffle_wild(data_res):
         global game_status
         print("シャッフルワイルドにより手札状況が変更", data_res)
         game_status.uno_declared = {}
+
+        #シャッフルワイルドで公開手札をリセットする
+        game_status.init_open_cards()
+
         for k, v in data_res.get('number_card_of_player').items():
             if v == 1:
                 # シャッフル後に1枚になったプレイヤーはUNO宣言を行ったこととする
@@ -415,11 +419,12 @@ def on_next_player(data_res):
             cnt = 1
             while game_status.feild_cards[-1*cnt - 1].get('color',None) == "white" or game_status.feild_cards[-1*cnt - 1].get('color',None) is None: #直前の色が白以外になるまで探索
                 cnt += 1
-            field_card = game_status.feild_cards[-1*cnt - 1] 
+            field_card = game_status.feild_cards[-1*cnt - 1] #wild_draw_4の直前に出されたカード
+            
             print("wild前は")
             print(field_card)
 
-            if challenge_dicision(field_card, game_status.cards_status, id, before_id, before_card_num, yama):
+            if challenge_dicision(field_card, game_status.cards_status, id, before_id, before_card_num, yama, game_status.other_open_cards):
                 send_event(SocketConst.EMIT.CHALLENGE, { 'is_challenge': True } )
                 return  
 
@@ -505,6 +510,8 @@ def on_play_card(data_res):
     if id != data_res['player']:
         # 自分の出したカードでなければ cards_statusを更新する
         game_status.update_cards_status(data_res['card_play'])
+        # 公開されていた手札に含まれていた場合は消去する
+        game_status.remove_other_player_cards(data_res['player'], data_res['card_play'])
 
     # カードを場に出した(game_status側処理)
     game_status.play_card(data_res.get('card_play'), data_res.get('player'))
@@ -609,7 +616,10 @@ def on_challenge(data_res):
 # チャレンジによる手札の公開
 @sio.on(SocketConst.EMIT.PUBLIC_CARD)
 def on_public_card(data_res):
+    global game_status
     print("チャレンジによる手札の公開", data_res)
+    game_status.set_other_player_cards(data_res.get("card_of_player"), data_res.get("cards"))
+
     receive_event(SocketConst.EMIT.PUBLIC_CARD, data_res)
 
 

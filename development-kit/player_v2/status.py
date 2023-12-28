@@ -22,6 +22,9 @@ class Status:
         # 場に出されたカードを記録する配列
         self.feild_cards = deque(maxlen=None)
 
+        # 誰がどの手札を公開したか記録するdict(list(card))
+        self.other_open_cards = defaultdict(list)
+
 
     def init_cards_status(self) -> dict:
         """
@@ -350,3 +353,43 @@ class Status:
         print("カード合計:", cnt)
         print("CHECK:", cnt==NUM_OF_ALL_CARDS)
         print("最後に記録されたカード:", self.feild_cards[-1])
+
+    
+    def set_other_player_cards(self, id:str, cards:list) -> None:
+        """
+        他のやつが手札公開したときに覚えておくための関数
+        args:
+            id:str = 公開したプレイヤーのid
+            cards:list = 公開した内容
+
+        """
+
+        for i in cards:
+            if i not in self.other_open_cards[id]:#公開された中に存在していなかったら
+                self.other_open_cards[id].append(i)
+
+    
+    def remove_other_player_cards(self, id:str, card:dict) -> None:
+        """
+        手札公開していたやつが使ったカードを公開していた手札から消去する関数
+        args:
+            id:str = 公開したプレイヤーのid
+            card:dict = 使ったカード
+
+        """
+
+        if len(self.other_open_cards[id]) > 0: #そいつがカードを公開していて
+            if card in self.other_open_cards[id]: #そいつがその札持ってたら
+                print(id+"が公開済みカードを使いました")
+                print(card)
+                self.other_open_cards[id].remove(card)
+
+
+    def init_open_cards(self):
+        """
+        ワイルドシャッフル時に公開済みカードを初期化する関数
+        """
+
+        print("公開カードリセット")
+        self.other_open_cards = defaultdict(list)
+
