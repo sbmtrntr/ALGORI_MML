@@ -70,8 +70,6 @@ ARR_COLOR = [Color.RED, Color.YELLOW, Color.GREEN, Color.BLUE] # 色変更の選
 
 game_status = Status()
 challenge_sucess = False
-# strategy = Card_Select()
-# game_status.my_uno_flag = False
 
 """
 コマンドラインから受け取った変数等
@@ -323,7 +321,6 @@ def on_first_player(data_res):
 def on_color_of_wild(data_res):
     def color_of_wild_callback(data_res):
         global game_status
-        print("場札の色指定を要求", data_res)
         color = select_change_color(game_status.my_cards, game_status.cards_status)
         data = {
             'color_of_wild': color,
@@ -347,7 +344,6 @@ def on_shuffle_wild(data_res):
     global game_status
     def shuffle_wild_callback(data_res):
         global game_status
-        print("シャッフルワイルドにより手札状況が変更", data_res)
         game_status.uno_declared = {}
         for k, v in data_res.get('number_card_of_player').items():
             if v == 1:
@@ -475,6 +471,7 @@ def on_next_player(data_res):
 def on_play_card(data_res):
     global game_status
     def play_card_callback(data_res):
+        global game_status
         # UNO宣言を行った場合は記録する
         if data_res.get('yell_uno'):
             game_status.uno_declared[data_res.get('player')] = data_res.get('yell_uno')
@@ -586,14 +583,12 @@ def on_challenge(data_res):
 # チャレンジによる手札の公開
 @sio.on(SocketConst.EMIT.PUBLIC_CARD)
 def on_public_card(data_res):
-    print("チャレンジによる手札の公開", data_res)
     receive_event(SocketConst.EMIT.PUBLIC_CARD, data_res)
 
 
 # UNOコールを忘れていることを指摘
 @sio.on(SocketConst.EMIT.POINTED_NOT_SAY_UNO)
 def on_pointed_not_say_uno(data_res):
-    print("UNOコールを忘れていることを指摘", data_res)
     receive_event(SocketConst.EMIT.POINTED_NOT_SAY_UNO, data_res)
 
 
