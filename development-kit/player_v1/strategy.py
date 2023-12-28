@@ -257,9 +257,9 @@ class Card_Select:
             min_cards_num = min(v, min_cards_num)
 
         if self.shuffle_wild_flag:
-            n = 1
-        else:
             n = 4
+        else:
+            n = 1
         
         if len(my_cards) - min_cards_num >= n:
             return "akan"

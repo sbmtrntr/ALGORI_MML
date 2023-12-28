@@ -50,10 +50,9 @@ bash dealer.sh
 ```
 
 - ディーラー一覧画面より、「任意のディーラー名」、「対戦回数」、「白いワイルドカード」を選択し、ディーラーを作成。
-  - ディーラー名は過去に使用したものは再度使用することができない。
 
 ### プレイヤー
 ```bash
-bash player.sh バージョン ディーラーのIPアドレス ディーラー名 プレイヤー名
-# ex) bash player.sh v0 xx.xx.xx.xx Dealer Player1
+bash player.sh バージョン ディーラー名 プレイヤー名
+# ex) bash player.sh v0 Dealer Player1
 ```
