@@ -467,14 +467,14 @@ def deffesive_mode(cards: list, player_cards_cnt: dict, challenge_sucess: bool) 
     return ans_list
 
 
-def challenge_dicision(card_before: dict, card_status: dict, my_id: int, before_id: int, other_cards: dict, cards_num: int, open_cards: dict):
+def challenge_dicision(card_before: dict, card_status: dict, my_id: str, before_id: str, other_cards: dict, cards_num: int, open_cards: dict):
     """
     チャレンジの判断関数
     args:
         before_card: dict = wild_draw_4前のカード
         card_status: dict = 見えてないカードの山の内容
-        my_id: int = 自分のID
-        before_id: int = 直前のプレイヤーのID
+        my_id: str = 自分のID
+        before_id: str = 直前のプレイヤーのID
         other_cards: dict = 直前のプレイヤーが持つカードの枚数
         cards_num: int = 山札の枚数
         open_cards: dict = オープンされている手札のdict
@@ -544,4 +544,3 @@ def pass_func(err)->None:
     個別コールバックを指定しないときの代替関数
     """
     return
-
