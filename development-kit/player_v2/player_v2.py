@@ -68,9 +68,6 @@ class DrawReason:
 TEST_TOOL_HOST_PORT = '3000' # 開発ガイドラインツールのポート番号
 ARR_COLOR = [Color.RED, Color.YELLOW, Color.GREEN, Color.BLUE] # 色変更の選択肢
 
-game_status = Status()
-challenge_sucess = False
-
 """
 コマンドラインから受け取った変数等
 """
@@ -90,11 +87,13 @@ is_test_tool = TEST_TOOL_HOST_PORT in host # 接続先が開発ガイドライ�
 SPECIAL_LOGIC_TITLE = '◯◯◯◯◯◯◯◯◯◯◯◯◯◯◯◯◯◯◯◯◯' # スペシャルロジック名
 TIME_DELAY = 10 # 処理停止時間
 
-
+"""
+グローバル変数
+"""
+game_status = Status()
+challenge_success = False
 once_connected = False
 id = '' # 自分のID
-# uno_declared = {} # 他のプレイヤーのUNO宣言状況
-
 
 """
 コマンドライン引数のチェック
@@ -197,7 +196,7 @@ def determine_if_execute_pointed_not_say_uno(number_card_of_player:dict) -> None
         return
 
     # 抽出したプレイヤーがUNO宣言を行っていない場合宣言漏れを指摘する
-    if (target not in game_status.uno_declared.keys()):
+    if target not in game_status.uno_declared.keys():
         send_event(SocketConst.EMIT.POINTED_NOT_SAY_UNO, { 'target': target })
         time.sleep(TIME_DELAY / 1000)
 
@@ -312,7 +311,7 @@ def on_first_player(data_res):
     
     # プレイヤー全員の手札枚数を初期化する
     game_status.init_player_card_counts(data_res['play_order'])
-    game_status.feild_cards.append(data_res['first_card'])
+    game_status.field_cards.append(data_res['first_card'])
 
     receive_event(SocketConst.EMIT.FIRST_PLAYER, data_res)
 
@@ -406,16 +405,16 @@ def on_next_player(data_res):
             #     return
             
             print("チャレンジされました")
-            #print(game_status.feild_cards)
+            #print(game_status.field_cards)
 
             # 特殊戦術_v1
             before_id = game_status.get_before_id()
             before_card_num = data_res['number_card_of_player']
             yama = game_status.num_of_deck
             cnt = 1
-            while game_status.feild_cards[-1*cnt - 1].get('color',None) == "white" or game_status.feild_cards[-1*cnt - 1].get('color',None) is None: #直前の色が白以外になるまで探索
+            while game_status.field_cards[-1*cnt - 1].get('color',None) == "white" or game_status.field_cards[-1*cnt - 1].get('color',None) is None: #直前の色が白以外になるまで探索
                 cnt += 1
-            field_card = game_status.feild_cards[-1*cnt - 1] #wild_draw_4の直前に出されたカード
+            field_card = game_status.field_cards[-1*cnt - 1] #wild_draw_4の直前に出されたカード
             
             print("wild前は")
             print(field_card)
