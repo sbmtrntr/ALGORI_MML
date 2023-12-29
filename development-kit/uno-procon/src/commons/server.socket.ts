@@ -1441,7 +1441,7 @@ socketServer.on('connection', function (socket) {
             } as any);
             // 場札の色が変更されたことを全体に通知
             await SocketService.broadcastUpdateColor(desk.id, {
-              color: beforeCardPlay.color as Color,
+              color: desk.beforeCardPlay.color as Color,
             });
             await BlueBird.delay(AppConst.TIMEOUT_DELAY);
           }
@@ -1916,6 +1916,9 @@ socketServer.on('connection', function (socket) {
           }
 
           // 次のプレイヤーに手番を回すため、各項目をリセット
+          desk.beforePlayer = player;
+          desk.cardAddOn = 0;
+          desk.mustCallDrawCard = false;
           if (data.is_play_card) {
             desk.colorBeforeWild = desk.beforeCardPlay.color;
             desk.beforeCardPlay = { ...cardPlay };
@@ -1923,22 +1926,19 @@ socketServer.on('connection', function (socket) {
             desk.cardOfPlayer[player] = CommonService.sortCardOfPlayer(cardOfPlayer);
             desk.revealDesk.push(cardPlay);
             desk.numberCardPlay++;
+            if (
+              (cardPlay.special as Special) === Special.WILD ||
+              (cardPlay.special as Special) === Special.WILD_DRAW_4
+            ) {
+              desk.beforeCardPlay.color = data.color_of_wild;
+            }
+            if ((desk.beforeCardPlay.special as Special) === Special.WILD_DRAW_4) {
+              desk.cardBeforeWildDraw4 = { ...beforeCardPlay };
+              desk.cardAddOn += 4;
+            }
+            desk.mustCallDrawCard =
+              (desk.beforeCardPlay.special as Special) === Special.WILD_DRAW_4;
           }
-          desk.beforePlayer = player;
-          if (
-            (cardPlay.special as Special) === Special.WILD ||
-            (cardPlay.special as Special) === Special.WILD_DRAW_4
-          ) {
-            desk.beforeCardPlay.color = data.color_of_wild;
-          }
-          desk.beforePlayer = player;
-          if ((desk.beforeCardPlay.special as Special) === Special.WILD_DRAW_4) {
-            desk.cardBeforeWildDraw4 = { ...beforeCardPlay };
-            desk.cardAddOn += 4;
-          } else {
-            desk.cardAddOn = 0;
-          }
-          desk.mustCallDrawCard = (desk.beforeCardPlay.special as Special) === Special.WILD_DRAW_4;
           desk.canCallPlayDrawCard = false;
           desk.cardBeforeDrawCard = undefined;
           desk.noPlayCount = 0;
@@ -1998,7 +1998,7 @@ socketServer.on('connection', function (socket) {
             } as any);
             // 場札の色が変更されたことを全体に通知
             await SocketService.broadcastUpdateColor(desk.id, {
-              color: beforeCardPlay.color as Color,
+              color: desk.beforeCardPlay.color as Color,
             });
           }
 
