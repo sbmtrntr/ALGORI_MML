@@ -13,6 +13,7 @@ class Status:
         self.my_uno_flag = False
         self.num_of_deck = NUM_OF_ALL_CARDS-4*7-1 # 山札の枚数
         self.num_of_field = 1 # 場にあるカードの枚数
+        self.is_card_activate = True # 場にあるドロー系カードの効果の有無を格納するフィールド
 
         # プレイヤーごとに手札の枚数を記録しておくディクショナリ
         self.player_card_counts = defaultdict(int)
@@ -256,7 +257,7 @@ class Status:
         print(f"---{player}がカードを引きます---")
 
         # 手持ちが25枚より大きい状態になることを許容するか
-        is_ok_over_25 = True
+        is_ok_over_25 = True # デフォルトでは25枚引けると設定する
 
         # 最後に出されたカードを取得する
         top_card = self.field_cards[-1]
@@ -264,26 +265,29 @@ class Status:
         # ペナルティの場合は指定した回数分だけ引く
         if penalty_draw:
             num_of_draw = penalty_draw
-            is_ok_over_25 = False 
+            is_ok_over_25 = False # 25枚以上は引くことができない
             print("引く理由: ペナルティ")
 
         # 山札から引くカードの枚数を指定
         # 最後に場に出されたカードに応じて場合分け
-        elif top_card.get("special") == "draw_2":
+        elif self.is_card_activate and top_card.get("special") == "draw_2":
             num_of_draw = 2
+            self.is_card_activate = False # 場に出たドロー系カードの効力は使い切った
             print("引く理由: draw_2")
 
-        elif top_card.get("special") == "wild_draw_4":
+        elif self.is_card_activate and top_card.get("special") == "wild_draw_4":
             num_of_draw = 4
+            self.is_card_activate = False # 場に出たドロー系カードの効力は使い切った
             print(f"引く理由: wild_draw_4")
 
-        elif top_card.get("special") == "white_wild":
+        elif self.is_card_activate and top_card.get("special") == "white_wild":
             num_of_draw = 2
+            self.is_card_activate = False # 場に出たドロー系カードの効力は使い切った
             print(f"引く理由: white_wild")
 
         else:
             num_of_draw = 1
-            is_ok_over_25 = True
+            is_ok_over_25 = False # 25枚以上は引くことができない
             print(f"引く理由: 場に出すカードがない(再行動可能)")
 
         print("---更新前---")
@@ -313,11 +317,6 @@ class Status:
         if self.num_of_deck <= 0:
             self.deck_empty()
 
-        # 最後に場に出されたカードがドロー系カードの場合
-        # 次プレイヤーが同じ被害を被らないようにしておく
-        if top_card.get("special") in ["draw_2", "wild_draw_4", "white_wild"]:
-            self.field_cards.append({}) # 一度効力を発動したドローカードは無効化
-
 
     def play_card(self, card:any, player:str) -> None:
         """
@@ -338,6 +337,9 @@ class Status:
         # カードを記録する
         self.field_cards.append(card) # 場に出たカードの記録
         self.update_player_card_log(player, card) # プレイヤーごとのログを取る
+
+        # 場のカードが更新されたので以降に出されたドロー系カードの効力は復活する
+        self.is_card_activate = True
 
         # DEBUG
         print("---場にカードを出した---")
