@@ -593,7 +593,6 @@ def on_challenge(data_res):
             game_status.draw_card(target, penalty_draw=4)
 
             # 場に出されていたwild_draw_4を手札に戻す
-            game_status.field_cards.pop() # 空辞書が取り出される
             wild_draw_4 = game_status.field_cards.pop() # wild_draw_4が取り出される
             game_status.num_of_field -= 1 # 場のカードが1枚減る
             game_status.player_card_counts[target] += 1 # プレイヤーの手札の枚数が+1される

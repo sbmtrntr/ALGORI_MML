@@ -338,7 +338,7 @@ class Status:
         self.field_cards.append(card) # 場に出たカードの記録
         self.update_player_card_log(player, card) # プレイヤーごとのログを取る
 
-        # 場のカードが更新されたので以降に出されたドロー系カードの効力は復活する
+        # 場のカードが更新されたのでこれから場に出されるドロー系カードの効力は復活する
         self.is_card_activate = True
 
         # DEBUG
