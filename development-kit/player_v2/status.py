@@ -329,7 +329,9 @@ class Status:
         """
 
         # プレイヤーの手札を1枚減らす
-        self.player_card_counts[player] -= 1 
+        # シャッフルワイルドの場合は, 余分に減らしてしまうのでこの操作はスキップ
+        if card.get('special') != 'wild_shuffle':
+            self.player_card_counts[player] -= 1 
 
         # 場のカード枚数を1枚増やす
         self.num_of_field += 1
