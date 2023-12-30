@@ -20,7 +20,10 @@ class Status:
         self.player_card_log = defaultdict(lambda: deque(maxlen=None))
 
         # 場に出されたカードを記録する配列
-        self.feild_cards = deque(maxlen=None)
+        self.field_cards = deque(maxlen=None)
+
+        # 誰がどの手札を公開したか記録するdict(list(card))
+        self.other_open_cards = defaultdict(list)
 
 
     def init_cards_status(self) -> dict:
@@ -81,6 +84,9 @@ class Status:
 
 
     def wild_shuffle_flag(self) -> bool:
+        """
+        自分の手札にワイルドシャッフルがあるかどうかを返す
+        """
         for card in self.my_cards:
             if card.get("special") == 'wild_shuffle':
                 return True
@@ -186,7 +192,7 @@ class Status:
         self.cards_status = self.init_cards_status()
 
         # 最後に場に出されたカードは山札に戻らないのでcard_statusから除外する
-        card_color, card_type = self.get_keys_for_card_status(self.feild_cards[-1])
+        card_color, card_type = self.get_keys_for_card_status(self.field_cards[-1])
         self.cards_status[card_color][card_type] -= 1
 
         # 自分の手札カードも山札に戻らないのでcard_statusから除外する
@@ -195,8 +201,7 @@ class Status:
             self.cards_status[card_color][card_type] -= 1
 
         # 山札枚数を再計算する
-        # 最後の1枚を除いて山札に戻す
-        # 山札枚数がマイナスになることも考慮
+        # 最後の1枚を除いて山札に戻す、山札がマイナス(借金状態)な時も考慮する
         self.num_of_deck = self.num_of_field - 1 + self.num_of_deck 
         self.num_of_field = 1 # 場のカードは1枚にする
 
@@ -253,7 +258,7 @@ class Status:
         is_ok_over_25 = True
 
         # 最後に出されたカードを取得する
-        top_card = self.feild_cards[-1]
+        top_card = self.field_cards[-1]
 
         # ペナルティの場合は指定した回数分だけ引く
         if penalty_draw:
@@ -310,7 +315,7 @@ class Status:
         # 最後に場に出されたカードがドロー系カードの場合
         # 次プレイヤーが同じ被害を被らないようにしておく
         if top_card.get("special") in ["draw_2", "wild_draw_4", "white_wild"]:
-            self.feild_cards.append({}) # 一度効力を発動したドローカードは無効化
+            self.field_cards.append({}) # 一度効力を発動したドローカードは無効化
 
 
     def play_card(self, card:any, player:str) -> None:
@@ -330,7 +335,7 @@ class Status:
         self.num_of_field += 1
 
         # カードを記録する
-        self.feild_cards.append(card) # 場に出たカードの記録
+        self.field_cards.append(card) # 場に出たカードの記録
         self.update_player_card_log(player, card) # プレイヤーごとのログを取る
 
         # DEBUG
@@ -350,4 +355,44 @@ class Status:
             cnt += v
         print("カード合計:", cnt)
         print("CHECK:", cnt==NUM_OF_ALL_CARDS)
-        print("最後に記録されたカード:", self.feild_cards[-1])
+        print("最後に記録されたカード:", self.field_cards[-1])
+
+    
+    def set_other_player_cards(self, id:str, cards:list) -> None:
+        """
+        他のやつが手札公開したときに覚えておくための関数
+        args:
+            id:str = 公開したプレイヤーのid
+            cards:list = 公開した内容
+
+        """
+
+        for i in cards:
+            if i not in self.other_open_cards[id]:#公開された中に存在していなかったら
+                self.other_open_cards[id].append(i)
+
+    
+    def remove_other_player_cards(self, id:str, card:dict) -> None:
+        """
+        手札公開していたやつが使ったカードを公開していた手札から消去する関数
+        args:
+            id:str = 公開したプレイヤーのid
+            card:dict = 使ったカード
+
+        """
+
+        if len(self.other_open_cards[id]) > 0: #そいつがカードを公開していて
+            if card in self.other_open_cards[id]: #そいつがその札持ってたら
+                print(id+"が公開済みカードを使いました")
+                print(card)
+                self.other_open_cards[id].remove(card)
+
+
+    def init_open_cards(self):
+        """
+        ワイルドシャッフル時に公開済みカードを初期化する関数
+        """
+
+        print("公開カードリセット")
+        self.other_open_cards = defaultdict(list)
+
