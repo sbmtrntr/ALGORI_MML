@@ -1,6 +1,7 @@
 from collections import defaultdict, deque
 from typing import Union
 
+
 NUM_OF_ALL_CARDS = 112
 
 class Status:

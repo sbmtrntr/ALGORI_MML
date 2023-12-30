@@ -10,6 +10,9 @@ from strategy import *
 
 from rich import print
 
+
+
+
 """
 定数
 """
@@ -300,6 +303,9 @@ def on_join_room(data_res):
 def on_reciever_card(data_res):
     global game_status
     game_status.update_cards_status(data_res["cards_receive"])
+    game_status.my_cards += data_res["cards_receive"]
+    print("私の手札は")
+    print(game_status.my_cards)
     receive_event(SocketConst.EMIT.RECEIVER_CARD, data_res)
 
 
@@ -343,7 +349,7 @@ def on_update_color(data_res):
 def on_shuffle_wild(data_res):
     global game_status
     def shuffle_wild_callback(data_res):
-        global game_status
+        global game_status,id
         game_status.uno_declared = {}
 
         #シャッフルワイルドで公開手札をリセットする
@@ -385,6 +391,7 @@ def on_shuffle_wild(data_res):
 def on_next_player(data_res):
     global game_status
 
+    print("私は"+ id + "です")
     def next_player_callback(data_res):
         global game_status, challenge_success, id
 
@@ -493,11 +500,11 @@ def on_next_player(data_res):
 # カードが場に出た
 @sio.on(SocketConst.EMIT.PLAY_CARD)
 def on_play_card(data_res):
-    global game_status
+    global game_status,id
     def play_card_callback(data_res):
-        global game_status
+        global game_status, id
         # UNO宣言を行った場合は記録する
-        global game_status
+        # global game_status
         if data_res.get('yell_uno'):
             game_status.uno_declared[data_res.get('player')] = data_res.get('yell_uno')
             if id != data_res.get('player'):
@@ -505,6 +512,7 @@ def on_play_card(data_res):
 
     if id != data_res['player']:
         # 自分の出したカードでなければ cards_statusを更新する
+        print("私以外だよ")
         game_status.update_cards_status(data_res['card_play'])
         # 公開されていた手札に含まれていた場合は消去する
         game_status.remove_other_player_cards(data_res['player'], data_res['card_play'])
@@ -585,13 +593,13 @@ def on_challenge(data_res):
             game_status.draw_card(target, penalty_draw=4)
 
             # 場に出されていたwild_draw_4を手札に戻す
-            game_status.cards_status.pop() # 空辞書が取り出される
-            wild_draw_4 = game_status.cards_status.pop() # wild_draw_4が取り出される
+            game_status.field_cards.pop() # 空辞書が取り出される
+            wild_draw_4 = game_status.field_cards.pop() # wild_draw_4が取り出される
             game_status.num_of_field -= 1 # 場のカードが1枚減る
             game_status.player_card_counts[target] += 1 # プレイヤーの手札の枚数が+1される
-            if target != id: # wild_draw_4を出したプレイヤーが自分でない場合
-                # 自分からwild_draw_4が見えなくなるので cards_statusを元に戻す
-                game_status.cards_status["black"]["wild_draw_4"] += 1
+            # if target != id: # wild_draw_4を出したプレイヤーが自分でない場合
+            #     # 自分からwild_draw_4が見えなくなるので cards_statusを元に戻す
+            #     game_status.cards_status["black"]["wild_draw_4"] += 1
         
         # チャレンジが失敗した場合は
         else:
@@ -600,6 +608,10 @@ def on_challenge(data_res):
 
             # 追加でペナルティとして山札から2枚引く
             game_status.draw_card(challenger, penalty_draw=2)
+
+            if target != id: # wild_draw_4を出したプレイヤーが自分でない場合
+                # 自分からwild_draw_4が見えなくなるので cards_statusを元に戻す
+                game_status.cards_status["black"]["wild_draw_4"] += 1
 
     # チャレンジしない場合
     else:

@@ -1,7 +1,6 @@
 from collections import defaultdict
 import math
 
-
 def select_play_card(my_cards: list, player_card_counts: dict, before_card: dict, status: dict, order_dic: dict, wild_shuffle_flag: bool, challenge_sucess: bool) -> dict:
     """
     出すカードを選出する
@@ -510,14 +509,9 @@ def challenge_dicision(card_before: dict, card_status: dict, my_id: str, before_
 
     
     # 直前のプレイヤーが何枚残っているか確認
-    other_card_num_2 = other_card_num - other_cards[before_id]
+    x = other_cards[before_id]
 
-    print("x+y+zの枚数は" + str(other_card_num))
-    print("y+zの枚数は" + str(color_num))
-
-    #確率計算0.48
-    p1 = 1 - (math.comb(cards_num + other_card_num_2, color_num) / math.comb(cards_num + other_card_num, color_num))
-
+    #見えていないワイルドカードの枚数を確認
     wild_num = 0
     for k,i in card_status["black"].items():
         if k != "wild_draw_4":
@@ -525,14 +519,17 @@ def challenge_dicision(card_before: dict, card_status: dict, my_id: str, before_
     
     wild_num += card_status["white"]["white_wild"]
 
+    print("x+y+zの枚数は" + str(other_card_num))
+
     print("ワイルドカードの枚数は" + str(wild_num))
 
-    p2 = 1 - (math.comb(cards_num + other_card_num_2, wild_num) / math.comb(cards_num + other_card_num, wild_num))
+    #確率計算0.48
+    p1 = 1 - (math.comb(cards_num + other_card_num - color_num - wild_num, x) / math.comb(cards_num + other_card_num, x))
 
-    p = p1 + p2
-    print(card_color +"を"+ before_id +"が持っている確率は :" + str(p))
+    #p = p1 + p2
+    print("他の出せるカードを"+ before_id +"が持っている確率は :" + str(p1))
 
-    if p >= 0.75:
+    if p1 >= 0.75:
         return True
     else:
         return False
