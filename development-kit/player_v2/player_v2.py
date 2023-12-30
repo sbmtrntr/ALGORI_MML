@@ -378,10 +378,14 @@ def on_shuffle_wild(data_res):
     game_status.update_cards_status(data_res.get("cards_receive"))
     game_status.set_my_cards(data_res.get("cards_receive"))
 
-    # shuffle wildにより各プレイヤーの手札枚数がりセット
+    # shuffle wildにより各プレイヤーの手札枚数がリセット
     # 最新状態に更新しておく
     for k, v in data_res['number_card_of_player'].items():
         game_status.check_player_card_counts(k, v)
+
+    # wild_shuffleを出したプレイヤーが-1されてしまうため、
+    # 帳尻あわせに+1しておく(暫定)
+    game_status.player_card_counts[data_res.get('player')] += 1
 
     receive_event(SocketConst.EMIT.SHUFFLE_WILD, data_res, shuffle_wild_callback)
 
