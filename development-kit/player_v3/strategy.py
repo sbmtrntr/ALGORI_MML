@@ -38,13 +38,10 @@ def select_play_card(my_cards: list, player_card_counts: dict, before_card: dict
             # 場札と同じ色のカード
             cards_valid.append(card)
 
-        # elif (
-        #     (card_special and str(card_special) == str(before_card.get('special'))) or
-        #     ((card_number is not None or (card_number is not None and int(card_number) == 0)) and (before_card.get('number') and int(card_number) == int(before_card.get('number'))))
-        # ):
         elif card_special is not None and card_special == before_card.get('special'):
             # 場札と記号が同じカード
             cards_valid.append(card)
+
         elif card_number is not None and before_card_number is not None and int(card_number) == int(before_card_number):
             # 場札と数字が同じカード
             cards_valid.append(card)
@@ -58,6 +55,13 @@ def select_play_card(my_cards: list, player_card_counts: dict, before_card: dict
     valid_card_list = cards_valid + cards_wild + cards_wild4
 
     ######追加#######
+
+    # UNOプレイヤーがいるとき
+    # シャッフルワイルドを持っていて、自分の手札が7枚以上のとき --> シャッフルワイルドを切る
+    shuffle_wild = {'color':'white', 'special':'wild_shuffle'}
+    if len(my_cards) >= 7 and shuffle_wild in my_cards:
+        return shuffle_wild
+
     if len(valid_card_list) > 0:
         for v in order_dic.values():
             if v["UNO"] == True: #UNO宣言してるやついたら
@@ -81,7 +85,6 @@ def select_play_card(my_cards: list, player_card_counts: dict, before_card: dict
 
     else:
         return None
-
 
 
 def defensive_card_choice(valid_card_list: list, pos: str, status: dict) -> list:
@@ -400,8 +403,6 @@ def offensive_mode(cards: list, my_card: list, player_cards_cnt: dict, challenge
         return ans_list
 
 
-
-
 def my_color_cnt(cards: dict) -> list:
     """
     手札から出すべき色の優先度を吐く。先頭に最も多い色が来る
@@ -545,7 +546,6 @@ def challenge_dicision(card_before: dict, card_status: dict, my_id: str, before_
         return True
     else:
         return False
-
 
 
 def pass_func(err)->None:
