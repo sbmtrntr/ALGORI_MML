@@ -95,6 +95,7 @@ TIME_DELAY = 10 # 処理停止時間
 """
 game_status = Status()
 challenge_success = False
+challenge_success_cnt = {} # 各プレイヤーに対するチャレンジ成功数
 once_connected = False
 num_game = 0
 first_player = ''
@@ -297,6 +298,8 @@ Socket通信受信
 # プレイヤーがゲームに参加
 @sio.on(SocketConst.EMIT.JOIN_ROOM)
 def on_join_room(data_res):
+    challenge_success_cnt[data_res['player']] = 0
+    print(challenge_success_cnt) # 後で消す
     receive_event(SocketConst.EMIT.JOIN_ROOM, data_res)
 
 
@@ -445,35 +448,28 @@ def on_next_player(data_res):
 
         if (data_res.get('draw_reason') == DrawReason.WILD_DRAW_4):
             # カードを引く理由がワイルドドロー4の時、チャレンジを行うことができる。
-            # if game_status.my_uno_flag == True:
-            #     send_event(SocketConst.EMIT.CHALLENGE, { 'is_challenge': True } )
-            #     return
-
-            print("チャレンジされました")
-            #print(game_status.field_cards)
-
-            # 特殊戦術_v1
-            # before_id = game_status.get_before_id()
-            before_id = data_res.get('before_player')
-            # before_card_num = data_res['number_card_of_player']
-            # yama = game_status.num_of_deck
-            print(game_status.cards_status)
-            # yama = game_status.calculate_num_of_deck(id, before_card_num)
-            # print('デバッグプリント')
-            # game_status.debug_print()
-            cnt = 1
-            while game_status.field_cards[-1*cnt - 1].get('color',None) == "white" or game_status.field_cards[-1*cnt - 1].get('color',None) is None: #直前の色が白以外になるまで探索
-                cnt += 1
-            field_card = game_status.field_cards[-1*cnt - 1] #wild_draw_4の直前に出されたカード
-
-            print("wild前は")
-            print(field_card)
-
-            print('直前があってるか', before_id == game_status.get_before_id())
-            if challenge_dicision(field_card, game_status.cards_status, id, before_id, num_card_of_player, yama, game_status.other_open_cards):
-                send_event(SocketConst.EMIT.CHALLENGE, { 'is_challenge': True } )
+            
+            # 特殊戦術_v3
+            before_player = data_res.get('before_player') # ドロー4を出した人のid
+            open_cards = game_status.other_open_cards[before_player]
+            # もし手札が公開されていてその中で出せるものがあればチャレンジ
+            if len(open_cards) != 0 and len(can_play_card(open_cards, data_res.get('card_before'))) != 0:
+                print("出せる手札があるのに出してる！")
+                print(open_cards)
+                send_event(SocketConst.EMIT.CHALLENGE, { 'is_challenge': True })
                 return
-
+            
+            # 200 戦した後のチャレンジ成功率が30%以下のとき、チャレンジしない
+            if num_game >= 200 and challenge_success_cnt[before_player] / num_game <= 0.3:
+                return
+            
+            # 相手が6枚以上持っているときで
+            if game_status.player_card_counts[before_player] >= 6:
+                # 相手が出せるカードを持っている確率が50%以上のときチャレンジ
+                if 
+            else:
+                # 相手が出せるカードを持っている確率が80%以上のときチャレンジ
+ 
 
         if str(data_res.get('must_call_draw_card')) == 'True':
             # カードを引かないと行けない時
@@ -666,6 +662,9 @@ def on_challenge(data_res):
             if target != id: # wild_draw_4を出したプレイヤーが自分でない場合
                 # 自分からwild_draw_4が見えなくなるので cards_statusを元に戻す
                 game_status.cards_status["black"]["wild_draw_4"] += 1
+            
+            # チャレンジ成功数をインクリメント
+            challenge_success_cnt[target] += 1
 
         # チャレンジが失敗した場合は
         else:
