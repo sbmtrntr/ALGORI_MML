@@ -1,48 +1,6 @@
 from collections import defaultdict
 import math
 
-def can_play_card(cards: list, before_card: dict) -> list:
-    """
-    出せるカードを返す
-
-    Args:
-        cards (list): 誰かの手札
-        before_card (dict): 場札のカード
-
-    Return:
-        play_cards (list): 出せるカード
-    """
-    play_cards = []
-    
-
-    # 場札と照らし合わせ出せるカードを抽出する
-    for card in cards:
-        card_special = card.get('special')
-        card_number = card.get('number')
-        before_card_number = before_card.get('number')
-        if card_special == 'wild_draw_4': # ワイルドドロー4
-            # ワイルドドロー4は場札に関係なく出せる
-            play_cards.append(card)
-
-        elif card_special in ['wild', 'wild_shuffle', 'white_wild']:
-            # ワイルド・シャッフルワイルド・白いワイルドも場札に関係なく出せる
-            play_cards.append(card)
-
-        elif card['color'] == before_card['color']:
-            # 場札と同じ色のカード
-            play_cards.append(card)
-
-        elif card_special is not None and card_special == before_card.get('special'):
-            # 場札と記号が同じカード
-            play_cards.append(card)
-
-        elif card_number is not None and before_card_number is not None and int(card_number) == int(before_card_number):
-            # 場札と数字が同じカード
-            play_cards.append(card)
-    
-    return play_cards
-
-
 def select_play_card(my_cards: list, player_card_counts: dict, before_card: dict, status: dict, order_dic: dict, wild_shuffle_flag: bool, challenge_sucess: bool) -> dict:
     """
     出すカードを選出する
