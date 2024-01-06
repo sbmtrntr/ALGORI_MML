@@ -87,9 +87,9 @@ def select_play_card(my_cards: list, player_card_counts: dict, before_card: dict
         return None
 
 
-def defensive_card_choice(valid_card_list: list, pos: str, status: dict) -> list:
+def card_choice_at_uno(valid_card_list: list, pos: str, status: dict) -> list:
     """
-    負けそうな時に、失点を減らすことを優先するカードの出し方を選択する関数
+    UNO状態のプレイヤーがいるときに、どのカードを選択するか決める関数(失点を減らすように)
     カードの出し方は次を参照： https://github.com/sbmtrntr/ALGORI_MML/issues/11#issuecomment-1855121547
     Args:
         valid_card_list(list): 出すことのできるカードを格納するリスト
@@ -352,7 +352,7 @@ def offensive_mode(cards: list, my_card: list, player_cards_cnt: dict, challenge
     challenge_success :チャレンジを成功された過去があるか否か
     """
     ans_list = []
-    for card in cards:#スキップ、リバースを優先的に出す
+    for card in cards: #スキップ、リバースを優先的に出す
         card_special = card.get("special")
         if card_special == "skip" or card_special == "reverse":
             ans_list.append(card)
