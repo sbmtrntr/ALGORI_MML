@@ -481,10 +481,14 @@ def on_next_player(data_res):
         if special_logic_num_random == 0:
             send_event(SocketConst.EMIT.SPECIAL_LOGIC, { 'title': SPECIAL_LOGIC_TITLE })
 
-        play_card = select_play_card(cards, num_card_of_player, data_res.get('card_before'), game_status.cards_status, game_status.order_dic, game_status.wild_shuffle_flag(), challenge_success)
+        # 自分の手札から、出せるカードのリストとプレイモードを取得する
+        play_card, play_mode = select_play_card(cards, num_card_of_player, data_res.get('card_before'), game_status.cards_status, game_status.order_dic, game_status.wild_shuffle_flag(), challenge_success)
+        # DEBUG print
+        
+        print("プレイモード:", play_mode)
 
+        # 選出したカードがある時
         if play_card:
-            # 選出したカードがある時
             print('selected card: {} {}'.format(play_card.get('color'), play_card.get('number') or play_card.get('special')))
             game_status.my_uno_flag = True if len(cards) == 2 else False
             data = {
@@ -500,18 +504,29 @@ def on_next_player(data_res):
             send_event(SocketConst.EMIT.PLAY_CARD, data)
 
         else:
-            # カードを出すイベントを実行
+            # 引いたカードを出すイベントを実行
             def draw_card_callback(res):
                 global game_status
 
+                # 引いたカードが場に出せない場合、処理を終了
                 if not res.get('can_play_draw_card'):
-                    # 引いたカードが場に出せないので処理を終了
                     game_status.my_uno_flag = False
                     return
 
-                #引いたカードがワイルドシャッフルの場合場に出さず処理を終了
-                if res.get('draw_card') == "wild_shuffle":
-                    game_status.my_uno_flag = False
+                # 引いたカード情報の取得
+                draw_card = res.get('draw_card')
+
+                # プレイモードに応じて処理を変える
+                # 攻撃モードの場合
+                if play_mode == "offensive":
+                    # 引いてきたカードがシャッフルワイルドの場合、出さずに処理を終了
+                    if draw_card.get("special") != "wild_shuffle":
+                        game_status.my_uno_flag = False
+                        return
+                
+                # 防御モードの場合
+                elif play_mode == "deffensive":
+                    #TODO 未実装
                     return
 
                 # 以後、引いたカードが場に出せるときの処理
@@ -536,6 +551,7 @@ def on_next_player(data_res):
 
                 # 引いたカードを出すイベントを実行
                 send_event(SocketConst.EMIT.PLAY_DRAW_CARD, data)
+                return
 
             # カードを引くイベントを実行
             send_event(SocketConst.EMIT.DRAW_CARD, {}, draw_card_callback)
