@@ -15,6 +15,7 @@ def select_play_card(my_cards: list, player_card_counts: dict, before_card: dict
         challenge_sucess: 自分に対してチャレンジされたか否か
     Return:
         best_card(dict): 最善手
+        play_mode(str): どのモードかを表す文字列{"offensive", "deffensive", "uno", "other"}
     """
 
     cards_valid = [] # 同じ色 または 同じ数字・記号 のカードを格納
@@ -60,36 +61,36 @@ def select_play_card(my_cards: list, player_card_counts: dict, before_card: dict
     # シャッフルワイルドを持っていて、自分の手札が7枚以上のとき --> シャッフルワイルドを切る
     shuffle_wild = {'color':'white', 'special':'wild_shuffle'}
     if len(my_cards) >= 7 and shuffle_wild in my_cards:
-        return shuffle_wild
+        return (shuffle_wild, "uno")
 
     if len(valid_card_list) > 0:
         for v in order_dic.values():
             if v["UNO"] == True: #UNO宣言してるやついたら
-                tmp_list = defensive_card_choice(valid_card_list, v["位置"], status)
-                return tmp_list[0]
+                tmp_list = card_choice_at_uno(valid_card_list, v["位置"], status)
+                return (tmp_list[0], "uno")
 
         if analyze_situation(my_cards, player_card_counts, wild_shuffle_flag) == "deffensive": #防御モード
             tmp_list = deffesive_mode(valid_card_list, player_card_counts, challenge_sucess)
             if len(tmp_list) == 0:
-                return None
+                return (None, "deffensive")
 
             sort_pri_list = sorted(tmp_list, key=lambda x: (x[1][0], -x[1][1]))
-            return sort_pri_list[0][0]
+            return (sort_pri_list[0][0], "deffensive")
 
         elif analyze_situation(my_cards, player_card_counts, wild_shuffle_flag) == "offensive": #攻撃モード
             tmp_list = offensive_mode(valid_card_list, my_cards, player_card_counts, challenge_sucess)
             if len(tmp_list) == 0:
-                return None
+                return (None, "offensive")
             else:
-                return tmp_list[0]
+                return (tmp_list[0], "offensive")
 
     else:
-        return None
+        return (None, "other")
 
 
-def defensive_card_choice(valid_card_list: list, pos: str, status: dict) -> list:
+def card_choice_at_uno(valid_card_list: list, pos: str, status: dict) -> list:
     """
-    負けそうな時に、失点を減らすことを優先するカードの出し方を選択する関数
+    UNO状態のプレイヤーがいるときに、どのカードを選択するか決める関数(失点を減らすように)
     カードの出し方は次を参照： https://github.com/sbmtrntr/ALGORI_MML/issues/11#issuecomment-1855121547
     Args:
         valid_card_list(list): 出すことのできるカードを格納するリスト
@@ -352,12 +353,12 @@ def offensive_mode(cards: list, my_card: list, player_cards_cnt: dict, challenge
     challenge_success :チャレンジを成功された過去があるか否か
     """
     ans_list = []
-    for card in cards:#スキップ、リバースを優先的に出す
+    for card in cards: #スキップ、リバースを優先的に出す
         card_special = card.get("special")
         if card_special == "skip" or card_special == "reverse":
             ans_list.append(card)
 
-    for card in cards:#ドロー2はスキップ、リバースの次に優先的に出す
+    for card in cards: #ドロー2はスキップ、リバースの次に優先的に出す
         card_special = card.get("special")
         if card_special == "draw_2":
             ans_list.append(card)
@@ -375,7 +376,7 @@ def offensive_mode(cards: list, my_card: list, player_cards_cnt: dict, challenge
 
     spe_lis = []
 
-    for card in cards:# ワイルド系カードを1枚だけ残して、それで上がれるようにする
+    for card in cards: # ワイルド系カードを1枚だけ残して、それで上がれるようにする
         if card.get("special") in ["wild", "white_wild", "wild_draw_4", "wild_shuffle"]:
             if card.get("special") == "wild_shuffle" and len(my_card) == 1: # シャッフルワイルドは手札1枚の時にしか出さない
                 spe_lis.append((card, 4))
@@ -387,12 +388,35 @@ def offensive_mode(cards: list, my_card: list, player_cards_cnt: dict, challenge
     spe_lis_2 = [item[0] for item in sorted(spe_lis, key=lambda x: x[1])]
     ans_list += spe_lis_2
 
-    # 自分が最少手札保持者でシャッフルワイルドを持っており、それ以外に出せるものが無いとき、他プレイヤーとの差が4枚以上であれば、出さずに山札から引く
-    if {'color': 'black', 'special': 'wild_shuffle'} in ans_list:
-        if len(cards) > 1: #手持ちカードが1枚だけなら無視
-            if len(cards) < min_cards_check(player_cards_cnt) and min_cards_check(player_cards_cnt) - len(cards) >= 4:
-                print("wild_shuffleは出しません!!")
-                ans_list.remove({'color': 'black', 'special': 'wild_shuffle'})
+    # ---カードを出すか、ドローするかの処理---
+    # カードを出す場合はカードリストを返す
+    # カードを出さない場合はNoneを返す
+    # 山札を引いて得たカードを出すかどうかは player_v3.pyで記述されている
+
+    # ワイルド系カードを1枚だけ持っていてそれしか出せるカードが無いとき
+    if len(spe_lis_2) == 1 and len(cards) == 1:
+        # 残り手札が1枚の時は出してゲームをあがる
+        if my_card == 1:
+            return ans_list
+        # 上記以外の場合はワイルド系カードを使わず山札を引く
+        return None
+    
+    # ワイルド系カードを複数枚持っていてそれしか出せるカードが無いとき --> 出す
+    elif len(spe_lis_2) > 1 and len(cards) == len(spe_lis_2):
+        return ans_list
+    
+    # ワイルド系カードを持っておらず、出せるカードが無いとき
+    elif len(spe_lis_2) == 0 and len(cards) == 0:
+        # 山札からカードを引くのでNoneを返す
+        return None
+    
+    
+    # # 自分が最少手札保持者でシャッフルワイルドを持っており、それ以外に出せるものが無いとき、他プレイヤーとの差が4枚以上であれば、出さずに山札から引く
+    # if {'color': 'black', 'special': 'wild_shuffle'} in ans_list:
+    #     if len(cards) > 1: #手持ちカードが1枚だけなら無視
+    #         if len(cards) < min_cards_check(player_cards_cnt) and min_cards_check(player_cards_cnt) - len(cards) >= 4:
+    #             print("wild_shuffleは出しません!!")
+    #             ans_list.remove({'color': 'black', 'special': 'wild_shuffle'})
 
     #シャッフルワイルドとワイルドドロー4を持っているときは先にワイルドドロー4を出し、チャレンジ成功されたら次のターンでシャッフル
     if {'color': 'black', 'special': 'wild_draw_4'} in cards and {'color': 'black', 'special': 'wild_shuffle'} in cards and challenge_sucess == True:
