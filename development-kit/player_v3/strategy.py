@@ -65,7 +65,7 @@ def select_play_card(my_cards: list, player_card_counts: dict, before_card: dict
     if len(valid_card_list) > 0:
         for v in order_dic.values():
             if v["UNO"] == True: #UNO宣言してるやついたら
-                tmp_list = defensive_card_choice(valid_card_list, v["位置"], status)
+                tmp_list = card_choice_at_uno(valid_card_list, v["位置"], status)
                 return tmp_list[0]
 
         if analyze_situation(my_cards, player_card_counts, wild_shuffle_flag) == "deffensive": #防御モード
@@ -357,7 +357,7 @@ def offensive_mode(cards: list, my_card: list, player_cards_cnt: dict, challenge
         if card_special == "skip" or card_special == "reverse":
             ans_list.append(card)
 
-    for card in cards:#ドロー2はスキップ、リバースの次に優先的に出す
+    for card in cards: #ドロー2はスキップ、リバースの次に優先的に出す
         card_special = card.get("special")
         if card_special == "draw_2":
             ans_list.append(card)
@@ -375,7 +375,7 @@ def offensive_mode(cards: list, my_card: list, player_cards_cnt: dict, challenge
 
     spe_lis = []
 
-    for card in cards:# ワイルド系カードを1枚だけ残して、それで上がれるようにする
+    for card in cards: # ワイルド系カードを1枚だけ残して、それで上がれるようにする
         if card.get("special") in ["wild", "white_wild", "wild_draw_4", "wild_shuffle"]:
             if card.get("special") == "wild_shuffle" and len(my_card) == 1: # シャッフルワイルドは手札1枚の時にしか出さない
                 spe_lis.append((card, 4))
