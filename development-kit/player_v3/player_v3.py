@@ -758,7 +758,6 @@ def on_penalty(data_res):
         game_status.draw_card(data_res.get('player'), penalty_draw=2)
 
         print("ペナルティ発生", data_res)
-        if data_res['']
         # カードが増えているのでUNO宣言の状態をリセットする
         if data_res.get('player') in game_status.uno_declared:
             del game_status.uno_declared[data_res.get('player')]
