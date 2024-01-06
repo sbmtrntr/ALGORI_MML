@@ -95,7 +95,7 @@ TIME_DELAY = 10 # 処理停止時間
 """
 game_status = Status()
 challenge_success = False
-challenge_success_cnt = {} # 各プレイヤーに対するチャレンジ成功数
+challenge_cnt = {} # 各プレイヤーに対するチャレンジ数
 once_connected = False
 num_game = 0
 first_player = ''
@@ -318,12 +318,12 @@ def on_reciever_card(data_res):
 # 対戦の開始
 @sio.on(SocketConst.EMIT.FIRST_PLAYER)
 def on_first_player(data_res):
-    global id, game_status, num_game, first_player, challenge_success_cnt
+    global id, game_status, num_game, first_player, challenge_cnt
 
     # チャレンジ成功数を記録するための辞書
     if num_game == 0:
         for player_id in data_res['play_order']:
-            challenge_success_cnt[player_id] = 0
+            challenge_cnt[player_id] = [0, 0] # [トータル数, 成功数]
 
     num_game += 1
     game_status.set_play_order(data_res['play_order'], id)
@@ -425,7 +425,7 @@ def on_next_player(data_res):
     #     game_status.check_player_card_counts(k, v)
 
     def next_player_callback(data_res):
-        global game_status, challenge_success, id, num_game, first_player, challenge_success_cnt
+        global game_status, challenge_success, id, num_game, first_player, challenge_cnt
 
         if first_player != id and game_status.field_cards[-1].get('number') is not None and data_res.get('before_player') != game_status.get_before_id():
             print('順番が違うよ')
@@ -477,7 +477,7 @@ def on_next_player(data_res):
             print(field_card)
 
             print('直前があってるか', before_id == game_status.get_before_id())
-            if challenge_dicision(field_card, game_status.cards_status, id, before_id, num_card_of_player, yama, game_status.other_open_cards, challenge_success_cnt, num_game):
+            if challenge_dicision(field_card, game_status.cards_status, id, before_id, num_card_of_player, yama, game_status.other_open_cards, challenge_cnt, num_game):
                 send_event(SocketConst.EMIT.CHALLENGE, { 'is_challenge': True } )
                 return
 
@@ -662,7 +662,7 @@ def on_play_draw_card(data_res):
 # チャレンジの結果
 @sio.on(SocketConst.EMIT.CHALLENGE)
 def on_challenge(data_res):
-    global game_status, id, challenge_success, challenge_success_cnt
+    global game_status, id, challenge_success, challenge_cnt
 
     if data_res.get("target") == id and data_res.get("is_challenge_success") == True:#自分にチャレンジされて成功されたら
         challenge_success = True
@@ -677,6 +677,8 @@ def on_challenge(data_res):
 
     # チャレンジした場合
     if is_challenge:
+        # チャレンジされた回数をインクリメント
+        challenge_cnt[target][0] += 1
 
         # チャレンジが成功した場合は
         if is_challenge_success:
@@ -692,7 +694,7 @@ def on_challenge(data_res):
                 game_status.cards_status["black"]["wild_draw_4"] += 1
             
             # チャレンジ成功数をインクリメント
-            challenge_success_cnt[target] += 1
+            challenge_cnt[target][1] += 1
 
         # チャレンジが失敗した場合は
         else:
