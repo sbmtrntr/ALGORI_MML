@@ -497,5 +497,5 @@ class Status:
 class Games:
     def __init__(self):
         self.num_game = 0
-        self.challenge_success_cnt = defaultdict(lambda: defaultdict(int)) # 各プレイヤーに対するチャレンジ成功数
-        self.challenged_cnt = defaultdict(lambda: defaultdict(int))
+        self.challenge_cnt = {} # 各プレイヤーに対するチャレンジ成功数
+        self.challenged_cnt = {}

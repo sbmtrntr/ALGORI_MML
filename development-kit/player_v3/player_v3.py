@@ -95,10 +95,6 @@ TIME_DELAY = 10 # 処理停止時間
 """
 games = Games()
 game_status = Status()
-# challenge_success = False
-# challenge_success_cnt = {} # 各プレイヤーに対するチャレンジ成功数
-# num_game = 0
-# first_player = ''
 once_connected = False
 id = '' # 自分のID
 
@@ -323,9 +319,11 @@ def on_first_player(data_res):
     global id, game_status, games
 
     # チャレンジ成功数を記録するための辞書
-    # if num_game == 0:
-    #     for player_id in data_res['play_order']:
-    #         challenge_success_cnt[player_id] = 0
+    if games.num_game == 0:
+        for player_id in data_res['play_order']:
+            if player_id != id:
+                games.challenge_cnt[player_id] = [0, 0] # [トータル数, 成功数]
+                games.challenged_cnt[player_id] = [0, 0, 0] # [ドロ4出した回数, チャレンジ回数, 成功数]
 
     games.num_game += 1
     game_status.set_play_order(data_res['play_order'], id)
@@ -453,7 +451,7 @@ def on_next_player(data_res):
 
         # 自分の手札を更新しておく
         game_status.set_my_cards(cards)
-        game_status.my_uno_flag = len(cards) == 2
+        game_status.my_uno_flag = len(cards) == 1
 
         # print(game_status.cards_status)
         print(f'デバッグプリント {games.num_game}対戦目')
@@ -476,9 +474,7 @@ def on_next_player(data_res):
             # before_card_num = data_res['number_card_of_player']
             # num_of_deck = game_status.num_of_deck
             print(game_status.cards_status)
-            # num_of_deck = game_status.calculate_num_of_deck(id, before_card_num)
-            # print('デバッグプリント')
-            # game_status.debug_print()
+
             cnt = 1
             while game_status.field_cards[-1*cnt - 1].get('color', None) == "white" or game_status.field_cards[-1*cnt - 1].get('color', None) is None: #直前の色が白以外になるまで探索
                 cnt += 1
@@ -488,11 +484,10 @@ def on_next_player(data_res):
             print(field_card)
 
             print('直前があってるか', before_player == game_status.get_before_id())
-            is_challenge = challenge_dicision(field_card, game_status.cards_status, id, before_player, num_card_of_player, num_of_deck, game_status.other_open_cards, games.challenge_success_cnt, games.num_game)
+            is_challenge = challenge_dicision(field_card, game_status.cards_status, id, before_player, num_card_of_player, num_of_deck, game_status.other_open_cards, games.challenge_cnt, games.num_game)
             send_event(SocketConst.EMIT.CHALLENGE, { 'is_challenge': is_challenge } )
             if is_challenge:
                 return
-
 
 
         if data_res.get('must_call_draw_card'):
@@ -532,7 +527,7 @@ def on_next_player(data_res):
                 print(data)
 
             if play_card.get('special') == Special.WILD_DRAW_4:
-                games.challenged_cnt[next_player]["play_draw4"] += 1
+                games.challenged_cnt[next_player][0] += 1
 
             send_event(SocketConst.EMIT.PLAY_CARD, data)
 
@@ -577,19 +572,11 @@ def on_next_player(data_res):
                     return
 
                 # 以後、引いたカードが場に出せるときの処理
-                # if game_status.my_uno_flag:
-                #     print('UNOのとき引いたよ')
-                #     print(cards)
-                #     print(res.get('draw_card'))
-                game_status.my_uno_flag = len(cards) == 2
+                game_status.my_uno_flag = len(cards) == 1
                 data = {
                     'is_play_card': True,
                     'yell_uno': game_status.my_uno_flag  # 残り手札数を考慮してUNOコールを宣言する
                 }
-                # if len(cards + res.get('draw_card')) == 2:
-                #     game_status.my_uno_flag = True
-                # else:
-                #     game_status.my_uno_flag = False
 
                 play_card = res.get('draw_card')[0]
                 if play_card.get('special') == Special.WILD or play_card.get('special') == Special.WILD_DRAW_4:
@@ -597,7 +584,7 @@ def on_next_player(data_res):
                     data['color_of_wild'] = color
 
                 if play_card.get('special') == Special.WILD_DRAW_4:
-                    games.challenged_cnt[next_player]["play_draw4"] += 1
+                    games.challenged_cnt[next_player][0] += 1
 
                 # 引いたカードを出すイベントを実行
                 print('引いたカードを出す')
@@ -725,11 +712,10 @@ def on_challenge(data_res):
 
     # チャレンジした場合
     if is_challenge:
-        print('チャレンジした')
         if challenger == id:
-            games.challenge_success_cnt[target]["challenge"] += 1
+            games.challenge_cnt[target][0] += 1
         if target == id:
-            games.challenged_cnt[challenger]["challenged"] += 1
+            games.challenged_cnt[challenger][1] += 1
             game_status.my_open_cards[challenger] = game_status.my_cards.copy()
             print('チャレンジされた！')
             print(game_status.my_open_cards)
@@ -748,11 +734,11 @@ def on_challenge(data_res):
                 game_status.cards_status["black"]["wild_draw_4"] += 1
             else:
                 game_status.challenge_success[challenger] = True
-                games.challenged_cnt[challenger]["success"] += 1
+                games.challenged_cnt[challenger][2] += 1
 
             # チャレンジ成功数をインクリメント
             if challenger == id:
-                games.challenge_success_cnt[target]["success"] += 1
+                games.challenge_cnt[target][1] += 1
 
         # チャレンジが失敗した場合は
         else:
@@ -762,13 +748,8 @@ def on_challenge(data_res):
             # 追加でペナルティとして山札から2枚引く
             game_status.draw_card(challenger, penalty_draw=2)
 
-            # if target != id: # wild_draw_4を出したプレイヤーが自分でない場合
-            #     # 自分からwild_draw_4が見えなくなるので cards_statusを元に戻す
-            #     game_status.cards_status["black"]["wild_draw_4"] += 1
-
     # チャレンジしない場合
     else:
-        print('チャレンジしなかった')
         # wild_draw_4の効果を受けて4枚ドロー
         game_status.draw_card(challenger)
 

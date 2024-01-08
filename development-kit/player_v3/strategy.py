@@ -132,13 +132,13 @@ def card_choice_at_uno(valid_card_list: list, pos: str, status: dict) -> list:
         cnt_by_color = defaultdict(int)
         for color in ['red', 'blue', 'green', 'yellow']:
             cnt_by_color[color] = color_counting(color, status)
-        sorted_color = [item[0] for item in sorted(cnt_by_color.items(), key=lambda x: x[1])]  ##########
+        sorted_color = [item[0] for item in sorted(cnt_by_color.items(), key=lambda x: x[1])]
         print("多く出されている色の順は", sorted_color)
 
         # 色ごとに、場に見えている数字カードの数が大きい順に、手持ちの数字カードをソートする
         tmp_num_list = []
         for color in sorted_color:
-            sorted_by_cnt = [item[0] for item in sorted(status[color].items(), key=lambda x: x[1])]  ###########
+            sorted_by_cnt = [item[0] for item in sorted(status[color].items(), key=lambda x: x[1])]
             print("sorted_by_cnt")
             print(sorted_by_cnt)
             for key in sorted_by_cnt:
@@ -491,7 +491,7 @@ def deffesive_mode(cards: list, player_cards_cnt: dict, challenge_success: bool)
     return ans_list
 
 
-def challenge_dicision(before_card: dict, card_status: dict, my_id: str, before_id: str, other_cards: dict, cards_num: int, open_cards: dict, challenge_succuess_cnt: dict, num_game: int):
+def challenge_dicision(before_card: dict, card_status: dict, my_id: str, before_id: str, other_cards: dict, cards_num: int, open_cards: dict, challenge_cnt: dict, num_game: int):
     """
     チャレンジの判断関数
     args:
@@ -502,7 +502,8 @@ def challenge_dicision(before_card: dict, card_status: dict, my_id: str, before_
         other_cards: dict = プレイヤーが持つカードの枚数
         cards_num: int = 山札の枚数
         open_cards: dict = オープンされている手札のdict
-        challenge_success_cnt: dict = チャレンジ成功数
+        challenge_cnt: dict = チャレンジ成功率の管理
+        num_game: int = 何試合目か
     return:
         bool値 = チャレンジするか否か
     """
@@ -529,10 +530,10 @@ def challenge_dicision(before_card: dict, card_status: dict, my_id: str, before_
 
 
     # 200戦した後のチャレンジ成功率が30%以下のとき、チャレンジしない
-    if num_game > 200 and challenge_succuess_cnt[before_id]["challenge"] != 0:
-        p_success = challenge_succuess_cnt[before_id]["success"] / challenge_succuess_cnt[before_id]["challenge"]
+    if num_game > 200 and challenge_cnt[before_id][0] != 0:
+        p_success = challenge_cnt[before_id][1] / challenge_cnt[before_id][0]
         print(before_id, 'に対するチャレンジ成功率:', p_success)
-        print('チャレンジ回数:', challenge_succuess_cnt[before_id]["challenge"], '成功回数:', challenge_succuess_cnt[before_id]["success"])
+        print('チャレンジ回数:', challenge_cnt[before_id][0], '成功回数:', challenge_cnt[before_id][1])
         if p_success <= 0.3:
             return False
 
@@ -576,6 +577,9 @@ def challenge_dicision(before_card: dict, card_status: dict, my_id: str, before_
 
     print("他の出せるカードを"+ before_id +"が持っている確率は :" + str(p))
 
+    if not 0 <= p <= 1:
+        exit(print("確率の壁を越えてるよ"))
+
     # 相手が6枚以上持っているとき
     if other_cards[before_id] >= 6:
         return p >= 0.5 # 相手が出せるカードを持っている確率が50%以上のときチャレンジ
@@ -613,19 +617,19 @@ def play_draw4_dicision(valid_card_list: list, before_card: dict, card_status: d
     if challenge_success:
         return False
 
-    if num_game > 200 and challenged_cnt[next_id]['play_draw4'] != 0:
-        p_challenge = challenged_cnt[next_id]['challenged'] / challenged_cnt[next_id]['play_draw4']
+    if num_game > 200 and challenged_cnt[next_id][0] != 0:
+        p_challenge = challenged_cnt[next_id][1] / challenged_cnt[next_id][0]
         print(next_id, 'のチャレンジ率:', p_challenge)
-        print('ドロ4出した回数:', challenged_cnt[next_id]['play_draw4'], 'チャレンジ回数:', challenged_cnt[next_id]['challenged'])
+        print('ドロ4出した回数:', challenged_cnt[next_id][0], 'チャレンジ回数:', challenged_cnt[next_id][1])
         if p_challenge >= 0.9: # 200戦した後、自分がドロー4出したときの相手のチャレンジ率が90%以上のとき、出さない
             return False
         elif p_challenge <= 0.05: # 200戦した後、自分がドロー4出したときの相手のチャレンジ率が5%以下のとき、出す
             return True
 
-    if num_game > 200 and challenged_cnt[next_id]['challenged'] != 0:
-        p_success = challenged_cnt[next_id]['success'] / challenged_cnt[next_id]['challenged']
+    if num_game > 200 and challenged_cnt[next_id][1] != 0:
+        p_success = challenged_cnt[next_id][2] / challenged_cnt[next_id][1]
         print(next_id, 'のチャレンジ成功率:', p_success)
-        print('チャレンジ回数:', challenged_cnt[next_id]['challenged'], '成功回数:', challenged_cnt[next_id]['success'])
+        print('チャレンジ回数:', challenged_cnt[next_id][1], '成功回数:', challenged_cnt[next_id][2])
         if p_success >= 0.8: # 200戦した後の被チャレンジ成功率が 80%以上のとき、出さない
             return False
 
