@@ -372,7 +372,7 @@ def on_shuffle_wild(data_res):
         global id, game_status
         game_status.uno_declared = {}
 
-        print("data_res.get('player') = ", data_res.get('player'))
+        # print("data_res.get('player') = ", data_res.get('player'))
         # output --> None
         #TODO data_res.get('player')は存在しない...
 
@@ -492,6 +492,7 @@ def on_next_player(data_res):
 
         if data_res.get('must_call_draw_card'):
             # カードを引かないと行けない時
+            game_status.my_uno_flag = False
             send_event(SocketConst.EMIT.DRAW_CARD, {})
             return
 
@@ -605,15 +606,15 @@ def on_play_card(data_res):
         global id, game_status
         player = data_res.get('player')
         card_play = data_res.get('card_play')
+
         # UNO宣言を行った場合は記録する
-        # global game_status
         if data_res.get('yell_uno'):
             game_status.uno_declared[player] = data_res.get('yell_uno')
             if id != player:
                 game_status.set_uno_player(player)
 
         # カードを場に出した(game_status側処理)
-        game_status.play_card(data_res.get('card_play'), player)
+        game_status.play_card(card_play, player)
         game_status.num_of_field += 1
 
         if id != player:
@@ -673,7 +674,7 @@ def on_play_draw_card(data_res):
                     game_status.set_uno_player(player)
 
             # カードを場に出した(game_status側処理)
-            game_status.play_card(data_res.get("card_play"), player)
+            game_status.play_card(card_play, player)
             game_status.num_of_field += 1
 
             if id != player:
