@@ -333,6 +333,11 @@ def on_first_player(data_res):
         if first_card["special"] == "reverse":
                 game_status.reverse_order()
 
+    first_player = data_res['first_player']
+
+    # 最後にターンをプレイしたプレイヤーを初期化する
+    game_status.who_played_last = first_player
+
     # プレイヤー全員の手札枚数を初期化する
     game_status.init_player_card_counts(data_res['play_order'])
     game_status.field_cards.append(data_res['first_card'])
@@ -360,7 +365,14 @@ def on_color_of_wild(data_res):
 # 場札の色が変わった
 @sio.on(SocketConst.EMIT.UPDATE_COLOR)
 def on_update_color(data_res):
-    receive_event(SocketConst.EMIT.UPDATE_COLOR, data_res)
+    def on_update_color_callback(data_res):
+        global game_status
+
+        # どの色に変更されたか記録する
+        chosen_color = data_res.get("color")
+        game_status.player_color_log[game_status.who_played_last].append((chosen_color, "wild"))
+
+    receive_event(SocketConst.EMIT.UPDATE_COLOR, data_res, on_update_color_callback)
 
 
 # シャッフルワイルドにより手札状況が変更
@@ -562,15 +574,16 @@ def on_next_player(data_res):
 
                 # 防御モードの場合
                 elif play_mode == "deffensive":
-                    #TODO 未実装
-                    print('未実装で出さない')
-                    game_status.my_uno_flag = False
-                    data = {
-                        'is_play_card': False,
-                        'yell_uno': game_status.my_uno_flag  # 残り手札数を考慮してUNOコールを宣言する
-                    }
-                    send_event(SocketConst.EMIT.PLAY_DRAW_CARD, data)
-                    return
+                    # 引いてきたカードがシャッフルワイルドの場合、出さずに処理を終了
+                    if draw_card.get("special") == "wild_shuffle":
+                        game_status.my_uno_flag = False
+                        data = {
+                            'is_play_card': False,
+                            'yell_uno': game_status.my_uno_flag  # 残り手札数を考慮してUNOコールを宣言する
+                        }
+                        send_event(SocketConst.EMIT.PLAY_DRAW_CARD, data)
+                        return
+                    # return
 
                 # 以後、引いたカードが場に出せるときの処理
                 game_status.my_uno_flag = len(cards) == 1
@@ -617,6 +630,9 @@ def on_play_card(data_res):
         game_status.play_card(card_play, player)
         game_status.num_of_field += 1
 
+        # 最後にカードをプレイしたプレイヤーを更新
+        game_status.who_played_last = player
+
         if id != player:
             # 自分の出したカードでなければ cards_statusを更新する
             print("私以外だよ")
@@ -638,7 +654,7 @@ def on_play_card(data_res):
     receive_event(SocketConst.EMIT.PLAY_CARD, data_res, play_card_callback)
 
 
-# 山札からカードを引いた(現在曽野編集中メソッド)
+# 山札からカードを引いた
 @sio.on(SocketConst.EMIT.DRAW_CARD)
 def on_draw_card(data_res):
     global id, game_status

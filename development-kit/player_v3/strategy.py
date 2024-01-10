@@ -444,50 +444,110 @@ def my_color_cnt(cards: dict) -> list:
     return ans
 
 
-def deffesive_mode(cards: list, player_cards_cnt: dict, challenge_success: bool) -> list:
+def deffesive_mode(cards: list, my_card: int, player_cards_cnt: dict, challenge_sucess: bool, g_status:any) -> list:
     """
-    防御モードの手札選択
+    防御モード
+    cards :自分の中で出せるカード
+    my_card :自分の手札の枚数
+    player_cards_cnt :他の奴らの手札の枚数
+    challenge_success :チャレンジを成功された過去があるか否か
+    """
+    print("---防御モード発動---")
 
-    Args:
-        card_dict(dict): 自分の手札のカードを格納した辞書型
-    Returns:
-        ans_list(list): 2次元配列(list in list), 要素 = [cardオブジェクト, (優先順位, cardの数字)]
-    """
     ans_list = []
-    for card in cards:
-        if "special" in card.keys():
+    wild_lis = []
+    non_wild_lis = []
+    num_lis = []
+
+    for card in cards: # ワイルドを優先的に出す
+        card_special = card.get("special")
+        if card_special == "wild":
+            wild_lis.append(card)
+
+    for card in cards: # 白いワイルドを優先的に出す
+        card_special = card.get("special")
+        if card_special == "white_wild":
+            wild_lis.append(card)
+
+    # チャレンジが成功された場合は, ワイルドドロー4の優先順位は最低になる
+    # そうでなければこの優先順位でワイルドドロー4を出す
+    if not challenge_sucess:
+        for card in cards: # ワイルドドロー4を優先的に出す
             card_special = card.get("special")
-            if card_special == "wild_shuffle":
-                #シャッフルワイルドを持っているときは3枚以下のプレイヤーが出たときに使う
-                if min_cards_check(player_cards_cnt) <= 3:
-                    ans_list.append([card, (0, 1)])
-                    # 自分が最少手札保持者でシャッフルワイルドを持っており、それ以外に出せるものが無いとき、他プレイヤーとの差が4枚以上であれば、出さずに山札から引く
-                    # if len(cards) <  min_cards_check(player_cards_cnt) and min_cards_check(player_cards_cnt) - len(cards) >= 4:
-                    #     continue
-                    # else:
-                    #     ans_list.append([card, (0, 1)])
+            if card_special == "wild_draw_4":
+                wild_lis.append(card)
 
-            elif card_special == "white_wild":
-                ans_list.append([card, (2, 1)])
+    # 色優先順位の決定
+    # プレイヤーの手札枚数が最も少ないプレイヤーを取得する
+    # 同枚数のプレイヤーがいたらどうするのか？
+    tgt_id = None
+    cnt_min = 112
+    for k, v in player_cards_cnt.items():
+        if v < cnt_min:
+            tgt_id = k
+            cnt_min = v
 
-            elif card_special == "wild_draw_4":
-                if challenge_success == False: #直前のチャレンジ成功がなかったら
-                    ans_list.append([card, (3, 1)])
-                else: #あったら
-                    ans_list.append([card, (9, 1)])
+    print("最もカード枚数が少ないプレイヤー", tgt_id)
 
-            elif card_special == "wild":
-                ans_list.append([card, (1, 1)])
+    # game_statusインスタンスから, そのプレイヤーの色に関するゲーム記録を取得する
+    # 指定したプレイヤーの色に関する記録があれば参照する
+    if g_status.player_card_log[tgt_id]:
+        last_chose_color = g_status.player_card_log[tgt_id][-1]
 
-            elif card_special == "draw_2":
-                ans_list.append([card, (4, 1)])
+    # 記録が無い場合はcards_statusを参照して既知なカードのうち、
+    # 最も場に出されている色順に結果を出力したい
+    else:
+        # TODO
+        pass
 
-            elif card_special == "skip" or card_special == "reverse":
-                ans_list.append([card, (5, 1)])
 
-        elif "number" in card.keys():
-            ans_list.append([card, (6, card.get("number"))])
+    for card in cards: #ドロー2を優先的に出す
+        card_special = card.get("special")
+        if card_special == "draw_2":
+            non_wild_lis.append(card)
 
+    for card in cards: #スキップ・リバースを優先的に出す
+        card_special = card.get("special")
+        if card_special in ["skip", "reverse"]:
+            non_wild_lis.append(card)
+
+    # color_order = my_color_cnt(cards)
+    for card in cards: #数字カードは大きい数を優先的に出す
+        if card.get("number") is not None:
+            num_lis.append((card, int(card["number"])))
+
+    num_lis_2 = [item[0] for item in sorted(num_lis, key=lambda x: x[1], reverse=True)]
+
+    # 答えのリストに追加する
+    ans_list += wild_lis
+    ans_list += non_wild_lis
+    ans_list += num_lis_2
+
+    # チャレンジが成功された場合は, ワイルドドロー4の優先順位は最低になる
+    if challenge_sucess:
+        for card in cards: # ワイルドドロー4を優先的に出す
+            card_special = card.get("special")
+            if card_special == "wild_draw_4":
+                ans_list.append(card)
+
+    # カードを出すか、ドローするか
+    # ワイルド系カードを持っていてそれしか出せるカードが無い時
+    if len(wild_lis) > 0 and len(wild_lis) == len(ans_list):
+        # 残り手札が1枚の時は出してゲームをあがる
+        if my_card == 1:
+            return ans_list
+        # 出せるカードがシャッフルワイルドのみの場合は出さずにカードを引く
+        if len(wild_lis) == 1 and wild_lis[0].get("special") == "wild_shuffle":
+            return []
+        # それ以外の場合は出せるワイルド系カードを出す
+        return ans_list
+    
+    # ワイルド系カードを持っておらず、出せるカードが無いとき
+    elif len(wild_lis) == 0 and len(cards) == 0:
+        # 山札からカードを引くのでNoneを返す
+        return []
+
+    # 上記以外の場合は通常通りにリストを返す
     return ans_list
 
 
