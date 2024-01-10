@@ -1,2 +1,2 @@
 [scripts]
-start = "python3 player_v2.py 'http://localhost:8080/' 'Dealer 1' 'Player X'"
+start = "python3 player_v3.py 'http://localhost:8080/' 'Dealer 1' 'Player X'"

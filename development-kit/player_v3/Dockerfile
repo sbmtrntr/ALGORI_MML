@@ -8,6 +8,6 @@ RUN pip install -r requirements.txt
 
 EXPOSE 8081
 
-ENTRYPOINT [ "python", "player_v2.py"]
+ENTRYPOINT [ "python", "player_v3.py"]
 
 CMD [ "http://localhost:8080/", "Dealer 1", "Player 1" ]
