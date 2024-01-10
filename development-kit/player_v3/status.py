@@ -22,6 +22,12 @@ class Status:
         # 「誰が」「どのカードを」出したかを記録するディクショナリ
         self.player_card_log = defaultdict(lambda: deque(maxlen=None))
 
+        # 「誰が」「どの色」に変更したかを記録するディクショナリ
+        self.player_color_log = defaultdict(lambda: deque(maxlen=None))
+
+        # 最後にカードをプレイしたプレイヤーを記録しておく文字列型フィールド
+        self.who_played_last = None
+
         # 場に出されたカードを記録する配列
         self.field_cards = deque(maxlen=None)
 
@@ -297,6 +303,11 @@ class Status:
             else:
                 num_of_draw = 1
                 is_ok_over_25 = False # 25枚以上は引くことができない
+
+                # プレイヤーが出せなかった色を記録しておく
+                top_card_color = top_card.get("color")
+                self.player_color_log[player].append((top_card_color, "cant_play_card"))
+
                 print(f"引く理由: 場に出すカードがない(再行動可能)")
 
         print("---更新前---")
