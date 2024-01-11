@@ -1,7 +1,7 @@
 from collections import defaultdict
 import math
 
-def select_play_card(my_cards: list, my_id: str, next_id, player_card_counts: dict, num_of_deck: int, before_card: dict, status: dict, order_dic: dict, wild_shuffle_flag: bool, challenge_success: bool, challenged_cnt: dict, num_game: int) -> dict:
+def select_play_card(my_cards: list, my_id: str, next_id: str, player_card_counts: dict, num_of_deck: int, before_card: dict, game_status: any, games: any) -> dict:
     """
     出すカードを選出する
 
@@ -56,7 +56,9 @@ def select_play_card(my_cards: list, my_id: str, next_id, player_card_counts: di
     valid_card_list = cards_valid + cards_wild + cards_wild4
 
     ######追加#######
-    should_play_draw4 = play_draw4_dicision(valid_card_list, before_card, status, my_cards, my_id, next_id, player_card_counts, num_of_deck, challenge_success, challenged_cnt, num_game)
+    wild_shuffle_flag = game_status.wild_shuffle_flag()
+    challenge_success = game_status.challenge_success.get(next_id, False)
+    should_play_draw4 = play_draw4_dicision(valid_card_list, before_card, my_cards, my_id, next_id, player_card_counts, num_of_deck, challenge_success, game_status, games)
     print('should_play_draw4:', should_play_draw4)
 
     # UNOプレイヤーがいるとき
@@ -66,13 +68,13 @@ def select_play_card(my_cards: list, my_id: str, next_id, player_card_counts: di
         return (shuffle_wild, "uno")
 
     if len(valid_card_list) > 0:
-        for v in order_dic.values():
+        for v in game_status.order_dic.values():
             if v["UNO"] == True: #UNO宣言してるやついたら
-                tmp_list = card_choice_at_uno(valid_card_list, v["位置"], status, challenge_success)
+                tmp_list = card_choice_at_uno(valid_card_list, v["位置"], game_status, challenge_success)
                 return (tmp_list[0], "uno")
 
         if analyze_situation(my_cards, player_card_counts, wild_shuffle_flag) == "deffensive": #防御モード
-            tmp_list = deffesive_mode(valid_card_list, my_cards, player_card_counts, challenge_success, status)
+            tmp_list = deffesive_mode(valid_card_list, my_cards, player_card_counts, challenge_success, game_status)
             if len(tmp_list) == 0:
                 return (None, "deffensive")
 
@@ -90,7 +92,7 @@ def select_play_card(my_cards: list, my_id: str, next_id, player_card_counts: di
         return (None, "other")
 
 
-def card_choice_at_uno(valid_card_list: list, pos: str, status: dict, challenge_success: bool) -> list:
+def card_choice_at_uno(valid_card_list: list, pos: str, game_status: any, challenge_success: bool) -> list:
     """
     UNO状態のプレイヤーがいるときに、どのカードを選択するか決める関数(失点を減らすように)
     カードの出し方は次を参照： https://github.com/sbmtrntr/ALGORI_MML/issues/11#issuecomment-1855121547
@@ -131,14 +133,14 @@ def card_choice_at_uno(valid_card_list: list, pos: str, status: dict, challenge_
         # 場に見えている色順を得る
         cnt_by_color = defaultdict(int)
         for color in ['red', 'blue', 'green', 'yellow']:
-            cnt_by_color[color] = color_counting(color, status)
+            cnt_by_color[color] = color_counting(color, game_status.cards_status)
         sorted_color = [item[0] for item in sorted(cnt_by_color.items(), key=lambda x: x[1])]
         print("多く出されている色の順は", sorted_color)
 
         # 色ごとに、場に見えている数字カードの数が大きい順に、手持ちの数字カードをソートする
         tmp_num_list = []
         for color in sorted_color:
-            sorted_by_cnt = [item[0] for item in sorted(status[color].items(), key=lambda x: x[1])]
+            sorted_by_cnt = [item[0] for item in sorted(game_status.cards_status[color].items(), key=lambda x: x[1])]
             print("sorted_by_cnt")
             print(sorted_by_cnt)
             for key in sorted_by_cnt:
@@ -450,7 +452,7 @@ def my_color_cnt(cards: dict) -> list:
     return ans
 
 
-def deffesive_mode(cards: list, my_card: int, player_cards_cnt: dict, challenge_success: bool, g_status:any) -> list:
+def deffesive_mode(cards: list, my_card: int, player_cards_cnt: dict, challenge_success: bool, g_status: any) -> list:
     """
     防御モード
     cards :自分の中で出せるカード
@@ -503,7 +505,7 @@ def deffesive_mode(cards: list, my_card: int, player_cards_cnt: dict, challenge_
         # cards_statusを参照して既知なカードのうち、
         # 最も場に出されている色順に結果を出力したい
         dic = g_status.cards_status.copy()
-        tmp_lis = sorted(dic.items(), key=lambda x:sum(x.values()))
+        tmp_lis = sorted(dic.items(), key=lambda x:sum(x[1].values()))
         print("color_list:", tmp_lis)
         color_list = [item[0] for item in tmp_lis]
 
@@ -521,8 +523,8 @@ def deffesive_mode(cards: list, my_card: int, player_cards_cnt: dict, challenge_
         tmp_lis = sorted(dic.items(), key=lambda x:sum(x.values()))
         print("color_list:", tmp_lis)
         color_list = [item[0] for item in tmp_lis]
-        
-    return color_list
+
+    # return color_list
 
 
     for card in cards: #ドロー2を優先的に出す
@@ -548,7 +550,7 @@ def deffesive_mode(cards: list, my_card: int, player_cards_cnt: dict, challenge_
     ans_list += num_lis_2
 
     # チャレンジが成功された場合は, ワイルドドロー4の優先順位は最低になる
-    if challenge_sucess:
+    if challenge_success:
         for card in cards: # ワイルドドロー4を優先的に出す
             card_special = card.get("special")
             if card_special == "wild_draw_4":
@@ -565,7 +567,7 @@ def deffesive_mode(cards: list, my_card: int, player_cards_cnt: dict, challenge_
             return []
         # それ以外の場合は出せるワイルド系カードを出す
         return ans_list
-    
+
     # ワイルド系カードを持っておらず、出せるカードが無いとき
     elif len(wild_lis) == 0 and len(cards) == 0:
         # 山札からカードを引くのでNoneを返す
@@ -575,30 +577,28 @@ def deffesive_mode(cards: list, my_card: int, player_cards_cnt: dict, challenge_
     return ans_list
 
 
-def challenge_dicision(before_card: dict, card_status: dict, my_id: str, before_id: str, other_cards: dict, cards_num: int, open_cards: dict, challenge_cnt: dict, num_game: int):
+def challenge_dicision(before_card: dict, my_id: str, before_id: str, player_card_counts: dict, num_of_deck: int, game_status: any, games: any):
     """
     チャレンジの判断関数
     args:
         before_card: dict = wild_draw_4前のカード
-        card_status: dict = 見えてないカードの山の内容
         my_id: str = 自分のID
         before_id: str = 直前のプレイヤーのID
-        other_cards: dict = プレイヤーが持つカードの枚数
-        cards_num: int = 山札の枚数
-        open_cards: dict = オープンされている手札のdict
-        challenge_cnt: dict = チャレンジ成功率の管理
-        num_game: int = 何試合目か
+        player_card_counts: dict = プレイヤーが持つカードの枚数
+        num_of_deck: int = 山札の枚数
+        game_status: Statusインスタンス
+        games: Gamesインスタンス
     return:
         bool値 = チャレンジするか否か
     """
 
 
     # チャレンジ後開示された手札を記憶し、次ワイルドドロー4が出されたときに記憶した手札から場に出されたカードを消したものの中で出せるものがあれば必ずチャレンジ
-    if len(open_cards[before_id]) > 0: # カードをオープンしてたら
+    if len(game_status.other_open_cards[before_id]) > 0: # カードをオープンしてたら
         card_color = before_card.get("color") #wild_draw_4前のカードの色を取得
         card_number = before_card.get("number")
         card_special = before_card.get("special")
-        for card in open_cards[before_id]: # オープンカードを片っ端からチェック
+        for card in game_status.other_open_cards[before_id]: # オープンカードを片っ端からチェック
             if card.get("color") == card_color: # 同じ色あったら
                 print('記憶したカードでチャレンジ')
                 return True
@@ -614,42 +614,42 @@ def challenge_dicision(before_card: dict, card_status: dict, my_id: str, before_
 
 
     # 200戦した後のチャレンジ成功率が30%以下のとき、チャレンジしない
-    if num_game > 200 and challenge_cnt[before_id][0] != 0:
-        p_success = challenge_cnt[before_id][1] / challenge_cnt[before_id][0]
+    if games.num_game > 200 and games.challenge_cnt[before_id][0] != 0:
+        p_success = games.challenge_cnt[before_id][1] / games.challenge_cnt[before_id][0]
         print(before_id, 'に対するチャレンジ成功率:', p_success)
-        print('チャレンジ回数:', challenge_cnt[before_id][0], '成功回数:', challenge_cnt[before_id][1])
+        print('チャレンジ回数:', games.challenge_cnt[before_id][0], '成功回数:', games.challenge_cnt[before_id][1])
         if p_success <= 0.3:
             return False
 
     # 場札と自分の手札から相手が (同じ色を出せる確率) + (同じ数字・記号を出せる確率) + (ワイルド系カードを出せる確率) がp以上であればチャレンジ
     print(before_id)
-    print(cards_num)
+    print(num_of_deck)
 
     # 色が何枚残っているか確認
     card_color = before_card.get("color")
     color_num = 0
-    for i in card_status[card_color].values():
+    for i in game_status.cards_status[card_color].values():
         color_num += i
 
     print("残っている色の枚数は" + str(color_num))
 
     # 他プレイヤーが何枚残っているか確認
     other_card_num = 0
-    for id, num in other_cards.items():
+    for id, num in player_card_counts.items():
         if id != my_id:
             other_card_num += num
 
 
     # 直前のプレイヤーが何枚残っているか確認
-    x = other_cards[before_id]
+    x = player_card_counts[before_id]
 
     #見えていないワイルドカードの枚数を確認
     wild_num = 0
-    for k, i in card_status["black"].items():
+    for k, i in game_status.cards_status["black"].items():
         if k != "wild_draw_4":
             wild_num += i
 
-    wild_num += card_status["white"]["white_wild"]
+    wild_num += game_status.cards_status["white"]["white_wild"]
 
     print("xの枚数は" + str(x))
     print("x+y+zの枚数は" + str(other_card_num))
@@ -657,7 +657,7 @@ def challenge_dicision(before_card: dict, card_status: dict, my_id: str, before_
     print("ワイルドカードの枚数は" + str(wild_num))
 
     #確率計算0.48
-    p = 1 - (math.comb(cards_num + other_card_num - color_num - wild_num, x) / math.comb(cards_num + other_card_num, x))
+    p = 1 - (math.comb(num_of_deck + other_card_num - color_num - wild_num, x) / math.comb(num_of_deck + other_card_num, x))
 
     print("他の出せるカードを"+ before_id +"が持っている確率は :" + str(p))
 
@@ -665,7 +665,7 @@ def challenge_dicision(before_card: dict, card_status: dict, my_id: str, before_
         exit(print("確率の壁を越えてるよ"))
 
     # 相手が6枚以上持っているとき
-    if other_cards[before_id] >= 6:
+    if player_card_counts[before_id] >= 6:
         return p >= 0.5 # 相手が出せるカードを持っている確率が50%以上のときチャレンジ
     # 相手が6枚未満の時
     else:
@@ -673,26 +673,26 @@ def challenge_dicision(before_card: dict, card_status: dict, my_id: str, before_
 
 
 
-def play_draw4_dicision(valid_card_list: list, before_card: dict, card_status: dict, my_cards: list, my_id: str, next_id: str, other_cards: dict, cards_num: int, challenge_success: bool, challenged_cnt: dict, num_game: int):
+def play_draw4_dicision(valid_cards: list, before_card: dict, my_cards: list, my_id: str, next_id: str, player_card_counts: dict, num_of_deck: int, challenge_success: bool, game_status: any, games: any):
     """
-    チャレンジの判断関数
+    ドロ4出すかの判断関数
     args:
-        valid_card_list: list = 出せるカード
+        valid_cards: list = 出せるカード
         before_card: dict = 前のカード
-        card_status: dict = 見えてないカードの山の内容
         my_cards: list = 自分の手札
         my_id: str = 自分のID
         next_id: str = 直後のプレイヤーのID
-        other_cards: dict = プレイヤーが持つカードの枚数
-        cards_num: int = 山札の枚数
+        player_card_counts: dict = プレイヤーが持つカードの枚数
+        num_of_deck: int = 山札の枚数
         challenge_success: 自分に対してチャレンジ成功されたか
-        challenged_cnt: dict = チャレンジ成功数
+        game_status: Statusインスタンス
+        games: Gamesインスタンス
     return:
-        bool値 = チャレンジするか否か
+        bool値 = ドロ4出すべきか否か
     """
 
     # 他に出せるカードがないとき必ず出す
-    for card in valid_card_list:
+    for card in valid_cards:
         if card != {"special": "wild_draw_4", "color": "black"}:
             break
     else:
@@ -701,37 +701,37 @@ def play_draw4_dicision(valid_card_list: list, before_card: dict, card_status: d
     if challenge_success:
         return False
 
-    if num_game > 200 and challenged_cnt[next_id][0] != 0:
-        p_challenge = challenged_cnt[next_id][1] / challenged_cnt[next_id][0]
+    if games.num_game > 200 and games.challenged_cnt[next_id][0] != 0:
+        p_challenge = games.challenged_cnt[next_id][1] / games.challenged_cnt[next_id][0]
         print(next_id, 'のチャレンジ率:', p_challenge)
-        print('ドロ4出した回数:', challenged_cnt[next_id][0], 'チャレンジ回数:', challenged_cnt[next_id][1])
+        print('ドロ4出した回数:', games.challenged_cnt[next_id][0], 'チャレンジ回数:', games.challenged_cnt[next_id][1])
         if p_challenge >= 0.9: # 200戦した後、自分がドロー4出したときの相手のチャレンジ率が90%以上のとき、出さない
             return False
         elif p_challenge <= 0.05: # 200戦した後、自分がドロー4出したときの相手のチャレンジ率が5%以下のとき、出す
             return True
 
-    if num_game > 200 and challenged_cnt[next_id][1] != 0:
-        p_success = challenged_cnt[next_id][2] / challenged_cnt[next_id][1]
+    if games.num_game > 200 and games.challenged_cnt[next_id][1] != 0:
+        p_success = games.challenged_cnt[next_id][2] / games.challenged_cnt[next_id][1]
         print(next_id, 'のチャレンジ成功率:', p_success)
-        print('チャレンジ回数:', challenged_cnt[next_id][1], '成功回数:', challenged_cnt[next_id][2])
+        print('チャレンジ回数:', games.challenged_cnt[next_id][1], '成功回数:', games.challenged_cnt[next_id][2])
         if p_success >= 0.8: # 200戦した後の被チャレンジ成功率が 80%以上のとき、出さない
             return False
 
 
 
     print(next_id)
-    print(cards_num)
+    print(num_of_deck)
 
     # 色が何枚残っているか確認
     card_color = before_card.get("color")
     color_num = 0
-    for i in card_status[card_color].values():
+    for i in game_status.cards_status[card_color].values():
         color_num += i
 
 
     # 他プレイヤーが何枚残っているか確認
     other_card_num = 0
-    for id, num in other_cards.items():
+    for id, num in player_card_counts.items():
         if id != next_id:
             other_card_num += num
         else:
@@ -739,15 +739,15 @@ def play_draw4_dicision(valid_card_list: list, before_card: dict, card_status: d
 
 
     # 自分が何枚残っているか確認
-    w = other_cards[my_id]
+    w = player_card_counts[my_id]
 
     # 見えていないワイルドカードの枚数を確認
     wild_num = 0
-    for k, i in card_status["black"].items():
+    for k, i in game_status.cards_status["black"].items():
         if k != "wild_draw_4":
             wild_num += i
 
-    wild_num += card_status["white"]["white_wild"]
+    wild_num += game_status.cards_status["white"]["white_wild"]
 
     for card in my_cards:
         if card.get("color") == card_color:
@@ -763,12 +763,12 @@ def play_draw4_dicision(valid_card_list: list, before_card: dict, card_status: d
     print("ワイルドカードの枚数は" + str(wild_num))
 
     #確率計算
-    p = 1 - (math.comb(cards_num + other_card_num - color_num - wild_num, w) / math.comb(cards_num + other_card_num, w))
+    p = 1 - (math.comb(num_of_deck + other_card_num - color_num - wild_num, w) / math.comb(num_of_deck + other_card_num, w))
 
     print("他の出せるカードを"+ my_id +"が持っている確率は :" + str(p))
 
     # 相手が6枚以上持っているとき
-    if other_cards[my_id] >= 6:
+    if player_card_counts[my_id] >= 6:
         return p < 0.5 # 自分が出せるカードを持っている確率が50%以上のとき出さない
     # 相手が6枚未満の時
     else:

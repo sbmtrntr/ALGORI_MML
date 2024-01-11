@@ -95,11 +95,7 @@ TIME_DELAY = 10 # 処理停止時間
 """
 games = Games()
 game_status = Status()
-challenge_success = False
-challenge_cnt = {} # 各プレイヤーに対するチャレンジ数
 once_connected = False
-num_game = 0
-first_player = ''
 id = '' # 自分のID
 
 """
@@ -371,7 +367,7 @@ def on_color_of_wild(data_res):
 def on_update_color(data_res):
     def on_update_color_callback(data_res):
         global game_status
-        
+
         # どの色に変更されたか記録する
         chosen_color = data_res.get("color")
         game_status.player_color_log[game_status.who_played_last].append((chosen_color, "wild"))
@@ -387,10 +383,6 @@ def on_shuffle_wild(data_res):
     def shuffle_wild_callback(data_res):
         global id, game_status
         game_status.uno_declared = {}
-
-        # print("data_res.get('player') = ", data_res.get('player'))
-        # output --> None
-        #TODO data_res.get('player')は存在しない...
 
         #シャッフルワイルドで公開手札をリセットする
         game_status.init_open_cards()
@@ -435,10 +427,6 @@ def on_next_player(data_res):
 
     print("私は"+ id + "です")
 
-    # # 各プレイヤーの手札枚数を最新状態に更新しておく
-    # for k, v in data_res['number_card_of_player'].items():
-    #     game_status.check_player_card_counts(k, v)
-
     def next_player_callback(data_res):
         # global game_status, challenge_success, id, num_game, first_player, challenge_success_cnt
         global id, game_status, games
@@ -449,7 +437,7 @@ def on_next_player(data_res):
         num_card_of_player = data_res.get('number_card_of_player')
 
         next_player = game_status.get_next_id()
-        challenge_success = game_status.challenge_success.get(next_player, False)
+        # challenge_success = game_status.challenge_success.get(next_player, False)
         num_of_deck = game_status.calculate_num_of_deck(id, num_card_of_player)
 
         if game_status.turn_right != data_res.get('turn_right'):
@@ -466,32 +454,18 @@ def on_next_player(data_res):
             game_status.check_player_card_counts(k, v)
 
         # 自分の手札を更新しておく
-        cards = data_res.get('card_of_player')
         game_status.set_my_cards(cards)
         game_status.my_uno_flag = len(cards) == 1
 
-        # print(game_status.cards_status)
-        num_card_of_player = data_res['number_card_of_player']
-        yama = game_status.calculate_num_of_deck(id, num_card_of_player)
-        print(f'デバッグプリント {num_game}対戦目')
+        print(f'デバッグプリント {games.num_game}対戦目')
         print(game_status.order_dic)
         print(game_status.my_cards)
         game_status.debug_print()
 
         if data_res.get('draw_reason') == DrawReason.WILD_DRAW_4:
             # カードを引く理由がワイルドドロー4の時、チャレンジを行うことができる。
-            # if game_status.my_uno_flag == True:
-            #     send_event(SocketConst.EMIT.CHALLENGE, { 'is_challenge': True } )
-            #     return
 
-            print("チャレンジされました")
-            #print(game_status.field_cards)
-
-            # 特殊戦術_v1
-            # before_id = game_status.get_before_id()
-            # before_id = data_res.get('before_player')
-            # before_card_num = data_res['number_card_of_player']
-            # num_of_deck = game_status.num_of_deck
+            print("チャレンジする？")
             print(game_status.cards_status)
 
             cnt = 1
@@ -503,7 +477,7 @@ def on_next_player(data_res):
             print(field_card)
 
             print('直前があってるか', before_player == game_status.get_before_id())
-            is_challenge = challenge_dicision(field_card, game_status.cards_status, id, before_player, num_card_of_player, num_of_deck, game_status.other_open_cards, games.challenge_cnt, games.num_game)
+            is_challenge = challenge_dicision(field_card, id, before_player, num_card_of_player, num_of_deck, game_status, games)
             send_event(SocketConst.EMIT.CHALLENGE, { 'is_challenge': is_challenge } )
             if is_challenge:
                 return
@@ -521,7 +495,7 @@ def on_next_player(data_res):
             send_event(SocketConst.EMIT.SPECIAL_LOGIC, { 'title': SPECIAL_LOGIC_TITLE })
 
         # 自分の手札から、出せるカードのリストとプレイモードを取得する
-        play_card, play_mode = select_play_card(cards, id, next_player, num_card_of_player, num_of_deck, before_card, game_status.cards_status, game_status.order_dic, game_status.wild_shuffle_flag(), challenge_success, games.challenged_cnt, games.num_game)
+        play_card, play_mode = select_play_card(cards, id, next_player, num_card_of_player, num_of_deck, before_card, game_status, games)
         # DEBUG print
 
         print("プレイモード:", play_mode)
@@ -593,11 +567,7 @@ def on_next_player(data_res):
                     # return
 
                 # 以後、引いたカードが場に出せるときの処理
-                if game_status.my_uno_flag:
-                    print('UNOのとき引いたよ')
-                    print(cards)
-                    print(res.get('draw_card'))
-                game_status.my_uno_flag = True if len(cards) == 2 else False
+                game_status.my_uno_flag = len(cards) == 1
                 data = {
                     'is_play_card': True,
                     'yell_uno': game_status.my_uno_flag  # 残り手札数を考慮してUNOコールを宣言する
@@ -668,17 +638,18 @@ def on_play_card(data_res):
 # 山札からカードを引いた
 @sio.on(SocketConst.EMIT.DRAW_CARD)
 def on_draw_card(data_res):
-    global game_status
+    global id, game_status
     def draw_card_callback(data_res):
-        global game_status,id
+        global id, game_status
+        player = data_res.get('player')
         # カードが増えているのでUNO宣言の状態をリセットする
-        if data_res.get('player') in game_status.uno_declared:
-            if id != data_res.get('player'):
-                game_status.undo_uno_player(data_res.get('player'))
-            del game_status.uno_declared[data_res.get('player')]
+        if player in game_status.uno_declared:
+            if id != player:
+                game_status.undo_uno_player(player)
+            del game_status.uno_declared[player]
 
         # 山札からカードが引かれた(game_status側処理)
-        game_status.draw_card(data_res.get('player'))
+        game_status.draw_card(player)
 
     receive_event(SocketConst.EMIT.DRAW_CARD, data_res, draw_card_callback)
 
