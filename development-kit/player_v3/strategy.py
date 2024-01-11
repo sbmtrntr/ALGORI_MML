@@ -68,7 +68,7 @@ def select_play_card(my_cards: list, my_id: str, next_id, player_card_counts: di
     if len(valid_card_list) > 0:
         for v in order_dic.values():
             if v["UNO"] == True: #UNO宣言してるやついたら
-                tmp_list = card_choice_at_uno(valid_card_list, v["位置"], status)
+                tmp_list = card_choice_at_uno(valid_card_list, v["位置"], status, challenge_success)
                 return (tmp_list[0], "uno")
 
         if analyze_situation(my_cards, player_card_counts, wild_shuffle_flag) == "deffensive": #防御モード
@@ -90,7 +90,7 @@ def select_play_card(my_cards: list, my_id: str, next_id, player_card_counts: di
         return (None, "other")
 
 
-def card_choice_at_uno(valid_card_list: list, pos: str, status: dict) -> list:
+def card_choice_at_uno(valid_card_list: list, pos: str, status: dict, challenge_success: bool) -> list:
     """
     UNO状態のプレイヤーがいるときに、どのカードを選択するか決める関数(失点を減らすように)
     カードの出し方は次を参照： https://github.com/sbmtrntr/ALGORI_MML/issues/11#issuecomment-1855121547
@@ -186,7 +186,10 @@ def card_choice_at_uno(valid_card_list: list, pos: str, status: dict) -> list:
         print(tmp_num_list)
 
         # スペシャルカード(キー)を優先度順に格納したリスト
-        specials_key_list = ['wild_shuffle', 'white_wild', 'wild', 'wild_draw_4', 'draw_2', 'reverse', 'skip']
+        if challenge_success == False: #自分へのチャレンジが成功されていなかったら
+            specials_key_list = ['wild_shuffle', 'white_wild', 'wild', 'wild_draw_4', 'draw_2', 'reverse', 'skip']
+        else: #自分へのチャレンジが成功されていたら
+            specials_key_list = ['wild_shuffle', 'white_wild', 'wild', 'draw_2', 'reverse', 'skip', 'wild_draw_4']
 
         # 返り値の作成
         rtn_list = []
@@ -223,7 +226,10 @@ def card_choice_at_uno(valid_card_list: list, pos: str, status: dict) -> list:
                 nums_dict[card_number] = card
 
         # スペシャルカード(キー)を優先度順に格納したリスト　※Reverseはあとで別途で追加する
-        specials_key_list = ['wild_shuffle', 'wild', 'wild_draw_4', 'draw_2', 'white_wild', 'skip']
+        if challenge_success == False: #自分へのチャレンジが成功されていなかったら
+            specials_key_list = ['wild_shuffle', 'wild', 'wild_draw_4', 'draw_2', 'white_wild', 'skip']
+        else:
+            specials_key_list = ['wild_shuffle', 'wild', 'draw_2', 'white_wild', 'skip', 'wild_draw_4']
 
         # 数字カードの値が大きい順に数字カードをソートする
         tmp_num_list = [item[1] for item in sorted(nums_dict.items(), key=lambda x:int(x[0]), reverse=True)]
