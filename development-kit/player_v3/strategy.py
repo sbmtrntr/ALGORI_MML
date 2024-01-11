@@ -72,7 +72,7 @@ def select_play_card(my_cards: list, my_id: str, next_id, player_card_counts: di
                 return (tmp_list[0], "uno")
 
         if analyze_situation(my_cards, player_card_counts, wild_shuffle_flag) == "deffensive": #防御モード
-            tmp_list = deffesive_mode(valid_card_list, player_card_counts, challenge_success)
+            tmp_list = deffesive_mode(valid_card_list, my_cards, player_card_counts, challenge_success, status)
             if len(tmp_list) == 0:
                 return (None, "deffensive")
 
@@ -450,7 +450,7 @@ def my_color_cnt(cards: dict) -> list:
     return ans
 
 
-def deffesive_mode(cards: list, my_card: int, player_cards_cnt: dict, challenge_sucess: bool, g_status:any) -> list:
+def deffesive_mode(cards: list, my_card: int, player_cards_cnt: dict, challenge_success: bool, g_status:any) -> list:
     """
     防御モード
     cards :自分の中で出せるカード
@@ -477,7 +477,7 @@ def deffesive_mode(cards: list, my_card: int, player_cards_cnt: dict, challenge_
 
     # チャレンジが成功された場合は, ワイルドドロー4の優先順位は最低になる
     # そうでなければこの優先順位でワイルドドロー4を出す
-    if not challenge_sucess:
+    if not challenge_success:
         for card in cards: # ワイルドドロー4を優先的に出す
             card_special = card.get("special")
             if card_special == "wild_draw_4":
@@ -500,11 +500,29 @@ def deffesive_mode(cards: list, my_card: int, player_cards_cnt: dict, challenge_
     if g_status.player_card_log[tgt_id]:
         last_chose_color = g_status.player_card_log[tgt_id][-1]
 
+        # cards_statusを参照して既知なカードのうち、
+        # 最も場に出されている色順に結果を出力したい
+        dic = g_status.cards_status.copy()
+        tmp_lis = sorted(dic.items(), key=lambda x:sum(x.values()))
+        print("color_list:", tmp_lis)
+        color_list = [item[0] for item in tmp_lis]
+
+        # 最後に記録された色は除外する
+        color_list.remove(last_chose_color)
+
+        # 返すリストは　[(記録された色), (残りの色のうち、既知な色順)]
+        color_list = [last_chose_color] + color_list
+
+
     # 記録が無い場合はcards_statusを参照して既知なカードのうち、
     # 最も場に出されている色順に結果を出力したい
     else:
-        # TODO
-        pass
+        dic = g_status.cards_status.copy()
+        tmp_lis = sorted(dic.items(), key=lambda x:sum(x.values()))
+        print("color_list:", tmp_lis)
+        color_list = [item[0] for item in tmp_lis]
+        
+    return color_list
 
 
     for card in cards: #ドロー2を優先的に出す

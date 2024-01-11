@@ -95,7 +95,11 @@ TIME_DELAY = 10 # 処理停止時間
 """
 games = Games()
 game_status = Status()
+challenge_success = False
+challenge_cnt = {} # 各プレイヤーに対するチャレンジ数
 once_connected = False
+num_game = 0
+first_player = ''
 id = '' # 自分のID
 
 """
@@ -367,7 +371,7 @@ def on_color_of_wild(data_res):
 def on_update_color(data_res):
     def on_update_color_callback(data_res):
         global game_status
-
+        
         # どの色に変更されたか記録する
         chosen_color = data_res.get("color")
         game_status.player_color_log[game_status.who_played_last].append((chosen_color, "wild"))
@@ -462,11 +466,14 @@ def on_next_player(data_res):
             game_status.check_player_card_counts(k, v)
 
         # 自分の手札を更新しておく
+        cards = data_res.get('card_of_player')
         game_status.set_my_cards(cards)
         game_status.my_uno_flag = len(cards) == 1
 
         # print(game_status.cards_status)
-        print(f'デバッグプリント {games.num_game}対戦目')
+        num_card_of_player = data_res['number_card_of_player']
+        yama = game_status.calculate_num_of_deck(id, num_card_of_player)
+        print(f'デバッグプリント {num_game}対戦目')
         print(game_status.order_dic)
         print(game_status.my_cards)
         game_status.debug_print()
@@ -586,7 +593,11 @@ def on_next_player(data_res):
                     # return
 
                 # 以後、引いたカードが場に出せるときの処理
-                game_status.my_uno_flag = len(cards) == 1
+                if game_status.my_uno_flag:
+                    print('UNOのとき引いたよ')
+                    print(cards)
+                    print(res.get('draw_card'))
+                game_status.my_uno_flag = True if len(cards) == 2 else False
                 data = {
                     'is_play_card': True,
                     'yell_uno': game_status.my_uno_flag  # 残り手札数を考慮してUNOコールを宣言する
@@ -657,18 +668,17 @@ def on_play_card(data_res):
 # 山札からカードを引いた
 @sio.on(SocketConst.EMIT.DRAW_CARD)
 def on_draw_card(data_res):
-    global id, game_status
+    global game_status
     def draw_card_callback(data_res):
-        global id, game_status
-        player = data_res.get('player')
+        global game_status,id
         # カードが増えているのでUNO宣言の状態をリセットする
-        if player in game_status.uno_declared:
-            if id != player:
-                game_status.undo_uno_player(player)
-            del game_status.uno_declared[player]
+        if data_res.get('player') in game_status.uno_declared:
+            if id != data_res.get('player'):
+                game_status.undo_uno_player(data_res.get('player'))
+            del game_status.uno_declared[data_res.get('player')]
 
         # 山札からカードが引かれた(game_status側処理)
-        game_status.draw_card(player)
+        game_status.draw_card(data_res.get('player'))
 
     receive_event(SocketConst.EMIT.DRAW_CARD, data_res, draw_card_callback)
 
