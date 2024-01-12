@@ -530,7 +530,8 @@ def deffesive_mode(cards: list, my_card: int, player_cards_cnt: dict, challenge_
     # 最も場に出されている色順に結果を出力したい
     else:
         dic = g_status.cards_status.copy()
-        tmp_lis = sorted(dic.items(), key=lambda x:sum(x.values()))
+        del dic["white"], dic["black"] # 白、黒は除外する
+        tmp_lis = sorted(dic.items(), key=lambda x:sum(x[1].values()))
         print("color_list:", tmp_lis)
         color_list = [item[0] for item in tmp_lis]
 

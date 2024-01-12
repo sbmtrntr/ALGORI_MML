@@ -378,6 +378,9 @@ class Status:
         # self.num_of_field += 1
 
         # カードを記録する
+        if card.get("special") == "white_wild":
+            # 白カードの場合は、最後に出されたカードの色に強制変更する
+            card["color"] = self.field_cards[-1]["color"]
         self.field_cards.append(card) # 場に出たカードの記録
         self.update_player_card_log(player, card) # プレイヤーごとのログを取る
 
