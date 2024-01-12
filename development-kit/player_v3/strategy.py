@@ -513,7 +513,7 @@ def deffesive_mode(cards: list, my_card: int, player_cards_cnt: dict, challenge_
 
         tmp_lis = sorted(dic.items(), key=lambda x:sum(x[1].values()))
         color_list = [item[0] for item in tmp_lis]
-        
+
         # DEBUG
         print("last_chose_color & reason:", last_chose_color, chose_reason)
         print("color_list:", *color_list)
@@ -549,7 +549,7 @@ def deffesive_mode(cards: list, my_card: int, player_cards_cnt: dict, challenge_
         card_special = card.get("special")
         if card_special in ["skip", "reverse"]:
             skip_reverse_lis.append(card)
-        
+
     # スキップ・リバースカードを出すべき色順に並び替える
     skip_reverse_lis = sorted(skip_reverse_lis, key=lambda x: color_list.index(x["color"]))
 
