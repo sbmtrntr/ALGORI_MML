@@ -342,30 +342,7 @@ def select_change_color(my_cards: list, g_status: any, mode: str="offensive", ta
     """
     print("change_card")
     if mode == "offensive":
-        can_play_colors = set()
-        for card in my_cards:
-            card_color = card["color"]
-            if card_color not in ["black","white"]:
-                can_play_colors.add(card_color)
-
-        color_list = []
-        color_dic = {'red':0, 'blue':0, 'green':0, 'yellow':0}
-        for k in color_dic.keys():
-            color_dic[k] = color_counting(k, g_status.cards_status)
-        color_dic = sorted(color_dic.items(), key=lambda x: x[1])
-        for k, v in color_dic:
-            if v <= 5 and k in can_play_colors:
-                color_list.append(k)
-
-        color_dic = {'red':0, 'blue':0, 'green':0, 'yellow':0}
-        for card in my_cards:
-            card_color = card["color"]
-            if card_color not in ["black","white"]:
-                color_dic[card_color] += 1
-        color_dic = sorted(color_dic.items(), key=lambda x:x[1], reverse=True)
-        for k, v in color_dic:
-            if k not in color_list:
-                color_list.append(k)
+        color_list = offensive_color_order(my_cards, g_status.cards_status)
     else:
         if target_id is None:
             target_id = g_status.get_next_id()
