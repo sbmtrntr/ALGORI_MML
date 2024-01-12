@@ -371,6 +371,12 @@ def on_update_color(data_res):
         # どの色に変更されたか記録する
         chosen_color = data_res.get("color")
         game_status.player_color_log[game_status.who_played_last].append((chosen_color, "wild"))
+        
+        # 場に出されたカードのログにおいて、カード色を black --> chosen_color に変更する
+        game_status.field_cards[-1]["color"] = chosen_color
+        # DEBUG
+        print(f"---場カードログの色を黒から{chosen_color}へ変更---")
+        print("場に出されたカード:", game_status.field_cards[-1])
 
     receive_event(SocketConst.EMIT.UPDATE_COLOR, data_res, on_update_color_callback)
 
@@ -611,9 +617,6 @@ def on_play_card(data_res):
         game_status.play_card(card_play, player)
         game_status.num_of_field += 1
 
-        # 最後にカードをプレイしたプレイヤーを更新
-        game_status.who_played_last = player
-
         if id != player:
             # 自分の出したカードでなければ cards_statusを更新する
             print("私以外だよ")
@@ -631,6 +634,9 @@ def on_play_card(data_res):
         if "special" in card_play.keys():
             if card_play["special"] == "reverse":
                 game_status.reverse_order()
+
+        # 最後にカードをプレイしたプレイヤーを更新
+        game_status.who_played_last = player
 
     receive_event(SocketConst.EMIT.PLAY_CARD, data_res, play_card_callback)
 

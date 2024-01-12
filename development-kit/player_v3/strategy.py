@@ -78,8 +78,7 @@ def select_play_card(my_cards: list, my_id: str, next_id: str, player_card_count
             if len(tmp_list) == 0:
                 return (None, "deffensive")
 
-            sort_pri_list = sorted(tmp_list, key=lambda x: (x[1][0], -x[1][1]))
-            return (sort_pri_list[0][0], "deffensive")
+            return (tmp_list[0], "deffensive")
 
         elif analyze_situation(my_cards, player_card_counts, wild_shuffle_flag) == "offensive": #攻撃モード
             tmp_list = offensive_mode(valid_card_list, my_cards, player_card_counts, challenge_success)
@@ -464,7 +463,8 @@ def deffesive_mode(cards: list, my_card: int, player_cards_cnt: dict, challenge_
 
     ans_list = []
     wild_lis = []
-    non_wild_lis = []
+    draw_2_lis = []
+    skip_reverse_lis = []
     num_lis = []
 
     for card in cards: # ワイルドを優先的に出す
@@ -487,7 +487,6 @@ def deffesive_mode(cards: list, my_card: int, player_cards_cnt: dict, challenge_
 
     # 色優先順位の決定
     # プレイヤーの手札枚数が最も少ないプレイヤーを取得する
-    # 同枚数のプレイヤーがいたらどうするのか？
     tgt_id = None
     cnt_min = 112
     for k, v in player_cards_cnt.items():
@@ -499,22 +498,33 @@ def deffesive_mode(cards: list, my_card: int, player_cards_cnt: dict, challenge_
 
     # game_statusインスタンスから, そのプレイヤーの色に関するゲーム記録を取得する
     # 指定したプレイヤーの色に関する記録があれば参照する
-    if g_status.player_card_log[tgt_id]:
-        last_chose_color = g_status.player_card_log[tgt_id][-1]
+    if len(g_status.player_color_log[tgt_id]) > 0:
+
+        # プレイヤーの苦手な色を取得
+        last_chose_color, chose_reason = g_status.player_color_log[tgt_id][-1]
+
+        # DEBUG
+        print("---色チェック---", g_status.player_color_log[tgt_id][-1])
 
         # cards_statusを参照して既知なカードのうち、
         # 最も場に出されている色順に結果を出力したい
         dic = g_status.cards_status.copy()
+        del dic["white"], dic["black"] # 白、黒は除外する
+
         tmp_lis = sorted(dic.items(), key=lambda x:sum(x[1].values()))
-        print("color_list:", tmp_lis)
         color_list = [item[0] for item in tmp_lis]
+        
+        # DEBUG
+        print("last_chose_color & reason:", last_chose_color, chose_reason)
+        print("color_list:", *color_list)
 
         # 最後に記録された色は除外する
-        color_list.remove(last_chose_color)
+        print("除外するか？", last_chose_color in color_list)
+        if last_chose_color in color_list:
+            color_list.remove(last_chose_color)
 
         # 返すリストは　[(記録された色), (残りの色のうち、既知な色順)]
         color_list = [last_chose_color] + color_list
-
 
     # 記録が無い場合はcards_statusを参照して既知なカードのうち、
     # 最も場に出されている色順に結果を出力したい
@@ -524,20 +534,25 @@ def deffesive_mode(cards: list, my_card: int, player_cards_cnt: dict, challenge_
         print("color_list:", tmp_lis)
         color_list = [item[0] for item in tmp_lis]
 
-    # return color_list
-
+    # 色の優先順位を出力
+    print("色の優先順位:", *color_list)
 
     for card in cards: #ドロー2を優先的に出す
         card_special = card.get("special")
         if card_special == "draw_2":
-            non_wild_lis.append(card)
+            draw_2_lis.append(card)
+
+    # ドロー2カードを出すべき色順に並び替える
+    draw_2_lis = sorted(draw_2_lis, key=lambda x: color_list.index(x["color"]))
 
     for card in cards: #スキップ・リバースを優先的に出す
         card_special = card.get("special")
         if card_special in ["skip", "reverse"]:
-            non_wild_lis.append(card)
+            skip_reverse_lis.append(card)
+        
+    # スキップ・リバースカードを出すべき色順に並び替える
+    skip_reverse_lis = sorted(skip_reverse_lis, key=lambda x: color_list.index(x["color"]))
 
-    # color_order = my_color_cnt(cards)
     for card in cards: #数字カードは大きい数を優先的に出す
         if card.get("number") is not None:
             num_lis.append((card, int(card["number"])))
@@ -546,7 +561,8 @@ def deffesive_mode(cards: list, my_card: int, player_cards_cnt: dict, challenge_
 
     # 答えのリストに追加する
     ans_list += wild_lis
-    ans_list += non_wild_lis
+    ans_list += draw_2_lis
+    ans_list += skip_reverse_lis
     ans_list += num_lis_2
 
     # チャレンジが成功された場合は, ワイルドドロー4の優先順位は最低になる
