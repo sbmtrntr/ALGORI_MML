@@ -351,7 +351,7 @@ def on_first_player(data_res):
 def on_color_of_wild(data_res):
     def color_of_wild_callback(data_res):
         global game_status
-        color = select_change_color(game_status.my_cards, game_status.cards_status)
+        color = select_change_color(game_status.my_cards, game_status)
         data = {
             'color_of_wild': color,
         }
@@ -371,7 +371,7 @@ def on_update_color(data_res):
         # どの色に変更されたか記録する
         chosen_color = data_res.get("color")
         game_status.player_color_log[game_status.who_played_last].append((chosen_color, "wild"))
-        
+
         # 場に出されたカードのログにおいて、カード色を black --> chosen_color に変更する
         game_status.field_cards[-1]["color"] = chosen_color
         # DEBUG
@@ -517,14 +517,16 @@ def on_next_player(data_res):
             # if len(cards) == 2:
             #     game_status.my_uno_flag = True
             if play_card.get('special') == Special.WILD or play_card.get('special') == Special.WILD_DRAW_4:
-                if play_card.get('special') == Special.WILD_SHUFFLE:
-                    print('シャッフル！？')
-                color = select_change_color(game_status.my_cards, game_status.cards_status)
+                target_id = None
+                if play_mode == "deffensive":
+                    # プレイヤーの手札枚数が最も少ないプレイヤーを取得する
+                    cnt_min = 112
+                    for k, v in num_card_of_player.items():
+                        if k != id and v < cnt_min:
+                            target_id = k
+                            cnt_min = v
+                color = select_change_color(game_status.my_cards, game_status, play_mode, target_id)
                 data['color_of_wild'] = color
-
-            if play_card.get('special') == Special.WILD_SHUFFLE:
-                print('シャッフルワイルドを出す')
-                print(data)
 
             if play_card.get('special') == Special.WILD_DRAW_4:
                 games.challenged_cnt[next_player][0] += 1
@@ -559,18 +561,18 @@ def on_next_player(data_res):
                         send_event(SocketConst.EMIT.PLAY_DRAW_CARD, data)
                         return
 
-                # 防御モードの場合
-                elif play_mode == "deffensive":
-                    # 引いてきたカードがシャッフルワイルドの場合、出さずに処理を終了
-                    if draw_card.get("special") == "wild_shuffle":
-                        game_status.my_uno_flag = False
-                        data = {
-                            'is_play_card': False,
-                            'yell_uno': game_status.my_uno_flag  # 残り手札数を考慮してUNOコールを宣言する
-                        }
-                        send_event(SocketConst.EMIT.PLAY_DRAW_CARD, data)
-                        return
-                    # return
+                # # 防御モードの場合
+                # elif play_mode == "deffensive":
+                #     # 引いてきたカードがシャッフルワイルドの場合、出さずに処理を終了
+                #     if draw_card.get("special") == "wild_shuffle":
+                #         game_status.my_uno_flag = False
+                #         data = {
+                #             'is_play_card': False,
+                #             'yell_uno': game_status.my_uno_flag  # 残り手札数を考慮してUNOコールを宣言する
+                #         }
+                #         send_event(SocketConst.EMIT.PLAY_DRAW_CARD, data)
+                #         return
+                #     # return
 
                 # 以後、引いたカードが場に出せるときの処理
                 game_status.my_uno_flag = len(cards) == 1
@@ -581,7 +583,15 @@ def on_next_player(data_res):
 
                 play_card = res.get('draw_card')[0]
                 if play_card.get('special') == Special.WILD or play_card.get('special') == Special.WILD_DRAW_4:
-                    color = select_change_color(game_status.my_cards, game_status.cards_status)
+                    target_id = None
+                    if play_mode == "deffensive":
+                        # プレイヤーの手札枚数が最も少ないプレイヤーを取得する
+                        cnt_min = 112
+                        for k, v in num_card_of_player.items():
+                            if k != id and v < cnt_min:
+                                target_id = k
+                                cnt_min = v
+                    color = select_change_color(game_status.my_cards, game_status, play_mode, target_id)
                     data['color_of_wild'] = color
 
                 if play_card.get('special') == Special.WILD_DRAW_4:

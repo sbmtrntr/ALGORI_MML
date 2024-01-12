@@ -63,7 +63,7 @@ def select_play_card(my_cards: list, my_id: str, next_id: str, player_card_count
 
     # UNOプレイヤーがいるとき
     # シャッフルワイルドを持っていて、自分の手札が7枚以上のとき --> シャッフルワイルドを切る
-    shuffle_wild = {'color':'white', 'special':'wild_shuffle'}
+    shuffle_wild = {'color':'black', 'special':'wild_shuffle'}
     if len(my_cards) >= 7 and shuffle_wild in my_cards:
         return (shuffle_wild, "uno")
 
@@ -73,19 +73,20 @@ def select_play_card(my_cards: list, my_id: str, next_id: str, player_card_count
                 tmp_list = card_choice_at_uno(valid_card_list, v["位置"], game_status, challenge_success)
                 return (tmp_list[0], "uno")
 
-        if analyze_situation(my_cards, player_card_counts, wild_shuffle_flag) == "deffensive": #防御モード
-            tmp_list = deffesive_mode(valid_card_list, my_cards, player_card_counts, challenge_success, game_status)
+        play_mode = analyze_situation(my_id, my_cards, player_card_counts, wild_shuffle_flag)
+        if play_mode == "deffensive": #防御モード
+            tmp_list = deffesive_mode(my_id, valid_card_list, my_cards, player_card_counts, wild_shuffle_flag, challenge_success, should_play_draw4, game_status)
             if len(tmp_list) == 0:
-                return (None, "deffensive")
-
-            return (tmp_list[0], "deffensive")
-
-        elif analyze_situation(my_cards, player_card_counts, wild_shuffle_flag) == "offensive": #攻撃モード
-            tmp_list = offensive_mode(valid_card_list, my_cards, player_card_counts, challenge_success)
-            if len(tmp_list) == 0:
-                return (None, "offensive")
+                return (None, play_mode)
             else:
-                return (tmp_list[0], "offensive")
+                return (tmp_list[0], play_mode)
+
+        elif play_mode == "offensive": #攻撃モード
+            tmp_list = offensive_mode(valid_card_list, my_cards, challenge_success, game_status)
+            if len(tmp_list) == 0:
+                return (None, play_mode)
+            else:
+                return (tmp_list[0], play_mode)
 
     else:
         return (None, "other")
@@ -268,40 +269,67 @@ def card_choice_at_uno(valid_card_list: list, pos: str, game_status: any, challe
         return valid_card_list
 
 
-def analyze_situation(my_cards: list, player_card_counts: dict, wild_shuffle_flag: bool) -> str:
+
+
+def analyze_situation(my_id: str, my_cards: list, player_card_counts: dict, wild_shuffle_flag: bool) -> str:
     """全体の手札の状況から戦況判断する関数"""
 
-    min_cards_num = min_cards_check(player_card_counts)
+    num_my_cards = len(my_cards) - 1 if wild_shuffle_flag else len(my_cards)
+    min_cards_num = min_cards_check(my_id, player_card_counts)
 
-    if min_cards_num < 5 or len(my_cards) < 5:#5枚未満の手札保持者がいる
+    if num_my_cards < 5: # 自分が4枚以下
+        return "offensive"
 
-        if len(my_cards) > min_cards_num: #自分が最少手札保持者でない
-            if min_cards_num <= 2:
-                return "deffensive"
-            elif len(my_cards) - min_cards_num >= 4:
+    elif min_cards_num < 5: # 4枚以下のプレイヤーがいる
+        if num_my_cards - min_cards_num < 5: # 最少手札との差が5枚未満
+            if min_cards_num == 2: # 2枚のプレイヤーがいる
                 return "deffensive"
             else:
                 return "offensive"
 
-        elif len(my_cards) <= min_cards_num: #自分と他の最小手札保持者の枚数以下
-            return "offensive"
-
-    else: #全員手札が5枚以上の場合
-        if len(my_cards) >= min_cards_num*2:
-            return "deffensive"
         else:
-            return "offensive"
+            if min_cards_num <= 3: # 3枚以下のプレイヤーがいる
+                return "deffensive"
+            else:
+                if num_my_cards - min_cards_num >= 10: # 最少手札との差が10枚以上
+                    return "deffensive"
+                else:
+                    return "offensive"
+
+    else:
+        return "offensive"
 
 
-def min_cards_check(player_card_counts: dict):
-    min_cards_num = 100
-    for v in player_card_counts.values():
-        min_cards_num = min(v, min_cards_num)
+    # if min_cards_num < 5 or len(my_cards) < 5:#5枚未満の手札保持者がいる
+
+    #     if len(my_cards) > min_cards_num: #自分が最少手札保持者でない
+    #         if min_cards_num <= 2:
+    #             return "deffensive"
+    #         elif len(my_cards) - min_cards_num >= 4:
+    #             return "deffensive"
+    #         else:
+    #             return "offensive"
+
+    #     elif len(my_cards) <= min_cards_num: #自分と他の最小手札保持者の枚数以下
+    #         return "offensive"
+
+    # else: #全員手札が5枚以上の場合
+    #     if len(my_cards) >= min_cards_num*2:
+    #         return "deffensive"
+    #     else:
+    #         return "offensive"
+
+
+def min_cards_check(my_id: str, player_card_counts: dict):
+    min_cards_num = 112
+    for k, v in player_card_counts.items():
+        if k != my_id:
+            min_cards_num = min(v, min_cards_num)
 
     return min_cards_num
 
 
-def select_change_color(my_cards: list, card_status: dict) -> str:
+def select_change_color(my_cards: list, g_status: any, mode: str="offensive", target_id: str=None) -> str:
     """
     変更する色を選出する
 
@@ -313,24 +341,58 @@ def select_change_color(my_cards: list, card_status: dict) -> str:
         str: 選択された色
     """
     print("change_card")
-    color_dic = {'red':0, 'blue':0, 'green':0, 'yellow':0}
-    select_color = 'red'
+    if mode == "offensive":
+        can_play_colors = set()
+        for card in my_cards:
+            card_color = card["color"]
+            if card_color not in ["black","white"]:
+                can_play_colors.add(card_color)
 
-    for card in my_cards:
-        card_color = card["color"]
-        if card_color not in ["black","white"]:
-            color_dic[card_color] += 1
-            if color_dic[select_color] < color_dic[card_color]:
-                select_color = card_color
+        color_list = []
+        color_dic = {'red':0, 'blue':0, 'green':0, 'yellow':0}
+        for k in color_dic.keys():
+            color_dic[k] = color_counting(k, g_status.cards_status)
+        color_dic = sorted(color_dic.items(), key=lambda x: x[1])
+        for k, v in color_dic:
+            if v <= 5 and k in can_play_colors:
+                color_list.append(k)
 
-            elif color_dic[select_color] == color_dic[card_color]:  # 最も多い色札の枚数が被ったら
-                if color_counting(select_color, card_status) > color_counting(card_color,card_status):
-                    select_color = card_color
+        color_dic = {'red':0, 'blue':0, 'green':0, 'yellow':0}
+        for card in my_cards:
+            card_color = card["color"]
+            if card_color not in ["black","white"]:
+                color_dic[card_color] += 1
+        color_dic = sorted(color_dic.items(), key=lambda x:x[1], reverse=True)
+        for k, v in color_dic:
+            if k not in color_list:
+                color_list.append(k)
+    else:
+        if target_id is None:
+            target_id = g_status.get_next_id()
+        color_list = deffesive_color_order(target_id, g_status)
+
+    select_color = color_list[0]
+
+    # color_dic = {'red':0, 'blue':0, 'green':0, 'yellow':0}
+    # select_color = 'red'
+
+    # for card in my_cards:
+    #     card_color = card["color"]
+    #     if card_color not in ["black","white"]:
+    #         color_dic[card_color] += 1
+    #         if color_dic[select_color] < color_dic[card_color]:
+    #             select_color = card_color
+
+    #         elif color_dic[select_color] == color_dic[card_color]:  # 最も多い色札の枚数が被ったら
+    #             if color_counting(select_color, card_status) > color_counting(card_color,card_status):
+    #                 select_color = card_color
 
 
-    ans = sorted(color_dic.items(), key=lambda x:x[1], reverse=True)
-    print(ans)
+    # ans = sorted(color_dic.items(), key=lambda x:x[1], reverse=True)
+    # print(ans)
     return select_color
+
+
 
 
 def color_counting(color: str, card_status: dict) -> int:
@@ -353,7 +415,7 @@ def color_counting(color: str, card_status: dict) -> int:
     return color_num
 
 
-def offensive_mode(cards: list, my_card: list, player_cards_cnt: dict, challenge_success: bool) -> list:
+def offensive_mode(cards: list, my_card: list, challenge_success: bool, g_status: any) -> list:
     """
     攻撃モード
     cards :自分の中で出せるカード
@@ -361,61 +423,80 @@ def offensive_mode(cards: list, my_card: list, player_cards_cnt: dict, challenge
     player_cards_cnt :他の奴らの手札の枚数
     challenge_success :チャレンジを成功された過去があるか否か
     """
+    shuffle_wild = {'color':'black', 'special':'wild_shuffle'}
+    wild_draw_4 = {'color':'black', 'special':'wild_draw_4'}
     ans_list = []
+    skip_reverse_lis = []
+    draw_2_lis = []
+    num_lis = []
+    wild_lis = []
+    color_order = offensive_color_order(cards, g_status.cards_status)
+
     for card in cards: #スキップ、リバースを優先的に出す
         card_special = card.get("special")
         if card_special == "skip" or card_special == "reverse":
-            ans_list.append(card)
+            skip_reverse_lis.append(card)
+    skip_reverse_lis = sorted(skip_reverse_lis, key=lambda x: color_order.index(x["color"]))
 
     for card in cards: #ドロー2はスキップ、リバースの次に優先的に出す
         card_special = card.get("special")
         if card_special == "draw_2":
-            ans_list.append(card)
+            draw_2_lis.append(card)
+    draw_2_lis = sorted(draw_2_lis, key=lambda x: color_order.index(x["color"]))
 
-    num_lis = []
-    color_order = my_color_cnt(cards)
     for card in cards: #3色をキープして戦う = 手札の中で最も多い色から消費する
-        card_color = card["color"]
+        # card_color = card["color"]
         #if card_color not in ["black","white"] and card.get("special") not in ["draw_2","skip","reverse"]:
         if card.get("number") is not None:
-            num_lis.append((card, color_order.index(card_color), card["number"]))
+            num_lis.append(card)
+            # num_lis.append((card, color_order.index(card_color), card["number"]))
 
-    num_lis_2 = [item[0] for item in sorted(num_lis, key=lambda x: (x[1], -x[2]))]
-    ans_list += num_lis_2
+    num_lis_2 = sorted(num_lis, key=lambda x: color_order.index(x["color"]))
+    # num_lis_2 = [item[0] for item in sorted(num_lis, key=lambda x: (x[1], -x[2]))]
+    # ans_list += num_lis_2
 
-    spe_lis = []
-
+    wild_order = ["wild", "white_wild", "wild_draw_4", "wild_shuffle"]
     for card in cards: # ワイルド系カードを1枚だけ残して、それで上がれるようにする
-        if card.get("special") in ["wild", "white_wild", "wild_draw_4", "wild_shuffle"]:
-            if card.get("special") == "wild_shuffle" and len(my_card) == 1: # シャッフルワイルドは手札1枚の時にしか出さない
-                spe_lis.append((card, 4))
+        card_special = card.get("special")
+        if card_special in wild_order:
+            wild_lis.append(card)
+            # if card_special == "wild_shuffle" and len(my_card) == 1: # シャッフルワイルドは手札1枚の時にしか出さない
+            #     wild_lis.append((card, 4))
 
-            else:
-                if card.get("special") != "wild_shuffle": # ワイルド、白いワイルドの方を優先度高く出す
-                    spe_lis.append((card, ["wild", "white_wild", "wild_draw_4"].index(card.get("special"))))
+            # else:
+            #     if card_special != "wild_shuffle": # ワイルド、白いワイルドの方を優先度高く出す
+            #         wild_lis.append((card, ["wild", "white_wild", "wild_draw_4"].index(card_special)))
 
-    spe_lis_2 = [item[0] for item in sorted(spe_lis, key=lambda x: x[1])]
-    ans_list += spe_lis_2
+    wild_lis_2 = sorted(wild_lis, key=lambda x: wild_order.index(x["special"]))
+    # wild_lis_2 = [item[0] for item in sorted(wild_lis, key=lambda x: x[1])]
+    # ans_list += wild_lis_2
+
+    # 答えのリストに追加する
+    ans_list += skip_reverse_lis
+    ans_list += draw_2_lis
+    ans_list += num_lis_2
+    ans_list += wild_lis_2
 
     # ---カードを出すか、ドローするかの処理---
     # カードを出す場合はカードリストを返す
     # カードを出さない場合はNoneを返す
     # 山札を引いて得たカードを出すかどうかは player_v3.pyで記述されている
 
+    # 残り手札が1枚の時は出してゲームをあがる
+    if len(my_card) == 1:
+        return cards
+
     # ワイルド系カードを1枚だけ持っていてそれしか出せるカードが無いとき
-    if len(spe_lis_2) == 1 and len(cards) == 1:
-        # 残り手札が1枚の時は出してゲームをあがる
-        if my_card == 1:
-            return ans_list
+    if len(wild_lis_2) == 1 and len(cards) == 1:
         # 上記以外の場合はワイルド系カードを使わず山札を引く
         return []
 
     # ワイルド系カードを複数枚持っていてそれしか出せるカードが無いとき --> 出す
-    elif len(spe_lis_2) > 1 and len(cards) == len(spe_lis_2):
+    elif len(wild_lis_2) > 1 and len(cards) == len(wild_lis_2):
         return ans_list
 
     # ワイルド系カードを持っておらず、出せるカードが無いとき
-    elif len(spe_lis_2) == 0 and len(cards) == 0:
+    elif len(wild_lis_2) == 0 and len(cards) == 0:
         # 山札からカードを引くのでNoneを返す
         return []
 
@@ -428,30 +509,58 @@ def offensive_mode(cards: list, my_card: list, player_cards_cnt: dict, challenge
     #             ans_list.remove({'color': 'black', 'special': 'wild_shuffle'})
 
     #シャッフルワイルドとワイルドドロー4を持っているときは先にワイルドドロー4を出し、チャレンジ成功されたら次のターンでシャッフル
-    if {'color': 'black', 'special': 'wild_draw_4'} in cards and {'color': 'black', 'special': 'wild_shuffle'} in cards and challenge_success == True:
-        return [{'color': 'black', 'special': 'wild_shuffle'}]
+    if wild_draw_4 in cards and shuffle_wild in cards and challenge_success:
+        return [shuffle_wild]
     else:
         print("出せるのは(offensive)")
         print(ans_list)
         return ans_list
 
 
-def my_color_cnt(cards: dict) -> list:
+def offensive_color_order(cards: dict, card_status: dict) -> list:
     """
     手札から出すべき色の優先度を吐く。先頭に最も多い色が来る
     """
+    can_play_colors = set()
+    for card in cards:
+        card_color = card["color"]
+        if card_color not in ["black","white"]:
+            can_play_colors.add(card_color)
+
+    color_list = []
+    color_dic = {'red':0, 'blue':0, 'green':0, 'yellow':0}
+    for k in color_dic.keys():
+        color_dic[k] = color_counting(k, card_status)
+    color_dic = sorted(color_dic.items(), key=lambda x: x[1])
+    for k, v in color_dic:
+        if v <= 5 and k in can_play_colors:
+            color_list.append(k)
 
     color_dic = {'red':0, 'blue':0, 'green':0, 'yellow':0}
     for card in cards:
         card_color = card["color"]
         if card_color not in ["black","white"]:
             color_dic[card_color] += 1
+    color_dic = sorted(color_dic.items(), key=lambda x:x[1], reverse=True)
+    for k, v in color_dic:
+        if k not in color_list:
+            color_list.append(k)
 
-    ans = sorted(color_dic.keys(), key=lambda x:x[1], reverse=True)
-    return ans
+    # color_dic = {'red':0, 'blue':0, 'green':0, 'yellow':0}
+    # for card in cards:
+    #     card_color = card["color"]
+    #     if card_color not in ["black","white"]:
+    #         color_dic[card_color] += 1
+
+    # ans = sorted(color_dic.keys(), key=lambda x:x[1], reverse=True)
+
+    return color_list
 
 
-def deffesive_mode(cards: list, my_card: int, player_cards_cnt: dict, challenge_success: bool, g_status: any) -> list:
+
+
+
+def deffesive_mode(my_id: str, cards: list, my_card: int, player_cards_cnt: dict, wild_shuffle_flag: bool, challenge_success: bool, should_play_draw4: bool, g_status: any) -> list:
     """
     防御モード
     cards :自分の中で出せるカード
@@ -461,50 +570,204 @@ def deffesive_mode(cards: list, my_card: int, player_cards_cnt: dict, challenge_
     """
     print("---防御モード発動---")
 
+    shuffle_wild = {'color':'black', 'special':'wild_shuffle'}
+    wild_draw_4 = {'color':'black', 'special':'wild_draw_4'}
+    min_cards_num = min_cards_check(my_id, player_cards_cnt)
+
     ans_list = []
     wild_lis = []
     draw_2_lis = []
     skip_reverse_lis = []
     num_lis = []
 
-    for card in cards: # ワイルドを優先的に出す
-        card_special = card.get("special")
-        if card_special == "wild":
-            wild_lis.append(card)
-
-    for card in cards: # 白いワイルドを優先的に出す
-        card_special = card.get("special")
-        if card_special == "white_wild":
-            wild_lis.append(card)
-
-    # チャレンジが成功された場合は, ワイルドドロー4の優先順位は最低になる
-    # そうでなければこの優先順位でワイルドドロー4を出す
-    if not challenge_success:
-        for card in cards: # ワイルドドロー4を優先的に出す
+    if not wild_shuffle_flag:
+        for card in cards: # ワイルドを優先的に出す
             card_special = card.get("special")
-            if card_special == "wild_draw_4":
+            if card_special == "wild":
                 wild_lis.append(card)
+
+        for card in cards: # 白いワイルドを優先的に出す
+            card_special = card.get("special")
+            if card_special == "white_wild":
+                wild_lis.append(card)
+
+        # チャレンジが成功された場合は, ワイルドドロー4の優先順位は最低になる
+        # そうでなければこの優先順位でワイルドドロー4を出す
+        if should_play_draw4:
+            for card in cards: # ワイルドドロー4を優先的に出す
+                card_special = card.get("special")
+                if card_special == "wild_draw_4":
+                    wild_lis.append(card)
+    else:
+        if min_cards_num == 2:
+            # シャッフル最優先で出す
+            wild_lis.append(shuffle_wild)
+
+            for card in cards: # ワイルドを優先的に出す
+                card_special = card.get("special")
+                if card_special == "wild":
+                    wild_lis.append(card)
+
+            for card in cards: # 白いワイルドを優先的に出す
+                card_special = card.get("special")
+                if card_special == "white_wild":
+                    wild_lis.append(card)
+
+            # チャレンジが成功された場合は, ワイルドドロー4の優先順位は最低になる
+            # そうでなければこの優先順位でワイルドドロー4を出す
+            if should_play_draw4:
+                for card in cards: # ワイルドドロー4を優先的に出す
+                    card_special = card.get("special")
+                    if card_special == "wild_draw_4":
+                        wild_lis.append(card)
+
+        else:
+            for card in cards: # 白いワイルドを優先的に出す
+                card_special = card.get("special")
+                if card_special == "white_wild":
+                    wild_lis.append(card)
+
+            # チャレンジが成功された場合は, ワイルドドロー4の優先順位は最低になる
+            # そうでなければこの優先順位でワイルドドロー4を出す
+            if not challenge_success:
+                for card in cards: # ワイルドドロー4を優先的に出す
+                    card_special = card.get("special")
+                    if card_special == "wild_draw_4":
+                        wild_lis.append(card)
+
+            # 白いワイルド, ワイルドドロー4の次の優先順位でシャッフル出す
+            wild_lis.append(shuffle_wild)
+
+            for card in cards: # ワイルドを優先的に出す
+                card_special = card.get("special")
+                if card_special == "wild":
+                    wild_lis.append(card)
+
 
     # 色優先順位の決定
     # プレイヤーの手札枚数が最も少ないプレイヤーを取得する
     tgt_id = None
     cnt_min = 112
     for k, v in player_cards_cnt.items():
-        if v < cnt_min:
+        if k != my_id and v < cnt_min:
             tgt_id = k
             cnt_min = v
 
     print("最もカード枚数が少ないプレイヤー", tgt_id)
 
+    color_list = deffesive_color_order(tgt_id, g_status)
+    # # game_statusインスタンスから, そのプレイヤーの色に関するゲーム記録を取得する
+    # # 指定したプレイヤーの色に関する記録があれば参照する
+    # if len(g_status.player_color_log[tgt_id]) > 0:
+
+    #     # プレイヤーの苦手な色を取得
+    #     last_chose_color, chose_reason = g_status.player_color_log[tgt_id][-1]
+
+    #     # DEBUG
+    #     print("---色チェック---", g_status.player_color_log[tgt_id][-1])
+
+    #     # cards_statusを参照して既知なカードのうち、
+    #     # 最も場に出されている色順に結果を出力したい
+    #     dic = g_status.cards_status.copy()
+    #     del dic["white"], dic["black"] # 白、黒は除外する
+
+    #     tmp_lis = sorted(dic.items(), key=lambda x:sum(x[1].values()))
+    #     color_list = [item[0] for item in tmp_lis]
+
+    #     # DEBUG
+    #     print("last_chose_color & reason:", last_chose_color, chose_reason)
+    #     print("color_list:", *color_list)
+
+    #     # 最後に記録された色は除外する
+    #     print("除外するか？", last_chose_color in color_list)
+    #     if last_chose_color in color_list:
+    #         color_list.remove(last_chose_color)
+
+    #     # 返すリストは　[(記録された色), (残りの色のうち、既知な色順)]
+    #     color_list = [last_chose_color] + color_list
+
+    # # 記録が無い場合はcards_statusを参照して既知なカードのうち、
+    # # 最も場に出されている色順に結果を出力したい
+    # else:
+    #     dic = g_status.cards_status.copy()
+    #     del dic["white"], dic["black"] # 白、黒は除外する
+    #     tmp_lis = sorted(dic.items(), key=lambda x:sum(x[1].values()))
+    #     print("color_list:", tmp_lis)
+    #     color_list = [item[0] for item in tmp_lis]
+
+    # # 色の優先順位を出力
+    # print("色の優先順位:", *color_list)
+
+    for card in cards: #ドロー2を優先的に出す
+        card_special = card.get("special")
+        if card_special == "draw_2":
+            draw_2_lis.append(card)
+
+    # ドロー2カードを出すべき色順に並び替える
+    draw_2_lis = sorted(draw_2_lis, key=lambda x: color_list.index(x["color"]))
+
+    for card in cards: #スキップ・リバースを優先的に出す
+        card_special = card.get("special")
+        if card_special in ["skip", "reverse"]:
+            skip_reverse_lis.append(card)
+
+    # スキップ・リバースカードを出すべき色順に並び替える
+    skip_reverse_lis = sorted(skip_reverse_lis, key=lambda x: color_list.index(x["color"]))
+
+    for card in cards: #数字カードは大きい数を優先的に出す
+        if card.get("number") is not None:
+            num_lis.append(card)
+            # num_lis.append((card, int(card["number"])))
+
+    color_list.reverse()
+    num_lis_2 = sorted(num_lis, key=lambda x: (x["number"], color_list.index(x["color"])), reverse=True)
+    # num_lis_2 = [item[0] for item in sorted(num_lis, key=lambda x: x[1], reverse=True)]
+
+    # 答えのリストに追加する
+    ans_list += wild_lis
+    ans_list += draw_2_lis
+    ans_list += skip_reverse_lis
+    ans_list += num_lis_2
+
+    # チャレンジが成功された場合は, ワイルドドロー4の優先順位は最低になる
+    if wild_draw_4 in cards and wild_draw_4 not in ans_list:
+        for card in cards: # ワイルドドロー4を出す
+            card_special = card.get("special")
+            if card_special == "wild_draw_4":
+                ans_list.append(card)
+
+    # # カードを出すか、ドローするか
+    # # ワイルド系カードを持っていてそれしか出せるカードが無い時
+    # if len(wild_lis) > 0 and len(wild_lis) == len(ans_list):
+    #     # 残り手札が1枚の時は出してゲームをあがる
+    #     if my_card == 1:
+    #         return ans_list
+    #     # 出せるカードがシャッフルワイルドのみの場合は出さずにカードを引く
+    #     if len(wild_lis) == 1 and wild_lis[0].get("special") == "wild_shuffle":
+    #         return []
+    #     # それ以外の場合は出せるワイルド系カードを出す
+    #     return ans_list
+
+    # # ワイルド系カードを持っておらず、出せるカードが無いとき
+    # elif len(wild_lis) == 0 and len(cards) == 0:
+    #     # 山札からカードを引くのでNoneを返す
+    #     return []
+
+    # 上記以外の場合は通常通りにリストを返す
+    return ans_list
+
+
+
+def deffesive_color_order(player: str, g_status: any) -> list:
     # game_statusインスタンスから, そのプレイヤーの色に関するゲーム記録を取得する
     # 指定したプレイヤーの色に関する記録があれば参照する
-    if len(g_status.player_color_log[tgt_id]) > 0:
+    if len(g_status.player_color_log[player]) > 0:
 
         # プレイヤーの苦手な色を取得
-        last_chose_color, chose_reason = g_status.player_color_log[tgt_id][-1]
+        last_chose_color, chose_reason = g_status.player_color_log[player][-1]
 
         # DEBUG
-        print("---色チェック---", g_status.player_color_log[tgt_id][-1])
+        print("---色チェック---", g_status.player_color_log[player][-1])
 
         # cards_statusを参照して既知なカードのうち、
         # 最も場に出されている色順に結果を出力したい
@@ -538,60 +801,10 @@ def deffesive_mode(cards: list, my_card: int, player_cards_cnt: dict, challenge_
     # 色の優先順位を出力
     print("色の優先順位:", *color_list)
 
-    for card in cards: #ドロー2を優先的に出す
-        card_special = card.get("special")
-        if card_special == "draw_2":
-            draw_2_lis.append(card)
+    return color_list
 
-    # ドロー2カードを出すべき色順に並び替える
-    draw_2_lis = sorted(draw_2_lis, key=lambda x: color_list.index(x["color"]))
 
-    for card in cards: #スキップ・リバースを優先的に出す
-        card_special = card.get("special")
-        if card_special in ["skip", "reverse"]:
-            skip_reverse_lis.append(card)
 
-    # スキップ・リバースカードを出すべき色順に並び替える
-    skip_reverse_lis = sorted(skip_reverse_lis, key=lambda x: color_list.index(x["color"]))
-
-    for card in cards: #数字カードは大きい数を優先的に出す
-        if card.get("number") is not None:
-            num_lis.append((card, int(card["number"])))
-
-    num_lis_2 = [item[0] for item in sorted(num_lis, key=lambda x: x[1], reverse=True)]
-
-    # 答えのリストに追加する
-    ans_list += wild_lis
-    ans_list += draw_2_lis
-    ans_list += skip_reverse_lis
-    ans_list += num_lis_2
-
-    # チャレンジが成功された場合は, ワイルドドロー4の優先順位は最低になる
-    if challenge_success:
-        for card in cards: # ワイルドドロー4を優先的に出す
-            card_special = card.get("special")
-            if card_special == "wild_draw_4":
-                ans_list.append(card)
-
-    # カードを出すか、ドローするか
-    # ワイルド系カードを持っていてそれしか出せるカードが無い時
-    if len(wild_lis) > 0 and len(wild_lis) == len(ans_list):
-        # 残り手札が1枚の時は出してゲームをあがる
-        if my_card == 1:
-            return ans_list
-        # 出せるカードがシャッフルワイルドのみの場合は出さずにカードを引く
-        if len(wild_lis) == 1 and wild_lis[0].get("special") == "wild_shuffle":
-            return []
-        # それ以外の場合は出せるワイルド系カードを出す
-        return ans_list
-
-    # ワイルド系カードを持っておらず、出せるカードが無いとき
-    elif len(wild_lis) == 0 and len(cards) == 0:
-        # 山札からカードを引くのでNoneを返す
-        return []
-
-    # 上記以外の場合は通常通りにリストを返す
-    return ans_list
 
 
 def challenge_dicision(before_card: dict, my_id: str, before_id: str, player_card_counts: dict, num_of_deck: int, game_status: any, games: any):
