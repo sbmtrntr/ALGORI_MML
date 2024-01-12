@@ -380,8 +380,14 @@ class Status:
         # カードを記録する
         if card.get("special") == "white_wild":
             # 白カードの場合は、最後に出されたカードの色に強制変更する
-            card["color"] = self.field_cards[-1]["color"]
-        self.field_cards.append(card) # 場に出たカードの記録
+            new_color = self.field_cards[-1]["color"]
+            new_card = {
+                "color": new_color,
+                "special": "white_wild",
+            }
+            self.field_cards.append(new_card) # 場に出たカードの記録
+        else:
+            self.field_cards.append(card) # 場に出たカードの記録
         self.update_player_card_log(player, card) # プレイヤーごとのログを取る
 
         # 場のカードが更新されたのでこれから場に出されるドロー系カードの効力は復活する
