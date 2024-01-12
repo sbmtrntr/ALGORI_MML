@@ -444,7 +444,7 @@ class Status:
         if len(self.other_open_cards[id]) > 0: # そいつがカードを公開していて
             if card in self.other_open_cards[id]: # そいつがその札持ってたら
                 print(id+"が公開済みカードを使いました")
-                print(card)
+                # print(card)
                 self.other_open_cards[id].remove(card)
 
 

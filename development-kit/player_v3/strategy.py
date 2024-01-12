@@ -68,6 +68,11 @@ def select_play_card(my_cards: list, my_id: str, next_id: str, player_card_count
         return (shuffle_wild, "uno")
 
     if len(valid_card_list) > 0:
+
+        uno_cnt = uno_player_cnt(game_status.order_dic)
+        #if uno_cnt == 3: #自分以外の3人がUNO
+
+
         for v in game_status.order_dic.values():
             if v["UNO"] == True: #UNO宣言してるやついたら
                 tmp_list = card_choice_at_uno(valid_card_list, v["位置"], game_status, challenge_success)
@@ -781,3 +786,15 @@ def pass_func(err)->None:
     個別コールバックを指定しないときの代替関数
     """
     return
+
+
+def uno_player_cnt(order_dic: dict):
+    uno_cnt = 0
+    for i in order_dic.values():
+        if i["UNO"] == True:
+            uno_cnt += 1
+
+    return uno_cnt
+
+
+#def get_color_order(player: str, g_status: any):
