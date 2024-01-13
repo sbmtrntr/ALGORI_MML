@@ -324,7 +324,7 @@ def on_first_player(data_res):
     first_card = data_res['first_card']
     if "special" in first_card.keys():
         if first_card["special"] == "reverse":
-                game_status.reverse_order()
+            game_status.reverse_order()
 
     first_player = data_res['first_player']
 
