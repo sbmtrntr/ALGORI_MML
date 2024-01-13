@@ -704,6 +704,9 @@ def on_play_draw_card(data_res):
                 if card_play["special"] == "reverse":
                     game_status.reverse_order()
 
+            # 最後にカードをプレイしたプレイヤーを更新
+            game_status.who_played_last = player
+
     receive_event(SocketConst.EMIT.PLAY_DRAW_CARD, data_res, play_draw_card_callback)
 
 
