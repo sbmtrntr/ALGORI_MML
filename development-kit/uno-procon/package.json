@@ -1,6 +1,6 @@
 {
   "name": "uno",
-  "version": "2.2.9",
+  "version": "2.2.11",
   "description": "UNO game base on expressJS",
   "main": "index.js",
   "scripts": {

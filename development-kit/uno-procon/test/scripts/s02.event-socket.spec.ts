@@ -10648,7 +10648,7 @@ describe('Test Event Socket', () => {
               number: 9,
             },
           ],
-          //Player 2 YELLOW 9, WILD_DRAW_4 50
+          //Player 2 Score: 59
           [Consts.PLAYER_2]: [
             {
               color: Color.YELLOW,
@@ -10659,7 +10659,7 @@ describe('Test Event Socket', () => {
               special: Special.WILD_DRAW_4,
             },
           ],
-          //Player 3 Red 0, Wild 50, Wild-shuffle 40
+          //Player 3 Score: 90
           [Consts.PLAYER_3]: [
             {
               color: Color.RED,
@@ -10673,7 +10673,7 @@ describe('Test Event Socket', () => {
               color: Color.BLACK,
               special: Special.WILD_SHUFFLE,
             },
-            //Player 4 BLUE 0, BLUE Skip, GREEN 4, GREEN REVERSE, GREEN DRAW_2, WHITE_WILD
+            //Player 4 Socre: 105
           ],
           [Consts.PLAYER_4]: [
             {
@@ -10846,7 +10846,224 @@ describe('Test Event Socket', () => {
       await Promise.resolve();
     });
 
-    it(`s02-H-TC003: The player who reaches that point first is the winner.`, async () => {
+    it(`s02-H-TC003: Calculator score of Player (Player 1 win 250 turn Score 242, Player 2 win 150 Score -42, Player 3 win 150 Score -90, Player 4 win 50 Score -110)`, async () => {
+      const orderOfDesk: { [key: string]: number } = {};
+      orderOfDesk[Consts.PLAYER_1] = 249;
+      orderOfDesk[Consts.PLAYER_2] = 150;
+      orderOfDesk[Consts.PLAYER_3] = 150;
+      orderOfDesk[Consts.PLAYER_4] = 50;
+      await TestService.setDesk({
+        ...baseDesk,
+        id: StaticValues.DEALER_ID,
+        turn: Consts.TOTAL_TURN,
+        beforeCardPlay: {
+          color: Color.RED,
+          number: 6,
+        },
+        cardOfPlayer: {
+          ...baseDesk.cardOfPlayer,
+          [Consts.PLAYER_1]: [
+            {
+              color: Color.BLACK,
+              special: Special.WILD_DRAW_4,
+            },
+          ],
+          //Player 2 Score 30 + Add 4 cards with Wild Draw 4(12pt) = 42
+          [Consts.PLAYER_2]: [
+            {
+              color: Color.RED,
+              special: Special.DRAW_2,
+            },
+            {
+              color: Color.YELLOW,
+              number: 5,
+            },
+            {
+              color: Color.BLUE,
+              number: 5,
+            },
+          ],
+          //Player 3 Score 90
+          [Consts.PLAYER_3]: [
+            {
+              color: Color.BLACK,
+              special: Special.WILD,
+            },
+            {
+              color: Color.GREEN,
+              special: Special.DRAW_2,
+            },
+            {
+              color: Color.GREEN,
+              special: Special.SKIP,
+            },
+          ],
+          //Player 4 Score 110
+          [Consts.PLAYER_4]: [
+            {
+              color: Color.BLACK,
+              special: Special.WILD_DRAW_4,
+            },
+            {
+              color: Color.BLACK,
+              special: Special.WILD_SHUFFLE,
+            },
+            {
+              color: Color.RED,
+              special: Special.DRAW_2,
+            },
+          ],
+        },
+        score: {
+          [Consts.PLAYER_1]: 0,
+          [Consts.PLAYER_2]: 0,
+          [Consts.PLAYER_3]: 0,
+          [Consts.PLAYER_4]: 0,
+        },
+        order: orderOfDesk,
+      });
+      await new Promise<void>((resolve) => {
+        client1.emit(Consts.SOCKET.EVENT.PLAY_CARD, {
+          card_play: {
+            color: Color.BLACK,
+            special: Special.WILD_DRAW_4,
+          },
+          yell_uno: false,
+          color_of_wild: Color.BLUE,
+        });
+        // NOTE: ゲーム終了時、socket通信のcallbackが呼ばれる前にsocketが切断されるので、通信実行後1秒待機してresolveを呼び出す。
+        setTimeout(() => {
+          resolve();
+        }, 1000);
+      });
+      await BlueBird.delay(5 * Consts.TIME_DELAY);
+      const desk: Desk = await TestService.getDesk(StaticValues.DEALER_ID);
+      chai.expect(desk.beforeCardPlay.color).to.equal(Color.BLUE);
+      chai.expect(desk.cardOfPlayer[Consts.PLAYER_2].length).to.equal(7);
+      chai.expect(desk.order[Consts.PLAYER_1]).to.equal(250);
+      chai.expect(desk.order[Consts.PLAYER_2]).to.equal(150);
+      chai.expect(desk.order[Consts.PLAYER_3]).to.equal(150);
+      chai.expect(desk.order[Consts.PLAYER_4]).to.equal(50);
+      const player1 = await playerService.detailByCondition({ code: Consts.PLAYER_1 });
+      const player2 = await playerService.detailByCondition({ code: Consts.PLAYER_2 });
+      const player3 = await playerService.detailByCondition({ code: Consts.PLAYER_3 });
+      const player4 = await playerService.detailByCondition({ code: Consts.PLAYER_4 });
+      chai.expect(player1.total_score).to.equal(242);
+      chai.expect(player2.total_score).to.equal(-42);
+      chai.expect(player3.total_score).to.equal(-90);
+      chai.expect(player4.total_score).to.equal(-110);
+      await Promise.resolve();
+    });
+
+    it(`s02-H-TC004: Calculator score of Player (Player 1 win 250 turn Score 239, Player 2 win 150 Score -39, Player 3 win 150 Score -90, Player 4 win 50 Score -110)`, async () => {
+      const orderOfDesk: { [key: string]: number } = {};
+      orderOfDesk[Consts.PLAYER_1] = 249;
+      orderOfDesk[Consts.PLAYER_2] = 150;
+      orderOfDesk[Consts.PLAYER_3] = 150;
+      orderOfDesk[Consts.PLAYER_4] = 50;
+      await TestService.setDesk({
+        ...baseDesk,
+        id: StaticValues.DEALER_ID,
+        turn: Consts.TOTAL_TURN,
+        beforeCardPlay: {
+          color: Color.RED,
+          number: 6,
+        },
+        cardOfPlayer: {
+          ...baseDesk.cardOfPlayer,
+          [Consts.PLAYER_1]: [
+            {
+              color: Color.RED,
+              special: Special.DRAW_2,
+            },
+          ],
+          //Player 2 Score 30 + Add 2 cards with Draw 2(9pt) = 39
+          [Consts.PLAYER_2]: [
+            {
+              color: Color.RED,
+              special: Special.DRAW_2,
+            },
+            {
+              color: Color.YELLOW,
+              number: 5,
+            },
+            {
+              color: Color.BLUE,
+              number: 5,
+            },
+          ],
+          //Player 3 Score 90
+          [Consts.PLAYER_3]: [
+            {
+              color: Color.BLACK,
+              special: Special.WILD,
+            },
+            {
+              color: Color.GREEN,
+              special: Special.DRAW_2,
+            },
+            {
+              color: Color.GREEN,
+              special: Special.SKIP,
+            },
+          ],
+          //Player 4 Score 110
+          [Consts.PLAYER_4]: [
+            {
+              color: Color.BLACK,
+              special: Special.WILD_DRAW_4,
+            },
+            {
+              color: Color.BLACK,
+              special: Special.WILD_SHUFFLE,
+            },
+            {
+              color: Color.RED,
+              special: Special.DRAW_2,
+            },
+          ],
+        },
+        score: {
+          [Consts.PLAYER_1]: 0,
+          [Consts.PLAYER_2]: 0,
+          [Consts.PLAYER_3]: 0,
+          [Consts.PLAYER_4]: 0,
+        },
+        order: orderOfDesk,
+      });
+      await new Promise<void>((resolve) => {
+        client1.emit(Consts.SOCKET.EVENT.PLAY_CARD, {
+          card_play: {
+            color: Color.RED,
+            special: Special.DRAW_2,
+          },
+          yell_uno: false,
+        });
+        // NOTE: ゲーム終了時、socket通信のcallbackが呼ばれる前にsocketが切断されるので、通信実行後1秒待機してresolveを呼び出す。
+        setTimeout(() => {
+          resolve();
+        }, 1000);
+      });
+      await BlueBird.delay(5 * Consts.TIME_DELAY);
+      const desk: Desk = await TestService.getDesk(StaticValues.DEALER_ID);
+      chai.expect(desk.beforeCardPlay.color).to.equal(Color.RED);
+      chai.expect(desk.cardOfPlayer[Consts.PLAYER_2].length).to.equal(5);
+      chai.expect(desk.order[Consts.PLAYER_1]).to.equal(250);
+      chai.expect(desk.order[Consts.PLAYER_2]).to.equal(150);
+      chai.expect(desk.order[Consts.PLAYER_3]).to.equal(150);
+      chai.expect(desk.order[Consts.PLAYER_4]).to.equal(50);
+      const player1 = await playerService.detailByCondition({ code: Consts.PLAYER_1 });
+      const player2 = await playerService.detailByCondition({ code: Consts.PLAYER_2 });
+      const player3 = await playerService.detailByCondition({ code: Consts.PLAYER_3 });
+      const player4 = await playerService.detailByCondition({ code: Consts.PLAYER_4 });
+      chai.expect(player1.total_score).to.equal(239);
+      chai.expect(player2.total_score).to.equal(-39);
+      chai.expect(player3.total_score).to.equal(-90);
+      chai.expect(player4.total_score).to.equal(-110);
+      await Promise.resolve();
+    });
+
+    it(`s02-H-TC005: The player who reaches that point first is the winner.`, async () => {
       await TestService.setDesk({
         ...baseDesk,
         id: StaticValues.DEALER_ID,
