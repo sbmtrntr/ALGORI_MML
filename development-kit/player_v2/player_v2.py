@@ -355,7 +355,17 @@ def on_color_of_wild(data_res):
 # 場札の色が変わった
 @sio.on(SocketConst.EMIT.UPDATE_COLOR)
 def on_update_color(data_res):
-    receive_event(SocketConst.EMIT.UPDATE_COLOR, data_res)
+    def on_update_color_callback(data_res):
+        global game_status
+
+        # 場に出されたカードのログにおいて、カード色を black --> chosen_color に変更する
+        chosen_color = data_res.get("color")
+        game_status.field_cards[-1]["color"] = chosen_color
+        # DEBUG
+        # print(f"---場カードログの色を黒から{chosen_color}へ変更---")
+        # print("場に出されたカード:", game_status.field_cards[-1])
+
+    receive_event(SocketConst.EMIT.UPDATE_COLOR, data_res, on_update_color_callback)
 
 
 # シャッフルワイルドにより手札状況が変更
@@ -368,8 +378,6 @@ def on_shuffle_wild(data_res):
         game_status.uno_declared = {}
 
         print("data_res.get('player') = ", data_res.get('player'))
-        # output --> None
-        #TODO data_res.get('player')は存在しない...
 
         #シャッフルワイルドで公開手札をリセットする
         game_status.init_open_cards()
@@ -410,8 +418,6 @@ def on_shuffle_wild(data_res):
 @sio.on(SocketConst.EMIT.NEXT_PLAYER)
 def on_next_player(data_res):
     global game_status
-
-    print("私は"+ id + "です")
 
     # # 各プレイヤーの手札枚数を最新状態に更新しておく
     # for k, v in data_res['number_card_of_player'].items():
@@ -462,7 +468,7 @@ def on_next_player(data_res):
             # print('デバッグプリント')
             # game_status.debug_print()
             cnt = 1
-            while game_status.field_cards[-1*cnt - 1].get('color',None) == "white" or game_status.field_cards[-1*cnt - 1].get('color',None) is None: #直前の色が白以外になるまで探索
+            while game_status.field_cards[-1*cnt - 1].get('color',None) in ["white","black"] or game_status.field_cards[-1*cnt - 1].get('color',None) is None: #直前の色が白以外になるまで探索
                 cnt += 1
             field_card = game_status.field_cards[-1*cnt - 1] #wild_draw_4の直前に出されたカード
 
@@ -584,7 +590,7 @@ def on_play_card(data_res):
     receive_event(SocketConst.EMIT.PLAY_CARD, data_res, play_card_callback)
 
 
-# 山札からカードを引いた(現在曽野編集中メソッド)
+# 山札からカードを引いた
 @sio.on(SocketConst.EMIT.DRAW_CARD)
 def on_draw_card(data_res):
     global game_status

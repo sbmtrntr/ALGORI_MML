@@ -15,6 +15,9 @@ class Status:
         self.num_of_field = 1 # 場にあるカードの枚数
         self.is_card_activate = True # 場にあるドロー系カードの効果の有無を格納するフィールド
         self.is_white_activate = defaultdict(int)
+        self.challenge_success = {}
+        self.turn_right = True
+        self.special_logic_flag = [False, False, False]
 
         # プレイヤーごとに手札の枚数を記録しておくディクショナリ
         self.player_card_counts = defaultdict(int)
@@ -22,11 +25,19 @@ class Status:
         # 「誰が」「どのカードを」出したかを記録するディクショナリ
         self.player_card_log = defaultdict(lambda: deque(maxlen=None))
 
+        # 「誰が」「どの色」に変更したかを記録するディクショナリ
+        self.player_color_log = defaultdict(lambda: deque(maxlen=None))
+
+        # 最後にカードをプレイしたプレイヤーを記録しておく文字列型フィールド
+        self.who_played_last = None
+
         # 場に出されたカードを記録する配列
         self.field_cards = deque(maxlen=None)
 
         # 誰がどの手札を公開したか記録するdict(list(card))
         self.other_open_cards = defaultdict(list)
+        # 自分がどの手札を公開したか記録するdict(list(card))
+        self.my_open_cards = defaultdict(list)
 
 
     def init_cards_status(self) -> dict:
@@ -56,7 +67,7 @@ class Status:
 
     def set_my_cards(self, cards:list) -> None:
         """自分の手札(my_cards)の更新"""
-        self.my_cards = cards
+        self.my_cards = cards.copy()
 
 
     def update_cards_status(self, cards: Union[dict, list]) -> None:
@@ -161,6 +172,7 @@ class Status:
         """順番逆転に対応させる関数"""
         print("反転発動")
         print(self.order_dic)
+        self.turn_right = not self.turn_right
         for k, v in self.order_dic.items():
             if v["位置"] == "直前":
                 self.order_dic[k]["位置"] = "直後"
@@ -177,6 +189,24 @@ class Status:
         return ""
 
 
+    def get_next_id(self) -> str:
+        """直後のプレイヤーのidを入手する関数(ごめん)"""
+        for k, v in self.order_dic.items():
+            if v["位置"] == "直後":
+                return k
+
+        return ""
+    
+
+    def get_mid_id(self) -> str:
+        """対面のプレイヤーのidを入手する関数(ごめん)"""
+        for k, v in self.order_dic.items():
+            if v["位置"] == "対面":
+                return k
+
+        return ""
+
+
     def set_uno_player(self, player_id: str) -> None:
         """UNO宣言したやつの記憶"""
         print(player_id + "がUNOしました" )
@@ -187,6 +217,14 @@ class Status:
         """UNO宣言解除したやつの記憶"""
         print(player_id + "がUNO解除しました" )
         self.order_dic[player_id]["UNO"] = False
+
+
+    def check_uno_player(self, my_id: str, number_card_of_player: dict) -> None:
+        """UNO宣言のチェック"""
+        for k, v in number_card_of_player.items():
+            if k != my_id:
+                self.order_dic[k]["UNO"] = v == 1
+        print(self.order_dic)
 
 
     def deck_empty(self) -> None:
@@ -297,6 +335,11 @@ class Status:
             else:
                 num_of_draw = 1
                 is_ok_over_25 = False # 25枚以上は引くことができない
+
+                # プレイヤーが出せなかった色を記録しておく
+                top_card_color = top_card.get("color")
+                self.player_color_log[player].append((top_card_color, "cant_play_card"))
+
                 print(f"引く理由: 場に出すカードがない(再行動可能)")
 
         print("---更新前---")
@@ -346,7 +389,16 @@ class Status:
         # self.num_of_field += 1
 
         # カードを記録する
-        self.field_cards.append(card) # 場に出たカードの記録
+        if card.get("special") == "white_wild":
+            # 白カードの場合は、最後に出されたカードの色に強制変更する
+            new_color = self.field_cards[-1]["color"]
+            new_card = {
+                "color": new_color,
+                "special": "white_wild",
+            }
+            self.field_cards.append(new_card) # 場に出たカードの記録
+        else:
+            self.field_cards.append(card) # 場に出たカードの記録
         self.update_player_card_log(player, card) # プレイヤーごとのログを取る
 
         # 場のカードが更新されたのでこれから場に出されるドロー系カードの効力は復活する
@@ -383,20 +435,21 @@ class Status:
 
         """
 
-        cnt_self_cards = defaultdict(int)
-        for i in self.other_open_cards[id]:
-            k = tuple(i.items())
-            cnt_self_cards[k] += 1
-        cnt_cards = defaultdict(int)
-        for i in cards:
-            k = tuple(i.items())
-            cnt_cards[k] += 1
-            if cnt_cards[k] > cnt_self_cards[k]:
-            # if i not in self.other_open_cards[id]: # 公開された中に存在していなかったら
-                self.other_open_cards[id].append(i)
-        print('公開カード！！')
-        print(cnt_self_cards)
-        print(cnt_cards)
+        # cnt_self_cards = defaultdict(int)
+        # for i in self.other_open_cards[id]:
+        #     k = tuple(i.items())
+        #     cnt_self_cards[k] += 1
+        # cnt_cards = defaultdict(int)
+        # for i in cards:
+        #     k = tuple(i.items())
+        #     cnt_cards[k] += 1
+        #     if cnt_cards[k] > cnt_self_cards[k]:
+        #     # if i not in self.other_open_cards[id]: # 公開された中に存在していなかったら
+        #         self.other_open_cards[id].append(i)
+        self.other_open_cards[id] = cards.copy()
+        print('公開カード！')
+        # print(cnt_self_cards)
+        # print(cnt_cards)
         print(self.other_open_cards[id])
 
 
@@ -411,7 +464,7 @@ class Status:
         if len(self.other_open_cards[id]) > 0: # そいつがカードを公開していて
             if card in self.other_open_cards[id]: # そいつがその札持ってたら
                 print(id+"が公開済みカードを使いました")
-                print(card)
+                # print(card)
                 self.other_open_cards[id].remove(card)
 
 
@@ -422,6 +475,37 @@ class Status:
 
         print("公開カードリセット")
         self.other_open_cards = defaultdict(list)
+
+
+    def remove_my_open_cards(self, card: dict) -> None:
+        """
+        自分が公開した手札から使ったカードを消去する関数
+        args:
+            card:dict = 使ったカード
+        """
+
+        for k, v in self.my_open_cards.items():
+            if card in v: # 自分がその札公開してたら
+                print(k + "への公開済みカードを使いました")
+                print(card)
+                self.my_open_cards[k].remove(card)
+            challenge_success = self.challenge_success.get(k, False)
+            if len(self.my_open_cards[k]) == 0 and challenge_success:
+                self.challenge_success[k] == False
+                print('challenge_success をリセット')
+        print('公開済みカード！')
+        print(self.my_open_cards)
+        print(self.challenge_success)
+
+
+    def init_my_open_cards(self):
+        """
+        ワイルドシャッフル時に自分の公開済みカードを初期化する関数
+        """
+
+        print("自分の公開カードリセット")
+        self.my_open_cards = defaultdict(list)
+        self.challenge_success = {}
 
 
 
@@ -437,3 +521,12 @@ class Status:
                 self.num_of_deck -= v
 
         return self.num_of_deck
+
+
+
+
+class Games:
+    def __init__(self):
+        self.num_game = 0
+        self.challenge_cnt = {} # 各プレイヤーに対するチャレンジ成功数
+        self.challenged_cnt = {}

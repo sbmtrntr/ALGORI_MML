@@ -1025,73 +1025,6 @@ socketServer.on('connection', function (socket) {
           await BlueBird.delay(AppConst.TIMEOUT_DELAY);
 
           if (CommonService.isTurnEnd(desk, player, undefined, true)) {
-            // 対戦が終了した時
-            if (desk.beforeCardPlay.special === Special.WILD_DRAW_4) {
-              // 出したカードがワイルドドロー4の場合は、次のプレイヤーに効果を与えてから対戦を終了する
-              const { nextPlayer } = CommonService.preGetNextPlayer(desk); // 次のプレイヤー情報を更新せずに取得だけ行う
-              const numberOfCardsBeforeDrawCard = desk.drawDesk.length;
-              const drawReason = CommonService.getDrawReason(desk, nextPlayer);
-              const { drawDesk, revealDesk, drawCards } = CommonService.drawCard(
-                desk,
-                desk.cardAddOn,
-              );
-              desk.drawDesk = drawDesk;
-              desk.revealDesk = revealDesk;
-              desk.cardOfPlayer[nextPlayer] = CommonService.sortCardOfPlayer(
-                desk.cardOfPlayer[nextPlayer].concat(drawCards),
-              );
-              desk.cardAddOn = 0;
-              desk.mustCallDrawCard = false;
-              desk.canCallPlayDrawCard = false;
-              desk.cardBeforeDrawCard = undefined;
-
-              // ゲーム情報更新
-              await redisClient.set(
-                `${AppObject.REDIS_PREFIX.DESK}:${dealerId}`,
-                JSON.stringify(desk),
-              );
-
-              const emitData: EmitDrawCard = {
-                player: nextPlayer,
-                is_draw: true,
-              };
-
-              // ゲームログの出力: draw-card
-              await activityService.create({
-                dealer_code: desk.id,
-                event: SocketConst.EMIT.DRAW_CARD,
-                dealer: desk.dealer,
-                player: nextPlayer,
-                turn: desk.turn,
-                contents: {
-                  can_play_draw_card: false,
-                  card_draw: drawCards,
-                  is_draw: true,
-                  draw_desk: {
-                    before: numberOfCardsBeforeDrawCard,
-                    after: desk.drawDesk.length,
-                  },
-                  before_card: desk.beforeCardPlay,
-                  draw_reason: drawReason,
-                  number_turn_play: desk.numberTurnPlay,
-                },
-                desk: CommonService.deskLog(desk),
-              } as any);
-
-              // 手札の追加をプレイヤーに通知
-              const socketIdOfNextPlayer = await redisClient.get(
-                `${AppObject.REDIS_PREFIX.PLAYER}:${nextPlayer}`,
-              );
-              SocketService.sendCardToPlayer(socketIdOfNextPlayer, {
-                cards_receive: drawCards,
-                is_penalty: false,
-              });
-              await BlueBird.delay(AppConst.TIMEOUT_DELAY);
-
-              // プレイヤーに情報を返却
-              SocketService.broadcastDrawCard(dealerId, emitData);
-            }
-
             // 対戦終了処理を実行
             await CommonService.turnEnd(desk, player);
 
@@ -1448,9 +1381,7 @@ socketServer.on('connection', function (socket) {
 
           if (CommonService.isTurnEnd(desk, player, cardPlay)) {
             // 対戦が終了した時
-            if (cardPlay.special === Special.DRAW_2) {
-              // 出したカードがドロー2の場合は、次のプレイヤーに効果を与えてから対戦を終了する
-              // ワイルドドロー4は色の変更が必要であるため、このタイミングでは対戦終了判定にならない。
+            if (cardPlay.special === Special.DRAW_2 || cardPlay.special === Special.WILD_DRAW_4) {
               const { nextPlayer } = CommonService.preGetNextPlayer(desk); // 次のプレイヤー情報を更新せずに取得だけ行う
               const numberOfCardsBeforeDrawCard = desk.drawDesk.length;
               const drawReason = CommonService.getDrawReason(desk, nextPlayer);
@@ -1852,53 +1783,55 @@ socketServer.on('connection', function (socket) {
           }
 
           const beforeCardPlay = cloneDeep(desk.beforeCardPlay);
-          if (
-            data.is_play_card &&
-            !CommonService.isAvailableCard(cardPlay, beforeCardPlay, desk.cardAddOn)
-          ) {
-            // 場札に対して出せないカードを出したのでペナルティ
-            await handlePenalty(
-              socket,
-              player,
-              desk,
-              AppConst.CARD_PUNISH,
-              new BaseError({ message: AppConst.CARD_PLAY_INVALID_WITH_CARD_BEFORE }),
-              callback,
-              isNextPlayer,
-            );
-            return;
-          }
+          if (data.is_play_card) {
+            if (!CommonService.isAvailableCard(cardPlay, beforeCardPlay, desk.cardAddOn)) {
+              // 場札に対して出せないカードを出したのでペナルティ
+              await handlePenalty(
+                socket,
+                player,
+                desk,
+                AppConst.CARD_PUNISH,
+                new BaseError({ message: AppConst.CARD_PLAY_INVALID_WITH_CARD_BEFORE }),
+                callback,
+                isNextPlayer,
+              );
+              return;
+            }
 
-          if (
-            ((cardPlay.special as Special) === Special.WILD ||
-              (cardPlay.special as Special) === Special.WILD_DRAW_4) &&
-            !data.color_of_wild
-          ) {
-            // 出したカードが色変更を伴うカードだが、color_of_wildフィールドが足りないのでペナルティ
-            await handlePenalty(
-              socket,
-              player,
-              desk,
-              AppConst.CARD_PUNISH,
-              new BaseError({ message: AppConst.COLOR_WILD_IS_REQUIRED }),
-              callback,
-              isNextPlayer,
-            );
-            return;
-          }
+            if (
+              ((cardPlay.special as Special) === Special.WILD ||
+                (cardPlay.special as Special) === Special.WILD_DRAW_4) &&
+              !data.color_of_wild
+            ) {
+              // 出したカードが色変更を伴うカードだが、color_of_wildフィールドが足りないのでペナルティ
+              await handlePenalty(
+                socket,
+                player,
+                desk,
+                AppConst.CARD_PUNISH,
+                new BaseError({ message: AppConst.COLOR_WILD_IS_REQUIRED }),
+                callback,
+                isNextPlayer,
+              );
+              return;
+            }
 
-          if (data.color_of_wild && ARR_COLOR_OF_WILD.indexOf(data.color_of_wild as Color) === -1) {
-            // color_of_wildの値が規定値ではないのでペナルティ
-            await handlePenalty(
-              socket,
-              player,
-              desk,
-              AppConst.CARD_PUNISH,
-              new BaseError({ message: AppConst.COLOR_WILD_INVALID }),
-              callback,
-              isNextPlayer,
-            );
-            return;
+            if (
+              data.color_of_wild &&
+              ARR_COLOR_OF_WILD.indexOf(data.color_of_wild as Color) === -1
+            ) {
+              // color_of_wildの値が規定値ではないのでペナルティ
+              await handlePenalty(
+                socket,
+                player,
+                desk,
+                AppConst.CARD_PUNISH,
+                new BaseError({ message: AppConst.COLOR_WILD_INVALID }),
+                callback,
+                isNextPlayer,
+              );
+              return;
+            }
           }
 
           if (data.yell_uno && cardOfPlayer.length !== 2) {
