@@ -70,8 +70,13 @@ def select_play_card(my_cards: list, my_id: str, next_id: str, player_card_count
     if len(valid_card_list) > 0:
 
         uno_cnt = uno_player_cnt(game_status.order_dic)
-        #if uno_cnt == 3: #自分以外の3人がUNO
+        if uno_cnt == 3: #自分以外の3人がUNO
+            tmp_list = card_choice_at_uno_all(valid_card_list, next_id, game_status)
+            return (tmp_list[0], "uno")
 
+        elif uno_cnt == 2: #自分以外の2人がUNO
+            tmp_list = card_choice_at_uno_two(valid_card_list, game_status)
+            return (tmp_list[0], "uno")
 
         for v in game_status.order_dic.values():
             if v["UNO"] == True: #UNO宣言してるやついたら
@@ -97,6 +102,160 @@ def select_play_card(my_cards: list, my_id: str, next_id: str, player_card_count
         return (None, "other")
 
 
+def card_choice_at_uno_all(valid_card_list: list, next_id: str, game_status: any) -> list:
+    """
+    他のプレイヤー3人全員がウノを出していた場合のカード選択
+    ▫ ワイルド> シャッフルワイルド> 白いワイルド>ドロ2 > Skip > reverse > ドロ4 > 直後の人が出せない色・数字大 
+    ▫ ワイルド系の色選択は防衛モードの優先順位で直後の人を基準にする
+    """
+
+    specials_dict = defaultdict(list)
+    nums_dict = defaultdict(dict)
+
+    # 有効カード情報を取得
+    for card in valid_card_list:
+        #スペシャルカードと数字カードを振り分け
+        card_special = card.get('special')
+        card_number = card.get('number')
+
+        if card_number is None:
+            specials_dict[card_special].append(card)
+        else:
+            card_color = card.get('color')
+            nums_dict[card_color][card_number] = card
+
+    # スペシャルカード(キー)を優先度順に格納したリスト
+    specials_key_list = ['wild', 'wild_shuffle', 'white_wild', 'draw_2', 'reverse', 'skip', 'wild_draw_4']
+
+    # 返り値の作成
+    rtn_list = []
+    #スペカードを優先度順に並べる
+    for key in specials_key_list:
+        rtn_list += specials_dict.get(key, [])
+
+    #数字カードの色優先度を得る
+    color_lis = deffesive_color_order(next_id, game_status)
+
+    #色の優先度に基づき数字カードを並べ替える
+    for color in color_lis:
+        #数字カードは現在{色:{数字:{カードの中身(dict)}, 数字:{カードの中身(dict)}.....}}という形で扱われている
+        if color in nums_dict:
+            tmp_normal_color_lis = nums_dict[color]
+            tmp_normal_color_lis = [item[1] for item in sorted(tmp_normal_color_lis.items(), reverse=True)]
+            rtn_list += tmp_normal_color_lis
+
+    return rtn_list
+
+
+def card_choice_at_uno_two(valid_card_list: list, game_status: any) -> list:
+    """
+    二人がUNO宣言していた場合。
+    """
+
+    specials_dict = defaultdict(list)
+    nums_dict = defaultdict(dict)
+
+    # 有効カード情報を取得
+    for card in valid_card_list:
+        #スペシャルカードと数字カードを振り分け
+        card_special = card.get('special')
+        card_number = card.get('number')
+
+        if card_number is None:
+            specials_dict[card_special].append(card)
+        else:
+            card_color = card.get('color')
+            nums_dict[card_color][card_number] = card
+
+    rtn_list = []
+
+    #直前、対面がUNOってた時
+    if get_uno_player_pos(game_status.order_dic) == ["直前","対面"] or get_uno_player_pos(game_status.order_dic) == ["対面","直前"] :
+        # スペシャルカード(キー)を優先度順に格納したリスト
+        specials_key_list = ['wild_shuffle', 'wild', 'white_wild', 'wild_draw_4', 'draw_2', 'reverse', 'skip']
+        #考慮すべき相手(対面)のidを入手する
+        target_id = game_status.get_mid_id()
+        rtn_list = two_pos_uno_card_choice(specials_dict, nums_dict, specials_key_list, target_id, game_status)
+
+    #直後、対面がUNOってた時
+    elif get_uno_player_pos(game_status.order_dic) == ["直後","対面"] or get_uno_player_pos(game_status.order_dic) == ["対面", "直後"]:
+        # スペシャルカード(キー)を優先度順に格納したリスト
+        specials_key_list = ['white_wild', 'wild_shuffle', 'wild', 'wild_draw_4', 'draw_2', 'reverse', 'skip']
+        #考慮すべき相手(対面)のidを入手する
+        target_id = game_status.get_next_id()
+        rtn_list = two_pos_uno_card_choice(specials_dict, nums_dict, specials_key_list, target_id, game_status)
+    
+    #直後,直前がUNOってた時
+    elif get_uno_player_pos(game_status.order_dic) == ["直後","直前"] or get_uno_player_pos(game_status.order_dic) == ["直前","直後"]:
+        
+        #考慮すべき相手(直後)のidを入手する
+        target_id = game_status.get_next_id()
+        #もし直後のやつが手札公開していて、その手札公開した札の中でまだ使用していない札があれば
+        if len(game_status.other_open_cards(target_id)) > 0: #特殊処理が走る
+
+            # スペシャルカード(キー)を優先度順に格納したリスト
+            specials_key_list = [ 'wild_shuffle', 'wild', 'draw_2', 'wild_draw_4', 'skip']
+            # 返り値の作成
+            rtn_list = []
+            #スペカードを優先度順に並べる
+            for key in specials_key_list:
+                rtn_list += specials_dict.get(key, [])
+
+            #直後の人が持っていない色を認識
+            color_candidate = ["red","blue","green","yellow"]
+            for i in game_status.other_open_cards(target_id):
+                if i["color"] in color_candidate:
+                    color_candidate.remove(i["color"])
+            
+            #直後の人が持っていない数字を取得
+            number_candidate = ["0","1","2","3","4","5","6","7","8","9"]
+            for i in game_status.other_open_cards(target_id):
+                if i.get("number","-1") in number_candidate:
+                    number_candidate.remove(i["number"])
+            
+            #直後の人が持っていない色＆数字を満たす札をtmp_num_rtn_listに入れる
+            tmp_num_rtn_lis = []
+            for color in color_candidate:
+                if color in nums_dict:
+                    #直後のやつが持っていない色の札を集める
+                    tmp_normal_color_dic = nums_dict[color]
+                    for num, card in tmp_normal_color_dic.items():
+                        if num in number_candidate:
+                            tmp_num_rtn_lis.append(card)
+            
+            rtn_list += tmp_num_rtn_lis
+
+            #白いワイルドを手札に加える
+            rtn_list += specials_dict.get('white_wild', [])
+
+            #skipを手札に加える
+            rtn_list += specials_dict.get('skip', [])
+
+            #数字大の順に並べて入れる。直後の人が持っていない色＆数字を満たす札と重複しても特に問題ないので強引にやる
+            tmp_num_order_lis = []
+            #数字カードを並べ替える
+            for color in ["blue" ,"green", "red", "yellow"]:
+                #数字カードは現在{色:{数字:{カードの中身(dict)}, 数字:{カードの中身(dict)}.....}}という形で扱われている
+                if color in nums_dict:
+                    tmp_normal_color_dic = nums_dict[color]
+                    tmp_normal_color_lis = [sorted(tmp_normal_color_dic.items(), reverse=True)]
+                    tmp_num_order_lis += tmp_normal_color_lis
+            
+            rtn_list += [item[1] for item in sorted(tmp_num_order_lis, reverse=True)]   
+
+        else: #直後のやつに対するヒントが何もなければ
+
+            # スペシャルカード(キー)を優先度順に格納したリスト
+            specials_key_list = [ 'wild_shuffle', 'wild', 'draw_2', 'wild_draw_4', 'skip', 'white_wild', 'reverse']
+            rtn_list = two_pos_uno_card_choice(specials_dict, nums_dict, specials_key_list, target_id, game_status)
+    
+    else:
+        print("Emergency: Cannot get correct uno situation(two)")
+        rtn_list = valid_card_list
+
+    return rtn_list
+
+
 def card_choice_at_uno(valid_card_list: list, pos: str, game_status: any, challenge_success: bool) -> list:
     """
     UNO状態のプレイヤーがいるときに、どのカードを選択するか決める関数(失点を減らすように)
@@ -112,161 +271,88 @@ def card_choice_at_uno(valid_card_list: list, pos: str, game_status: any, challe
     specials_dict = defaultdict(list)
     nums_dict = defaultdict(dict)
 
+    # 有効カード情報を取得
+    for card in valid_card_list:
+        #スペシャルカードと数字カードを振り分け
+        card_special = card.get('special')
+        card_number = card.get('number')
+
+        if card_number is None:
+            specials_dict[card_special].append(card)
+        else:
+            card_color = card.get('color')
+            nums_dict[card_color][card_number] = card
+
+
     print("pos is ", pos)
 
     if pos == "直後":
-        # 有効カード情報を取得
-        for card in valid_card_list:
-            #スペシャルカードと数字カードを振り分け
-            card_special = card.get('special')
-            card_number = card.get('number')
 
-            if card_number is None:
-                specials_dict[card_special].append(card)
-            else:
-                card_color = card.get('color')
-                nums_dict[card_color][card_number] = card
+        #考慮すべき相手(直後)のidを入手する
+        target_id = game_status.get_next_id()
 
-        print("特別カード")
-        print(specials_dict)
-        print("数字カード")
-        print(nums_dict)
-
-        # スペシャルカード(キー)を優先度順に格納したリスト
-        specials_key_list = ['wild_shuffle', 'draw_2', 'wild', 'white_wild', 'reverse', 'skip', 'wild_draw_4']
-
-        # 場に見えている色順を得る
-        cnt_by_color = defaultdict(int)
-        for color in ['red', 'blue', 'green', 'yellow']:
-            cnt_by_color[color] = color_counting(color, game_status.cards_status)
-        sorted_color = [item[0] for item in sorted(cnt_by_color.items(), key=lambda x: x[1])]
-        print("多く出されている色の順は", sorted_color)
-
-        # 色ごとに、場に見えている数字カードの数が大きい順に、手持ちの数字カードをソートする
-        tmp_num_list = []
-        for color in sorted_color:
-            sorted_by_cnt = [item[0] for item in sorted(game_status.cards_status[color].items(), key=lambda x: x[1])]
-            print("sorted_by_cnt")
-            print(sorted_by_cnt)
-            for key in sorted_by_cnt:
-                if key not in ['draw_2', 'reverse', 'skip']:
-                    key = int(key)
-                    if key in nums_dict[color]:
-                        tmp_num_list.append(nums_dict[color][key])
-        print("tmp_num_list")
-        print(tmp_num_list)
-
-        # 返り値の作成
         rtn_list = []
-        for key in specials_key_list:
-            rtn_list += specials_dict.get(key, [])
-        rtn_list += tmp_num_list
 
-        # Remove (DEBUG)
-        print('---出す順---')
-        for card in rtn_list:
-            card_number = card.get('number')
-            if card_number:
-                card_color = card.get('color')
-                print(f'{card_color}の{card_number}', end=' ')
-            else:
-                card_special = card.get('special')
-                print(card_special, end=' ')
-        print(rtn_list)
+        #もし直後のやつが手札公開していて、その手札公開した札の中でまだ使用していない札があれば
+        if len(game_status.other_open_cards(target_id)) > 0: #特殊処理が走る
+            rtn_list += specials_dict.get('draw_2', [])
+            rtn_list += specials_dict.get('skip', [])
+
+            #直後のやつが持っていない札を入れる
+            rtn_list += target_dont_have_num_color(game_status.other_open_cards(target_id), nums_dict)
+
+            rtn_list += specials_dict.get('wild', [])
+            rtn_list += specials_dict.get('white_wild', [])
+            rtn_list += specials_dict.get('wild_shuffle', [])
+            rtn_list += specials_dict.get('wild_draw_4', [])
+            rtn_list += specials_dict.get('reverse', [])
+
+            #数字の大きい順に入れる。直後のやつが持っていない札と被るが気にしない
+            rtn_list += get_big_number_order_lis(nums_dict)
+
+        else:
+            # スペシャルカード(キー)を優先度順に格納したリスト
+            specials_key_list = [ 'draw_2', 'skip', 'white_wild', 'wild_shuffle', 'wild', 'wild_draw_4', 'reverse']
+            rtn_list = two_pos_uno_card_choice(specials_dict, nums_dict, specials_key_list, target_id, game_status)
 
         return rtn_list
 
     elif pos == "対面":
-        # 有効カード情報を取得
-        for card in valid_card_list:
-            card_special = card.get('special')
-            card_number = card.get('number')
+         #考慮すべき相手(対面)のidを入手する
+        target_id = game_status.get_mid_id()
 
-            if card_number is None:
-                specials_dict[card_special].append(card)
-            else:
-                nums_dict[card_number] = card
-
-        # 数字カードの値が大きい順に数字カードをソートする
-        tmp_num_list = [item[1] for item in sorted(nums_dict.items(), key=lambda x:int(x[0]), reverse=True)]
-        print("tmp_num_list")
-        print(tmp_num_list)
-
-        # スペシャルカード(キー)を優先度順に格納したリスト
-        if challenge_success == False: #自分へのチャレンジが成功されていなかったら
-            specials_key_list = ['wild_shuffle', 'white_wild', 'wild', 'wild_draw_4', 'draw_2', 'reverse', 'skip']
-        else: #自分へのチャレンジが成功されていたら
-            specials_key_list = ['wild_shuffle', 'white_wild', 'wild', 'draw_2', 'reverse', 'skip', 'wild_draw_4']
-
-        # 返り値の作成
         rtn_list = []
-        for key in specials_key_list:
-            # if specials_dict.get(key,False) != False:
-            rtn_list += specials_dict.get(key, [])
-        print("rtn_list_1 :")
-        print(rtn_list)
-        rtn_list += tmp_num_list
-
-        # Remove (DEBUG)
-        print('---出す順---')
-        for card in rtn_list:
-            card_number = card.get('number')
-            if card_number is None:
-                card_color = card.get('color')
-                print(f'{card_color}の{card_number}', end=' ')
-            else:
-                card_special = card.get('special')
-                print(card_special, end=' ')
-        print(rtn_list)
+        # スペシャルカード(キー)を優先度順に格納したリスト
+        specials_key_list = [ 'white_wild', 'wild_shuffle', 'wild', 'wild_draw_4', 'reverse', 'draw_2']
+        rtn_list = two_pos_uno_card_choice(specials_dict, nums_dict, specials_key_list, target_id, game_status)
+        rtn_list += specials_dict.get('skip', [])
 
         return rtn_list
 
     elif pos == "直前":
-        # 有効カード情報を取得
-        for card in valid_card_list:
-            card_special = card.get('special')
-            card_number = card.get('number')
-
-            if card_number is None:
-                specials_dict[card_special].append(card)
-            else:
-                nums_dict[card_number] = card
-
-        # スペシャルカード(キー)を優先度順に格納したリスト　※Reverseはあとで別途で追加する
-        if challenge_success == False: #自分へのチャレンジが成功されていなかったら
-            specials_key_list = ['wild_shuffle', 'wild', 'wild_draw_4', 'draw_2', 'white_wild', 'skip']
-        else:
-            specials_key_list = ['wild_shuffle', 'wild', 'draw_2', 'white_wild', 'skip', 'wild_draw_4']
-
-        # 数字カードの値が大きい順に数字カードをソートする
-        tmp_num_list = [item[1] for item in sorted(nums_dict.items(), key=lambda x:int(x[0]), reverse=True)]
-        print("tmp_num_list")
-        print(tmp_num_list)
-
-        # 返り値の作成
+         #考慮すべき相手(直前)のidを入手する
+        target_id = game_status.get_before_id()    
         rtn_list = []
-        for key in specials_key_list:
-            # if specials_dict.get(key,False) != False:
-            rtn_list += specials_dict.get(key, [])
 
-        print("rtn_list_1 :")
-        print(rtn_list)
-        rtn_list += tmp_num_list
-        print("rtn_list_2 :")
-        print(rtn_list)
-        rtn_list += specials_dict.get('reverse', [])
+        #もし直前のやつが手札公開していて、その手札公開した札の中でまだ使用していない札があれば
+        if len(game_status.other_open_cards(target_id)) > 0: #特殊処理が走る
+            specials_key_list = [ 'white_wild', 'wild_shuffle', 'wild', 'wild_draw_4', 'draw_2' ,'skip']
+            #スペカードを優先度順に並べる
+            for key in specials_key_list:
+                rtn_list += specials_dict.get(key, [])
+            
+            #直前のやつが持っていない札を入れる
+            rtn_list += target_dont_have_num_color(game_status.other_open_cards(target_id), nums_dict)
 
-        # Remove (DEBUG)
-        print('---出す順---')
-        for card in rtn_list:
-            card_number = card.get('number')
-            if card_number:
-                card_color = card.get('color')
-                print(f'{card_color}の{card_number}', end=' ')
-            else:
-                card_special = card.get('special')
-                print(card_special, end=' ')
-        print(rtn_list)
+            #数字の大きい順に入れる。直前のやつが持っていない札と被るが気にしない
+            rtn_list += get_big_number_order_lis(nums_dict) 
+
+            rtn_list += specials_dict.get('reverse', [])           
+
+        else:
+            specials_key_list = [ 'wild_shuffle', 'wild', 'wild_draw_4', 'draw_2' ,'skip' ,'white_wild']
+            rtn_list = two_pos_uno_card_choice(specials_dict, nums_dict, specials_key_list, target_id, game_status)
+            rtn_list += specials_dict.get('reverse', [])
 
         return rtn_list
 
@@ -780,12 +866,11 @@ def play_draw4_dicision(valid_cards: list, before_card: dict, my_cards: list, my
         return p < 0.8 # 自分が出せるカードを持っている確率が80%以上のとき出さない
 
 
-
-def pass_func(err)->None:
-    """
-    個別コールバックを指定しないときの代替関数
-    """
-    return
+# def pass_func(err)->None:
+#     """
+#     個別コールバックを指定しないときの代替関数
+#     """
+#     return
 
 
 def uno_player_cnt(order_dic: dict):
@@ -797,4 +882,127 @@ def uno_player_cnt(order_dic: dict):
     return uno_cnt
 
 
-#def get_color_order(player: str, g_status: any):
+def get_uno_player_pos(order_dic: dict):
+    uno_pos_lis = []
+    for i in order_dic.values():
+        if i["UNO"] == True:
+            uno_pos_lis.append(i["位置"])
+    
+    return uno_pos_lis
+
+
+def deffesive_color_order(player: str, g_status: any) -> list:
+    """
+    特定のプレイヤーが持っていない可能性のある色を優先的に返す関数
+    Args:
+        player:str 調べたいプレイヤーのid
+        g_status:any ゲームステータス
+    Return:
+        color_list:list 色を優先度順に格納したリスト
+    """
+
+    # game_statusインスタンスから, そのプレイヤーの色に関するゲーム記録を取得する
+    # 指定したプレイヤーの色に関する記録があれば参照する
+    if len(g_status.player_color_log[player]) > 0:
+
+        # プレイヤーの苦手な色を取得
+        last_chose_color, chose_reason = g_status.player_color_log[player][-1]
+
+        # DEBUG
+        print("---色チェック---", g_status.player_color_log[player][-1])
+
+        # cards_statusを参照して既知なカードのうち、
+        # 最も場に出されている色順に結果を出力したい
+        dic = g_status.cards_status.copy()
+        del dic["white"], dic["black"] # 白、黒は除外する
+
+        tmp_lis = sorted(dic.items(), key=lambda x:sum(x[1].values()))
+        color_list = [item[0] for item in tmp_lis]
+
+        # DEBUG
+        #print("last_chose_color & reason:", last_chose_color, chose_reason)
+        #print("color_list:", *color_list)
+
+        # 最後に記録された色は除外する
+        #print("除外するか？", last_chose_color in color_list)
+        if last_chose_color in color_list:
+            color_list.remove(last_chose_color)
+
+        # 返すリストは　[(記録された色), (残りの色のうち、既知な色順)]
+        color_list = [last_chose_color] + color_list
+
+    # 記録が無い場合はcards_statusを参照して既知なカードのうち、
+    # 最も場に出されている色順に結果を出力したい
+    else:
+        dic = g_status.cards_status.copy()
+        del dic["white"], dic["black"] # 白、黒は除外する
+        tmp_lis = sorted(dic.items(), key=lambda x:sum(x[1].values()))
+        #print("color_list:", tmp_lis)
+        color_list = [item[0] for item in tmp_lis]
+
+    # 色の優先順位を出力
+    # print("色の優先順位:", *color_list)
+
+    return color_list
+
+
+def two_pos_uno_card_choice(specials_dict: dict, nums_dict: dict, specials_pri_list: dict, target_id: str, game_status: any) -> list:
+
+    # 返り値の作成
+    rtn_list = []
+    #スペカードを優先度順に並べる
+    for key in specials_pri_list:
+        rtn_list += specials_dict.get(key, [])
+    
+    #数字カードの色優先度を得る
+    color_lis = deffesive_color_order(target_id, game_status)
+
+    #色の優先度に基づき数字カードを並べ替える
+    for color in color_lis:
+        #数字カードは現在{色:{数字:{カードの中身(dict)}, 数字:{カードの中身(dict)}.....}}という形で扱われている
+        if color in nums_dict:
+            tmp_normal_color_dic = nums_dict[color]
+            tmp_normal_color_lis = [item[1] for item in sorted(tmp_normal_color_dic.items(), reverse=True)]
+            rtn_list += tmp_normal_color_lis
+
+    return rtn_list
+
+
+def target_dont_have_num_color(open_cards: list, nums_dict: dict):
+    #特定のプレイヤーが持っていないはずの色・数字を返す
+    #直後の人が持っていない色を認識
+    color_candidate = ["red","blue","green","yellow"]
+    for i in open_cards:
+        if i["color"] in color_candidate:
+            color_candidate.remove(i["color"])
+            
+    #直後の人が持っていない数字を取得
+    number_candidate = ["9","8","7","6","5","4","3","2","1","0"]
+    for i in open_cards:
+        if i.get("number","-1") in number_candidate:
+            number_candidate.remove(i["number"])
+            
+    #直後の人が持っていない色＆数字を満たす札をtmp_num_rtn_listに入れる
+    tmp_num_rtn_lis = []
+    for color in color_candidate:
+        if color in nums_dict:
+            #直後のやつが持っていない色の札を集める
+            tmp_normal_color_dic = nums_dict[color]
+            for num, card in tmp_normal_color_dic.items():
+                if num in number_candidate:
+                    tmp_num_rtn_lis.append(card)
+
+    return tmp_num_rtn_lis        
+            
+def get_big_number_order_lis(nums_dict):
+    tmp_num_order_lis = []
+    #数字カードを並べ替える
+    for color in ["blue" ,"green", "red", "yellow"]:
+        #数字カードは現在{色:{数字:{カードの中身(dict)}, 数字:{カードの中身(dict)}.....}}という形で扱われている
+        if color in nums_dict:
+            tmp_normal_color_dic = nums_dict[color]
+            tmp_normal_color_lis = [sorted(tmp_normal_color_dic.items(), reverse=True)]
+            tmp_num_order_lis += tmp_normal_color_lis
+
+    return [item[1] for item in sorted(tmp_num_order_lis, reverse=True)]
+

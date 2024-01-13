@@ -187,10 +187,20 @@ class Status:
 
         return ""
 
+
     def get_next_id(self) -> str:
         """直後のプレイヤーのidを入手する関数(ごめん)"""
         for k, v in self.order_dic.items():
             if v["位置"] == "直後":
+                return k
+
+        return ""
+    
+
+    def get_mid_id(self) -> str:
+        """対面のプレイヤーのidを入手する関数(ごめん)"""
+        for k, v in self.order_dic.items():
+            if v["位置"] == "対面":
                 return k
 
         return ""
