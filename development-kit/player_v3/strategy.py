@@ -68,17 +68,20 @@ def select_play_card(my_cards: list, my_id: str, next_id: str, player_card_count
     # if len(my_cards) >= 7 and shuffle_wild in my_cards:
     #     return (shuffle_wild, "uno")
 
+    play_mode = analyze_situation(my_id, my_cards, player_card_counts, wild_shuffle_flag)
     if len(valid_card_list) > 0:
+        if play_mode == "uno":
+            if len(my_cards) >= 7 and wild_shuffle_flag:
+                game_status.special_logic_flag[1] = True
+                return (shuffle_wild, "uno")
+
         for v in game_status.order_dic.values():
             if v["UNO"]: #UNO宣言してるやついたら
-                if len(my_cards) >= 7 and wild_shuffle_flag:
-                    return (shuffle_wild, "uno")
                 tmp_list = card_choice_at_uno(valid_card_list, v["位置"], game_status, challenge_success)
                 return (tmp_list[0], "uno")
 
-        play_mode = analyze_situation(my_id, my_cards, player_card_counts, wild_shuffle_flag)
         if play_mode == "deffensive": #防御モード
-            tmp_list = deffesive_mode(my_id, valid_card_list, my_cards, player_card_counts, wild_shuffle_flag, challenge_success, should_play_draw4, game_status)
+            tmp_list = deffesive_mode(my_id, valid_card_list, player_card_counts, wild_shuffle_flag, challenge_success, should_play_draw4, game_status)
             if len(tmp_list) == 0:
                 return (None, play_mode)
             else:
@@ -91,8 +94,12 @@ def select_play_card(my_cards: list, my_id: str, next_id: str, player_card_count
             else:
                 return (tmp_list[0], play_mode)
 
+        else:
+            print('謎モード:', play_mode)
+            return (valid_card_list[0], play_mode)
+
     else:
-        return (None, "other")
+        return (None, play_mode)
 
 
 def card_choice_at_uno(valid_card_list: list, pos: str, game_status: any, challenge_success: bool) -> list:
@@ -290,7 +297,10 @@ def analyze_situation(my_id: str, my_cards: list, player_card_counts: dict, wild
     num_my_cards = len(my_cards) - 1 if wild_shuffle_flag else len(my_cards)
     min_cards_num = min_cards_check(my_id, player_card_counts)
 
-    if num_my_cards < 5: # 自分が4枚以下
+    if min_cards_num == 1:
+        return "uno"
+
+    elif num_my_cards < 5: # 自分が4枚以下
         return "offensive"
 
     elif min_cards_num < 5: # 4枚以下のプレイヤーがいる
@@ -599,9 +609,8 @@ def deffesive_mode(my_id: str, cards: list, player_cards_cnt: dict, wild_shuffle
                 if card_special == "wild_draw_4":
                     wild_lis.append(card)
     else:
-        if min_cards_num == 2:
-            # シャッフル最優先で出す
-            wild_lis.append(shuffle_wild)
+        if min_cards_num <= 2:
+            wild_lis.append(shuffle_wild) # シャッフル最優先で出す
 
             for card in cards: # ワイルドを優先的に出す
                 card_special = card.get("special")
@@ -635,7 +644,7 @@ def deffesive_mode(my_id: str, cards: list, player_cards_cnt: dict, wild_shuffle
                     if card_special == "wild_draw_4":
                         wild_lis.append(card)
 
-            # 白いワイルド, ワイルドドロー4の次の優先順位でシャッフル出す
+            # 白いワイルド, ワイルドドロー4の次の優先度でシャッフル出す
             wild_lis.append(shuffle_wild)
 
             for card in cards: # ワイルドを優先的に出す
@@ -768,25 +777,21 @@ def deffesive_color_order(player: str, g_status: any) -> list:
     Returns:
         list: 色の優先順位
     """
+    # cards_statusを参照して既知なカードのうち、
+    # 最も場に出されている色順に結果を出力したい
+    dic = g_status.cards_status.copy()
+    del dic["white"], dic["black"] # 白、黒は除外する
+    tmp_lis = sorted(dic.items(), key=lambda x:sum(x[1].values()))
+    color_list = [item[0] for item in tmp_lis]
+
     # game_statusインスタンスから, そのプレイヤーの色に関するゲーム記録を取得する
     # 指定したプレイヤーの色に関する記録があれば参照する
     if len(g_status.player_color_log[player]) > 0:
-
         # プレイヤーの苦手な色を取得
         last_chose_color, chose_reason = g_status.player_color_log[player][-1]
 
         # DEBUG
         print("---色チェック---", g_status.player_color_log[player][-1])
-
-        # cards_statusを参照して既知なカードのうち、
-        # 最も場に出されている色順に結果を出力したい
-        dic = g_status.cards_status.copy()
-        del dic["white"], dic["black"] # 白、黒は除外する
-
-        tmp_lis = sorted(dic.items(), key=lambda x:sum(x[1].values()))
-        color_list = [item[0] for item in tmp_lis]
-
-        # DEBUG
         print("last_chose_color & reason:", last_chose_color, chose_reason)
         print("color_list:", *color_list)
 
@@ -803,12 +808,12 @@ def deffesive_color_order(player: str, g_status: any) -> list:
 
     # 記録が無い場合はcards_statusを参照して既知なカードのうち、
     # 最も場に出されている色順に結果を出力したい
-    else:
-        dic = g_status.cards_status.copy()
-        del dic["white"], dic["black"] # 白、黒は除外する
-        tmp_lis = sorted(dic.items(), key=lambda x:sum(x[1].values()))
-        print("color_list:", tmp_lis)
-        color_list = [item[0] for item in tmp_lis]
+    # else:
+    #     dic = g_status.cards_status.copy()
+    #     del dic["white"], dic["black"] # 白、黒は除外する
+    #     tmp_lis = sorted(dic.items(), key=lambda x:sum(x[1].values()))
+    #     print("color_list:", tmp_lis)
+    #     color_list = [item[0] for item in tmp_lis]
 
     # 色の優先順位を出力
     print("色の優先順位:", *color_list)
@@ -833,8 +838,6 @@ def challenge_dicision(before_card: dict, my_id: str, before_id: str, player_car
     return:
         bool値 = チャレンジするか否か
     """
-
-
     # チャレンジ後開示された手札を記憶し、次ワイルドドロー4が出されたときに記憶した手札から場に出されたカードを消したものの中で出せるものがあれば必ずチャレンジ
     if len(game_status.other_open_cards[before_id]) > 0: # カードをオープンしてたら
         card_color = before_card.get("color") #wild_draw_4前のカードの色を取得
@@ -843,25 +846,21 @@ def challenge_dicision(before_card: dict, my_id: str, before_id: str, player_car
         for card in game_status.other_open_cards[before_id]: # オープンカードを片っ端からチェック
             if card.get("color") == card_color: # 同じ色あったら
                 print('記憶したカードでチャレンジ')
+                game_status.special_logic_flag[0] = True
                 return True
             elif card_number is not None and card_number == card.get("number"):
                 print('記憶したカードでチャレンジ')
+                game_status.special_logic_flag[0] = True
                 return True
             elif card_special is not None and card_special == card.get("spacial"):
                 print('記憶したカードでチャレンジ')
+                game_status.special_logic_flag[0] = True
                 return True
             elif card_color in {'black', 'white'} and card_special != 'wild_draw_4':
                 print('記憶したカードでチャレンジ')
+                game_status.special_logic_flag[0] = True
                 return True
 
-
-    # 200戦した後のチャレンジ成功率が30%以下のとき、チャレンジしない
-    if games.num_game > 200 and games.challenge_cnt[before_id][0] != 0:
-        p_success = games.challenge_cnt[before_id][1] / games.challenge_cnt[before_id][0]
-        print(before_id, 'に対するチャレンジ成功率:', p_success)
-        print('チャレンジ回数:', games.challenge_cnt[before_id][0], '成功回数:', games.challenge_cnt[before_id][1])
-        if p_success <= 0.3:
-            return False
 
     # 場札と自分の手札から相手が (同じ色を出せる確率) + (同じ数字・記号を出せる確率) + (ワイルド系カードを出せる確率) がp以上であればチャレンジ
     print(before_id)
@@ -905,6 +904,20 @@ def challenge_dicision(before_card: dict, my_id: str, before_id: str, player_car
 
     # if not 0 <= p <= 1:
     #     exit(print("確率の壁を越えてるよ"))
+    if p == 1:
+        print('100%持ってる')
+        # game_status.special_logic_flag[0] = True
+        return True
+
+
+    # 200戦した後のチャレンジ成功率が30%以下のとき、チャレンジしない
+    if games.num_game > 200 and games.challenge_cnt[before_id][0] != 0:
+        p_success = games.challenge_cnt[before_id][1] / games.challenge_cnt[before_id][0]
+        print(before_id, 'に対するチャレンジ成功率:', p_success)
+        print('チャレンジ回数:', games.challenge_cnt[before_id][0], '成功回数:', games.challenge_cnt[before_id][1])
+        if p_success <= 0.3:
+            return False
+
 
     # 相手が6枚以上持っているとき
     if player_card_counts[before_id] >= 6:
@@ -959,7 +972,6 @@ def play_draw4_dicision(valid_cards: list, before_card: dict, my_cards: list, my
         print('チャレンジ回数:', games.challenged_cnt[next_id][1], '成功回数:', games.challenged_cnt[next_id][2])
         if p_success >= 0.8: # 200戦した後の被チャレンジ成功率が 80%以上のとき、出さない
             return False
-
 
 
     print(next_id)

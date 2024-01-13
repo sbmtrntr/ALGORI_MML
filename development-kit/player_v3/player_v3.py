@@ -484,6 +484,10 @@ def on_next_player(data_res):
 
             print('直前があってるか', before_player == game_status.get_before_id())
             is_challenge = challenge_dicision(field_card, id, before_player, num_card_of_player, num_of_deck, game_status, games)
+            if game_status.special_logic_flag[0]:
+                game_status.special_logic_flag[0] = False
+                title = "千里眼ッ!!!!!"
+                send_event(SocketConst.EMIT.SPECIAL_LOGIC, { 'title': title })
             send_event(SocketConst.EMIT.CHALLENGE, { 'is_challenge': is_challenge } )
             if is_challenge:
                 return
@@ -496,9 +500,9 @@ def on_next_player(data_res):
             return
 
         #  スペシャルロジックを発動させる
-        special_logic_num_random = random_by_number(10)
-        if special_logic_num_random == 0:
-            send_event(SocketConst.EMIT.SPECIAL_LOGIC, { 'title': SPECIAL_LOGIC_TITLE })
+        # special_logic_num_random = random_by_number(10)
+        # if special_logic_num_random == 0:
+        #     send_event(SocketConst.EMIT.SPECIAL_LOGIC, { 'title': SPECIAL_LOGIC_TITLE })
 
         # 自分の手札から、出せるカードのリストとプレイモードを取得する
         play_card, play_mode = select_play_card(cards, id, next_player, num_card_of_player, num_of_deck, before_card, game_status, games)
@@ -530,6 +534,11 @@ def on_next_player(data_res):
 
             if play_card.get('special') == Special.WILD_DRAW_4:
                 games.challenged_cnt[next_player][0] += 1
+
+            if game_status.special_logic_flag[1]:
+                game_status.special_logic_flag[1] = False
+                title = "もう絶望する必要なんて，ない！"
+                send_event(SocketConst.EMIT.SPECIAL_LOGIC, { 'title': title })
 
             send_event(SocketConst.EMIT.PLAY_CARD, data)
 

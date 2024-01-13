@@ -17,6 +17,7 @@ class Status:
         self.is_white_activate = defaultdict(int)
         self.challenge_success = {}
         self.turn_right = True
+        self.special_logic_flag = [False, False, False]
 
         # プレイヤーごとに手札の枚数を記録しておくディクショナリ
         self.player_card_counts = defaultdict(int)
