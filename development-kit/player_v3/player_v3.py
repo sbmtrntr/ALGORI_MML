@@ -513,7 +513,7 @@ def on_next_player(data_res):
 
         # 選出したカードがある時
         if play_card:
-            print('selected card: {} {}'.format(play_card.get('color'), play_card.get('number') or play_card.get('special')))
+            # print('selected card: {} {}'.format(play_card.get('color'), play_card.get('number') or play_card.get('special')))
             game_status.my_uno_flag = len(cards) == 2
             data = {
                 'card_play': play_card,

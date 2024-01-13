@@ -163,7 +163,7 @@ def card_choice_at_uno_all(valid_card_list: list, next_id: str, should_play_draw
     # nums_list = sorted(nums_list, key=lambda x: (x["number"], color_lis.index(x["color"])), reverse=True)
     # rtn_list += nums_list
 
-    rtn_list = get_two_uno_card_order(specials_dict, nums_list, specials_key_list, next_id, game_status)
+    rtn_list = get_uno_card_order(specials_dict, nums_list, specials_key_list, next_id, game_status)
 
     if not should_play_draw4:
         rtn_list += specials_dict.get('wild_draw_4', [])
@@ -204,7 +204,7 @@ def card_choice_at_uno_two(valid_card_list: list, should_play_draw4: bool, game_
             specials_key_list = ['wild_shuffle', 'wild', 'white_wild', 'draw_2', 'reverse', 'skip']
         #考慮すべき相手(対面)のidを入手する
         target_id = game_status.get_mid_id()
-        rtn_list = get_two_uno_card_order(specials_dict, nums_list, specials_key_list, target_id, game_status)
+        rtn_list = get_uno_card_order(specials_dict, nums_list, specials_key_list, target_id, game_status)
         if not should_play_draw4:
             rtn_list += specials_dict.get('wild_draw_4', [])
 
@@ -217,7 +217,7 @@ def card_choice_at_uno_two(valid_card_list: list, should_play_draw4: bool, game_
             specials_key_list = ['white_wild', 'wild_shuffle', 'wild', 'draw_2', 'reverse', 'skip']
         #考慮すべき相手(対面)のidを入手する
         target_id = game_status.get_next_id()
-        rtn_list = get_two_uno_card_order(specials_dict, nums_list, specials_key_list, target_id, game_status)
+        rtn_list = get_uno_card_order(specials_dict, nums_list, specials_key_list, target_id, game_status)
         if not should_play_draw4:
             rtn_list += specials_dict.get('wild_draw_4', [])
 
@@ -281,7 +281,7 @@ def card_choice_at_uno_two(valid_card_list: list, should_play_draw4: bool, game_
             #         tmp_num_order_lis += tmp_normal_color_lis
 
             # rtn_list += [item[1] for item in sorted(tmp_num_order_lis, reverse=True)]
-            rtn_list += get_big_number_order_lis(nums_dict)
+            rtn_list += get_big_number_order_lis(nums_list, target_id, game_status)
 
         else: #直後のやつに対するヒントが何もなければ
             # スペシャルカード(キー)を優先度順に格納したリスト
@@ -289,7 +289,7 @@ def card_choice_at_uno_two(valid_card_list: list, should_play_draw4: bool, game_
                 specials_key_list = [ 'wild_shuffle', 'wild', 'draw_2', 'wild_draw_4', 'skip', 'white_wild', 'reverse']
             else:
                 specials_key_list = [ 'wild_shuffle', 'wild', 'draw_2', 'skip', 'white_wild', 'reverse']
-            rtn_list = get_two_uno_card_order(specials_dict, nums_list, specials_key_list, target_id, game_status)
+            rtn_list = get_uno_card_order(specials_dict, nums_list, specials_key_list, target_id, game_status)
 
         if not should_play_draw4:
             rtn_list += specials_dict.get('wild_draw_4', [])
@@ -315,6 +315,7 @@ def card_choice_at_uno(valid_card_list: list, pos: str, should_play_draw4: bool,
 
     specials_dict = defaultdict(list)
     nums_dict = defaultdict(dict)
+    nums_list = []
 
     # 有効カード情報を取得
     for card in valid_card_list:
@@ -325,6 +326,7 @@ def card_choice_at_uno(valid_card_list: list, pos: str, should_play_draw4: bool,
         if card_number is None:
             specials_dict[card_special].append(card)
         else:
+            nums_list.append(card)
             card_color = card.get('color')
             nums_dict[card_color][card_number] = card
 
@@ -353,7 +355,7 @@ def card_choice_at_uno(valid_card_list: list, pos: str, should_play_draw4: bool,
             rtn_list += specials_dict.get('reverse', [])
 
             #数字の大きい順に入れる。直後のやつが持っていない札と被るが気にしない
-            rtn_list += get_big_number_order_lis(nums_dict)
+            rtn_list += get_big_number_order_lis(nums_list, target_id, game_status)
 
             if not should_play_draw4:
                 rtn_list += specials_dict.get('wild_draw_4', [])
@@ -364,7 +366,7 @@ def card_choice_at_uno(valid_card_list: list, pos: str, should_play_draw4: bool,
                 specials_key_list = [ 'draw_2', 'skip', 'white_wild', 'wild_shuffle', 'wild', 'wild_draw_4', 'reverse']
             else:
                 specials_key_list = [ 'draw_2', 'skip', 'white_wild', 'wild_shuffle', 'wild', 'reverse']
-            rtn_list = get_one_uno_card_order(specials_dict, nums_dict, specials_key_list, target_id, game_status)
+            rtn_list = get_uno_card_order(specials_dict, nums_list, specials_key_list, target_id, game_status)
             if not should_play_draw4:
                 rtn_list += specials_dict.get('wild_draw_4', [])
 
@@ -380,7 +382,7 @@ def card_choice_at_uno(valid_card_list: list, pos: str, should_play_draw4: bool,
             specials_key_list = [ 'white_wild', 'wild_shuffle', 'wild', 'wild_draw_4', 'reverse', 'draw_2']
         else:
             specials_key_list = [ 'white_wild', 'wild_shuffle', 'wild', 'reverse', 'draw_2']
-        rtn_list = get_one_uno_card_order(specials_dict, nums_dict, specials_key_list, target_id, game_status)
+        rtn_list = get_uno_card_order(specials_dict, nums_list, specials_key_list, target_id, game_status)
         rtn_list += specials_dict.get('skip', [])
         if not should_play_draw4:
             rtn_list += specials_dict.get('wild_draw_4', [])
@@ -406,7 +408,7 @@ def card_choice_at_uno(valid_card_list: list, pos: str, should_play_draw4: bool,
             rtn_list += target_dont_have_num_color(game_status.other_open_cards[target_id], nums_dict)
 
             #数字の大きい順に入れる。直前のやつが持っていない札と被るが気にしない
-            rtn_list += get_big_number_order_lis(nums_dict)
+            rtn_list += get_big_number_order_lis(nums_list, target_id, game_status)
 
             rtn_list += specials_dict.get('reverse', [])
 
@@ -418,7 +420,7 @@ def card_choice_at_uno(valid_card_list: list, pos: str, should_play_draw4: bool,
                 specials_key_list = [ 'wild_shuffle', 'wild', 'wild_draw_4', 'draw_2' ,'skip' ,'white_wild']
             else:
                 specials_key_list = [ 'wild_shuffle', 'wild', 'draw_2' ,'skip' ,'white_wild']
-            rtn_list = get_one_uno_card_order(specials_dict, nums_dict, specials_key_list, target_id, game_status)
+            rtn_list = get_uno_card_order(specials_dict, nums_list, specials_key_list, target_id, game_status)
             rtn_list += specials_dict.get('reverse', [])
             if not should_play_draw4:
                 rtn_list += specials_dict.get('wild_draw_4', [])
@@ -448,31 +450,31 @@ def get_uno_player_pos(order_dic: dict):
     return uno_pos_lis
 
 
-def get_one_uno_card_order(specials_dict: dict, nums_dict: dict, specials_pri_list: list, target_id: str, game_status: any) -> list:
-    # 返り値の作成
-    rtn_list = []
-    #スペカードを優先度順に並べる
-    for key in specials_pri_list:
-        rtn_list += specials_dict.get(key, [])
+# def get_one_uno_card_order(specials_dict: dict, nums_dict: dict, specials_pri_list: list, target_id: str, game_status: any) -> list:
+#     # 返り値の作成
+#     rtn_list = []
+#     #スペカードを優先度順に並べる
+#     for key in specials_pri_list:
+#         rtn_list += specials_dict.get(key, [])
 
-    #数字カードの色優先度を得る
-    color_lis = deffesive_color_order(target_id, game_status)
+#     #数字カードの色優先度を得る
+#     color_lis = deffesive_color_order(target_id, game_status)
 
-    #色の優先度に基づき数字カードを並べ替える
-    for color in color_lis:
-        #数字カードは現在{色:{数字:{カードの中身(dict)}, 数字:{カードの中身(dict)}.....}}という形で扱われている
-        if color in nums_dict:
-            tmp_normal_color_dic = nums_dict[color]
-            if len(tmp_normal_color_dic) > 0:
-                tmp_normal_color_lis = [item[1] for item in sorted(tmp_normal_color_dic.items(), reverse=True)]
-            else:
-                tmp_normal_color_lis = []
-            rtn_list += tmp_normal_color_lis
+#     #色の優先度に基づき数字カードを並べ替える
+#     for color in color_lis:
+#         #数字カードは現在{色:{数字:{カードの中身(dict)}, 数字:{カードの中身(dict)}.....}}という形で扱われている
+#         if color in nums_dict:
+#             tmp_normal_color_dic = nums_dict[color]
+#             if len(tmp_normal_color_dic) > 0:
+#                 tmp_normal_color_lis = [item[1] for item in sorted(tmp_normal_color_dic.items(), reverse=True)]
+#             else:
+#                 tmp_normal_color_lis = []
+#             rtn_list += tmp_normal_color_lis
 
-    return rtn_list
+#     return rtn_list
 
 
-def get_two_uno_card_order(specials_dict: dict, nums_list: list, specials_pri_list: list, target_id: str, game_status: any) -> list:
+def get_uno_card_order(specials_dict: dict, nums_list: list, specials_pri_list: list, target_id: str, game_status: any) -> list:
     # 返り値の作成
     rtn_list = []
     #スペカードを優先度順に並べる
@@ -485,6 +487,25 @@ def get_two_uno_card_order(specials_dict: dict, nums_list: list, specials_pri_li
     color_lis.reverse()
     nums_list = sorted(nums_list, key=lambda x: (x["number"], color_lis.index(x["color"])), reverse=True)
     rtn_list += nums_list
+
+    return rtn_list
+
+
+def get_big_number_order_lis(nums_list: list, target_id: str, game_status: any) -> list:
+    # tmp_num_order_lis = []
+    # #数字カードを並べ替える
+    # for color in ["blue" ,"green", "red", "yellow"]:
+    #     #数字カードは現在{色:{数字:{カードの中身(dict)}, 数字:{カードの中身(dict)}.....}}という形で扱われている
+    #     if color in nums_list:
+    #         tmp_normal_color_dic = nums_list[color]
+    #         tmp_normal_color_lis = [sorted(tmp_normal_color_dic.items(), reverse=True)]
+    #         tmp_num_order_lis += tmp_normal_color_lis
+
+    #数字カードの色優先度を得る
+    color_lis = deffesive_color_order(target_id, game_status)
+
+    color_lis.reverse()
+    rtn_list = sorted(nums_list, key=lambda x: (x["number"], color_lis.index(x["color"])), reverse=True)
 
     return rtn_list
 
@@ -514,23 +535,6 @@ def target_dont_have_num_color(open_cards: list, nums_dict: dict):
                     tmp_num_rtn_lis.append(card)
 
     return tmp_num_rtn_lis
-
-
-def get_big_number_order_lis(nums_dict):
-    tmp_num_order_lis = []
-    #数字カードを並べ替える
-    for color in ["blue" ,"green", "red", "yellow"]:
-        #数字カードは現在{色:{数字:{カードの中身(dict)}, 数字:{カードの中身(dict)}.....}}という形で扱われている
-        if color in nums_dict:
-            tmp_normal_color_dic = nums_dict[color]
-            tmp_normal_color_lis = [sorted(tmp_normal_color_dic.items(), reverse=True)]
-            tmp_num_order_lis += tmp_normal_color_lis
-
-    if len(tmp_num_order_lis) > 0:
-        return [item[1] for item in sorted(tmp_num_order_lis, reverse=True)]
-    else:
-        return []
-
 
 
 

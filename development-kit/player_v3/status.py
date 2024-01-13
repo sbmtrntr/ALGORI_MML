@@ -235,6 +235,8 @@ class Status:
 
         # 最後に場に出されたカードは山札に戻らないのでcard_statusから除外する
         card_color, card_type = self.get_keys_for_card_status(self.field_cards[-1])
+        if card_type == "white_wild":
+            card_color = "white"
         self.cards_status[card_color][card_type] -= 1
 
         # 自分の手札カードも山札に戻らないのでcard_statusから除外する
