@@ -518,18 +518,105 @@ def on_next_player(data_res):
                 'card_play': play_card,
                 'yell_uno': game_status.my_uno_flag  # 残り手札数を考慮してUNOコールを宣言する
             }
-            # if len(cards) == 2:
-            #     game_status.my_uno_flag = True
+
             if play_card.get('special') == Special.WILD or play_card.get('special') == Special.WILD_DRAW_4:
-                target_id = None
-                if play_mode == "deffensive":
-                    # プレイヤーの手札枚数が最も少ないプレイヤーを取得する
-                    cnt_min = 112
-                    for k, v in num_card_of_player.items():
-                        if k != id and v < cnt_min:
-                            target_id = k
-                            cnt_min = v
-                color = select_change_color(game_status.my_cards, game_status, play_mode, target_id)
+                #UNOplayer3人の時は
+                if uno_player_cnt(game_status.order_dic) == 3:
+                    print("uno-3-deffensive-color-choice")
+                    color_lis = deffesive_color_order(game_status.get_next_id(), game_status)
+                    color = color_lis[0]
+
+                elif uno_player_cnt(game_status.order_dic) == 2:
+                    if get_uno_player_pos(game_status.order_dic) == ["直前","対面"] or get_uno_player_pos(game_status.order_dic) == ["対面","直前"]:
+                        print("uno-2-next-mid-deffensive-color-choice")
+                        color_lis = deffesive_color_order(game_status.get_mid_id(), game_status)
+                        color = color_lis[0]
+
+                    elif get_uno_player_pos(game_status.order_dic) == ["直後","対面"] or get_uno_player_pos(game_status.order_dic) == ["対面", "直後"]:
+                        print("uno-2-before-mid-deffensive-color-choice")
+                        color_lis = deffesive_color_order(game_status.get_next_id(), game_status)
+                        color = color_lis[0]
+
+                    elif get_uno_player_pos(game_status.order_dic) == ["直後","直前"] or get_uno_player_pos(game_status.order_dic) == ["直前","直後"]:
+                        print("uno-2-before-next-deffensive-color-choice")
+                        color_lis = deffesive_color_order(game_status.get_next_id(), game_status)
+                        color = color_lis[0]
+
+                    else:
+                        print("Emergency: player_v3 uno_player 2 Error")
+                        color = select_change_color(game_status.my_cards, game_status.cards_status)
+
+                elif uno_player_cnt(game_status.order_dic) == 1:
+                    if get_uno_player_pos(game_status.order_dic) == ["直後"]:
+
+                        print("uno-2-next-deffensive-color-choice")
+                        if len(game_status.other_open_cards(game_status.get_next_id())) > 0: #特殊処理が走る
+                            #直後の人が持っていない色を認識
+                            color_candidate = ["red","blue","green","yellow"]
+                            for i in game_status.other_open_cards(game_status.get_next_id()):
+                                if i["color"] in color_candidate:
+                                    color_candidate.remove(i["color"])
+
+                            my_colors = my_color_cnt(cards)
+
+                            color = ""
+                            for i in my_colors:
+                                if i in color_candidate:
+                                    color = i
+                                    break
+
+                            if color == "":
+                                color = color_candidate[0]
+
+                        else:
+                            color_lis = deffesive_color_order(game_status.get_next_id(), game_status)
+                            color = color_lis[0]
+
+                    elif get_uno_player_pos(game_status.order_dic) == ["対面"]:
+                        print("uno-2-mid-deffensive-color-choice")
+                        color_lis = deffesive_color_order(game_status.get_mid_id(), game_status)
+                        color = color_lis[0]
+
+                    elif get_uno_player_pos(game_status.order_dic) == ["直前"]:
+
+                        print("uno-2-before-deffensive-color-choice")
+                        if len(game_status.other_open_cards(game_status.get_before_id())) > 0: #特殊処理が走る
+                            #直後の人が持っていない色を認識
+                            color_candidate = ["red","blue","green","yellow"]
+                            for i in game_status.other_open_cards(game_status.get_before_id()):
+                                if i["color"] in color_candidate:
+                                    color_candidate.remove(i["color"])
+
+                            my_colors = my_color_cnt(cards)
+
+                            color = ""
+                            for i in my_colors:
+                                if i in color_candidate:
+                                    color = i
+                                    break
+
+                            if color == "":
+                                color = color_candidate[0]
+
+                        else:
+                            color_lis = deffesive_color_order(game_status.get_before_id(), game_status)
+                            color = color_lis[0]
+
+                    else:
+                        print("Emergency: player_v3 uno_player 1 Error")
+                        color = select_change_color(game_status.my_cards, game_status.cards_status)
+
+                else:
+                    target_id = None
+                    if play_mode == "deffensive":
+                        # プレイヤーの手札枚数が最も少ないプレイヤーを取得する
+                        cnt_min = 112
+                        for k, v in num_card_of_player.items():
+                            if k != id and v < cnt_min:
+                                target_id = k
+                                cnt_min = v
+                    color = select_change_color(game_status.my_cards, game_status, play_mode, target_id)
+
                 data['color_of_wild'] = color
 
             if play_card.get('special') == Special.WILD_DRAW_4:
@@ -570,7 +657,7 @@ def on_next_player(data_res):
                         send_event(SocketConst.EMIT.PLAY_DRAW_CARD, data)
                         return
 
-                # # 防御モードの場合
+                # 防御モードの場合
                 # elif play_mode == "deffensive":
                 #     # 引いてきたカードがシャッフルワイルドの場合、出さずに処理を終了
                 #     if draw_card.get("special") == "wild_shuffle":
@@ -583,6 +670,29 @@ def on_next_player(data_res):
                 #         return
                 #     # return
 
+                # 直後がUNOであり、自分もUNOでワイルドカードが引いたとき
+                if get_uno_player_pos(game_status.order_dic) == ["直後"] and game_status.my_uno_flag == True and draw_card.get("special") in ["wild", "wild_draw_4", "wild_shuffle"]:
+                    #直後が手札公開をしていて,その手札から読める絶対に出せない色＝場の色である場合出さない
+
+                    if len(game_status.other_open_cards(game_status.get_next_id())) > 0: #特殊処理が走る
+
+                        #直後の人が持っていない色を認識
+                        color_candidate = ["red","blue","green","yellow"]
+                        for i in game_status.other_open_cards(game_status.get_next_id()):
+                            if i["color"] in color_candidate:
+                                color_candidate.remove(i["color"])
+
+                        if before_card["color"] in color_candidate:
+                            #出さない
+                            game_status.my_uno_flag = False
+                            data = {
+                                'is_play_card': False,
+                                'yell_uno': game_status.my_uno_flag  # 残り手札数を考慮してUNOコールを宣言する
+                            }
+                            send_event(SocketConst.EMIT.PLAY_DRAW_CARD, data)
+                            return
+
+
                 # 以後、引いたカードが場に出せるときの処理
                 game_status.my_uno_flag = len(cards) == 1
                 data = {
@@ -592,15 +702,64 @@ def on_next_player(data_res):
 
                 play_card = res.get('draw_card')[0]
                 if play_card.get('special') == Special.WILD or play_card.get('special') == Special.WILD_DRAW_4:
-                    target_id = None
-                    if play_mode == "deffensive":
-                        # プレイヤーの手札枚数が最も少ないプレイヤーを取得する
-                        cnt_min = 112
-                        for k, v in num_card_of_player.items():
-                            if k != id and v < cnt_min:
-                                target_id = k
-                                cnt_min = v
-                    color = select_change_color(game_status.my_cards, game_status, play_mode, target_id)
+                    #UNOplayer3人の時は
+                    if uno_player_cnt(game_status.order_dic) == 3:
+                        print("uno-3-deffensive-color-choice")
+                        color_lis = deffesive_color_order(game_status.get_next_id(), game_status)
+                        color = color_lis[0]
+
+                    elif uno_player_cnt(game_status.order_dic) == 2:
+                        if get_uno_player_pos(game_status.order_dic) == ["直前","対面"] or get_uno_player_pos(game_status.order_dic) == ["対面","直前"]:
+                            print("uno-2-next-mid-deffensive-color-choice")
+                            color_lis = deffesive_color_order(game_status.get_mid_id(), game_status)
+                            color = color_lis[0]
+
+                        elif get_uno_player_pos(game_status.order_dic) == ["直後","対面"] or get_uno_player_pos(game_status.order_dic) == ["対面", "直後"]:
+                            print("uno-2-before-mid-deffensive-color-choice")
+                            color_lis = deffesive_color_order(game_status.get_next_id(), game_status)
+                            color = color_lis[0]
+
+                        elif get_uno_player_pos(game_status.order_dic) == ["直後","直前"] or get_uno_player_pos(game_status.order_dic) == ["直前","直後"]:
+                            print("uno-2-before-next-deffensive-color-choice")
+                            color_lis = deffesive_color_order(game_status.get_next_id(), game_status)
+                            color = color_lis[0]
+
+                        else:
+                            print("Emergency: player_v3 uno_player 2(Draw) Error")
+                            color = select_change_color(game_status.my_cards, game_status.cards_status)
+
+                    elif uno_player_cnt(game_status.order_dic) == 1:
+
+                        if get_uno_player_pos(game_status.order_dic) == ["直後"]:
+                            print("draw-and-uno-1-next-deffensive-color-choice")
+                            color_lis = deffesive_color_order(game_status.get_next_id(), game_status)
+                            color = color_lis[0]
+
+                        elif get_uno_player_pos(game_status.order_dic) == ["対面"]:
+                            print("draw-and-uno-1-mid-deffensive-color-choice")
+                            color_lis = deffesive_color_order(game_status.get_mid_id(), game_status)
+                            color = color_lis[0]
+
+                        elif get_uno_player_pos(game_status.order_dic) == ["直前"]:
+                            print("draw-and-uno-1-before-deffensive-color-choice")
+                            color_lis = deffesive_color_order(game_status.get_before_id(), game_status)
+                            color = color_lis[0]
+
+                        else:
+                            print("Emergency: player_v3 uno_player 1(Draw) Error")
+                            color = select_change_color(game_status.my_cards, game_status.cards_status)
+
+                    else:
+                        target_id = None
+                        if play_mode == "deffensive":
+                            # プレイヤーの手札枚数が最も少ないプレイヤーを取得する
+                            cnt_min = 112
+                            for k, v in num_card_of_player.items():
+                                if k != id and v < cnt_min:
+                                    target_id = k
+                                    cnt_min = v
+                        color = select_change_color(game_status.my_cards, game_status, play_mode, target_id)
+
                     data['color_of_wild'] = color
 
                 if play_card.get('special') == Special.WILD_DRAW_4:

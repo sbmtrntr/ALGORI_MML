@@ -61,7 +61,7 @@ def select_play_card(my_cards: list, player_card_counts: dict, before_card: dict
     if len(valid_card_list) > 0:
         for v in order_dic.values():
             if v["UNO"] == True: #UNO宣言してるやついたら
-                tmp_list = defensive_card_choice(valid_card_list, v["位置"], status)
+                tmp_list = defensive_card_choice(valid_card_list, v["位置"], status, challenge_sucess)
                 return tmp_list[0]
 
         if analyze_situation(my_cards, player_card_counts, wild_shuffle_flag) == "deffensive": #防御モード
@@ -84,7 +84,7 @@ def select_play_card(my_cards: list, player_card_counts: dict, before_card: dict
 
 
 
-def defensive_card_choice(valid_card_list: list, pos: str, status: dict) -> list:
+def defensive_card_choice(valid_card_list: list, pos: str, status: dict, challenge_sucess:bool) -> list:
     """
     負けそうな時に、失点を減らすことを優先するカードの出し方を選択する関数
     カードの出し方は次を参照： https://github.com/sbmtrntr/ALGORI_MML/issues/11#issuecomment-1855121547
@@ -120,7 +120,10 @@ def defensive_card_choice(valid_card_list: list, pos: str, status: dict) -> list
         print(nums_dict)
 
         # スペシャルカード(キー)を優先度順に格納したリスト
-        specials_key_list = ['wild_shuffle', 'draw_2', 'wild', 'white_wild', 'reverse', 'skip', 'wild_draw_4']
+        if challenge_sucess == False:
+            specials_key_list = ['wild_shuffle', 'draw_2', 'wild', 'white_wild', 'reverse', 'skip', 'wild_draw_4']
+        else:
+            specials_key_list = ['wild_shuffle', 'draw_2', 'wild', 'white_wild', 'reverse', 'skip']
 
         # 場に見えている色順を得る
         cnt_by_color = defaultdict(int)
@@ -148,6 +151,10 @@ def defensive_card_choice(valid_card_list: list, pos: str, status: dict) -> list
         for key in specials_key_list:
             rtn_list += specials_dict.get(key, [])
         rtn_list += tmp_num_list
+
+        #Draw4連打を避ける処理
+        if challenge_sucess:
+            rtn_list += specials_dict.get('wild_draw_4', [])
 
         # Remove (DEBUG)
         print('---出す順---')
@@ -180,7 +187,10 @@ def defensive_card_choice(valid_card_list: list, pos: str, status: dict) -> list
         print(tmp_num_list)
 
         # スペシャルカード(キー)を優先度順に格納したリスト
-        specials_key_list = ['wild_shuffle', 'white_wild', 'wild', 'wild_draw_4', 'draw_2', 'reverse', 'skip']
+        if challenge_sucess == False:
+            specials_key_list = ['wild_shuffle', 'white_wild', 'wild', 'wild_draw_4', 'draw_2', 'reverse', 'skip']
+        else:
+            specials_key_list = ['wild_shuffle', 'white_wild', 'wild', 'draw_2', 'reverse', 'skip']
 
         # 返り値の作成
         rtn_list = []
@@ -190,6 +200,10 @@ def defensive_card_choice(valid_card_list: list, pos: str, status: dict) -> list
         print("rtn_list_1 :")
         print(rtn_list)
         rtn_list += tmp_num_list
+
+        #Draw4連打を避ける処理
+        if challenge_sucess:
+            rtn_list += specials_dict.get('wild_draw_4', [])
 
         # Remove (DEBUG)
         print('---出す順---')
@@ -217,7 +231,10 @@ def defensive_card_choice(valid_card_list: list, pos: str, status: dict) -> list
                 nums_dict[card_number] = card
 
         # スペシャルカード(キー)を優先度順に格納したリスト　※Reverseはあとで別途で追加する
-        specials_key_list = ['wild_shuffle', 'wild', 'wild_draw_4', 'draw_2', 'white_wild', 'skip']
+        if challenge_sucess == False:
+            specials_key_list = ['wild_shuffle', 'wild', 'wild_draw_4', 'draw_2', 'white_wild', 'skip']
+        else:
+            specials_key_list = ['wild_shuffle', 'wild', 'draw_2', 'white_wild', 'skip']
 
         # 数字カードの値が大きい順に数字カードをソートする
         tmp_num_list = [item[1] for item in sorted(nums_dict.items(), key=lambda x:int(x[0]), reverse=True)]
@@ -236,6 +253,10 @@ def defensive_card_choice(valid_card_list: list, pos: str, status: dict) -> list
         print("rtn_list_2 :")
         print(rtn_list)
         rtn_list += specials_dict.get('reverse', [])
+
+        #Draw4連打を避ける処理
+        if challenge_sucess:
+            rtn_list += specials_dict.get('wild_draw_4', [])
 
         # Remove (DEBUG)
         print('---出す順---')
