@@ -605,28 +605,29 @@ def on_play_draw_card(data_res):
     def play_draw_card_callback(data_res):
         global game_status, id
         # UNO宣言を行った場合は記録する
-        if data_res.get('yell_uno'):
-            game_status.uno_declared[data_res.get('player')] = data_res.get('yell_uno')
-            if id != data_res.get('player'):
-                game_status.set_uno_player(data_res.get('player'))
+        if data_res.get('is_play_card'):
+            if data_res.get('yell_uno'):
+                game_status.uno_declared[data_res.get('player')] = data_res.get('yell_uno')
+                if id != data_res.get('player'):
+                    game_status.set_uno_player(data_res.get('player'))
 
-        # カードを場に出した(game_status側処理)
-        game_status.play_card(data_res.get("card_play"), data_res.get('player'))
-        game_status.num_of_field += 1
+            # カードを場に出した(game_status側処理)
+            game_status.play_card(data_res.get("card_play"), data_res.get('player'))
+            game_status.num_of_field += 1
 
-        if id != data_res['player']:
-            # 自分の出したカードでなければ cards_statusを更新する
-            game_status.update_cards_status(data_res['card_play'])
-        else:
-            print("私だよ！")
-            # if data_res['card_play'] != {'color': 'black', 'special': 'wild_shuffle'}:
-            if data_res['card_play'] in game_status.my_cards:
-                game_status.my_cards.remove(data_res['card_play'])
+            if id != data_res['player']:
+                # 自分の出したカードでなければ cards_statusを更新する
+                game_status.update_cards_status(data_res['card_play'])
+            else:
+                print("私だよ！")
+                # if data_res['card_play'] != {'color': 'black', 'special': 'wild_shuffle'}:
+                if data_res['card_play'] in game_status.my_cards:
+                    game_status.my_cards.remove(data_res['card_play'])
 
-        play_content = data_res['card_play']
-        if "special" in play_content.keys():
-            if play_content["special"] == "reverse":
-                game_status.reverse_order()
+            play_content = data_res['card_play']
+            if "special" in play_content.keys():
+                if play_content["special"] == "reverse":
+                    game_status.reverse_order()
 
     receive_event(SocketConst.EMIT.PLAY_DRAW_CARD, data_res, play_draw_card_callback)
 
