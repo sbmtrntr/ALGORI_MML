@@ -462,7 +462,10 @@ def get_one_uno_card_order(specials_dict: dict, nums_dict: dict, specials_pri_li
         #数字カードは現在{色:{数字:{カードの中身(dict)}, 数字:{カードの中身(dict)}.....}}という形で扱われている
         if color in nums_dict:
             tmp_normal_color_dic = nums_dict[color]
-            tmp_normal_color_lis = [item[1] for item in sorted(tmp_normal_color_dic.items(), reverse=True)]
+            if len(tmp_normal_color_dic) > 0:
+                tmp_normal_color_lis = [item[1] for item in sorted(tmp_normal_color_dic.items(), reverse=True)]
+            else:
+                tmp_normal_color_lis = []            
             rtn_list += tmp_normal_color_lis
 
     return rtn_list
@@ -522,7 +525,10 @@ def get_big_number_order_lis(nums_dict):
             tmp_normal_color_lis = [sorted(tmp_normal_color_dic.items(), reverse=True)]
             tmp_num_order_lis += tmp_normal_color_lis
 
-    return [item[1] for item in sorted(tmp_num_order_lis, reverse=True)]
+    if len(tmp_num_order_lis) > 0:
+        return [item[1] for item in sorted(tmp_num_order_lis, reverse=True)]
+    else:
+        return []
 
 
 
