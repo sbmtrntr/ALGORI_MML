@@ -991,7 +991,7 @@ def on_challenge(data_res):
                 # 自分からwild_draw_4が見えなくなるので cards_statusを元に戻す
                 game_status.cards_status["black"]["wild_draw_4"] += 1
             else:
-                game_status.challenge_success[challenger] = True
+                game_status.challenge_success = True
                 games.challenged_cnt[challenger][2] += 1
                 game_status.my_open_cards[challenger].append({"special": "wild_draw_4", "color": "black"})
 

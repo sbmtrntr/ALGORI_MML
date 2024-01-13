@@ -15,7 +15,7 @@ class Status:
         self.num_of_field = 1 # 場にあるカードの枚数
         self.is_card_activate = True # 場にあるドロー系カードの効果の有無を格納するフィールド
         self.is_white_activate = defaultdict(int)
-        self.challenge_success = {}
+        self.challenge_success = False
         self.turn_right = True
         self.special_logic_flag = [False, False, False]
 
@@ -196,7 +196,7 @@ class Status:
                 return k
 
         return ""
-    
+
 
     def get_mid_id(self) -> str:
         """対面のプレイヤーのidを入手する関数(ごめん)"""
@@ -483,16 +483,19 @@ class Status:
         args:
             card:dict = 使ったカード
         """
-
+        challenge_success = False
         for k, v in self.my_open_cards.items():
             if card in v: # 自分がその札公開してたら
                 print(k + "への公開済みカードを使いました")
                 print(card)
                 self.my_open_cards[k].remove(card)
-            challenge_success = self.challenge_success.get(k, False)
-            if len(self.my_open_cards[k]) == 0 and challenge_success:
-                self.challenge_success[k] == False
-                print('challenge_success をリセット')
+            # challenge_success = self.challenge_success.get(k, False)
+            # if len(self.my_open_cards[k]) == 0 and challenge_success:
+            #     self.challenge_success[k] == False
+            #     print('challenge_success をリセット')
+            if len(self.my_open_cards[k]) > 0:
+                challenge_success = True
+        self.challenge_success = challenge_success
         print('公開済みカード！')
         print(self.my_open_cards)
         print(self.challenge_success)
@@ -505,7 +508,7 @@ class Status:
 
         print("自分の公開カードリセット")
         self.my_open_cards = defaultdict(list)
-        self.challenge_success = {}
+        self.challenge_success = False
 
 
 

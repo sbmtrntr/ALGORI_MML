@@ -58,7 +58,8 @@ def select_play_card(my_cards: list, my_id: str, next_id: str, player_card_count
 
     ######追加#######
     wild_shuffle_flag = game_status.wild_shuffle_flag()
-    challenge_success = game_status.challenge_success.get(next_id, False)
+    challenge_success = game_status.challenge_success
+    # challenge_success = game_status.challenge_success.get(next_id, False)
     should_play_draw4 = play_draw4_dicision(valid_card_list, before_card, my_cards, my_id, next_id, player_card_counts, num_of_deck, challenge_success, game_status, games)
     print('should_play_draw4:', should_play_draw4)
 
@@ -462,7 +463,10 @@ def get_one_uno_card_order(specials_dict: dict, nums_dict: dict, specials_pri_li
         #数字カードは現在{色:{数字:{カードの中身(dict)}, 数字:{カードの中身(dict)}.....}}という形で扱われている
         if color in nums_dict:
             tmp_normal_color_dic = nums_dict[color]
-            tmp_normal_color_lis = [item[1] for item in sorted(tmp_normal_color_dic.items(), reverse=True)]
+            if len(tmp_normal_color_dic) > 0:
+                tmp_normal_color_lis = [item[1] for item in sorted(tmp_normal_color_dic.items(), reverse=True)]
+            else:
+                tmp_normal_color_lis = []
             rtn_list += tmp_normal_color_lis
 
     return rtn_list
@@ -522,7 +526,10 @@ def get_big_number_order_lis(nums_dict):
             tmp_normal_color_lis = [sorted(tmp_normal_color_dic.items(), reverse=True)]
             tmp_num_order_lis += tmp_normal_color_lis
 
-    return [item[1] for item in sorted(tmp_num_order_lis, reverse=True)]
+    if len(tmp_num_order_lis) > 0:
+        return [item[1] for item in sorted(tmp_num_order_lis, reverse=True)]
+    else:
+        return []
 
 
 
@@ -734,19 +741,19 @@ def offensive_mode(cards: list, my_card: list, challenge_success: bool, g_status
     if len(my_card) == 1:
         return cards
 
-    # ワイルド系カードを1枚だけ持っていてそれしか出せるカードが無いとき
-    if len(wild_lis_2) == 1 and len(cards) == 1:
-        # 上記以外の場合はワイルド系カードを使わず山札を引く
-        return []
+    # # ワイルド系カードを1枚だけ持っていてそれしか出せるカードが無いとき
+    # if len(wild_lis_2) == 1 and len(cards) == 1:
+    #     # 上記以外の場合はワイルド系カードを使わず山札を引く
+    #     return []
 
-    # ワイルド系カードを複数枚持っていてそれしか出せるカードが無いとき --> 出す
-    elif len(wild_lis_2) > 1 and len(cards) == len(wild_lis_2):
-        return ans_list
+    # # ワイルド系カードを複数枚持っていてそれしか出せるカードが無いとき --> 出す
+    # elif len(wild_lis_2) > 1 and len(cards) == len(wild_lis_2):
+    #     return ans_list
 
-    # ワイルド系カードを持っておらず、出せるカードが無いとき
-    elif len(wild_lis_2) == 0 and len(cards) == 0:
-        # 山札からカードを引くのでNoneを返す
-        return []
+    # # ワイルド系カードを持っておらず、出せるカードが無いとき
+    # elif len(wild_lis_2) == 0 and len(cards) == 0:
+    #     # 山札からカードを引くのでNoneを返す
+    #     return []
 
 
     # # 自分が最少手札保持者でシャッフルワイルドを持っており、それ以外に出せるものが無いとき、他プレイヤーとの差が4枚以上であれば、出さずに山札から引く
@@ -787,7 +794,7 @@ def offensive_color_order(cards: dict, card_status: dict) -> list:
         color_dic[k] = color_counting(k, card_status)
     color_dic = sorted(color_dic.items(), key=lambda x: x[1])
     for k, v in color_dic:
-        if v <= 5 and k in can_play_colors:
+        if v <= 3 and k in can_play_colors:
             color_list.append(k)
 
     color_dic = {'red':0, 'blue':0, 'green':0, 'yellow':0}
@@ -806,7 +813,8 @@ def offensive_color_order(cards: dict, card_status: dict) -> list:
     #     if card_color not in ["black","white"]:
     #         color_dic[card_color] += 1
 
-    # ans = sorted(color_dic.keys(), key=lambda x:x[1], reverse=True)
+    # # color_list = sorted(color_dic.items(), key=lambda x:x[1], reverse=True)
+    # color_list = [k for k, v in sorted(color_dic.items(), key=lambda x: x[1], reverse=True)]
 
     return color_list
 
