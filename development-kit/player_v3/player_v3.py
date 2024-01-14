@@ -103,14 +103,14 @@ id = '' # 自分のID
 """
 if not host:
     # 接続先のhostが指定されていない場合はプロセスを終了する
-    # print('Host missed')
+    print('Host missed')
     os._exit(0)
 else:
     print('Host: {}'.format(host))
 
 # ディーラー名とプレイヤー名の指定があることをチェックする
 if not room_name or not player:
-    # print('Arguments invalid')
+    print('Arguments invalid')
 
     if not is_test_tool:
         # 接続先がディーラープログラムの場合はプロセスを終了する
@@ -213,17 +213,17 @@ def send_event(event, data, callback = pass_func):
         data (Any): 送信するデータ
         callback (func): 個別処理
     """
-    # print('Send {} event.'.format(event))
-    # print('req_data: ', data)
+    print('Send {} event.'.format(event))
+    print('req_data: ', data)
 
     def after_func(err, res):
         if err:
-            # print('{} event failed!'.format(event))
-            # print(err)
+            print('{} event failed!'.format(event))
+            print(err)
             return
 
-        # print('Send {} event.'.format(event))
-        # print('res_data: ', res)
+        print('Send {} event.'.format(event))
+        print('res_data: ', res)
         callback(res)
 
     sio.emit(event, data, callback=after_func)
@@ -238,8 +238,8 @@ def receive_event(event, data, callback = pass_func):
         data (Any): 送信するデータ
         callback (func): 個別処理
     """
-    # print('Receive {} event.'.format(event))
-    # print('res_data: ', data)
+    print('Receive {} event.'.format(event))
+    print('res_data: ', data)
 
     callback(data)
 
@@ -249,7 +249,7 @@ Socket通信の確立
 """
 @sio.on('connect')
 def on_connect():
-    # print('Client connect successfully!')
+    print('Client connect successfully!')
 
     if not once_connected:
         if is_test_tool:
@@ -272,10 +272,10 @@ def on_connect():
 
             def join_room_callback(*args):
                 global once_connected, id
-                # print('Client join room successfully!')
+                print('Client join room successfully!')
                 once_connected = True
                 id = args[0].get('your_id')
-                # print('My id is {}'.format(id))
+                print('My id is {}'.format(id))
 
             send_event(SocketConst.EMIT.JOIN_ROOM, data, join_room_callback)
 
@@ -285,7 +285,7 @@ Socket通信を切断
 """
 @sio.on('disconnect')
 def on_disconnect():
-    # print('Client disconnect.')
+    print('Client disconnect.')
     os._exit(0)
 
 
