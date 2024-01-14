@@ -476,8 +476,9 @@ def on_next_player(data_res):
             print(field_card)
 
             print('直前があってるか', before_id == game_status.get_before_id())
-            if challenge_dicision(field_card, game_status.cards_status, id, before_id, num_card_of_player, yama, game_status.other_open_cards):
-                send_event(SocketConst.EMIT.CHALLENGE, { 'is_challenge': True } )
+            is_challenge = challenge_dicision(field_card, game_status.cards_status, id, before_id, num_card_of_player, yama, game_status.other_open_cards)
+            send_event(SocketConst.EMIT.CHALLENGE, { 'is_challenge': is_challenge } )
+            if is_challenge:
                 return
 
 
