@@ -907,7 +907,7 @@ def offensive_color_order(cards: dict, card_status: dict) -> list:
         color_dic[k] = color_counting(k, card_status)
     color_dic = sorted(color_dic.items(), key=lambda x: x[1])
     for k, v in color_dic:
-        if v <= 3 and k in can_play_colors:
+        if v <= 4 and k in can_play_colors:
             color_list.append(k)
 
     color_dic = {'red':0, 'blue':0, 'green':0, 'yellow':0}

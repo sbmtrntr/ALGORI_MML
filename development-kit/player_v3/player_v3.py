@@ -689,7 +689,7 @@ def on_next_player(data_res):
                         }
                         send_event(SocketConst.EMIT.PLAY_DRAW_CARD, data)
                         return
-                    elif not game_status.wild_shuffle_flag() and draw_card.get("special") == "wild" or draw_card.get("special") == "white_wild":
+                    elif not game_status.wild_shuffle_flag() and draw_card.get("special")  == "white_wild":
                         game_status.my_uno_flag = False
                         print('引いたカード出せるけど出さない')
                         data = {
