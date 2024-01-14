@@ -79,16 +79,25 @@ def select_play_card(my_cards: list, my_id: str, next_id: str, player_card_count
             uno_cnt = uno_player_cnt(game_status.order_dic)
             if uno_cnt == 3: #自分以外の3人がUNO
                 tmp_list = card_choice_at_uno_all(valid_card_list, next_id, should_play_draw4, game_status)
-                return (tmp_list[0], play_mode)
+                if len(tmp_list) == 0:
+                    return (None, play_mode)
+                else:
+                    return (tmp_list[0], play_mode)
 
             elif uno_cnt == 2: #自分以外の2人がUNO
                 tmp_list = card_choice_at_uno_two(valid_card_list, should_play_draw4, game_status)
-                return (tmp_list[0], play_mode)
+                if len(tmp_list) == 0:
+                    return (None, play_mode)
+                else:
+                    return (tmp_list[0], play_mode)
 
             for v in game_status.order_dic.values():
                 if v["UNO"]: #UNO宣言してるやついたら
                     tmp_list = card_choice_at_uno(valid_card_list, v["位置"], should_play_draw4, game_status)
-                    return (tmp_list[0], play_mode)
+                    if len(tmp_list) == 0:
+                        return (None, play_mode)
+                    else:
+                        return (tmp_list[0], play_mode)
 
         elif play_mode == "deffensive": #防御モード
             tmp_list = deffesive_mode(my_id, valid_card_list, player_card_counts, wild_shuffle_flag, challenge_success, should_play_draw4, game_status)
@@ -98,7 +107,7 @@ def select_play_card(my_cards: list, my_id: str, next_id: str, player_card_count
                 return (tmp_list[0], play_mode)
 
         elif play_mode == "offensive": #攻撃モード
-            tmp_list = offensive_mode(valid_card_list, my_cards, challenge_success, game_status)
+            tmp_list = offensive_mode(valid_card_list, my_cards, wild_shuffle_flag, challenge_success, game_status)
             if len(tmp_list) == 0:
                 return (None, play_mode)
             else:
@@ -674,7 +683,7 @@ def color_counting(color: str, card_status: dict) -> int:
     return color_num
 
 
-def offensive_mode(cards: list, my_card: list, challenge_success: bool, g_status: any) -> list:
+def offensive_mode(cards: list, my_card: list, wild_shuffle_flag: bool, challenge_success: bool, g_status: any) -> list:
     """
     攻撃モード
     cards :自分の中で出せるカード
@@ -682,8 +691,30 @@ def offensive_mode(cards: list, my_card: list, challenge_success: bool, g_status
     challenge_success :チャレンジを成功された過去があるか否か
     g_status: Statusインスタンス
     """
+    # 残り手札が1枚の時は出してゲームをあがる
+    if len(my_card) == 1:
+        return cards
+
     shuffle_wild = {'color':'black', 'special':'wild_shuffle'}
     wild_draw_4 = {'color':'black', 'special':'wild_draw_4'}
+    white_wild = {'color':'white', 'special':'white_wild'}
+    num_my_cards = len(my_card)
+
+    # if wild_shuffle_flag and num_my_cards > 3:
+    #     # wild_lis = []
+    #     # if not challenge_success:
+    #     #     wild_order = ["white_wild", "wild_draw_4", "wild_shuffle"]
+    #     # else:
+    #     #     wild_order = ["white_wild", "wild_shuffle"]
+    #     # for card in cards:
+    #     #     card_special = card.get("special")
+    #     #     if card_special in wild_order:
+    #     #         wild_lis.append(card)
+
+    #     # ans_list = sorted(wild_lis, key=lambda x: wild_order.index(x["special"]))
+    #     return [shuffle_wild]
+
+
     ans_list = []
     skip_reverse_lis = []
     draw_2_lis = []
@@ -741,10 +772,6 @@ def offensive_mode(cards: list, my_card: list, challenge_success: bool, g_status
     # カードを出さない場合はNoneを返す
     # 山札を引いて得たカードを出すかどうかは player_v3.pyで記述されている
 
-    # 残り手札が1枚の時は出してゲームをあがる
-    if len(my_card) == 1:
-        return cards
-
     # # ワイルド系カードを1枚だけ持っていてそれしか出せるカードが無いとき
     # if len(wild_lis_2) == 1 and len(cards) == 1:
     #     # 上記以外の場合はワイルド系カードを使わず山札を引く
@@ -770,10 +797,15 @@ def offensive_mode(cards: list, my_card: list, challenge_success: bool, g_status
     #シャッフルワイルドとワイルドドロー4を持っているときは先にワイルドドロー4を出し、チャレンジ成功されたら次のターンでシャッフル
     if wild_draw_4 in cards and shuffle_wild in cards and challenge_success:
         return [shuffle_wild]
+    # elif len(cards) == 1 and ans_list[0] == white_wild:
+    #     return []
+    elif len(ans_list) > 0 and ans_list[0] == shuffle_wild and num_my_cards < 3:
+        return []
     else:
         print("出せるのは(offensive)")
         print(ans_list)
         return ans_list
+    # return ans_list
 
 
 def offensive_color_order(cards: dict, card_status: dict) -> list:

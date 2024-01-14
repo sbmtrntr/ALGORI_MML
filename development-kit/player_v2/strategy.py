@@ -434,7 +434,8 @@ def my_color_cnt(cards: dict) -> list:
         if card_color not in ["black","white"]:
             color_dic[card_color] += 1
 
-    ans = sorted(color_dic.keys(), key=lambda x:x[1], reverse=True)
+    # ans = sorted(color_dic.keys(), key=lambda x:x[1], reverse=True)
+    ans = [k for k, v in sorted(color_dic.items(), key=lambda x: x[1], reverse=True)]
     return ans
 
 

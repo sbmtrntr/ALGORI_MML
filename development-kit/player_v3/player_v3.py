@@ -670,7 +670,16 @@ def on_next_player(data_res):
                 # 攻撃モードの場合
                 if play_mode == "offensive":
                     # 引いてきたカードがシャッフルワイルドの場合、出さずに処理を終了
-                    if draw_card.get("special") == "wild_shuffle":
+                    if len(cards) < 2 and draw_card.get("special") == "wild_shuffle":
+                        game_status.my_uno_flag = False
+                        print('引いたカード出せるけど出さない')
+                        data = {
+                            'is_play_card': False,
+                            'yell_uno': game_status.my_uno_flag  # 残り手札数を考慮してUNOコールを宣言する
+                        }
+                        send_event(SocketConst.EMIT.PLAY_DRAW_CARD, data)
+                        return
+                    elif not game_status.wild_shuffle_flag() and draw_card.get("special") == "wild" or draw_card.get("special") == "white_wild":
                         game_status.my_uno_flag = False
                         print('引いたカード出せるけど出さない')
                         data = {
@@ -694,7 +703,7 @@ def on_next_player(data_res):
                 #     # return
 
                 # 直後がUNOであり、自分もUNOでワイルドカードが引いたとき
-                if get_uno_player_pos(game_status.order_dic) == ["直後"] and game_status.my_uno_flag and draw_card.get("special") in ["wild", "wild_draw_4", "wild_shuffle"]:
+                if get_uno_player_pos(game_status.order_dic) == ["直後"] and game_status.my_uno_flag and draw_card.get("special") in ["wild", "wild_draw_4", "wild_shuffle", "white_wild"]:
                     #直後が手札公開をしていて,その手札から読める絶対に出せない色＝場の色である場合出さない
                     if len(game_status.other_open_cards[next_player]) > 0: #特殊処理が走る
                         #直後の人が持っていない色を認識
