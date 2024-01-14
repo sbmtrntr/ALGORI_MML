@@ -751,7 +751,7 @@ export class CommonService {
 
           if (addDraw.drawCards.length) {
             // ゲームログの出力: draw-card
-            const dataCb = { player: timeoutPlayer, is_draw: false, can_play_draw_card: false };
+            const dataCb = { player: timeoutPlayer, is_draw: true };
             await activityService.create({
               dealer_code: desk.id,
               event: SocketConst.EMIT.DRAW_CARD,
@@ -759,7 +759,7 @@ export class CommonService {
               player: timeoutPlayer,
               turn: desk.turn,
               contents: {
-                can_play_draw_card: dataCb.can_play_draw_card,
+                can_play_draw_card: false,
                 card_draw: addDraw.drawCards,
                 is_draw: true,
                 draw_desk: {

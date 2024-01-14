@@ -355,7 +355,17 @@ def on_color_of_wild(data_res):
 # 場札の色が変わった
 @sio.on(SocketConst.EMIT.UPDATE_COLOR)
 def on_update_color(data_res):
-    receive_event(SocketConst.EMIT.UPDATE_COLOR, data_res)
+    def on_update_color_callback(data_res):
+        global game_status
+
+        # 場に出されたカードのログにおいて、カード色を black --> chosen_color に変更する
+        chosen_color = data_res.get("color")
+        game_status.field_cards[-1]["color"] = chosen_color
+        # DEBUG
+        # print(f"---場カードログの色を黒から{chosen_color}へ変更---")
+        # print("場に出されたカード:", game_status.field_cards[-1])
+
+    receive_event(SocketConst.EMIT.UPDATE_COLOR, data_res, on_update_color_callback)
 
 
 # シャッフルワイルドにより手札状況が変更
