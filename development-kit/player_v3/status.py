@@ -270,7 +270,7 @@ class Status:
         card_color = card["color"]
 
         # draw4とwildカード系は使用時に変更先の色として使われるので特殊処理する
-        if "special" in card and card["special"] in ["wild_draw_4", "wild"]:
+        if "special" in card and card["special"] in ["wild_draw_4", "wild", "wild_shuffle"]:
             card_color = "black"
             card_type = card["special"]
 
@@ -543,5 +543,5 @@ class Games:
         self.challenge_cnt = {} # 各プレイヤーに対するチャレンジ成功数
         self.challenged_cnt = {}
         self.scores = [0, 0]
-        self.version_order = ['v2', 'v3'] * 150
+        self.version_order = ['v2', 'v3'] * 147 + ['v2'] * 3
         random.shuffle(self.version_order)

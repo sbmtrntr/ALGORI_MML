@@ -101,7 +101,7 @@ def select_play_card(my_cards: list, my_id: str, next_id: str, player_card_count
 
         elif play_mode == "deffensive": #防御モード
             if game_status.version == 'v2':
-                tmp_list = deffesive_mode_v2(my_id, valid_card_list, player_card_counts, challenge_success)
+                tmp_list = deffesive_mode_v2(my_id, valid_card_list, player_card_counts, should_play_draw4)
             else:
                 tmp_list = deffesive_mode_v3(my_id, valid_card_list, player_card_counts, wild_shuffle_flag, challenge_success, should_play_draw4, game_status)
             if len(tmp_list) == 0:
@@ -936,7 +936,7 @@ def offensive_color_order(cards: dict, card_status: dict) -> list:
 
 
 
-def deffesive_mode_v2(my_id: list, cards: list, player_cards_cnt: dict, challenge_sucess: bool) -> list:
+def deffesive_mode_v2(my_id: list, cards: list, player_cards_cnt: dict, should_play_draw4: bool) -> list:
     """
     防御モードの手札選択
 
@@ -954,17 +954,17 @@ def deffesive_mode_v2(my_id: list, cards: list, player_cards_cnt: dict, challeng
                 if min_cards_check(my_id, player_cards_cnt) <= 3:
                     ans_list.append([card, (0, 1)])
 
+            elif card_special == "wild":
+                ans_list.append([card, (1, 1)])
+
             elif card_special == "white_wild":
                 ans_list.append([card, (2, 1)])
 
             elif card_special == "wild_draw_4":
-                if not challenge_sucess: #直前のチャレンジ成功がなかったら
+                if should_play_draw4: #直前のチャレンジ成功がなかったら
                     ans_list.append([card, (3, 1)])
                 else: #あったら
                     ans_list.append([card, (9, 1)])
-
-            elif card_special == "wild":
-                ans_list.append([card, (1, 1)])
 
             elif card_special == "draw_2":
                 ans_list.append([card, (4, 1)])
