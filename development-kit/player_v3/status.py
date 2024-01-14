@@ -86,8 +86,8 @@ class Status:
             card_color, card_type = self.get_keys_for_card_status(card)
             self.cards_status[card_color][card_type] -= 1
 
-        print("場札または手札にないのは")
-        print("カードステータス:", self.cards_status)
+        # print("場札または手札にないのは")
+        # print("カードステータス:", self.cards_status)
 
 
     def return_my_cards(self) -> None:
@@ -124,15 +124,15 @@ class Status:
         """
 
         # Debug用プリント処理
-        print("---枚数照合---")
-        print("誰？：", player)
-        print("dealerから送られてきたカード枚数:", card_num)
-        print("game_statusで記録していたカード枚数:", self.player_card_counts[player])
-        print("正しいか:", self.player_card_counts[player]==card_num)
+        # print("---枚数照合---")
+        # print("誰？：", player)
+        # print("dealerから送られてきたカード枚数:", card_num)
+        # print("game_statusで記録していたカード枚数:", self.player_card_counts[player])
+        # print("正しいか:", self.player_card_counts[player]==card_num)
 
         # 更新
         if self.player_card_counts[player] != card_num:
-            print("正しい枚数に更新する")
+            # print("正しい枚数に更新する")
             self.player_card_counts[player] = card_num
 
 
@@ -157,9 +157,9 @@ class Status:
         self.player_card_log[player].append(tmp_dict)
 
         # DEBUG用
-        if len(self.player_card_log[player]) >= 2:
-            print("今のは" + str(self.player_card_log[player][-1]))
-            print("その前は" + str(self.player_card_log[player][-2]))
+        # if len(self.player_card_log[player]) >= 2:
+            # print("今のは" + str(self.player_card_log[player][-1]))
+            # print("その前は" + str(self.player_card_log[player][-2]))
 
 
     def set_play_order(self, order: list, my_id: str) -> None:
@@ -172,8 +172,8 @@ class Status:
 
     def reverse_order(self) -> None:
         """順番逆転に対応させる関数"""
-        print("反転発動")
-        print(self.order_dic)
+        # print("反転発動")
+        # print(self.order_dic)
         self.turn_right = not self.turn_right
         for k, v in self.order_dic.items():
             if v["位置"] == "直前":
@@ -211,13 +211,13 @@ class Status:
 
     def set_uno_player(self, player_id: str) -> None:
         """UNO宣言したやつの記憶"""
-        print(player_id + "がUNOしました" )
+        # print(player_id + "がUNOしました" )
         self.order_dic[player_id]["UNO"] = True
 
 
     def undo_uno_player(self, player_id: str) -> None:
         """UNO宣言解除したやつの記憶"""
-        print(player_id + "がUNO解除しました" )
+        # print(player_id + "がUNO解除しました" )
         self.order_dic[player_id]["UNO"] = False
 
 
@@ -226,12 +226,12 @@ class Status:
         for k, v in number_card_of_player.items():
             if k != my_id:
                 self.order_dic[k]["UNO"] = v == 1
-        print(self.order_dic)
+        # print(self.order_dic)
 
 
     def deck_empty(self) -> None:
         """山札が0になった場合にcard_statusをリセットするメソッド"""
-        print("山札が切れました")
+        # print("山札が切れました")
         # card_statusのリセット
         self.cards_status = self.init_cards_status()
 
@@ -252,7 +252,7 @@ class Status:
         self.num_of_field = 1 # 場のカードは1枚にする
 
         # debug print
-        print("---山札のリセットがうまくできているか---")
+        # print("---山札のリセットがうまくできているか---")
         self.debug_print()
 
 
@@ -298,7 +298,7 @@ class Status:
         # 自分がカードを引いた際、そのターンにどのカードを引いたのか判定できない
         # 自分のターンが回ってきたときに増加分のカードのcards_statusを更新する
 
-        print(f"---{player}がカードを引きます---")
+        # print(f"---{player}がカードを引きます---")
 
         # 手持ちが25枚より大きい状態になることを許容するか
         is_ok_over_25 = True # デフォルトでは25枚引けると設定する
@@ -316,7 +316,7 @@ class Status:
         if penalty_draw:
             num_of_draw = penalty_draw
             is_ok_over_25 = False # 25枚以上は引くことができない
-            print("引く理由: ペナルティ")
+            # print("引く理由: ペナルティ")
 
         # 山札から引くカードの枚数を指定
         # 最後に場に出されたカードに応じて場合分け
@@ -324,23 +324,23 @@ class Status:
             num_of_draw = 1
             self.is_white_activate[player] += 1
             self.is_card_activate = False # 場に出たドロー系カードの効力は使い切った
-            print(f"引く理由: white_wild")
+            # print(f"引く理由: white_wild")
 
         elif self.is_card_activate and top_card_special == "draw_2":
             num_of_draw = 2
             self.is_card_activate = False # 場に出たドロー系カードの効力は使い切った
-            print("引く理由: draw_2")
+            # print("引く理由: draw_2")
 
         elif self.is_card_activate and top_card_special == "wild_draw_4":
             num_of_draw = 4
             self.is_card_activate = False # 場に出たドロー系カードの効力は使い切った
-            print(f"引く理由: wild_draw_4")
+            # print(f"引く理由: wild_draw_4")
 
         else:
             if self.is_white_activate[player] > 0:
                 num_of_draw = 1
                 self.is_white_activate[player] -= 1
-                print(f"引く理由: white_wild")
+                # print(f"引く理由: white_wild")
             else:
                 num_of_draw = 1
                 is_ok_over_25 = False # 25枚以上は引くことができない
@@ -349,30 +349,30 @@ class Status:
                 top_card_color = top_card.get("color")
                 self.player_color_log[player].append([top_card_color, "cant_play_card", True])
 
-                print(f"引く理由: 場に出すカードがない(再行動可能)")
+                # print(f"引く理由: 場に出すカードがない(再行動可能)")
 
-        print("---更新前---")
-        print(f"山札:{self.num_of_deck}枚")
-        for k, v in self.player_card_counts.items():
-            print(f"{k}:{v}枚", end=" ")
-        print()
+        # print("---更新前---")
+        # print(f"山札:{self.num_of_deck}枚")
+        # for k, v in self.player_card_counts.items():
+            # print(f"{k}:{v}枚", end=" ")
+        # print()
 
         # 手持ちが25枚より多い状態になることが許容されない場合
         if not is_ok_over_25:
             # 引いた後の手札が25枚以下になるように引く枚数を調整する
-            print("25枚以下制約あり")
+            # print("25枚以下制約あり")
             num_of_draw = max(0, min(25 - self.player_card_counts[player], num_of_draw))
 
         # 山札とプレイヤーの手札の枚数を更新
         self.num_of_deck -= num_of_draw
         self.player_card_counts[player] += num_of_draw
 
-        print("---更新後---")
-        print(f"山札から{player}へ{num_of_draw}枚移動")
-        print(f"山札:{self.num_of_deck}枚")
-        for k, v in self.player_card_counts.items():
-            print(f"{k}:{v}枚", end=" ")
-        print()
+        # print("---更新後---")
+        # print(f"山札から{player}へ{num_of_draw}枚移動")
+        # print(f"山札:{self.num_of_deck}枚")
+        # for k, v in self.player_card_counts.items():
+            # print(f"{k}:{v}枚", end=" ")
+        # print()
 
         # 山札が無くなった場合は以下を実行
         if self.num_of_deck <= 0:
@@ -414,25 +414,25 @@ class Status:
         self.is_card_activate = True
 
         # DEBUG
-        print("---場にカードを出した---")
-        print("プレイヤー:", player)
-        print("カード:", card)
+        # print("---場にカードを出した---")
+        # print("プレイヤー:", player)
+        # print("カード:", card)
         # self.debug_print()
 
 
     def debug_print(self) -> None:
         """Debug用のメソッド"""
-        print("山札の枚数:", self.num_of_deck)
-        print("場の枚数:", self.num_of_field)
+        # print("山札の枚数:", self.num_of_deck)
+        # print("場の枚数:", self.num_of_field)
         cnt = self.num_of_field + self.num_of_deck
         for k, v in self.player_card_counts.items():
-            print(f"{k}の枚数:", v)
+            # print(f"{k}の枚数:", v)
             cnt += v
-        print("カード合計:", cnt)
-        print("CHECK:", cnt==NUM_OF_ALL_CARDS)
-        if cnt != NUM_OF_ALL_CARDS:
-            print(self.cards_status)
-        print("最後に記録されたカード:", self.field_cards[-1])
+        # print("カード合計:", cnt)
+        # print("CHECK:", cnt==NUM_OF_ALL_CARDS)
+        # if cnt != NUM_OF_ALL_CARDS:
+            # print(self.cards_status)
+        # print("最後に記録されたカード:", self.field_cards[-1])
 
 
     def set_other_player_cards(self, id:str, cards:list) -> None:
@@ -456,10 +456,10 @@ class Status:
         #     # if i not in self.other_open_cards[id]: # 公開された中に存在していなかったら
         #         self.other_open_cards[id].append(i)
         self.other_open_cards[id] = cards.copy()
-        print('公開カード！')
-        # print(cnt_self_cards)
-        # print(cnt_cards)
-        print(self.other_open_cards[id])
+        # print('公開カード！')
+        # # print(cnt_self_cards)
+        # # print(cnt_cards)
+        # print(self.other_open_cards[id])
 
 
     def remove_other_player_cards(self, id:str, card:dict) -> None:
@@ -472,8 +472,8 @@ class Status:
 
         if len(self.other_open_cards[id]) > 0: # そいつがカードを公開していて
             if card in self.other_open_cards[id]: # そいつがその札持ってたら
-                print(id+"が公開済みカードを使いました")
-                # print(card)
+                # print(id+"が公開済みカードを使いました")
+                # # print(card)
                 self.other_open_cards[id].remove(card)
 
 
@@ -482,7 +482,7 @@ class Status:
         ワイルドシャッフル時に公開済みカードを初期化する関数
         """
 
-        print("公開カードリセット")
+        # print("公開カードリセット")
         self.other_open_cards = defaultdict(list)
 
 
@@ -495,19 +495,19 @@ class Status:
         challenge_success = False
         for k, v in self.my_open_cards.items():
             if card in v: # 自分がその札公開してたら
-                print(k + "への公開済みカードを使いました")
-                print(card)
+                # print(k + "への公開済みカードを使いました")
+                # print(card)
                 self.my_open_cards[k].remove(card)
             # challenge_success = self.challenge_success.get(k, False)
             # if len(self.my_open_cards[k]) == 0 and challenge_success:
             #     self.challenge_success[k] == False
-            #     print('challenge_success をリセット')
+            #     # print('challenge_success をリセット')
             if len(self.my_open_cards[k]) > 0:
                 challenge_success = True
         self.challenge_success = challenge_success
-        print('公開済みカード！')
-        print(self.my_open_cards)
-        print(self.challenge_success)
+        # print('公開済みカード！')
+        # print(self.my_open_cards)
+        # print(self.challenge_success)
 
 
     def init_my_open_cards(self):
@@ -515,7 +515,7 @@ class Status:
         ワイルドシャッフル時に自分の公開済みカードを初期化する関数
         """
 
-        print("自分の公開カードリセット")
+        # print("自分の公開カードリセット")
         self.my_open_cards = defaultdict(list)
         self.challenge_success = False
 
@@ -528,7 +528,7 @@ class Status:
                 self.num_of_deck += n
 
         for k, v in number_card_of_player.items():
-            print(f"{k}の枚数:", v)
+            # print(f"{k}の枚数:", v)
             if k != my_id:
                 self.num_of_deck -= v
 

@@ -103,14 +103,14 @@ id = '' # 自分のID
 """
 if not host:
     # 接続先のhostが指定されていない場合はプロセスを終了する
-    print('Host missed')
+    # print('Host missed')
     os._exit(0)
 else:
     print('Host: {}'.format(host))
 
 # ディーラー名とプレイヤー名の指定があることをチェックする
 if not room_name or not player:
-    print('Arguments invalid')
+    # print('Arguments invalid')
 
     if not is_test_tool:
         # 接続先がディーラープログラムの場合はプロセスを終了する
@@ -213,17 +213,17 @@ def send_event(event, data, callback = pass_func):
         data (Any): 送信するデータ
         callback (func): 個別処理
     """
-    print('Send {} event.'.format(event))
-    print('req_data: ', data)
+    # print('Send {} event.'.format(event))
+    # print('req_data: ', data)
 
     def after_func(err, res):
         if err:
-            print('{} event failed!'.format(event))
-            print(err)
+            # print('{} event failed!'.format(event))
+            # print(err)
             return
 
-        print('Send {} event.'.format(event))
-        print('res_data: ', res)
+        # print('Send {} event.'.format(event))
+        # print('res_data: ', res)
         callback(res)
 
     sio.emit(event, data, callback=after_func)
@@ -238,8 +238,8 @@ def receive_event(event, data, callback = pass_func):
         data (Any): 送信するデータ
         callback (func): 個別処理
     """
-    print('Receive {} event.'.format(event))
-    print('res_data: ', data)
+    # print('Receive {} event.'.format(event))
+    # print('res_data: ', data)
 
     callback(data)
 
@@ -249,7 +249,7 @@ Socket通信の確立
 """
 @sio.on('connect')
 def on_connect():
-    print('Client connect successfully!')
+    # print('Client connect successfully!')
 
     if not once_connected:
         if is_test_tool:
@@ -272,10 +272,10 @@ def on_connect():
 
             def join_room_callback(*args):
                 global once_connected, id
-                print('Client join room successfully!')
+                # print('Client join room successfully!')
                 once_connected = True
                 id = args[0].get('your_id')
-                print('My id is {}'.format(id))
+                # print('My id is {}'.format(id))
 
             send_event(SocketConst.EMIT.JOIN_ROOM, data, join_room_callback)
 
@@ -285,7 +285,7 @@ Socket通信を切断
 """
 @sio.on('disconnect')
 def on_disconnect():
-    print('Client disconnect.')
+    # print('Client disconnect.')
     os._exit(0)
 
 
@@ -307,8 +307,8 @@ def on_reciever_card(data_res):
     if len(cards_receive) == 5 and {"special": "wild_draw_4", "color": "black"} in cards_receive:
         cards_receive.remove({"special": "wild_draw_4", "color": "black"})
     game_status.update_cards_status(cards_receive)
-    print("私の手札は")
-    print(game_status.my_cards)
+    # print("私の手札は")
+    # print(game_status.my_cards)
     receive_event(SocketConst.EMIT.RECEIVER_CARD, data_res)
 
 
@@ -327,8 +327,8 @@ def on_first_player(data_res):
             game_status.version = 'v2'
         else:
             game_status.version = 'v3'
-    print('game_scores:', 'v2 =', games.scores[0], ', v3 =', games.scores[1])
-    print('version: ', game_status.version)
+    # print('game_scores:', 'v2 =', games.scores[0], ', v3 =', games.scores[1])
+    # print('version: ', game_status.version)
 
     # チャレンジ成功数を記録するための辞書
     if games.num_game == 0:
@@ -387,8 +387,8 @@ def on_update_color(data_res):
         # 場に出されたカードのログにおいて、カード色を black --> chosen_color に変更する
         game_status.field_cards[-1]["color"] = chosen_color
         # DEBUG
-        print(f"---場カードログの色を黒から{chosen_color}へ変更---")
-        print("場に出されたカード:", game_status.field_cards[-1])
+        # print(f"---場カードログの色を黒から{chosen_color}へ変更---")
+        # print("場に出されたカード:", game_status.field_cards[-1])
 
     receive_event(SocketConst.EMIT.UPDATE_COLOR, data_res, on_update_color_callback)
 
@@ -430,7 +430,7 @@ def on_shuffle_wild(data_res):
         for k, v in data_res['number_card_of_player'].items():
             game_status.check_player_card_counts(k, v)
 
-        print("---シャッフルワイルド発動---")
+        # print("---シャッフルワイルド発動---")
         game_status.return_my_cards()
         game_status.update_cards_status(data_res.get("cards_receive"))
         game_status.set_my_cards(data_res.get("cards_receive"))
@@ -443,7 +443,7 @@ def on_shuffle_wild(data_res):
 def on_next_player(data_res):
     global game_status
 
-    print("私は"+ id + "です")
+    # print("私は"+ id + "です")
 
     def next_player_callback(data_res):
         # global game_status, challenge_success, id, num_game, first_player, challenge_success_cnt
@@ -459,10 +459,10 @@ def on_next_player(data_res):
         # challenge_success = game_status.challenge_success.get(next_player, False)
         num_of_deck = game_status.calculate_num_of_deck(id, num_card_of_player)
 
-        if game_status.turn_right != data_res.get('turn_right'):
-            print('順番が違うよ')
-            print(data_res.get('before_player'))
-            print(game_status.get_before_id())
+        # if game_status.turn_right != data_res.get('turn_right'):
+            # print('順番が違うよ')
+            # print(data_res.get('before_player'))
+            # print(game_status.get_before_id())
 
         game_status.check_uno_player(id, num_card_of_player)
 
@@ -476,26 +476,26 @@ def on_next_player(data_res):
         game_status.set_my_cards(cards)
         game_status.my_uno_flag = len(cards) == 1
 
-        print(f'デバッグプリント {games.num_game}対戦目')
-        print(game_status.order_dic)
-        print(game_status.my_cards)
+        # print(f'デバッグプリント {games.num_game}対戦目')
+        # print(game_status.order_dic)
+        # print(game_status.my_cards)
         game_status.debug_print()
 
         if data_res.get('draw_reason') == DrawReason.WILD_DRAW_4:
             # カードを引く理由がワイルドドロー4の時、チャレンジを行うことができる。
 
-            print("チャレンジする？")
-            print(game_status.cards_status)
+            # print("チャレンジする？")
+            # print(game_status.cards_status)
 
             cnt = 1
             while game_status.field_cards[-1*cnt - 1].get('color', None) == "white" or game_status.field_cards[-1*cnt - 1].get('color', None) is None: #直前の色が白以外になるまで探索
                 cnt += 1
             field_card = game_status.field_cards[-1*cnt - 1] #wild_draw_4の直前に出されたカード
 
-            print("wild前は")
-            print(field_card)
+            # print("wild前は")
+            # print(field_card)
 
-            print('直前があってるか', before_player == game_status.get_before_id())
+            # print('直前があってるか', before_player == game_status.get_before_id())
             is_challenge = challenge_dicision(field_card, id, before_player, num_card_of_player, num_of_deck, game_status, games)
             if game_status.special_logic_flag[0]:
                 game_status.special_logic_flag[0] = False
@@ -521,11 +521,11 @@ def on_next_player(data_res):
         play_card, play_mode = select_play_card(cards, id, next_player, num_card_of_player, num_of_deck, before_card, game_status, games)
         # DEBUG print
 
-        print("プレイモード:", play_mode)
+        # print("プレイモード:", play_mode)
 
         # 選出したカードがある時
         if play_card:
-            # print('selected card: {} {}'.format(play_card.get('color'), play_card.get('number') or play_card.get('special')))
+            # # print('selected card: {} {}'.format(play_card.get('color'), play_card.get('number') or play_card.get('special')))
             game_status.my_uno_flag = len(cards) == 2
             data = {
                 'card_play': play_card,
@@ -535,34 +535,34 @@ def on_next_player(data_res):
             if play_card.get('special') == Special.WILD or play_card.get('special') == Special.WILD_DRAW_4:
                 #UNOplayer3人の時は
                 if uno_player_cnt(game_status.order_dic) == 3:
-                    print("uno-3-deffensive-color-choice")
+                    # print("uno-3-deffensive-color-choice")
                     color_lis = deffesive_color_order(next_player, game_status)
                     color = color_lis[0]
 
                 elif uno_player_cnt(game_status.order_dic) == 2:
                     if get_uno_player_pos(game_status.order_dic) == ["直前","対面"] or get_uno_player_pos(game_status.order_dic) == ["対面","直前"]:
-                        print("uno-2-next-mid-deffensive-color-choice")
+                        # print("uno-2-next-mid-deffensive-color-choice")
                         color_lis = deffesive_color_order(mid_player, game_status)
                         color = color_lis[0]
 
                     elif get_uno_player_pos(game_status.order_dic) == ["直後","対面"] or get_uno_player_pos(game_status.order_dic) == ["対面", "直後"]:
-                        print("uno-2-before-mid-deffensive-color-choice")
+                        # print("uno-2-before-mid-deffensive-color-choice")
                         color_lis = deffesive_color_order(next_player, game_status)
                         color = color_lis[0]
 
                     elif get_uno_player_pos(game_status.order_dic) == ["直後","直前"] or get_uno_player_pos(game_status.order_dic) == ["直前","直後"]:
-                        print("uno-2-before-next-deffensive-color-choice")
+                        # print("uno-2-before-next-deffensive-color-choice")
                         color_lis = deffesive_color_order(next_player, game_status)
                         color = color_lis[0]
 
                     else:
-                        print("Emergency: player_v3 uno_player 2 Error")
+                        # print("Emergency: player_v3 uno_player 2 Error")
                         color = select_change_color(game_status.my_cards, game_status, play_mode)
 
                 elif uno_player_cnt(game_status.order_dic) == 1:
                     if get_uno_player_pos(game_status.order_dic) == ["直後"]:
 
-                        print("uno-2-next-deffensive-color-choice")
+                        # print("uno-2-next-deffensive-color-choice")
                         if len(game_status.other_open_cards[next_player]) > 0: #特殊処理が走る
                             #直後の人が持っていない色を認識
                             my_colors = offensive_color_order(cards, game_status.cards_status)
@@ -596,13 +596,13 @@ def on_next_player(data_res):
                             color = color_lis[0]
 
                     elif get_uno_player_pos(game_status.order_dic) == ["対面"]:
-                        print("uno-2-mid-deffensive-color-choice")
+                        # print("uno-2-mid-deffensive-color-choice")
                         color_lis = deffesive_color_order(mid_player, game_status)
                         color = color_lis[0]
 
                     elif get_uno_player_pos(game_status.order_dic) == ["直前"]:
 
-                        print("uno-2-before-deffensive-color-choice")
+                        # print("uno-2-before-deffensive-color-choice")
                         if len(game_status.other_open_cards[before_player]) > 0: #特殊処理が走る
                             #直後の人が持っていない色を認識
                             my_colors = offensive_color_order(cards, game_status.cards_status)
@@ -638,7 +638,7 @@ def on_next_player(data_res):
                             color = color_lis[0]
 
                     else:
-                        print("Emergency: player_v3 uno_player 1 Error")
+                        # print("Emergency: player_v3 uno_player 1 Error")
                         color = select_change_color(game_status.my_cards, game_status, play_mode)
 
                 else:
@@ -672,7 +672,7 @@ def on_next_player(data_res):
                 # 引いたカードが場に出せない場合、処理を終了
                 if not res.get('can_play_draw_card'):
                     game_status.my_uno_flag = False
-                    print('引いたカードが出せない')
+                    # print('引いたカードが出せない')
                     return
 
                 # 引いたカード情報の取得
@@ -684,7 +684,7 @@ def on_next_player(data_res):
                     # 引いてきたカードがシャッフルワイルドの場合、出さずに処理を終了
                     if len(cards) < 2 and draw_card.get("special") == "wild_shuffle":
                         game_status.my_uno_flag = False
-                        print('引いたカード出せるけど出さない')
+                        # print('引いたカード出せるけど出さない')
                         data = {
                             'is_play_card': False,
                             'yell_uno': game_status.my_uno_flag  # 残り手札数を考慮してUNOコールを宣言する
@@ -693,7 +693,7 @@ def on_next_player(data_res):
                         return
                     elif not game_status.wild_shuffle_flag() and draw_card.get("special")  == "white_wild":
                         game_status.my_uno_flag = False
-                        print('引いたカード出せるけど出さない')
+                        # print('引いたカード出せるけど出さない')
                         data = {
                             'is_play_card': False,
                             'yell_uno': game_status.my_uno_flag  # 残り手札数を考慮してUNOコールを宣言する
@@ -771,33 +771,33 @@ def on_next_player(data_res):
                 if play_card.get('special') == Special.WILD or play_card.get('special') == Special.WILD_DRAW_4:
                     #UNOplayer3人の時は
                     if uno_player_cnt(game_status.order_dic) == 3:
-                        print("uno-3-deffensive-color-choice")
+                        # print("uno-3-deffensive-color-choice")
                         color_lis = deffesive_color_order(next_player, game_status)
                         color = color_lis[0]
 
                     elif uno_player_cnt(game_status.order_dic) == 2:
                         if get_uno_player_pos(game_status.order_dic) == ["直前","対面"] or get_uno_player_pos(game_status.order_dic) == ["対面","直前"]:
-                            print("uno-2-next-mid-deffensive-color-choice")
+                            # print("uno-2-next-mid-deffensive-color-choice")
                             color_lis = deffesive_color_order(mid_player, game_status)
                             color = color_lis[0]
 
                         elif get_uno_player_pos(game_status.order_dic) == ["直後","対面"] or get_uno_player_pos(game_status.order_dic) == ["対面", "直後"]:
-                            print("uno-2-before-mid-deffensive-color-choice")
+                            # print("uno-2-before-mid-deffensive-color-choice")
                             color_lis = deffesive_color_order(next_player, game_status)
                             color = color_lis[0]
 
                         elif get_uno_player_pos(game_status.order_dic) == ["直後","直前"] or get_uno_player_pos(game_status.order_dic) == ["直前","直後"]:
-                            print("uno-2-before-next-deffensive-color-choice")
+                            # print("uno-2-before-next-deffensive-color-choice")
                             color_lis = deffesive_color_order(next_player, game_status)
                             color = color_lis[0]
 
                         else:
-                            print("Emergency: player_v3 uno_player 2(Draw) Error")
+                            # print("Emergency: player_v3 uno_player 2(Draw) Error")
                             color = select_change_color(game_status.my_cards, game_status, play_mode)
 
                     elif uno_player_cnt(game_status.order_dic) == 1:
                         if get_uno_player_pos(game_status.order_dic) == ["直後"]:
-                            print("draw-and-uno-1-next-deffensive-color-choice")
+                            # print("draw-and-uno-1-next-deffensive-color-choice")
                             if len(game_status.other_open_cards[next_player]) > 0: #特殊処理が走る
                                 #直後の人が持っていない色を認識
                                 my_colors = offensive_color_order(cards, game_status.cards_status)
@@ -816,12 +816,12 @@ def on_next_player(data_res):
                                 color = color_lis[0]
 
                         elif get_uno_player_pos(game_status.order_dic) == ["対面"]:
-                            print("draw-and-uno-1-mid-deffensive-color-choice")
+                            # print("draw-and-uno-1-mid-deffensive-color-choice")
                             color_lis = deffesive_color_order(mid_player, game_status)
                             color = color_lis[0]
 
                         elif get_uno_player_pos(game_status.order_dic) == ["直前"]:
-                            print("draw-and-uno-1-before-deffensive-color-choice")
+                            # print("draw-and-uno-1-before-deffensive-color-choice")
                             if len(game_status.other_open_cards[before_player]) > 0: #特殊処理が走る
                                 #直後の人が持っていない色を認識
                                 my_colors = offensive_color_order(cards, game_status.cards_status)
@@ -840,7 +840,7 @@ def on_next_player(data_res):
                                 color = color_lis[0]
 
                         else:
-                            print("Emergency: player_v3 uno_player 1(Draw) Error")
+                            # print("Emergency: player_v3 uno_player 1(Draw) Error")
                             color = select_change_color(game_status.my_cards, game_status, play_mode)
 
                     else:
@@ -860,7 +860,7 @@ def on_next_player(data_res):
                     games.challenged_cnt[next_player][0] += 1
 
                 # 引いたカードを出すイベントを実行
-                print('引いたカードを出す')
+                # print('引いたカードを出す')
                 send_event(SocketConst.EMIT.PLAY_DRAW_CARD, data)
                 return
 
@@ -891,12 +891,12 @@ def on_play_card(data_res):
 
         if id != player:
             # 自分の出したカードでなければ cards_statusを更新する
-            print("私以外だよ")
+            # print("私以外だよ")
             game_status.update_cards_status(card_play)
             # 公開されていた手札に含まれていた場合は消去する
             game_status.remove_other_player_cards(player, card_play)
         else:
-            print("私だよ")
+            # print("私だよ")
             game_status.remove_my_open_cards(card_play)
             # if card_play != {'color': 'black', 'special': 'wild_shuffle'}:
             if card_play in game_status.my_cards:
@@ -957,7 +957,7 @@ def on_play_draw_card(data_res):
                 # 自分の出したカードでなければ cards_statusを更新する
                 game_status.update_cards_status(card_play)
             else:
-                print("私だよ！")
+                # print("私だよ！")
                 # if card_play != {'color': 'black', 'special': 'wild_shuffle'}:
                 if card_play in game_status.my_cards:
                     game_status.my_cards.remove(card_play)
@@ -997,8 +997,8 @@ def on_challenge(data_res):
         if target == id:
             games.challenged_cnt[challenger][1] += 1
             game_status.my_open_cards[challenger] = game_status.my_cards.copy()
-            print('チャレンジされた！')
-            print(game_status.my_open_cards)
+            # print('チャレンジされた！')
+            # print(game_status.my_open_cards)
 
         # チャレンジが成功した場合は
         if is_challenge_success:
@@ -1041,7 +1041,7 @@ def on_challenge(data_res):
 @sio.on(SocketConst.EMIT.PUBLIC_CARD)
 def on_public_card(data_res):
     global game_status
-    print("チャレンジによる手札の公開", data_res)
+    # print("チャレンジによる手札の公開", data_res)
     game_status.set_other_player_cards(data_res.get("card_of_player"), data_res.get("cards"))
 
     receive_event(SocketConst.EMIT.PUBLIC_CARD, data_res)
@@ -1085,7 +1085,7 @@ def on_penalty(data_res):
         # ペナルティによりカードを2枚引く
         game_status.draw_card(data_res.get('player'), penalty_draw=2)
 
-        print("ペナルティ発生", data_res)
+        # print("ペナルティ発生", data_res)
         # カードが増えているのでUNO宣言の状態をリセットする
         if data_res.get('player') in game_status.uno_declared:
             del game_status.uno_declared[data_res.get('player')]
