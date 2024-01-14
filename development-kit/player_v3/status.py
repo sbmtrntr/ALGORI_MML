@@ -1,5 +1,6 @@
 from collections import defaultdict, deque
 from typing import Union
+import random
 
 
 NUM_OF_ALL_CARDS = 112
@@ -18,6 +19,7 @@ class Status:
         self.challenge_success = False
         self.turn_right = True
         self.special_logic_flag = [False, False, False]
+        self.version = None
 
         # プレイヤーごとに手札の枚数を記録しておくディクショナリ
         self.player_card_counts = defaultdict(int)
@@ -305,6 +307,11 @@ class Status:
         top_card = self.field_cards[-1]
         top_card_special = top_card.get("special")
 
+        if len(self.player_color_log[player]) > 0:
+            color_log = self.player_color_log[player][-1]
+            if color_log[1] != 'wild':
+                self.player_color_log[player][-1][2] = False
+
         # ペナルティの場合は指定した回数分だけ引く
         if penalty_draw:
             num_of_draw = penalty_draw
@@ -340,7 +347,7 @@ class Status:
 
                 # プレイヤーが出せなかった色を記録しておく
                 top_card_color = top_card.get("color")
-                self.player_color_log[player].append((top_card_color, "cant_play_card"))
+                self.player_color_log[player].append([top_card_color, "cant_play_card", True])
 
                 print(f"引く理由: 場に出すカードがない(再行動可能)")
 
@@ -535,3 +542,6 @@ class Games:
         self.num_game = 0
         self.challenge_cnt = {} # 各プレイヤーに対するチャレンジ成功数
         self.challenged_cnt = {}
+        self.scores = [0, 0]
+        self.version_order = ['v2', 'v3'] * 150
+        random.shuffle(self.version_order)

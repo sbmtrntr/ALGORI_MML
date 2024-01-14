@@ -318,6 +318,16 @@ def on_first_player(data_res):
     # global id, game_status, num_game, first_player, challenge_success_cnt
     global id, game_status, games
 
+    if games.num_game < 300:
+        game_status.version = games.version_order[games.num_game]
+    else:
+        if games.scores[0] > games.scores[1]:
+            game_status.version = 'v2'
+        else:
+            game_status.version = 'v3'
+        print('game_scores:', 'v2 =', games.scores[0], ', v3 =', games.scores[1])
+    print('version: ', game_status.version)
+
     # チャレンジ成功数を記録するための辞書
     if games.num_game == 0:
         for player_id in data_res['play_order']:
@@ -370,7 +380,7 @@ def on_update_color(data_res):
 
         # どの色に変更されたか記録する
         chosen_color = data_res.get("color")
-        game_status.player_color_log[game_status.who_played_last].append((chosen_color, "wild"))
+        game_status.player_color_log[game_status.who_played_last].append([chosen_color, "wild", True])
 
         # 場に出されたカードのログにおいて、カード色を black --> chosen_color に変更する
         game_status.field_cards[-1]["color"] = chosen_color
@@ -895,6 +905,7 @@ def on_play_card(data_res):
             if card_play["special"] == "reverse":
                 game_status.reverse_order()
 
+        # game_status.player_color_log[player][-1][2] = False
         # 最後にカードをプレイしたプレイヤーを更新
         game_status.who_played_last = player
 
@@ -1043,9 +1054,14 @@ def on_pointed_not_say_uno(data_res):
 # 対戦が終了
 @sio.on(SocketConst.EMIT.FINISH_TURN)
 def on_finish_turn(data_res):
-    global game_status
+    global id, game_status
     def finish_turn_callback(data_res):
-        global game_status
+        global id, game_status
+        score = data_res.get("score")[id]
+        if game_status.version == 'v2':
+            games.scores[0] += score
+        else:
+            games.scores[1] += score
         game_status = Status()
 
     receive_event(SocketConst.EMIT.FINISH_TURN, data_res, finish_turn_callback)
