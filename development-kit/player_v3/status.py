@@ -183,7 +183,7 @@ class Status:
 
 
     def get_before_id(self) -> str:
-        """直前のプレイヤーのidを入手する関数(ごめん)"""
+        """直前のプレイヤーのidを入手する関数"""
         for k, v in self.order_dic.items():
             if v["位置"] == "直前":
                 return k
@@ -192,7 +192,7 @@ class Status:
 
 
     def get_next_id(self) -> str:
-        """直後のプレイヤーのidを入手する関数(ごめん)"""
+        """直後のプレイヤーのidを入手する関数"""
         for k, v in self.order_dic.items():
             if v["位置"] == "直後":
                 return k
@@ -201,7 +201,7 @@ class Status:
 
 
     def get_mid_id(self) -> str:
-        """対面のプレイヤーのidを入手する関数(ごめん)"""
+        """対面のプレイヤーのidを入手する関数"""
         for k, v in self.order_dic.items():
             if v["位置"] == "対面":
                 return k
@@ -237,8 +237,8 @@ class Status:
 
         # 最後に場に出されたカードは山札に戻らないのでcard_statusから除外する
         card_color, card_type = self.get_keys_for_card_status(self.field_cards[-1])
-        if card_type == "white_wild":
-            card_color = "white"
+        # if card_type == "white_wild":
+        #     card_color = "white"
         self.cards_status[card_color][card_type] -= 1
 
         # 自分の手札カードも山札に戻らないのでcard_statusから除外する
@@ -272,6 +272,10 @@ class Status:
         # draw4とwildカード系は使用時に変更先の色として使われるので特殊処理する
         if "special" in card and card["special"] in ["wild_draw_4", "wild", "wild_shuffle"]:
             card_color = "black"
+            card_type = card["special"]
+
+        elif "special" in card and card["special"] == "white_wild":
+            card_color = "white"
             card_type = card["special"]
 
         elif card_color in ["black", "white"]:
@@ -329,11 +333,15 @@ class Status:
         elif self.is_card_activate and top_card_special == "draw_2":
             num_of_draw = 2
             self.is_card_activate = False # 場に出たドロー系カードの効力は使い切った
+            if self.is_white_activate[player] > 0:
+                self.is_white_activate[player] -= 1
             # print("引く理由: draw_2")
 
         elif self.is_card_activate and top_card_special == "wild_draw_4":
             num_of_draw = 4
             self.is_card_activate = False # 場に出たドロー系カードの効力は使い切った
+            if self.is_white_activate[player] > 0:
+                self.is_white_activate[player] -= 1
             # print(f"引く理由: wild_draw_4")
 
         else:
@@ -443,18 +451,6 @@ class Status:
             cards:list = 公開した内容
 
         """
-
-        # cnt_self_cards = defaultdict(int)
-        # for i in self.other_open_cards[id]:
-        #     k = tuple(i.items())
-        #     cnt_self_cards[k] += 1
-        # cnt_cards = defaultdict(int)
-        # for i in cards:
-        #     k = tuple(i.items())
-        #     cnt_cards[k] += 1
-        #     if cnt_cards[k] > cnt_self_cards[k]:
-        #     # if i not in self.other_open_cards[id]: # 公開された中に存在していなかったら
-        #         self.other_open_cards[id].append(i)
         self.other_open_cards[id] = cards.copy()
         # print('公開カード！')
         # # print(cnt_self_cards)
@@ -498,10 +494,7 @@ class Status:
                 # print(k + "への公開済みカードを使いました")
                 # print(card)
                 self.my_open_cards[k].remove(card)
-            # challenge_success = self.challenge_success.get(k, False)
-            # if len(self.my_open_cards[k]) == 0 and challenge_success:
-            #     self.challenge_success[k] == False
-            #     # print('challenge_success をリセット')
+
             if len(self.my_open_cards[k]) > 0:
                 challenge_success = True
         self.challenge_success = challenge_success
