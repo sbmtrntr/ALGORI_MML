@@ -327,8 +327,8 @@ def on_first_player(data_res):
             game_status.version = 'v2'
         else:
             game_status.version = 'v3'
-    # print('game_scores:', 'v2 =', games.scores[0], ', v3 =', games.scores[1])
-    # print('version: ', game_status.version)
+    print(f'game_scores: v2 = {games.scores[0]},  v3 = {games.scores[1]}')
+    print('version:', game_status.version)
 
     # チャレンジ成功数を記録するための辞書
     if games.num_game == 0:

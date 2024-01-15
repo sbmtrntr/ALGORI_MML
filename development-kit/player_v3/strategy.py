@@ -64,8 +64,6 @@ def select_play_card(my_cards: list, my_id: str, next_id: str, player_card_count
     # print('should_play_draw4:', should_play_draw4)
 
     shuffle_wild = {'color':'black', 'special':'wild_shuffle'}
-    # if len(my_cards) >= 7 and shuffle_wild in my_cards:
-    #     return (shuffle_wild, "uno")
 
     play_mode = analyze_situation(my_id, my_cards, player_card_counts, wild_shuffle_flag)
     if len(valid_card_list) > 0:
