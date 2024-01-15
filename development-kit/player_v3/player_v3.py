@@ -715,7 +715,7 @@ def on_next_player(data_res):
                 #     # return
 
                 # 直後がUNOであり、自分もUNOでワイルドカードが引いたとき
-                if get_uno_player_pos(game_status.order_dic) == ["直後"] and game_status.my_uno_flag and draw_card.get("special") in ["wild", "wild_draw_4", "wild_shuffle", "white_wild"]:
+                if get_uno_player_pos(game_status.order_dic) == ["直後"] and game_status.my_uno_flag and draw_card.get("special") in ["wild", "wild_shuffle", "white_wild"]:
                     #直後が手札公開をしていて,その手札から読める絶対に出せない色＝場の色である場合出さない
                     if len(game_status.other_open_cards[next_player]) > 0: #特殊処理が走る
                         #直後の人が持っていない色を認識

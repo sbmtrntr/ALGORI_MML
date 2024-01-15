@@ -91,7 +91,7 @@ def select_play_card(my_cards: list, my_id: str, next_id: str, player_card_count
 
             for v in game_status.order_dic.values():
                 if v["UNO"]: #UNO宣言してるやついたら
-                    tmp_list = card_choice_at_uno(valid_card_list, v["位置"], should_play_draw4, game_status)
+                    tmp_list = card_choice_at_uno(valid_card_list, before_card, v["位置"], should_play_draw4, game_status)
                     if len(tmp_list) == 0:
                         return (None, play_mode)
                     else:
@@ -262,7 +262,7 @@ def card_choice_at_uno_two(valid_card_list: list, should_play_draw4: bool, game_
     return rtn_list
 
 
-def card_choice_at_uno(valid_card_list: list, pos: str, should_play_draw4: bool, game_status: any) -> list:
+def card_choice_at_uno(valid_card_list: list, before_card: dict, pos: str, should_play_draw4: bool, game_status: any) -> list:
     """
     UNO状態のプレイヤーがいるときに、どのカードを選択するか決める関数(失点を減らすように)
     カードの出し方は次を参照： https://github.com/sbmtrntr/ALGORI_MML/issues/11#issuecomment-1855121547
@@ -356,25 +356,40 @@ def card_choice_at_uno(valid_card_list: list, pos: str, should_play_draw4: bool,
         rtn_list = []
 
         #もし直前のやつが手札公開していて、その手札公開した札の中でまだ使用していない札があれば
+        before_card_color = before_card.get("color")
+        before_card_type = before_card.get("number") or before_card.get("special")
         if len(game_status.other_open_cards[target_id]) > 0: #特殊処理が走る
-            if should_play_draw4:
-                specials_key_list = [ 'white_wild', 'wild_shuffle', 'wild', 'wild_draw_4', 'draw_2' ,'skip']
+            open_card = game_status.other_open_cards[target_id][0]
+            open_card_color = open_card.get("color")
+            open_card_type = open_card.get("number") or open_card.get("special")
+            if open_card_color not in {"black", "white"} and before_card_color != open_card_color and before_card_type != open_card_type:
+                if should_play_draw4:
+                    specials_key_list = [ 'white_wild', 'wild_shuffle', 'wild', 'wild_draw_4', 'draw_2' ,'skip']
+                else:
+                    specials_key_list = [ 'white_wild', 'wild_shuffle', 'wild', 'draw_2' ,'skip']
+                #スペカードを優先度順に並べる
+                for key in specials_key_list:
+                    rtn_list += specials_dict.get(key, [])
+
+                #直前のやつが持っていない札を入れる
+                rtn_list += target_dont_have_num_color(game_status.other_open_cards[target_id], nums_dict)
+
+                #数字の大きい順に入れる。直前のやつが持っていない札と被るが気にしない
+                rtn_list += get_big_number_order_lis(nums_list, target_id, game_status)
+
+                rtn_list += specials_dict.get('reverse', [])
+
+                if not should_play_draw4:
+                    rtn_list += specials_dict.get('wild_draw_4', [])
             else:
-                specials_key_list = [ 'white_wild', 'wild_shuffle', 'wild', 'draw_2' ,'skip']
-            #スペカードを優先度順に並べる
-            for key in specials_key_list:
-                rtn_list += specials_dict.get(key, [])
-
-            #直前のやつが持っていない札を入れる
-            rtn_list += target_dont_have_num_color(game_status.other_open_cards[target_id], nums_dict)
-
-            #数字の大きい順に入れる。直前のやつが持っていない札と被るが気にしない
-            rtn_list += get_big_number_order_lis(nums_list, target_id, game_status)
-
-            rtn_list += specials_dict.get('reverse', [])
-
-            if not should_play_draw4:
-                rtn_list += specials_dict.get('wild_draw_4', [])
+                if should_play_draw4:
+                    specials_key_list = [ 'wild_shuffle', 'wild', 'wild_draw_4', 'draw_2' ,'skip' ,'white_wild']
+                else:
+                    specials_key_list = [ 'wild_shuffle', 'wild', 'draw_2' ,'skip' ,'white_wild']
+                rtn_list = get_uno_card_order(specials_dict, nums_list, specials_key_list, target_id, game_status)
+                rtn_list += specials_dict.get('reverse', [])
+                if not should_play_draw4:
+                    rtn_list += specials_dict.get('wild_draw_4', [])
 
         else:
             if should_play_draw4:
