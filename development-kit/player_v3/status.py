@@ -536,5 +536,5 @@ class Games:
         self.challenge_cnt = {} # 各プレイヤーに対するチャレンジ成功数
         self.challenged_cnt = {}
         self.scores = [0, 0]
-        self.version_order = ['v2', 'v3'] * 147 + ['v2'] * 3
-        random.shuffle(self.version_order)
+        # self.version_order = ['v2', 'v3'] * 147 + ['v2'] * 3
+        # random.shuffle(self.version_order)

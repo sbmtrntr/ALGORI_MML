@@ -318,17 +318,37 @@ def on_first_player(data_res):
     # global id, game_status, num_game, first_player, challenge_success_cnt
     global id, game_status, games
 
-    if games.num_game < 3:
-        game_status.version = 'v3'
-    elif games.num_game < 300:
-        game_status.version = games.version_order[games.num_game - 3]
-    else:
-        if games.scores[0] > games.scores[1]:
-            game_status.version = 'v2'
+    if games.num_game < 300:
+        game_status.version = 'v2'
+    elif games.num_game < 500:
+        if games.scores[0] < -100:
+            if games.num_game < 400:
+                game_status.version = 'v3'
+            elif games.scores[1] > -300:
+                game_status.version = 'v3'
+            else:
+                game_status.version = 'v2'
         else:
+            game_status.version = 'v2'
+    else:
+        if games.scores[0] < games.scores[1]:
             game_status.version = 'v3'
-    print(f'game_scores: v2 = {games.scores[0]},  v3 = {games.scores[1]}')
-    print('version:', game_status.version)
+        else:
+            game_status.version = 'v2'
+    print('game_scores:', 'v2 =', games.scores[0], ', v3 =', games.scores[1])
+    print('version: ', game_status.version)
+
+    # if games.num_game < 3:
+    #     game_status.version = 'v3'
+    # elif games.num_game < 300:
+    #     game_status.version = games.version_order[games.num_game - 3]
+    # else:
+    #     if games.scores[0] > games.scores[1]:
+    #         game_status.version = 'v2'
+    #     else:
+    #         game_status.version = 'v3'
+    # print(f'game_scores: v2 = {games.scores[0]},  v3 = {games.scores[1]}')
+    # print('version:', game_status.version)
 
     # チャレンジ成功数を記録するための辞書
     if games.num_game == 0:
