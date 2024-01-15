@@ -479,7 +479,7 @@ def on_next_player(data_res):
         # print(f'デバッグプリント {games.num_game}対戦目')
         # print(game_status.order_dic)
         # print(game_status.my_cards)
-        game_status.debug_print()
+        # game_status.debug_print()
 
         if data_res.get('draw_reason') == DrawReason.WILD_DRAW_4:
             # カードを引く理由がワイルドドロー4の時、チャレンジを行うことができる。

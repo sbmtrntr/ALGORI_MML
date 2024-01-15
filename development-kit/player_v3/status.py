@@ -253,7 +253,7 @@ class Status:
 
         # debug print
         # print("---山札のリセットがうまくできているか---")
-        self.debug_print()
+        # self.debug_print()
 
 
     def get_keys_for_card_status(self, card) -> tuple:
@@ -428,19 +428,19 @@ class Status:
         # self.debug_print()
 
 
-    def debug_print(self) -> None:
-        """Debug用のメソッド"""
-        # print("山札の枚数:", self.num_of_deck)
-        # print("場の枚数:", self.num_of_field)
-        cnt = self.num_of_field + self.num_of_deck
-        for k, v in self.player_card_counts.items():
-            # print(f"{k}の枚数:", v)
-            cnt += v
-        # print("カード合計:", cnt)
-        # print("CHECK:", cnt==NUM_OF_ALL_CARDS)
-        # if cnt != NUM_OF_ALL_CARDS:
-            # print(self.cards_status)
-        # print("最後に記録されたカード:", self.field_cards[-1])
+    # def debug_print(self) -> None:
+    #     """Debug用のメソッド"""
+    #     # print("山札の枚数:", self.num_of_deck)
+    #     # print("場の枚数:", self.num_of_field)
+    #     cnt = self.num_of_field + self.num_of_deck
+    #     for k, v in self.player_card_counts.items():
+    #         # print(f"{k}の枚数:", v)
+    #         cnt += v
+    #     # print("カード合計:", cnt)
+    #     # print("CHECK:", cnt==NUM_OF_ALL_CARDS)
+    #     # if cnt != NUM_OF_ALL_CARDS:
+    #         # print(self.cards_status)
+    #     # print("最後に記録されたカード:", self.field_cards[-1])
 
 
     def set_other_player_cards(self, id:str, cards:list) -> None:
