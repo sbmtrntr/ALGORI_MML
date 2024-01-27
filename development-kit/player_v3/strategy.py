@@ -1171,6 +1171,9 @@ def play_draw4_dicision(valid_cards: list, before_card: dict, my_cards: list, my
     else:
         return True
 
+    if game_status.is_white_activate[next_id] > 0:
+        return True
+
     # チャレンジ成功されてるときは出さない
     if challenge_success:
         return False

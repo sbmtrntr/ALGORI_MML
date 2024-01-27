@@ -224,7 +224,7 @@ class Status:
     def check_uno_player(self, my_id: str, number_card_of_player: dict) -> None:
         """UNO宣言のチェック"""
         for k, v in number_card_of_player.items():
-            if k != my_id:
+            if k != my_id and k in self.order_dic:
                 self.order_dic[k]["UNO"] = v == 1
         # print(self.order_dic)
 

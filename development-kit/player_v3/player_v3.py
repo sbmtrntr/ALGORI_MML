@@ -213,17 +213,17 @@ def send_event(event, data, callback = pass_func):
         data (Any): 送信するデータ
         callback (func): 個別処理
     """
-    print('Send {} event.'.format(event))
-    print('req_data: ', data)
+    # print('Send {} event.'.format(event))
+    # print('req_data: ', data)
 
     def after_func(err, res):
         if err:
-            print('{} event failed!'.format(event))
-            print(err)
+            # print('{} event failed!'.format(event))
+            # print(err)
             return
 
-        print('Send {} event.'.format(event))
-        print('res_data: ', res)
+        # print('Send {} event.'.format(event))
+        # print('res_data: ', res)
         callback(res)
 
     sio.emit(event, data, callback=after_func)
@@ -238,8 +238,8 @@ def receive_event(event, data, callback = pass_func):
         data (Any): 送信するデータ
         callback (func): 個別処理
     """
-    print('Receive {} event.'.format(event))
-    print('res_data: ', data)
+    # print('Receive {} event.'.format(event))
+    # print('res_data: ', data)
 
     callback(data)
 
@@ -321,10 +321,12 @@ def on_first_player(data_res):
     if games.num_game < 300:
         game_status.version = 'v2'
     elif games.num_game < 500:
-        if games.scores[0] < -100:
-            if games.num_game < 400:
+        if games.scores[0] < -200:
+            if games.num_game < 400 and games.scores[1] > -500:
                 game_status.version = 'v3'
             elif games.scores[1] > -300:
+                game_status.version = 'v3'
+            elif games.scores[0] < -1000 and games.scores[0] < games.scores[1]:
                 game_status.version = 'v3'
             else:
                 game_status.version = 'v2'
@@ -335,20 +337,10 @@ def on_first_player(data_res):
             game_status.version = 'v3'
         else:
             game_status.version = 'v2'
-    print('game_scores:', 'v2 =', games.scores[0], ', v3 =', games.scores[1])
-    print('version: ', game_status.version)
+    print('Game', games.num_game + 1)
+    print(f'game_scores: v2 = {games.scores[0]}, v3 = {games.scores[1]}')
+    print(f'version: {game_status.version}')
 
-    # if games.num_game < 3:
-    #     game_status.version = 'v3'
-    # elif games.num_game < 300:
-    #     game_status.version = games.version_order[games.num_game - 3]
-    # else:
-    #     if games.scores[0] > games.scores[1]:
-    #         game_status.version = 'v2'
-    #     else:
-    #         game_status.version = 'v3'
-    # print(f'game_scores: v2 = {games.scores[0]},  v3 = {games.scores[1]}')
-    # print('version:', game_status.version)
 
     # チャレンジ成功数を記録するための辞書
     if games.num_game == 0:
@@ -702,7 +694,7 @@ def on_next_player(data_res):
                 # 攻撃モードの場合
                 if play_mode == "offensive":
                     # 引いてきたカードがシャッフルワイルドの場合、出さずに処理を終了
-                    if len(cards) < 2 and draw_card.get("special") == "wild_shuffle":
+                    if draw_card.get("special") == "wild_shuffle":
                         game_status.my_uno_flag = False
                         # print('引いたカード出せるけど出さない')
                         data = {
@@ -930,6 +922,10 @@ def on_play_card(data_res):
         # game_status.player_color_log[player][-1][2] = False
         # 最後にカードをプレイしたプレイヤーを更新
         game_status.who_played_last = player
+
+        # ホワイトワイルドの効果が切れてるのを確認
+        if game_status.is_white_activate[player] > 0:
+            game_status.is_white_activate[player] = 0
 
     receive_event(SocketConst.EMIT.PLAY_CARD, data_res, play_card_callback)
 
