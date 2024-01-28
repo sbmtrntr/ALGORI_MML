@@ -805,9 +805,9 @@ def deffesive_mode_v2(my_id: list, cards: list, player_cards_cnt: dict, should_p
         if k != my_id and v < cnt_min:
             tgt_id = k
             cnt_min = v
-
     color_list = deffesive_color_order(tgt_id, g_status)
 
+    wild_draw_4 = {'color':'black', 'special':'wild_draw_4'}
     ans_list = []
     for card in cards:
         card_color = card.get("color")
@@ -817,8 +817,8 @@ def deffesive_mode_v2(my_id: list, cards: list, player_cards_cnt: dict, should_p
                 #シャッフルワイルドを持っているときは3枚以下のプレイヤーが出たときに使う
                 if min_cards_check(my_id, player_cards_cnt) <= 3:
                     ans_list.append([card, (0, 1, 1)])
-                elif challenge_success:
-                    ans_list.append([card, (7, 1, 1)])
+                elif challenge_success and wild_draw_4 in cards:
+                    ans_list.append([card, (4, 1, 1)])
                 # else:
                 #     ans_list.append([card, (9, 1, 1)])
 
@@ -835,13 +835,13 @@ def deffesive_mode_v2(my_id: list, cards: list, player_cards_cnt: dict, should_p
                     ans_list.append([card, (8, 1, 1)])
 
             elif card_special == "draw_2":
-                ans_list.append([card, (4, 1, color_list.index(card_color))])
-
-            elif card_special == "skip" or card_special == "reverse":
                 ans_list.append([card, (5, 1, color_list.index(card_color))])
 
+            elif card_special == "skip" or card_special == "reverse":
+                ans_list.append([card, (6, 1, color_list.index(card_color))])
+
         elif "number" in card.keys():
-            ans_list.append([card, (6, card.get("number"), color_list.index(card_color))])
+            ans_list.append([card, (7, card.get("number"), color_list.index(card_color))])
 
     if len(ans_list) > 0:
         rtn_list = [card for card, _ in sorted(ans_list, key=lambda x: (x[1][0], -x[1][1], x[1][2]))]

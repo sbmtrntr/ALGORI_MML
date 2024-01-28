@@ -319,7 +319,10 @@ def on_first_player(data_res):
     global id, game_status, games
 
     if games.num_game < 300:
-        game_status.version = 'v2'
+        if games.scores[0] < -1300 and games.scores[0] < games.scores[1]:
+            game_status.version = 'v3'
+        else:
+            game_status.version = 'v2'
     elif games.num_game < 500:
         if games.scores[0] < -200:
             if games.num_game < 400 and games.scores[1] > -500:
