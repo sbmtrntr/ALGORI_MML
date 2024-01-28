@@ -697,7 +697,7 @@ def on_next_player(data_res):
                 # 攻撃モードの場合
                 if play_mode == "offensive":
                     # 引いてきたカードがシャッフルワイルドの場合、出さずに処理を終了
-                    if draw_card.get("special") == "wild_shuffle":
+                    if draw_card.get("special") == "wild_shuffle" and not (len(cards) >= 4 and min_cards_check(id, num_card_of_player) <= 2):
                         game_status.my_uno_flag = False
                         # print('引いたカード出せるけど出さない')
                         data = {
