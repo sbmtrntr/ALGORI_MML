@@ -527,11 +527,6 @@ def on_next_player(data_res):
             send_event(SocketConst.EMIT.DRAW_CARD, {})
             return
 
-        #  スペシャルロジックを発動させる
-        # special_logic_num_random = random_by_number(10)
-        # if special_logic_num_random == 0:
-        #     send_event(SocketConst.EMIT.SPECIAL_LOGIC, { 'title': SPECIAL_LOGIC_TITLE })
-
         # 自分の手札から、出せるカードのリストとプレイモードを取得する
         play_card, play_mode = select_play_card(cards, id, next_player, num_card_of_player, num_of_deck, before_card, game_status, games)
         # DEBUG print
@@ -592,20 +587,6 @@ def on_next_player(data_res):
                                         color = my_coler
                                         break
 
-                            # color_candidate = ["red","blue","green","yellow"]
-                            # for i in game_status.other_open_cards[next_player]:
-                            #     if i["color"] in color_candidate:
-                            #         color_candidate.remove(i["color"])
-
-                            # color = ""
-                            # for i in my_colors:
-                            #     if i in color_candidate:
-                            #         color = i
-                            #         break
-
-                            # if color == "":
-                            #     color = color_candidate[0]
-
                         else:
                             color_lis = deffesive_color_order(next_player, game_status)
                             color = color_lis[0]
@@ -631,22 +612,6 @@ def on_next_player(data_res):
                                     if my_coler != open_card_coler:
                                         color = my_coler
                                         break
-
-                            # color_candidate = ["red","blue","green","yellow"]
-                            # for i in game_status.other_open_cards[before_player]:
-                            #     if i["color"] in color_candidate:
-                            #         color_candidate.remove(i["color"])
-
-                            # my_colors = my_color_cnt(cards)
-
-                            # color = ""
-                            # for i in my_colors:
-                            #     if i in color_candidate:
-                            #         color = i
-                            #         break
-
-                            # if color == "":
-                            #     color = color_candidate[0]
 
                         else:
                             color_lis = deffesive_color_order(before_player, game_status)
@@ -716,19 +681,6 @@ def on_next_player(data_res):
                         send_event(SocketConst.EMIT.PLAY_DRAW_CARD, data)
                         return
 
-                # 防御モードの場合
-                # elif play_mode == "deffensive":
-                #     # 引いてきたカードがシャッフルワイルドの場合、出さずに処理を終了
-                #     if draw_card.get("special") == "wild_shuffle":
-                #         game_status.my_uno_flag = False
-                #         data = {
-                #             'is_play_card': False,
-                #             'yell_uno': game_status.my_uno_flag  # 残り手札数を考慮してUNOコールを宣言する
-                #         }
-                #         send_event(SocketConst.EMIT.PLAY_DRAW_CARD, data)
-                #         return
-                #     # return
-
                 # 直後がUNOであり、自分もUNOでワイルドカードが引いたとき
                 if get_uno_player_pos(game_status.order_dic) == ["直後"] and game_status.my_uno_flag and draw_card.get("special") in ["wild", "wild_shuffle", "white_wild"]:
                     #直後が手札公開をしていて,その手札から読める絶対に出せない色＝場の色である場合出さない
@@ -758,21 +710,6 @@ def on_next_player(data_res):
                                 }
                                 send_event(SocketConst.EMIT.PLAY_DRAW_CARD, data)
                                 return
-
-                        # color_candidate = ["red","blue","green","yellow"]
-                        # for i in game_status.other_open_cards[next_player]:
-                        #     if i["color"] in color_candidate:
-                        #         color_candidate.remove(i["color"])
-
-                        # if before_card["color"] in color_candidate:
-                        #     #出さない
-                        #     game_status.my_uno_flag = False
-                        #     data = {
-                        #         'is_play_card': False,
-                        #         'yell_uno': game_status.my_uno_flag  # 残り手札数を考慮してUNOコールを宣言する
-                        #     }
-                        #     send_event(SocketConst.EMIT.PLAY_DRAW_CARD, data)
-                        #     return
 
 
                 # 以後、引いたカードが場に出せるときの処理
@@ -1022,7 +959,7 @@ def on_challenge(data_res):
         # チャレンジが成功した場合は
         if is_challenge_success:
             # ターゲットがペナルティとして山札から4枚引く
-            game_status.draw_card(target, penalty_draw=4)
+            game_status.draw_card(target)
 
             # 場に出されていたwild_draw_4を手札に戻す
             wild_draw_4 = game_status.field_cards.pop() # wild_draw_4が取り出される
